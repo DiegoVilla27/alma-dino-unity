@@ -1,0 +1,23 @@
+{
+    "name": "AlmaDino.Core.Editor",
+    "rootNamespace": "AlmaDino.Core.Editor",
+    "references": [
+        "AlmaDino.Core",
+        "AlmaDino.Features.MobileUI",
+        "AlmaDino.Features.Player",
+        "Unity.InputSystem",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Universal.2D.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,19 @@
+{
+    "name": "AlmaDino.Features.MobileUI",
+    "rootNamespace": "AlmaDino.Features.MobileUI",
+    "references": [
+        "AlmaDino.Core",
+        "AlmaDino.Shared",
+        "Unity.InputSystem",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

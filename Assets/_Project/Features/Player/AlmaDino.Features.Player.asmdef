@@ -1,0 +1,18 @@
+{
+    "name": "AlmaDino.Features.Player",
+    "rootNamespace": "AlmaDino.Features.Player",
+    "references": [
+        "AlmaDino.Core",
+        "AlmaDino.Shared",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
