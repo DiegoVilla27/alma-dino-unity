@@ -14,7 +14,7 @@ namespace AlmaDino.Features.Player.Controllers
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(PlayerInputReader))]
     [RequireComponent(typeof(GroundDetector2D))]
-    public class PlayerController : MonoBehaviour, IPlayerRespawnable, IAbilityUnlockable
+    public class PlayerController : MonoBehaviour, IPlayerRespawnable, IAbilityUnlockable, IBounceable2D
     {
         [Header("Config")]
         [SerializeField] private AlmaPhysicsConfigSO _config;
@@ -237,6 +237,16 @@ namespace AlmaDino.Features.Player.Controllers
         {
             float newX = Mathf.MoveTowards(_rigidbody.linearVelocity.x, targetSpeed, rate * Time.fixedDeltaTime);
             SetVelocityX(newX);
+        }
+
+        public void ApplyBounce(float verticalVelocity, bool refreshAirAbilities)
+        {
+            SetVelocityY(verticalVelocity);
+            if (refreshAirAbilities && _doubleJumpUnlocked)
+            {
+                _hasDoubleJump = true;
+            }
+            _stateMachine.ChangeState(PlayerStateEnum.Jump);
         }
 
         private void UpdateFacingDirection()

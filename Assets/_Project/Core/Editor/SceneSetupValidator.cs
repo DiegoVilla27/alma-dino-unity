@@ -21,6 +21,14 @@ namespace AlmaDino.Core.Editor
             Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Nivel 1-1 cargado exitosamente!</color>");
         }
 
+        [MenuItem("Alma/📂 Cargar Nivel 1-2")]
+        public static void OpenLevel1_2()
+        {
+            if (EditorApplication.isPlaying) EditorApplication.isPlaying = false;
+            EditorSceneManager.OpenScene("Assets/Scenes/Level_1_2.unity", OpenSceneMode.Single);
+            Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Nivel 1-2 cargado exitosamente!</color>");
+        }
+
         // Se ejecuta exclusivamente desde el menú manual para evitar sobreescritura accidental durante recargas de dominio
         [MenuItem("Alma/🛠️ Reparar Escena y Visuales")]
         public static void EnsureSceneVisualsAndReload()
