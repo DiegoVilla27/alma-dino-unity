@@ -5,15 +5,25 @@ using UnityEngine;
 
 namespace AlmaDino.Core.Progression
 {
+    public enum EggType
+    {
+        GreenEgg = 1,
+        BlueEgg = 2,
+        YellowEgg = 3,
+        RedEgg = 4
+    }
+
     /// <summary>
-    /// Servicio de persistencia y progresión global de habilidades de Alma.
-    /// Garantiza que una vez que el jugador despierta o desbloquea una mecánica,
+    /// Servicio de persistencia y progresión global de habilidades y rescate de huevos de Alma.
+    /// Garantiza que una vez que el jugador despierta una mecánica o rescata a una cría,
     /// esta permanezca disponible de forma permanente en todos los niveles subsiguientes.
     /// </summary>
     public static class GameProgression
     {
         private const string PREF_KEY_PREFIX = "AlmaDino_AbilityUnlocked_";
+        private const string PREF_EGG_PREFIX = "AlmaDino_EggRescued_";
         private static readonly HashSet<AbilityType> _unlockedAbilities = new();
+        private static readonly HashSet<EggType> _rescuedEggs = new();
         private static bool _isInitialized = false;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -42,6 +52,33 @@ namespace AlmaDino.Core.Progression
             }
         }
 
+        public static void RescueEgg(EggType egg)
+        {
+            if (!_isInitialized) Initialize();
+
+            if (_rescuedEggs.Add(egg))
+            {
+                PlayerPrefs.SetInt(PREF_EGG_PREFIX + egg, 1);
+                PlayerPrefs.Save();
+                Debug.Log($"<color=#00F5D4><b>[GameProgression]</b> ¡Huevo '{egg}' rescatado y guardado en la partida!</color>");
+            }
+        }
+
+        public static bool IsEggRescued(EggType egg)
+        {
+            if (!_isInitialized) Initialize();
+            return _rescuedEggs.Contains(egg);
+        }
+
+        public static int RescuedEggCount
+        {
+            get
+            {
+                if (!_isInitialized) Initialize();
+                return _rescuedEggs.Count;
+            }
+        }
+
         /// <summary>
         /// Asegura que el nivel actual tenga activas las mecánicas mínimas que el jugador ya debería poseer
         /// por diseño del mundo si se entra directamente a dicho nivel.
@@ -67,6 +104,15 @@ namespace AlmaDino.Core.Progression
                     _unlockedAbilities.Add(type);
                 }
             }
+
+            _rescuedEggs.Clear();
+            foreach (EggType egg in Enum.GetValues(typeof(EggType)))
+            {
+                if (PlayerPrefs.GetInt(PREF_EGG_PREFIX + egg, 0) == 1)
+                {
+                    _rescuedEggs.Add(egg);
+                }
+            }
         }
 
         public static void ResetProgression()
@@ -76,9 +122,16 @@ namespace AlmaDino.Core.Progression
             {
                 PlayerPrefs.DeleteKey(PREF_KEY_PREFIX + type);
             }
+
+            _rescuedEggs.Clear();
+            foreach (EggType egg in Enum.GetValues(typeof(EggType)))
+            {
+                PlayerPrefs.DeleteKey(PREF_EGG_PREFIX + egg);
+            }
+
             PlayerPrefs.Save();
             _isInitialized = true;
-            Debug.Log("<color=#FFCC00><b>[GameProgression]</b> Progresión de habilidades reseteada a estado inicial.</color>");
+            Debug.Log("<color=#FFCC00><b>[GameProgression]</b> Progresión de habilidades y huevos reseteada a estado inicial.</color>");
         }
     }
 }

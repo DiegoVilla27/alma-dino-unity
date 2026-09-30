@@ -37,6 +37,14 @@ namespace AlmaDino.Core.Editor
             Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Nivel 1-3 cargado exitosamente!</color>");
         }
 
+        [MenuItem("Alma/📂 Cargar Nivel 1-4")]
+        public static void OpenLevel1_4()
+        {
+            if (EditorApplication.isPlaying) EditorApplication.isPlaying = false;
+            EditorSceneManager.OpenScene("Assets/Scenes/World_1_Jungle/Level_1_4.unity", OpenSceneMode.Single);
+            Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Nivel 1-4 cargado exitosamente!</color>");
+        }
+
         [MenuItem("Alma/🔄 Resetear Progresión de Partida")]
         public static void ResetGameProgression()
         {

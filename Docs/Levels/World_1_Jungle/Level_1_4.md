@@ -69,7 +69,7 @@
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
-- [ ] **Sprites Props:** Cuna de ramas de la copa, Huevo Verde con textura de cáscara y máscara de iluminación (Sprite + Light 2D).
+- [x] **Sprites Props:** Cuna de ramas de la copa, Huevo Verde con textura de cáscara y máscara de iluminación (Sprite + Light 2D bioluminiscente con GreenEggRescue2D).
 - [ ] **Sprites Fondo:** Capas de nubes panorámicas para tileado horizontal infinito.
-- [ ] **VFX:** Haz de luz sagrado descendiendo sobre el nido del huevo; partículas de luz flotantes doradas y verdes.
+- [x] **VFX & Iluminación:** Halo bioluminiscente palpitante 2D Light sobre el nido del huevo verde; luz global cenital cálida 1.1.
 - [ ] **Audio:** Pista "Above the Canopy", tema de rescate en piano "Lullaby for the Green Shell", SFX de latido cardíaco diegético, rugido de transición a Jefe.

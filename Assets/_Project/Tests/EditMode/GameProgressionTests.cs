@@ -57,5 +57,31 @@ namespace AlmaDino.Tests.EditMode
             Assert.IsFalse(GameProgression.IsAbilityUnlocked(AbilityType.DoubleJump));
             Assert.IsFalse(GameProgression.IsAbilityUnlocked(AbilityType.Dash));
         }
+
+        [Test]
+        public void RescueEgg_PersistsEggAndIncrementsCount()
+        {
+            Assert.AreEqual(0, GameProgression.RescuedEggCount);
+            Assert.IsFalse(GameProgression.IsEggRescued(EggType.GreenEgg));
+
+            GameProgression.RescueEgg(EggType.GreenEgg);
+
+            Assert.AreEqual(1, GameProgression.RescuedEggCount);
+            Assert.IsTrue(GameProgression.IsEggRescued(EggType.GreenEgg));
+            Assert.IsFalse(GameProgression.IsEggRescued(EggType.BlueEgg));
+        }
+
+        [Test]
+        public void ResetProgression_ClearsRescuedEggs()
+        {
+            GameProgression.RescueEgg(EggType.GreenEgg);
+            GameProgression.RescueEgg(EggType.BlueEgg);
+            Assert.AreEqual(2, GameProgression.RescuedEggCount);
+
+            GameProgression.ResetProgression();
+
+            Assert.AreEqual(0, GameProgression.RescuedEggCount);
+            Assert.IsFalse(GameProgression.IsEggRescued(EggType.GreenEgg));
+        }
     }
 }
