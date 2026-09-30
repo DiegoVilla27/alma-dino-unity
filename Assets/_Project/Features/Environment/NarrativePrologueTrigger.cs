@@ -31,6 +31,14 @@ namespace AlmaDino.Features.Environment
             }
         }
 
+        public void Configure(string title, string message, Color? bannerColor = null, float displayDuration = 6.5f)
+        {
+            _title = title;
+            _message = message;
+            if (bannerColor.HasValue) _bannerColor = bannerColor.Value;
+            _displayDuration = displayDuration;
+        }
+
         public void TriggerPrologue()
         {
             if (_hasTriggered) return;

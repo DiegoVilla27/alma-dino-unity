@@ -33,6 +33,13 @@ namespace AlmaDino.Features.Camera
             if (_target != null) _targetRb = _target.GetComponent<Rigidbody2D>();
         }
 
+        public void SetBounds(Vector2 min, Vector2 max)
+        {
+            _useBounds = true;
+            _minBounds = min;
+            _maxBounds = max;
+        }
+
         private void Start()
         {
             if (_target != null && _targetRb == null)

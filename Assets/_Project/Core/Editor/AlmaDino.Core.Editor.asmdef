@@ -6,6 +6,7 @@
         "AlmaDino.Features.Environment",
         "AlmaDino.Features.MobileUI",
         "AlmaDino.Features.Player",
+        "AlmaDino.Features.Camera",
         "Unity.InputSystem",
         "Unity.RenderPipelines.Universal.Runtime",
         "Unity.RenderPipelines.Universal.2D.Runtime"

@@ -6,6 +6,7 @@
         "AlmaDino.Shared",
         "AlmaDino.Features.Player",
         "AlmaDino.Features.Environment",
+        "AlmaDino.Features.Camera",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

@@ -59,5 +59,40 @@ namespace AlmaDino.Tests.EditMode
 
             Object.DestroyImmediate(go);
         }
+
+        [Test]
+        public void NarrativePrologueTrigger_Configure_SetsPropertiesCorrectly()
+        {
+            var go = new GameObject("TestPrologue");
+            go.AddComponent<BoxCollider2D>();
+            var trigger = go.AddComponent<NarrativePrologueTrigger>();
+
+            trigger.Configure("TEST TITLE", "TEST MESSAGE", Color.red, 5.0f);
+
+            var titleField = typeof(NarrativePrologueTrigger).GetField("_title", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var msgField = typeof(NarrativePrologueTrigger).GetField("_message", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            Assert.AreEqual("TEST TITLE", titleField.GetValue(trigger));
+            Assert.AreEqual("TEST MESSAGE", msgField.GetValue(trigger));
+
+            Object.DestroyImmediate(go);
+        }
+
+        [Test]
+        public void Camera2DFollow_SetBounds_SetsBoundsCorrectly()
+        {
+            var go = new GameObject("TestCamera");
+            var follow = go.AddComponent<AlmaDino.Features.Camera.Camera2DFollow>();
+
+            follow.SetBounds(new Vector2(-5f, -3f), new Vector2(108f, 30f));
+
+            var minField = typeof(AlmaDino.Features.Camera.Camera2DFollow).GetField("_minBounds", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var maxField = typeof(AlmaDino.Features.Camera.Camera2DFollow).GetField("_maxBounds", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            Assert.AreEqual(new Vector2(-5f, -3f), minField.GetValue(follow));
+            Assert.AreEqual(new Vector2(108f, 30f), maxField.GetValue(follow));
+
+            Object.DestroyImmediate(go);
+        }
     }
 }

@@ -41,19 +41,23 @@
   - Movimiento base + **Doble Salto (Aleteo Materno)**. *(Sin Dash, Sin Pisotón, Sin Rugido)*.
 - **Filosofía de Nivel: "Suelo Cero"**:
   - El 85% de la superficie inferior es un foso continuo de zarzas letales. No existe suelo común de tierra donde descansar indefinidamente; la travesía se realiza de plataforma en plataforma.
-- **Catálogo de Bloques y Mecánicas Complejas:**
-  1. *Hojas Quebradizas Encadenadas (`CrumblingPlatform2D`):*
-     - Tiemblan y colapsan a los **`0.65 segundos`**. Obligan al jugador a mirar adelante y saltar con determinación.
-  2. *El Combo "Hongo ➔ Hoja Quebradiza":*
-     - Rebote en un hongo elástico que aterriza directamente sobre una hoja quebradiza. El jugador debe absorber la inercia, no entrar en pánico y utilizar el **Aleteo Materno** en el momento justo para salir disparado a la siguiente roca.
-  3. *Plantas Carnívoras en Salto Largo:*
-     - Una planta carnívora situada en medio de dos hojas quebradizas. Exige sincronizar la velocidad de la carrera con el ciclo de apertura de la planta (1.8s) para pasar flotando con el doble salto.
-  4. *Rutas Bifurcadas (El Dilema del Jugador):*
-     - *Ruta Baja (Ritmo y Reflejo):* Cadena rápida de 3 hojas quebradizas sobre espinas. Fácil de ver, difícil de ejecutar bajo nervios.
-     - *Ruta Alta (Ingenio y Precisión):* Hongo rebotador oculto que requiere un Súper Rebote milimétrico para alcanzar una rama segura elevada.
+- **Catálogo de Bloques y Mecánicas Complejas (Diseño Hardcore: Doble Salto Obligatorio y Columnas de Espinas):**
+  1. *El Desfiladero de Espinas con Doble Salto Obligatorio:*
+     - Distancias al límite físico (`5.3m`) donde el salto simple fracasa al 100%. Exige carrera máxima y **Aleteo Materno** en el momento exacto.
+     - Columnas verticales de espinas entre hojas que obligan a saltar hacia arriba, arquear la trayectoria y usar el segundo salto sobre las púas.
+     - Hojas reducidas a **`1.4m`** con colapso ultra rápido a los **`0.45 segundos`**.
+  2. *El Vuelo del Hongo entre Agujas Gigantes:*
+     - Rebote en hongo elástico (`17.0 m/s`) que exige sobrevolar una torre de espinas de 7 metros de altura, amortiguar la caída sobre una hoja aérea de `1.3m` (0.45s) y aletear de inmediato a una segunda hoja aérea hacia el Checkpoint 1.
+  3. *La Gran Bifurcación Hardcore:*
+     - *Ruta Baja ("El Campo Minado de Zarzas"):* 4 hojas quebradizas rápidas (`1.3m`) separadas por dientes verticales de espinas que se deben saltar por encima a ritmo vertiginoso.
+     - *Ruta Alta ("El Paso del Vértigo"):* Súper Rebote (`18.5 m/s`) hacia hojas en el techo del bosque (`Y = 9.8`) divididas por una pared de espinas.
+  4. *El Pasaje de las Dos Plantas Carnívoras (Zona 4):*
+     - Dos plantas carnívoras con ciclos desfasados encadenadas con 3 hojas quebradizas (`0.45s`): Hoja 1 ➔ Salto sobre Planta 1 ➔ Hoja Central 2 ➔ Salto sobre Planta 2 ➔ Hoja 3. Cero margen de error.
+  5. *Ascenso Final entre Hojas en Cascada (Zona 5):*
+     - Rebote ascensor (`16.5 m/s`) que exige encadenar dos hojas quebradizas en subida antes de alcanzar la cornisa de cumbre.
 - **Puntos de Control:**
-  - *Checkpoint 1 (`X = 28.0`):* Ubicado en una isla de roca sólida en medio del mar de zarzas tras la primera sección de hojas.
-  - *Checkpoint 2 (`X = 60.0`):* Ubicado antes de la secuencia final de salto largo entre plantas y hojas.
+  - *Checkpoint 1 (`X = 41.5`):* Isla estrecha (`2.2m`) tras el vuelo sobre la torre de espinas.
+  - *Checkpoint 2 (`X = 65.5`):* Cornisa previa al corredor de las dos plantas carnívoras (`2.2m`).
 
 ---
 
