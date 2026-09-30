@@ -19,7 +19,7 @@ namespace AlmaDino.Features.Player.Services.States
         {
             _player.HasDoubleJump = false;
             _player.ConsumeJumpBuffer();
-            float force = _player.Config != null ? _player.Config.DoubleJumpForce : 12.0f;
+            float force = _player.Config != null ? _player.Config.DoubleJumpForce : 7.6f;
             _player.SetVelocityY(force);
         }
 
@@ -33,7 +33,7 @@ namespace AlmaDino.Features.Player.Services.States
                 return;
             }
 
-            if (_player.Input.GroundPoundDown && _player.Config != null && _player.Config.CanGroundPound)
+            if (_player.Input.GroundPoundDown && _player.IsGroundPoundUnlocked && (_player.Config == null || _player.Config.CanGroundPound))
             {
                 _player.StateMachine.ChangeState(PlayerStateEnum.GroundPound);
                 return;
@@ -47,14 +47,16 @@ namespace AlmaDino.Features.Player.Services.States
 
         public void PhysicsUpdate(float fixedDeltaTime)
         {
-            float targetSpeed = _player.Input.MoveVector.x * (_player.Config != null ? _player.Config.MoveSpeed : 8.5f);
-            float airAccel = _player.Config != null ? _player.Config.MoveSpeed / Mathf.Max(0.01f, _player.Config.AccelerationTime * 1.3f) : 90f;
+            float moveSpeed = _player.Config != null ? _player.Config.MoveSpeed : 7.0f;
+            float targetSpeed = _player.Input.MoveVector.x * moveSpeed;
+            float airAccel = _player.Config != null ? moveSpeed / Mathf.Max(0.01f, _player.Config.AccelerationTime * 1.3f) : 70f;
             _player.AccelerateHorizontally(targetSpeed, airAccel);
 
             if (!_player.Input.JumpHeld && _player.Rigidbody.linearVelocity.y > 0f)
             {
-                float cutMult = _player.Config != null ? _player.Config.JumpCutGravityMultiplier : 2.6f;
-                float extraGravity = Physics2D.gravity.y * (cutMult - 1f) * fixedDeltaTime;
+                float cutMult = _player.Config != null ? _player.Config.JumpCutGravityMultiplier : 2.4f;
+                float baseGravScale = _player.Config != null ? _player.Config.GravityScale : 2.2f;
+                float extraGravity = Physics2D.gravity.y * baseGravScale * (cutMult - 1f) * fixedDeltaTime;
                 _player.SetVelocityY(_player.Rigidbody.linearVelocity.y + extraGravity);
             }
         }

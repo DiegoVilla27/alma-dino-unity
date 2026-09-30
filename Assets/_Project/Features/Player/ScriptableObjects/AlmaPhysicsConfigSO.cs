@@ -6,22 +6,24 @@ namespace AlmaDino.Features.Player.ScriptableObjects
     public class AlmaPhysicsConfigSO : ScriptableObject
     {
         [Header("Movement")]
-        [Tooltip("Velocidad horizontal máxima en m/s (GDD: 8.5)")]
-        [SerializeField] private float _moveSpeed = 8.5f;
+        [Tooltip("Velocidad horizontal máxima en m/s (Calibrado: 7.0)")]
+        [SerializeField] private float _moveSpeed = 7.0f;
         [Tooltip("Tiempo de aceleración hacia velocidad máxima")]
         [SerializeField] private float _accelerationTime = 0.05f;
         [Tooltip("Tiempo de desaceleración hasta detenerse")]
         [SerializeField] private float _decelerationTime = 0.04f;
 
         [Header("Jump Physics")]
-        [Tooltip("Fuerza del salto inicial en m/s (GDD: 14.0)")]
-        [SerializeField] private float _jumpForce = 14.0f;
-        [Tooltip("Fuerza del doble salto en m/s (GDD: 12.0)")]
-        [SerializeField] private float _doubleJumpForce = 12.0f;
-        [Tooltip("Multiplicador de gravedad al caer")]
-        [SerializeField] private float _fallGravityMultiplier = 1.9f;
-        [Tooltip("Multiplicador de gravedad al soltar el botón de salto antes de la cima (Jump Cut)")]
-        [SerializeField] private float _jumpCutGravityMultiplier = 2.6f;
+        [Tooltip("Escala de gravedad base para físicas 2D ágiles (Calibrado: 2.2)")]
+        [SerializeField] private float _gravityScale = 2.2f;
+        [Tooltip("Fuerza del salto inicial en m/s (Calibrado: 8.2, altura ~1.56m)")]
+        [SerializeField] private float _jumpForce = 8.2f;
+        [Tooltip("Fuerza del doble salto en m/s (Calibrado: 7.6, altura extra ~1.34m)")]
+        [SerializeField] private float _doubleJumpForce = 7.6f;
+        [Tooltip("Multiplicador de gravedad al caer (Calibrado: 1.8)")]
+        [SerializeField] private float _fallGravityMultiplier = 1.8f;
+        [Tooltip("Multiplicador de gravedad al soltar el botón de salto antes de la cima (Jump Cut, Calibrado: 2.4)")]
+        [SerializeField] private float _jumpCutGravityMultiplier = 2.4f;
         [Tooltip("Velocidad terminal de caída máxima")]
         [SerializeField] private float _maxFallSpeed = 20.0f;
 
@@ -60,6 +62,7 @@ namespace AlmaDino.Features.Player.ScriptableObjects
         public float MoveSpeed => _moveSpeed;
         public float AccelerationTime => _accelerationTime;
         public float DecelerationTime => _decelerationTime;
+        public float GravityScale => _gravityScale;
         public float JumpForce => _jumpForce;
         public float DoubleJumpForce => _doubleJumpForce;
         public float FallGravityMultiplier => _fallGravityMultiplier;

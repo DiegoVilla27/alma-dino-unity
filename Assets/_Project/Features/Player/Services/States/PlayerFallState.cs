@@ -39,7 +39,7 @@ namespace AlmaDino.Features.Player.Services.States
                 return;
             }
 
-            if (_player.Input.GroundPoundDown && _player.Config != null && _player.Config.CanGroundPound)
+            if (_player.Input.GroundPoundDown && _player.IsGroundPoundUnlocked && (_player.Config == null || _player.Config.CanGroundPound))
             {
                 _player.StateMachine.ChangeState(PlayerStateEnum.GroundPound);
                 return;
@@ -57,13 +57,15 @@ namespace AlmaDino.Features.Player.Services.States
         public void PhysicsUpdate(float fixedDeltaTime)
         {
             // Control horizontal en el aire
-            float targetSpeed = _player.Input.MoveVector.x * (_player.Config != null ? _player.Config.MoveSpeed : 8.5f);
-            float airAccel = _player.Config != null ? _player.Config.MoveSpeed / Mathf.Max(0.01f, _player.Config.AccelerationTime * 1.3f) : 90f;
+            float moveSpeed = _player.Config != null ? _player.Config.MoveSpeed : 7.0f;
+            float targetSpeed = _player.Input.MoveVector.x * moveSpeed;
+            float airAccel = _player.Config != null ? moveSpeed / Mathf.Max(0.01f, _player.Config.AccelerationTime * 1.3f) : 70f;
             _player.AccelerateHorizontally(targetSpeed, airAccel);
 
-            // Gravedad de caída incrementada para feeling ágil tipo Celeste
-            float fallMult = _player.Config != null ? _player.Config.FallGravityMultiplier : 1.9f;
-            float extraGravity = Physics2D.gravity.y * (fallMult - 1f) * fixedDeltaTime;
+            // Gravedad de caída incrementada proporcional a base gravityScale para feeling ágil tipo Celeste
+            float fallMult = _player.Config != null ? _player.Config.FallGravityMultiplier : 1.8f;
+            float baseGravScale = _player.Config != null ? _player.Config.GravityScale : 2.2f;
+            float extraGravity = Physics2D.gravity.y * baseGravScale * (fallMult - 1f) * fixedDeltaTime;
             _player.SetVelocityY(_player.Rigidbody.linearVelocity.y + extraGravity);
 
             // Clamp a velocidad terminal

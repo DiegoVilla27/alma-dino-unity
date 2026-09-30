@@ -47,11 +47,11 @@ namespace AlmaDino.Core.Editor
                 }
             }
 
-            // 3. Open SampleScene if not currently active
+            // 3. Keep current scene active if valid, otherwise open Level_1_1
             var currentScene = EditorSceneManager.GetActiveScene();
-            if (currentScene.path != "Assets/Scenes/SampleScene.unity")
+            if (!currentScene.IsValid() || string.IsNullOrEmpty(currentScene.path))
             {
-                currentScene = EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity", OpenSceneMode.Single);
+                currentScene = EditorSceneManager.OpenScene("Assets/Scenes/Level_1_1.unity", OpenSceneMode.Single);
             }
 
             // 4. Find all SpriteRenderers in scene and assign unlit material and valid sprites
@@ -106,7 +106,7 @@ namespace AlmaDino.Core.Editor
                     rb.simulated = true;
                     rb.linearDamping = 0f;
                     rb.angularDamping = 0.05f;
-                    rb.gravityScale = 1f;
+                    rb.gravityScale = 2.2f;
                     rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                     EditorUtility.SetDirty(rb);
                 }

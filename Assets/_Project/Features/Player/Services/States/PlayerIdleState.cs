@@ -26,13 +26,13 @@ namespace AlmaDino.Features.Player.Services.States
                 return;
             }
 
-            if (_player.Input.DashDown && _player.Config != null && _player.Config.CanDash)
+            if (_player.Input.DashDown && _player.IsDashUnlocked && (_player.Config == null || _player.Config.CanDash))
             {
                 _player.StateMachine.ChangeState(PlayerStateEnum.Dash);
                 return;
             }
 
-            if (_player.Input.RoarDown && _player.Config != null && _player.Config.CanRoar)
+            if (_player.Input.RoarDown && _player.IsRoarUnlocked && (_player.Config == null || _player.Config.CanRoar))
             {
                 _player.StateMachine.ChangeState(PlayerStateEnum.Roar);
                 return;

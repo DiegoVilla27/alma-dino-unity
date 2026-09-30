@@ -14,13 +14,23 @@ namespace AlmaDino.Features.Player.Controllers
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(PlayerInputReader))]
     [RequireComponent(typeof(GroundDetector2D))]
-    public class PlayerController : MonoBehaviour, IPlayerRespawnable
+    public class PlayerController : MonoBehaviour, IPlayerRespawnable, IAbilityUnlockable
     {
         [Header("Config")]
         [SerializeField] private AlmaPhysicsConfigSO _config;
 
         [Header("Events")]
         [SerializeField] private CameraShakeEventChannelSO _cameraShakeChannel;
+        [SerializeField] private AbilityUnlockedEventChannelSO _abilityUnlockedChannel;
+
+        [Header("Unlocked Abilities")]
+        [SerializeField] private bool _doubleJumpUnlocked = false;
+        [SerializeField] private bool _groundPoundUnlocked = false;
+        [SerializeField] private bool _dashUnlocked = false;
+        [SerializeField] private bool _roarUnlocked = false;
+
+        [Header("Fall Death Boundary")]
+        [SerializeField] private float _fallDeathY = -8.0f;
 
         [Header("References")]
         [SerializeField] private Rigidbody2D _rigidbody;
@@ -47,12 +57,46 @@ namespace AlmaDino.Features.Player.Controllers
         public PlayerStateMachine StateMachine => _stateMachine;
 
         public bool HasDoubleJump { get => _hasDoubleJump; set => _hasDoubleJump = value; }
-        public bool CanAirDash => _canAirDash && _dashCooldownTimer <= 0f;
+        public bool CanAirDash => _dashUnlocked && _canAirDash && _dashCooldownTimer <= 0f;
         public float CoyoteTimer => _coyoteTimer;
         public float JumpBufferTimer => _jumpBufferTimer;
 
+        public bool IsDoubleJumpUnlocked => _doubleJumpUnlocked;
+        public bool IsGroundPoundUnlocked => _groundPoundUnlocked;
+        public bool IsDashUnlocked => _dashUnlocked;
+        public bool IsRoarUnlocked => _roarUnlocked;
+
         public event Action<Vector2> OnRespawned;
         public event Action<PlayerStateEnum> OnStateChanged;
+        public event Action<AbilityType> OnAbilityUnlocked;
+
+        public void UnlockAbility(AbilityType type)
+        {
+            switch (type)
+            {
+                case AbilityType.DoubleJump:
+                    _doubleJumpUnlocked = true;
+                    _hasDoubleJump = true;
+                    break;
+                case AbilityType.GroundPound:
+                    _groundPoundUnlocked = true;
+                    break;
+                case AbilityType.Dash:
+                    _dashUnlocked = true;
+                    _canAirDash = true;
+                    break;
+                case AbilityType.Roar:
+                    _roarUnlocked = true;
+                    break;
+            }
+
+            OnAbilityUnlocked?.Invoke(type);
+            if (_abilityUnlockedChannel != null)
+            {
+                _abilityUnlockedChannel.Raise(type);
+            }
+            Debug.Log($"[PlayerController] ¡Habilidad Desbloqueada: {type}!");
+        }
 
         private void Awake()
         {
@@ -65,6 +109,13 @@ namespace AlmaDino.Features.Player.Controllers
             InitializeStateMachine();
 
             _activeCheckpointPosition = transform.position;
+            _hasDoubleJump = _doubleJumpUnlocked;
+            _canAirDash = _dashUnlocked;
+        }
+
+        public void ResetGravityScale()
+        {
+            _rigidbody.gravityScale = _config != null ? _config.GravityScale : 2.2f;
         }
 
         private void ConfigurePhysics()
@@ -74,7 +125,7 @@ namespace AlmaDino.Features.Player.Controllers
             _rigidbody.interpolation = RigidbodyInterpolation2D.Interpolate;
             _rigidbody.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            _rigidbody.gravityScale = 1f;
+            ResetGravityScale();
             _rigidbody.linearDamping = 0f;
             _rigidbody.angularDamping = 0.05f;
 
@@ -117,8 +168,13 @@ namespace AlmaDino.Features.Player.Controllers
             if (_groundDetector.IsGrounded)
             {
                 _coyoteTimer = _config != null ? _config.CoyoteTime : 0.14f;
-                _hasDoubleJump = _config != null && _config.CanDoubleJump;
-                _canAirDash = _config != null && _config.CanDash;
+                _hasDoubleJump = _doubleJumpUnlocked && (_config == null || _config.CanDoubleJump);
+                _canAirDash = _dashUnlocked && (_config == null || _config.CanDash);
+            }
+
+            if (_rigidbody.position.y < _fallDeathY)
+            {
+                KillAndRespawn();
             }
 
             _stateMachine.PhysicsUpdate(Time.fixedDeltaTime);
@@ -214,6 +270,7 @@ namespace AlmaDino.Features.Player.Controllers
             _rigidbody.position = position;
             transform.position = position;
             _rigidbody.linearVelocity = Vector2.zero;
+            ResetGravityScale();
             _coyoteTimer = 0f;
             _jumpBufferTimer = 0f;
             _stateMachine.ChangeState(PlayerStateEnum.Idle);

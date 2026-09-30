@@ -12,23 +12,59 @@ namespace AlmaDino.Features.Camera
         [SerializeField] private float _smoothTime = 0.2f;
         [SerializeField] private Vector2 _deadZone = new Vector2(0.5f, 0.5f);
 
+        [Header("Dynamic Look-Ahead")]
+        [Tooltip("Distancia horizontal que la cámara se adelanta en la dirección de avance")]
+        [SerializeField] private float _lookAheadDistance = 2.5f;
+        [Tooltip("Velocidad de transición del anticipo de cámara")]
+        [SerializeField] private float _lookAheadSpeed = 4.0f;
+
         [Header("Bounds")]
         [SerializeField] private bool _useBounds = true;
         [SerializeField] private Vector2 _minBounds = new Vector2(-10f, -3f);
         [SerializeField] private Vector2 _maxBounds = new Vector2(40f, 15f);
 
         private Vector3 _currentVelocity;
+        private Rigidbody2D _targetRb;
+        private float _currentLookAheadX;
 
         public void SetTarget(Transform target)
         {
             _target = target;
+            if (_target != null) _targetRb = _target.GetComponent<Rigidbody2D>();
+        }
+
+        private void Start()
+        {
+            if (_target != null && _targetRb == null)
+            {
+                _targetRb = _target.GetComponent<Rigidbody2D>();
+            }
         }
 
         private void LateUpdate()
         {
             if (_target == null) return;
+            if (_targetRb == null) _targetRb = _target.GetComponent<Rigidbody2D>();
+
+            // Anticipación dinámica (Look-Ahead): se adelanta al correr, se centra al parar
+            float targetLookAheadX = 0f;
+            if (_targetRb != null)
+            {
+                float vx = _targetRb.linearVelocity.x;
+                if (vx > 0.4f)
+                {
+                    targetLookAheadX = _lookAheadDistance;
+                }
+                else if (vx < -0.4f)
+                {
+                    targetLookAheadX = -_lookAheadDistance;
+                }
+            }
+
+            _currentLookAheadX = Mathf.MoveTowards(_currentLookAheadX, targetLookAheadX, _lookAheadSpeed * Time.deltaTime);
 
             Vector3 desiredPosition = _target.position + (Vector3)_offset;
+            desiredPosition.x += _currentLookAheadX;
 
             // Deadzone para evitar micro-temblores al reposar
             Vector3 diff = desiredPosition - transform.position;

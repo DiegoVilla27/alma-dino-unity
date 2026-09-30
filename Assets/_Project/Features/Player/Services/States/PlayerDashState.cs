@@ -33,7 +33,7 @@ namespace AlmaDino.Features.Player.Services.States
 
         public void Exit()
         {
-            _player.Rigidbody.gravityScale = 1f;
+            _player.ResetGravityScale();
         }
 
         public void UpdateLogic(float deltaTime)
