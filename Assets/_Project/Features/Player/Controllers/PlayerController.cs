@@ -16,7 +16,7 @@ namespace AlmaDino.Features.Player.Controllers
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(PlayerInputReader))]
     [RequireComponent(typeof(GroundDetector2D))]
-    public class PlayerController : MonoBehaviour, IPlayerRespawnable, IAbilityUnlockable, IBounceable2D
+    public class PlayerController : MonoBehaviour, IPlayerRespawnable, IAbilityUnlockable, IBounceable2D, IDashRefillable2D
     {
         [Header("Config")]
         [SerializeField] private AlmaPhysicsConfigSO _config;
@@ -259,6 +259,12 @@ namespace AlmaDino.Features.Player.Controllers
             _dashCooldownTimer = _config != null ? _config.DashCooldown : 0.4f;
         }
 
+        public void RefreshAirDash()
+        {
+            _canAirDash = _dashUnlocked && (_config == null || _config.CanDash);
+            _dashCooldownTimer = 0f;
+        }
+
         public void SetVelocityX(float vx)
         {
             _rigidbody.linearVelocity = new Vector2(vx, _rigidbody.linearVelocity.y);
@@ -371,6 +377,13 @@ namespace AlmaDino.Features.Player.Controllers
                 if (collision.collider.TryGetComponent<IBreakable2D>(out var breakable))
                 {
                     breakable.Break();
+                }
+            }
+            else if (_stateMachine.CurrentStateType == PlayerStateEnum.Dash)
+            {
+                if (collision.collider.TryGetComponent<IDashBreakable2D>(out var dashBreakable))
+                {
+                    dashBreakable.BreakWithDash();
                 }
             }
         }

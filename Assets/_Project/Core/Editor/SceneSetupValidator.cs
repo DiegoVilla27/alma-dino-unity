@@ -17,7 +17,7 @@ namespace AlmaDino.Core.Editor
         public static void OpenLevel1_1()
         {
             if (EditorApplication.isPlaying) EditorApplication.isPlaying = false;
-            EditorSceneManager.OpenScene("Assets/Scenes/Level_1_1.unity", OpenSceneMode.Single);
+            EditorSceneManager.OpenScene("Assets/Scenes/World_1_Jungle/Level_1_1.unity", OpenSceneMode.Single);
             Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Nivel 1-1 cargado exitosamente!</color>");
         }
 
@@ -25,7 +25,7 @@ namespace AlmaDino.Core.Editor
         public static void OpenLevel1_2()
         {
             if (EditorApplication.isPlaying) EditorApplication.isPlaying = false;
-            EditorSceneManager.OpenScene("Assets/Scenes/Level_1_2.unity", OpenSceneMode.Single);
+            EditorSceneManager.OpenScene("Assets/Scenes/World_1_Jungle/Level_1_2.unity", OpenSceneMode.Single);
             Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Nivel 1-2 cargado exitosamente!</color>");
         }
 
@@ -69,7 +69,7 @@ namespace AlmaDino.Core.Editor
             var currentScene = EditorSceneManager.GetActiveScene();
             if (!currentScene.IsValid() || string.IsNullOrEmpty(currentScene.path))
             {
-                currentScene = EditorSceneManager.OpenScene("Assets/Scenes/Level_1_1.unity", OpenSceneMode.Single);
+                currentScene = EditorSceneManager.OpenScene("Assets/Scenes/World_1_Jungle/Level_1_1.unity", OpenSceneMode.Single);
             }
 
             // 4. Find all SpriteRenderers in scene and assign unlit material and valid sprites

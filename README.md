@@ -146,13 +146,13 @@ Boss 1    ("Giant Thief Monkey")      --> Canopy arena; dodge rolling fruit and 
 
 #### Implemented Scenes Breakdown:
 
-- **Level 1-1 (`Assets/Scenes/Level_1_1.unity`)**:
+- **Level 1-1 (`Assets/Scenes/World_1_Jungle/Level_1_1.unity`)**:
   - Begins at Alma's empty cradle with the introductory narrative prologue.
   - Teaches single jump distance and short gaps.
   - Reaching the Maternal Gem Altar (`AbilityRelic2D`) awakens the **Double Jump**.
   - Player traverses a previously impassable chasm to reach the exit gate.
 
-- **Level 1-2 (`Assets/Scenes/Level_1_2.unity`) — "The Dangerous Canopy"**:
+- **Level 1-2 (`Assets/Scenes/World_1_Jungle/Level_1_2.unity`) — "The Dangerous Canopy"**:
   - **Cinematic In-Game Encounter**: The Thief Monkey starts **directly in front of Alma** at spawn (`X = 3.2`) holding the **Stolen Golden Egg** (`Stolen_Golden_Egg`). A dialogue banner triggers with the monkey's taunt, followed by a comedic laugh-hop and a high parabolic leap into the canopy.
   - **5 Precision Platforming Challenges**:
     1. *Guided High Bounce under Thorn Spikes (`X = 8.5`)*: A ground mushroom launches towards an overhead thorn ceiling (`Y = 7.0`); players must steer right in mid-air to land safely on `Branch_Ledge_1` (`Y = 4.2`).

@@ -3,6 +3,7 @@
     "rootNamespace": "AlmaDino.Core.Editor",
     "references": [
         "AlmaDino.Core",
+        "AlmaDino.Features.Environment",
         "AlmaDino.Features.MobileUI",
         "AlmaDino.Features.Player",
         "Unity.InputSystem",

@@ -5,6 +5,7 @@
         "AlmaDino.Core",
         "AlmaDino.Shared",
         "AlmaDino.Features.Player",
+        "AlmaDino.Features.Environment",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],
