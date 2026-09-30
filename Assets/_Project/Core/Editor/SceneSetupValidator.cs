@@ -11,14 +11,17 @@ using UnityEngine.InputSystem.UI;
 
 namespace AlmaDino.Core.Editor
 {
-    [InitializeOnLoad]
     public static class SceneSetupValidator
     {
-        static SceneSetupValidator()
+        [MenuItem("Alma/📂 Cargar Nivel 1-1")]
+        public static void OpenLevel1_1()
         {
-            EditorApplication.delayCall += EnsureSceneVisualsAndReload;
+            if (EditorApplication.isPlaying) EditorApplication.isPlaying = false;
+            EditorSceneManager.OpenScene("Assets/Scenes/Level_1_1.unity", OpenSceneMode.Single);
+            Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Nivel 1-1 cargado exitosamente!</color>");
         }
 
+        // Se ejecuta exclusivamente desde el menú manual para evitar sobreescritura accidental durante recargas de dominio
         [MenuItem("Alma/🛠️ Reparar Escena y Visuales")]
         public static void EnsureSceneVisualsAndReload()
         {
@@ -163,8 +166,8 @@ namespace AlmaDino.Core.Editor
                 EditorUtility.SetDirty(cam);
             }
 
-            // 9. Save scene
-            if (currentScene.IsValid())
+            // 9. Save scene only if valid and objects were found (safety check against saving empty scenes)
+            if (currentScene.IsValid() && alma != null)
             {
                 EditorSceneManager.MarkSceneDirty(currentScene);
                 EditorSceneManager.SaveScene(currentScene);
