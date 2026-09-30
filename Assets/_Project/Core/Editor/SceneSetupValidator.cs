@@ -45,6 +45,14 @@ namespace AlmaDino.Core.Editor
             Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Nivel 1-4 cargado exitosamente!</color>");
         }
 
+        [MenuItem("Alma/📂 Cargar Arena Jefe 1")]
+        public static void OpenBoss1()
+        {
+            if (EditorApplication.isPlaying) EditorApplication.isPlaying = false;
+            EditorSceneManager.OpenScene("Assets/Scenes/World_1_Jungle/Boss_1.unity", OpenSceneMode.Single);
+            Debug.Log("<color=#FF9800><b>[AlmaDino]</b> ¡Arena del Jefe 1 cargada exitosamente!</color>");
+        }
+
         [MenuItem("Alma/🔄 Resetear Progresión de Partida")]
         public static void ResetGameProgression()
         {
@@ -89,7 +97,7 @@ namespace AlmaDino.Core.Editor
             }
 
             // 4. Find all SpriteRenderers in scene and assign unlit material and valid sprites
-            var renderers = Object.FindObjectsByType<SpriteRenderer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            var renderers = Object.FindObjectsByType<SpriteRenderer>(FindObjectsInactive.Include);
             int updatedCount = 0;
 
             foreach (var sr in renderers)

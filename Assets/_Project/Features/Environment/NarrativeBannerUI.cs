@@ -28,6 +28,16 @@ namespace AlmaDino.Features.Environment
             Instance = this;
         }
 
+        private void OnEnable()
+        {
+            AlmaDino.Core.Events.NarrativeBannerEvents.OnBannerRequested += ShowBanner;
+        }
+
+        private void OnDisable()
+        {
+            AlmaDino.Core.Events.NarrativeBannerEvents.OnBannerRequested -= ShowBanner;
+        }
+
         private void Start()
         {
             if (_showPrologueOnStart)

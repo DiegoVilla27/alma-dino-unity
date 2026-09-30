@@ -23,6 +23,12 @@ namespace AlmaDino.Features.Player.Components
             _contactFilter.useTriggers = false;
         }
 
+        public void ResetGroundState()
+        {
+            _isGrounded = false;
+            _collisionGrounded = false;
+        }
+
         public void CheckGround(Vector2 playerPosition)
         {
             Vector2 checkCenter = playerPosition + _boxOffset;
@@ -34,7 +40,8 @@ namespace AlmaDino.Features.Player.Components
                 var col = _hitBuffer[i];
                 if (col != null && !col.isTrigger && col.gameObject != gameObject && !col.transform.IsChildOf(transform))
                 {
-                    if (col.GetComponent<IBouncySurface2D>() != null || col.GetComponentInParent<IBouncySurface2D>() != null)
+                    if (col.GetComponent<IBouncySurface2D>() != null || col.GetComponentInParent<IBouncySurface2D>() != null ||
+                        col.GetComponent<IHazard2D>() != null || col.GetComponentInParent<IHazard2D>() != null)
                     {
                         continue;
                     }
@@ -48,7 +55,8 @@ namespace AlmaDino.Features.Player.Components
         private void OnCollisionStay2D(Collision2D collision)
         {
             if (collision.gameObject == gameObject || collision.transform.IsChildOf(transform)) return;
-            if (collision.gameObject.GetComponent<IBouncySurface2D>() != null || collision.gameObject.GetComponentInParent<IBouncySurface2D>() != null) return;
+            if (collision.gameObject.GetComponent<IBouncySurface2D>() != null || collision.gameObject.GetComponentInParent<IBouncySurface2D>() != null ||
+                collision.gameObject.GetComponent<IHazard2D>() != null || collision.gameObject.GetComponentInParent<IHazard2D>() != null) return;
 
             for (int i = 0; i < collision.contactCount; i++)
             {

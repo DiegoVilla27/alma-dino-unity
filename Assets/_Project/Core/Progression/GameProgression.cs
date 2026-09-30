@@ -22,8 +22,10 @@ namespace AlmaDino.Core.Progression
     {
         private const string PREF_KEY_PREFIX = "AlmaDino_AbilityUnlocked_";
         private const string PREF_EGG_PREFIX = "AlmaDino_EggRescued_";
+        private const string PREF_WORLD_PREFIX = "AlmaDino_WorldCompleted_";
         private static readonly HashSet<AbilityType> _unlockedAbilities = new();
         private static readonly HashSet<EggType> _rescuedEggs = new();
+        private static readonly HashSet<int> _completedWorlds = new();
         private static bool _isInitialized = false;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -79,6 +81,24 @@ namespace AlmaDino.Core.Progression
             }
         }
 
+        public static void CompleteWorld(int worldIndex)
+        {
+            if (!_isInitialized) Initialize();
+
+            if (_completedWorlds.Add(worldIndex))
+            {
+                PlayerPrefs.SetInt(PREF_WORLD_PREFIX + worldIndex, 1);
+                PlayerPrefs.Save();
+                Debug.Log($"<color=#FFD700><b>[GameProgression]</b> ¡Mundo {worldIndex} completado con éxito!</color>");
+            }
+        }
+
+        public static bool IsWorldCompleted(int worldIndex)
+        {
+            if (!_isInitialized) Initialize();
+            return _completedWorlds.Contains(worldIndex);
+        }
+
         /// <summary>
         /// Asegura que el nivel actual tenga activas las mecánicas mínimas que el jugador ya debería poseer
         /// por diseño del mundo si se entra directamente a dicho nivel.
@@ -87,8 +107,8 @@ namespace AlmaDino.Core.Progression
         {
             if (!_isInitialized) Initialize();
 
-            // Nivel 1-2 en adelante: el jugador ya superó el despertar en 1-1, por lo que el Doble Salto es obligatorio
-            if (sceneName == "Level_1_2" || sceneName == "Level_1_3" || sceneName == "Level_1_4")
+            // Nivel 1-2 en adelante y Boss 1: el jugador ya superó el despertar en 1-1, por lo que el Doble Salto es obligatorio
+            if (sceneName == "Level_1_2" || sceneName == "Level_1_3" || sceneName == "Level_1_4" || sceneName == "Boss_1")
             {
                 UnlockAbility(AbilityType.DoubleJump);
             }
@@ -113,6 +133,15 @@ namespace AlmaDino.Core.Progression
                     _rescuedEggs.Add(egg);
                 }
             }
+
+            _completedWorlds.Clear();
+            for (int w = 1; w <= 4; w++)
+            {
+                if (PlayerPrefs.GetInt(PREF_WORLD_PREFIX + w, 0) == 1)
+                {
+                    _completedWorlds.Add(w);
+                }
+            }
         }
 
         public static void ResetProgression()
@@ -129,9 +158,15 @@ namespace AlmaDino.Core.Progression
                 PlayerPrefs.DeleteKey(PREF_EGG_PREFIX + egg);
             }
 
+            _completedWorlds.Clear();
+            for (int w = 1; w <= 4; w++)
+            {
+                PlayerPrefs.DeleteKey(PREF_WORLD_PREFIX + w);
+            }
+
             PlayerPrefs.Save();
             _isInitialized = true;
-            Debug.Log("<color=#FFCC00><b>[GameProgression]</b> Progresión de habilidades y huevos reseteada a estado inicial.</color>");
+            Debug.Log("<color=#FFCC00><b>[GameProgression]</b> Progresión de habilidades, huevos y mundos reseteada a estado inicial.</color>");
         }
     }
 }

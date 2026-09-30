@@ -1,20 +1,13 @@
 {
-    "name": "AlmaDino.Core.Editor",
-    "rootNamespace": "AlmaDino.Core.Editor",
+    "name": "AlmaDino.Features.Boss",
+    "rootNamespace": "AlmaDino.Features.Boss",
     "references": [
         "AlmaDino.Core",
-        "AlmaDino.Features.Environment",
-        "AlmaDino.Features.MobileUI",
-        "AlmaDino.Features.Player",
-        "AlmaDino.Features.Camera",
-        "AlmaDino.Features.Boss",
-        "Unity.InputSystem",
+        "AlmaDino.Shared",
         "Unity.RenderPipelines.Universal.Runtime",
         "Unity.RenderPipelines.Universal.2D.Runtime"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

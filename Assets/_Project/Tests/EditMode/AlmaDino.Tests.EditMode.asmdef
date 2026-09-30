@@ -7,6 +7,7 @@
         "AlmaDino.Features.Player",
         "AlmaDino.Features.Environment",
         "AlmaDino.Features.Camera",
+        "AlmaDino.Features.Boss",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

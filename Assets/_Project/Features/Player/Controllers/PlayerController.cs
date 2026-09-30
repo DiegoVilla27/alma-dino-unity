@@ -349,8 +349,12 @@ namespace AlmaDino.Features.Player.Controllers
             transform.position = position;
             _rigidbody.linearVelocity = Vector2.zero;
             ResetGravityScale();
-            _coyoteTimer = 0f;
+            _coyoteTimer = _config != null ? _config.CoyoteTime : 0.15f;
             _jumpBufferTimer = 0f;
+            _hasDoubleJump = _doubleJumpUnlocked && (_config == null || _config.CanDoubleJump);
+            _canAirDash = _dashUnlocked && (_config == null || _config.CanDash);
+            _isBouncing = false;
+            _groundDetector?.ResetGroundState();
             _stateMachine.ChangeState(PlayerStateEnum.Idle);
             OnRespawned?.Invoke(position);
         }
@@ -372,6 +376,13 @@ namespace AlmaDino.Features.Player.Controllers
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            if (collision.collider.TryGetComponent<IHazard2D>(out var hazard) || collision.gameObject.TryGetComponent<IHazard2D>(out hazard))
+            {
+                hazard.OnHazardTouch();
+                KillAndRespawn();
+                return;
+            }
+
             if (_stateMachine.CurrentStateType == PlayerStateEnum.GroundPound)
             {
                 if (collision.collider.TryGetComponent<IBreakable2D>(out var breakable))
@@ -388,7 +399,7 @@ namespace AlmaDino.Features.Player.Controllers
             }
         }
 
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEBUG
         private void OnGUI()
         {
             GUI.color = Color.white;

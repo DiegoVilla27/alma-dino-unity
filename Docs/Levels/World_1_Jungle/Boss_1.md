@@ -32,23 +32,29 @@
 
 ---
 
-## 3. 🧱 Mecánicas de Combate & Fases del Jefe (Puzle de Habilidad)
+## 3. 🧱 Mecánicas de Combate & Fases del Jefe (Puzle de Habilidad y Reflejos)
 
 Siguiendo la filosofía del GDD, el jefe es un **puzle de habilidad y timing**, no un combate con barra de vida de desgaste:
 
-- **Estructura: 3 Impactos para Vencer (3 Ciclos)**:
-  - **Fase 1 (El Asedio de Frutos):**
-    - El mono se cuelga de una liana central inalcanzable en el aire.
-    - Lanza frutos rodantes gigantescos que recorren la plataforma inferior rebotando rítmicamente.
-    - El jugador debe usar el **Doble Salto** para saltar sobre los frutos o trepar a las ramas laterales para esquivarlos.
-  - **Fase 2 (La Fatiga / Vulnerabilidad):**
-    - Tras lanzar 3-4 frutos, el simio se agota y desciende pesadamente sobre la plataforma central, quedando aturdido durante **`4.0 segundos`**.
-    - Alma debe subir a una plataforma elevada y ejecutar un salto preciso cayendo con un pisotón normal sobre su cabeza coronada.
-  - **Fase 3 (Enfurecimiento):**
-    - Tras cada impacto, el simio ruge, entra en cólera y aumenta la velocidad de lanzamiento de frutos (+20%).
-    - En el último ciclo (tercer impacto), lanza dos frutos consecutivos que obligan a realizar una parábola perfecta en el aire.
+- **Estructura: 3 Impactos para Vencer (3 Ciclos con Dificultad Creciente)**:
+  - **Fase 1 (El Asedio Ágil):**
+    - 4 proyectiles por oleada (Velocidad: 6.5 m/s, Intervalo: 1.3s).
+    - El simio lanza frutos rodantes por la plataforma central y realiza tiros parabólicos/rebotantes anti-camping hacia las ramas laterales si Alma intenta esconderse en ellas.
+    - Fatiga / Vulnerabilidad: **`3.2 segundos`**.
+  - **Fase 2 (Furia del Simio y Balanceo Aéreo):**
+    - 5 proyectiles por oleada (Velocidad: 8.0 m/s, Intervalo: 1.0s).
+    - El simio se balancea velozmente entre 3 lianas superiores (Izquierda `-4.5m`, Centro `0.0m`, Derecha `+4.5m`) alternando ángulos de tiro cruzados.
+    - Combina frutos rodantes con cocos rebotantes de parábola alta que rebotan en el suelo y cubren ambas plataformas.
+    - Fatiga / Vulnerabilidad: **`2.8 segundos`**.
+  - **Fase 3 (Enfurecimiento Total — Modo Frenesí):**
+    - 7 proyectiles en ráfagas rápidas coordinadas (Velocidad: 9.5 m/s, Intervalo: 0.75s).
+    - Ráfagas dobles simultáneas (fruto rodante por el suelo + aéreo parabólico por arriba, o lanzamientos simultáneos hacia ambos lados).
+    - Fatiga / Vulnerabilidad: **`2.4 segundos`**. Exige rapidez para trepar a la rama lateral y caer con precisión sobre su cabeza.
+- **Peligro Corporal & Puntos Vulnerables:**
+  - El torso y extremidades del simio poseen `BossBodyHazard2D`: el contacto horizontal con su cuerpo es letal.
+  - Solo su cabeza coronada (`BossHeadHurtbox2D`) es vulnerable cuando el mono cae al suelo en fatiga, premiando a Alma con un rebote de `13.5` de fuerza (`ApplyBounce`).
 - **Condición de Derrota de Alma:**
-  - Tocar los frutos o el cuerpo del simio mientras ataca devuelve a Alma al inicio de la fase actual de la arena (checkpoints por fase de impacto para máxima justicia).
+  - Tocar los frutos o el cuerpo del simio devuelve a Alma al inicio de la fase actual de la arena (checkpoints guardados tras cada impacto exitoso para máxima justicia y cero frustración injusta).
 
 ---
 
@@ -67,7 +73,8 @@ Siguiendo la filosofía del GDD, el jefe es un **puzle de habilidad y timing**, 
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
-- [ ] **Sprites Jefe:** Sprite sheet del Mono Gigante (Idle colgado, animación de lanzamiento de frutos, aturdimiento en el suelo, animación de daño y huida).
-- [ ] **Sprites Proyectiles:** Fruto espinoso rodante con efecto de giro y partículas de impacto.
-- [ ] **VFX:** Screen Shake acentuado, partículas de hojas desprendidas en cada rugido del jefe, destello de impacto en la cabeza.
-- [ ] **Audio:** Pista de combate "Wrath of the Canopy King", rugido del simio gigante, SFX de lanzamiento y rebote de cocos.
+- [x] **Mecánicas & FSM Jefe:** Controlador modular `GiantMonkeyBoss2D` con 3 fases, lanzamiento de proyectiles, aturdimiento de 4s y derrota.
+- [x] **Sprites & Prefab Proyectil:** `RollingFruitProjectile2D` con giro continuo y peligro letal `IHazard2D`.
+- [x] **Hurtbox de Cabeza:** `BossHeadHurtbox2D` para rebote satisfactorio de Alma (`ApplyBounce`) al pisar la cabeza vulnerable.
+- [x] **VFX & Cámara:** Screen Shake mediante `CameraShakeEventChannelSO`, encuadre cinemático de arena y atardecer crepuscular en luz 2D.
+- [ ] **Sprites Finales & Audio:** Sprite sheet detallado con animaciones y pistas de audio orquestal/SFX definitivas.
