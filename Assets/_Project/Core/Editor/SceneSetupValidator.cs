@@ -152,6 +152,9 @@ namespace AlmaDino.Core.Editor
                     rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                     EditorUtility.SetDirty(rb);
                 }
+
+                // Configurar Sprite y Animador de Alma
+                SetupAlmaVisuals(alma);
             }
 
             // 6. Setup Mobile UI Canvas
@@ -225,6 +228,114 @@ namespace AlmaDino.Core.Editor
                 vb.ButtonType = buttonType;
                 EditorUtility.SetDirty(btnGo);
             }
+        }
+
+        [MenuItem("Alma/🦖 Configurar Sprites de Alma (Escena Actual)")]
+        public static void SetupAlmaInCurrentScene()
+        {
+            var alma = GameObject.Find("Alma (Player)");
+            if (alma != null)
+            {
+                SetupAlmaVisuals(alma);
+                var activeScene = EditorSceneManager.GetActiveScene();
+                EditorSceneManager.MarkSceneDirty(activeScene);
+                EditorSceneManager.SaveScene(activeScene);
+                Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Sprites y animador Idle de Alma configurados y guardados en la escena actual!</color>");
+            }
+            else
+            {
+                Debug.LogWarning("[AlmaDino] No se encontró el objeto 'Alma (Player)' en la escena actual.");
+            }
+        }
+
+        [MenuItem("Alma/🦖 Configurar Sprites de Alma en Todas las Escenas")]
+        public static void SetupAlmaInAllScenes()
+        {
+            string[] sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { "Assets/Scenes" });
+            string currentPath = EditorSceneManager.GetActiveScene().path;
+
+            foreach (var guid in sceneGuids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
+                var alma = GameObject.Find("Alma (Player)");
+                if (alma != null)
+                {
+                    SetupAlmaVisuals(alma);
+                    EditorSceneManager.MarkSceneDirty(scene);
+                    EditorSceneManager.SaveScene(scene);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(currentPath))
+            {
+                EditorSceneManager.OpenScene(currentPath, OpenSceneMode.Single);
+            }
+            Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Todas las escenas actualizadas con los sprites animados de Alma!</color>");
+        }
+
+        public static void SetupAlmaVisuals(GameObject alma)
+        {
+            if (alma == null) return;
+
+            // 1. Obtener frames de Idle
+            var idleSprites = new Sprite[8];
+            for (int i = 1; i <= 8; i++)
+            {
+                string path = $"Assets/Art/Sprites/Characters/Alma/Idle/Alma_Idle_0{i}.png";
+                idleSprites[i - 1] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            }
+
+            // 2. Configurar SpriteRenderer en Visual
+            var visualTr = alma.transform.Find("Visual");
+            SpriteRenderer sr = null;
+            if (visualTr != null)
+            {
+                sr = visualTr.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    sr.color = Color.white;
+                    sr.drawMode = SpriteDrawMode.Simple;
+                    if (idleSprites[0] != null)
+                    {
+                        sr.sprite = idleSprites[0];
+                    }
+                    sr.sortingOrder = 5;
+                    EditorUtility.SetDirty(sr);
+                }
+
+                // Ocultar cubos/ojos de prototipo
+                for (int i = visualTr.childCount - 1; i >= 0; i--)
+                {
+                    var child = visualTr.GetChild(i);
+                    string cName = child.name.ToLowerInvariant();
+                    if (cName.Contains("eye") || cName.Contains("pupil") || cName.Contains("placeholder"))
+                    {
+                        child.gameObject.SetActive(false);
+                        EditorUtility.SetDirty(child.gameObject);
+                    }
+                }
+            }
+            else
+            {
+                sr = alma.GetComponentInChildren<SpriteRenderer>();
+            }
+
+            // 3. Añadir o actualizar PlayerSpriteAnimator
+            var animator = alma.GetComponent<PlayerSpriteAnimator>();
+            if (animator == null)
+            {
+                animator = alma.AddComponent<PlayerSpriteAnimator>();
+            }
+
+            if (animator != null)
+            {
+                animator.SetSpriteRenderer(sr);
+                animator.SetIdleFrames(idleSprites, 8f);
+                EditorUtility.SetDirty(animator);
+            }
+
+            EditorUtility.SetDirty(alma);
         }
     }
 }

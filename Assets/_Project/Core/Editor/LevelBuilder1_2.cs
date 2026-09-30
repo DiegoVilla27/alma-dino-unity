@@ -310,6 +310,8 @@ namespace AlmaDino.Core.Editor
                     rb.linearVelocity = Vector2.zero;
                     EditorUtility.SetDirty(rb);
                 }
+
+                SceneSetupValidator.SetupAlmaVisuals(alma);
             }
 
             // 4. Configurar Cámara y Follow
