@@ -3919,6 +3919,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4e127cfef442b4e1a9a7cb788d6efd39, type: 3}
   - {fileID: 21300000, guid: b72c8f8cfb6f74c0e9058a1ce7ac9111, type: 3}
   - {fileID: 21300000, guid: 3dff96559bfc146c28965c5809a065b4, type: 3}
+  - {fileID: 21300000, guid: 7ab442f09305458ba9efdc0646112f99, type: 3}
+  - {fileID: 21300000, guid: 20bfb92dcee34cb69558f44e6e46cb79, type: 3}
   _idleFps: 8
   _runFrames: []
   _runFps: 10

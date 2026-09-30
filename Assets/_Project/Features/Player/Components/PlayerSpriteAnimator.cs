@@ -18,7 +18,7 @@ namespace AlmaDino.Features.Player.Components
 
         [Header("Idle Animation")]
         [SerializeField] private Sprite[] _idleFrames;
-        [SerializeField] private float _idleFps = 8f;
+        [SerializeField] private float _idleFps = 10f;
 
         [Header("Run Animation (Futuro)")]
         [SerializeField] private Sprite[] _runFrames;

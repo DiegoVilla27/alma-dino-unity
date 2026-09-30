@@ -279,10 +279,10 @@ namespace AlmaDino.Core.Editor
             if (alma == null) return;
 
             // 1. Obtener frames de Idle
-            var idleSprites = new Sprite[8];
-            for (int i = 1; i <= 8; i++)
+            var idleSprites = new Sprite[10];
+            for (int i = 1; i <= 10; i++)
             {
-                string path = $"Assets/Art/Sprites/Characters/Alma/Idle/Alma_Idle_0{i}.png";
+                string path = $"Assets/Art/Sprites/Characters/Alma/Idle/Alma_Idle_{i:02d}.png";
                 idleSprites[i - 1] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
             }
 
