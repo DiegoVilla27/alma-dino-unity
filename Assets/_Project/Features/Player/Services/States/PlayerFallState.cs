@@ -15,7 +15,10 @@ namespace AlmaDino.Features.Player.Services.States
             _player = player;
         }
 
-        public void Enter() { }
+        public void Enter()
+        {
+            _player.ClearBouncing();
+        }
         public void Exit() { }
 
         public void UpdateLogic(float deltaTime)

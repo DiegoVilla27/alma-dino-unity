@@ -1,3 +1,4 @@
+using AlmaDino.Core.Interfaces;
 using UnityEngine;
 
 namespace AlmaDino.Features.Player.Components
@@ -33,6 +34,11 @@ namespace AlmaDino.Features.Player.Components
                 var col = _hitBuffer[i];
                 if (col != null && !col.isTrigger && col.gameObject != gameObject && !col.transform.IsChildOf(transform))
                 {
+                    if (col.GetComponent<IBouncySurface2D>() != null || col.GetComponentInParent<IBouncySurface2D>() != null)
+                    {
+                        continue;
+                    }
+
                     _isGrounded = true;
                     break;
                 }
@@ -42,6 +48,7 @@ namespace AlmaDino.Features.Player.Components
         private void OnCollisionStay2D(Collision2D collision)
         {
             if (collision.gameObject == gameObject || collision.transform.IsChildOf(transform)) return;
+            if (collision.gameObject.GetComponent<IBouncySurface2D>() != null || collision.gameObject.GetComponentInParent<IBouncySurface2D>() != null) return;
 
             for (int i = 0; i < collision.contactCount; i++)
             {

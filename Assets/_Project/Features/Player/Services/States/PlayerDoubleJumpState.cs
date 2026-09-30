@@ -20,7 +20,9 @@ namespace AlmaDino.Features.Player.Services.States
             _player.HasDoubleJump = false;
             _player.ConsumeJumpBuffer();
             float force = _player.Config != null ? _player.Config.DoubleJumpForce : 7.6f;
-            _player.SetVelocityY(force);
+            float currentY = _player.Rigidbody.linearVelocity.y;
+            float newVelocityY = currentY > 0f ? currentY + (force * 0.55f) : force;
+            _player.SetVelocityY(newVelocityY);
         }
 
         public void Exit() { }

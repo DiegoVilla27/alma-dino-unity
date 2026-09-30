@@ -7,10 +7,10 @@ namespace AlmaDino.Features.Environment
     public class CrumblingPlatform2D : MonoBehaviour
     {
         [Header("Timing")]
-        [Tooltip("Tiempo desde que se pisa hasta que colapsa (GDD: 1.5s)")]
-        [SerializeField] private float _crumbleDelay = 1.5f;
+        [Tooltip("Tiempo desde que se pisa hasta que colapsa (exige decisión ágil)")]
+        [SerializeField] private float _crumbleDelay = 0.65f;
         [Tooltip("Tiempo en reaparecer tras colapsar")]
-        [SerializeField] private float _respawnDelay = 3.0f;
+        [SerializeField] private float _respawnDelay = 2.5f;
 
         [Header("Juice Feedback")]
         [SerializeField] private float _shakeIntensity = 0.05f;
@@ -42,8 +42,7 @@ namespace AlmaDino.Features.Environment
             for (int i = 0; i < collision.contactCount; i++)
             {
                 var contact = collision.GetContact(i);
-                // Si la normal apunta hacia arriba, significa que el jugador está parado encima
-                if (contact.normal.y < -0.5f)
+                if (contact.normal.y < -0.3f || collision.transform.position.y > transform.position.y)
                 {
                     StartCoroutine(CrumbleSequenceRoutine());
                     break;

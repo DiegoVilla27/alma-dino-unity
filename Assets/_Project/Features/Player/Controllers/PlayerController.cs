@@ -1,6 +1,7 @@
 using System;
 using AlmaDino.Core.Events;
 using AlmaDino.Core.Interfaces;
+using AlmaDino.Core.Progression;
 using AlmaDino.Features.Player.Components;
 using AlmaDino.Features.Player.Models;
 using AlmaDino.Features.Player.ScriptableObjects;
@@ -8,6 +9,7 @@ using AlmaDino.Features.Player.Services;
 using AlmaDino.Features.Player.Services.States;
 using AlmaDino.Shared.Data;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace AlmaDino.Features.Player.Controllers
 {
@@ -46,6 +48,7 @@ namespace AlmaDino.Features.Player.Controllers
         private float _dashCooldownTimer;
         private bool _hasDoubleJump;
         private bool _canAirDash;
+        private bool _isBouncing;
 
         private Vector2 _activeCheckpointPosition;
 
@@ -56,6 +59,7 @@ namespace AlmaDino.Features.Player.Controllers
         public FacingDirection2D FacingDirection => _facingDirection;
         public PlayerStateMachine StateMachine => _stateMachine;
 
+        public bool IsBouncing => _isBouncing;
         public bool HasDoubleJump { get => _hasDoubleJump; set => _hasDoubleJump = value; }
         public bool CanAirDash => _dashUnlocked && _canAirDash && _dashCooldownTimer <= 0f;
         public float CoyoteTimer => _coyoteTimer;
@@ -90,12 +94,15 @@ namespace AlmaDino.Features.Player.Controllers
                     break;
             }
 
+            // Persistir de forma permanente en la partida
+            GameProgression.UnlockAbility(type);
+
             OnAbilityUnlocked?.Invoke(type);
             if (_abilityUnlockedChannel != null)
             {
                 _abilityUnlockedChannel.Raise(type);
             }
-            Debug.Log($"[PlayerController] ¡Habilidad Desbloqueada: {type}!");
+            Debug.Log($"<color=#00FF88><b>[PlayerController]</b> ¡Habilidad Desbloqueada y Persistida: {type}!</color>");
         }
 
         private void Awake()
@@ -105,12 +112,45 @@ namespace AlmaDino.Features.Player.Controllers
             if (_groundDetector == null) _groundDetector = GetComponent<GroundDetector2D>();
             if (_visualRoot == null) _visualRoot = transform;
 
+            SyncAbilitiesWithProgression();
+
             ConfigurePhysics();
             InitializeStateMachine();
 
             _activeCheckpointPosition = transform.position;
             _hasDoubleJump = _doubleJumpUnlocked;
             _canAirDash = _dashUnlocked;
+        }
+
+        private void SyncAbilitiesWithProgression()
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+
+            // Nivel 1-1 es el nivel de despertar/aprendizaje: inicia con el salto bloqueado
+            // hasta que Alma recoge la Gema Materna en el altar.
+            if (sceneName == "Level_1_1")
+            {
+                _doubleJumpUnlocked = false;
+                _groundPoundUnlocked = false;
+                _dashUnlocked = false;
+                _roarUnlocked = false;
+                return;
+            }
+
+            // En Nivel 1-2 en adelante el jugador ya dominó el Aleteo Materno
+            GameProgression.EnsureLevelBaseline(sceneName);
+
+            // Si el inspector de este nivel ya activó alguna habilidad, registrarla en la progresión
+            if (_doubleJumpUnlocked) GameProgression.UnlockAbility(AbilityType.DoubleJump);
+            if (_groundPoundUnlocked) GameProgression.UnlockAbility(AbilityType.GroundPound);
+            if (_dashUnlocked) GameProgression.UnlockAbility(AbilityType.Dash);
+            if (_roarUnlocked) GameProgression.UnlockAbility(AbilityType.Roar);
+
+            // Sincronizar estado local del jugador con la persistencia
+            _doubleJumpUnlocked = GameProgression.IsAbilityUnlocked(AbilityType.DoubleJump);
+            _groundPoundUnlocked = GameProgression.IsAbilityUnlocked(AbilityType.GroundPound);
+            _dashUnlocked = GameProgression.IsAbilityUnlocked(AbilityType.Dash);
+            _roarUnlocked = GameProgression.IsAbilityUnlocked(AbilityType.Roar);
         }
 
         public void ResetGravityScale()
@@ -167,6 +207,7 @@ namespace AlmaDino.Features.Player.Controllers
 
             if (_groundDetector.IsGrounded)
             {
+                _isBouncing = false;
                 _coyoteTimer = _config != null ? _config.CoyoteTime : 0.14f;
                 _hasDoubleJump = _doubleJumpUnlocked && (_config == null || _config.CanDoubleJump);
                 _canAirDash = _dashUnlocked && (_config == null || _config.CanDash);
@@ -241,12 +282,33 @@ namespace AlmaDino.Features.Player.Controllers
 
         public void ApplyBounce(float verticalVelocity, bool refreshAirAbilities)
         {
-            SetVelocityY(verticalVelocity);
+            _isBouncing = true;
+            _coyoteTimer = 0f;
+            _jumpBufferTimer = 0f;
+
+            // Cambiar a estado Jump primero
+            _stateMachine.ChangeState(PlayerStateEnum.Jump);
+
+            // Si el jugador mantiene o presiona el botón de salto al rebotar: SUPER REBOTE (+18%)
+            float finalVelocity = verticalVelocity;
+            if (Input.JumpHeld || Input.JumpDown)
+            {
+                finalVelocity *= 1.18f;
+                Debug.Log($"<color=#00FFFF><b>[PlayerController]</b> ¡SUPER REBOTE! vy = {finalVelocity:F1} m/s</color>");
+            }
+
+            // Asignar velocidad de rebote DESPUÉS de JumpState.Enter()
+            SetVelocityY(finalVelocity);
+
             if (refreshAirAbilities && _doubleJumpUnlocked)
             {
                 _hasDoubleJump = true;
             }
-            _stateMachine.ChangeState(PlayerStateEnum.Jump);
+        }
+
+        public void ClearBouncing()
+        {
+            _isBouncing = false;
         }
 
         private void UpdateFacingDirection()

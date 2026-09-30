@@ -29,6 +29,13 @@ namespace AlmaDino.Core.Editor
             Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Nivel 1-2 cargado exitosamente!</color>");
         }
 
+        [MenuItem("Alma/🔄 Resetear Progresión de Partida")]
+        public static void ResetGameProgression()
+        {
+            AlmaDino.Core.Progression.GameProgression.ResetProgression();
+            EditorUtility.DisplayDialog("Alma: Mother's Roar", "¡Progresión de habilidades reseteada a estado inicial!\nAhora puedes probar el tutorial del Nivel 1-1 desde cero.", "Aceptar");
+        }
+
         // Se ejecuta exclusivamente desde el menú manual para evitar sobreescritura accidental durante recargas de dominio
         [MenuItem("Alma/🛠️ Reparar Escena y Visuales")]
         public static void EnsureSceneVisualsAndReload()

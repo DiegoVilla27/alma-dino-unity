@@ -19,11 +19,17 @@ namespace AlmaDino.Features.Player.Services.States
         {
             _player.ConsumeJumpBuffer();
             _player.ConsumeCoyoteTime();
-            float jumpForce = _player.Config != null ? _player.Config.JumpForce : 8.2f;
-            _player.SetVelocityY(jumpForce);
+            if (!_player.IsBouncing)
+            {
+                float jumpForce = _player.Config != null ? _player.Config.JumpForce : 8.2f;
+                _player.SetVelocityY(jumpForce);
+            }
         }
 
-        public void Exit() { }
+        public void Exit()
+        {
+            _player.ClearBouncing();
+        }
 
         public void UpdateLogic(float deltaTime)
         {
@@ -59,8 +65,8 @@ namespace AlmaDino.Features.Player.Services.States
             float airAccel = _player.Config != null ? moveSpeed / Mathf.Max(0.01f, _player.Config.AccelerationTime * 1.3f) : 70f;
             _player.AccelerateHorizontally(targetSpeed, airAccel);
 
-            // Jump Cut: si se suelta el botón de salto antes de la cima, se aplica gravedad incrementada proporcional a base gravityScale
-            if (!_player.Input.JumpHeld && _player.Rigidbody.linearVelocity.y > 0f)
+            // Jump Cut: solo aplica a saltos manuales del jugador, NUNCA cuando es un impulso de hongo/rebote
+            if (!_player.IsBouncing && !_player.Input.JumpHeld && _player.Rigidbody.linearVelocity.y > 0f)
             {
                 float cutMult = _player.Config != null ? _player.Config.JumpCutGravityMultiplier : 2.4f;
                 float baseGravScale = _player.Config != null ? _player.Config.GravityScale : 2.2f;
