@@ -200,6 +200,22 @@ namespace AlmaDino.Tests.EditMode
         }
 
         [Test]
+        public void GroundPound_WaitsForPhysicalContactBeforeEnding()
+        {
+            _player.StateMachine.ChangeState(PlayerStateEnum.GroundPound);
+            var pound = (AlmaDino.Features.Player.Services.States.PlayerGroundPoundState)_player.StateMachine.CurrentState;
+            pound.UpdateLogic(0.08f);
+            Assert.IsFalse(pound.IsDiving);
+            SetField(_player.GroundDetector, "_isGrounded", true);
+            pound.UpdateLogic(0.02f);
+            Assert.IsTrue(pound.IsDiving);
+            Assert.AreEqual(PlayerStateEnum.GroundPound, _player.StateMachine.CurrentStateType);
+            pound.RegisterLanding();
+            pound.UpdateLogic(Step);
+            Assert.AreEqual(PlayerStateEnum.Idle, _player.StateMachine.CurrentStateType);
+        }
+
+        [Test]
         public void Wind_UsesAccelerationIndependentlyForEachMassAndGravityScale()
         {
             var windObject = new GameObject("TestWind");

@@ -1727,6 +1727,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a896fdbf683b442985baf74d841fe25f, type: 3}
   - {fileID: 21300000, guid: e2836f4911974e8d8d0b8838749dc0c6, type: 3}
   _fallFps: 10
+  _walkFrames: []
+  _walkFps: 10
+  _deadFrames: []
+  _deadFps: 10
 --- !u!1 &1000000011
 GameObject:
   m_ObjectHideFlags: 0

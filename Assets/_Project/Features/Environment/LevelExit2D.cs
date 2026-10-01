@@ -15,6 +15,8 @@ namespace AlmaDino.Features.Environment
         [SerializeField] private string _victoryMessage = "Has despertado y dominado el Aleteo Materno.\nEl rastro de tus pequeños se adentra en las copas de la Jungla Esmeralda (1-2).";
 
         private bool _isCompleted = false;
+        public bool IsCompleted => _isCompleted;
+        public string NextSceneName => _nextSceneName;
 
         private void Awake()
         {
@@ -50,7 +52,7 @@ namespace AlmaDino.Features.Environment
             }
             else
             {
-                Debug.Log($"[LevelExit2D] Siguiente escena '{_nextSceneName}' aún no creada. Nivel 1-1 superado con éxito.");
+                Debug.Log($"[LevelExit2D] Siguiente escena '{_nextSceneName}' aún no creada. {SceneManager.GetActiveScene().name} completado.");
             }
         }
 
@@ -69,7 +71,7 @@ namespace AlmaDino.Features.Environment
             };
             style.normal.textColor = Color.green;
 
-            if (GUI.Button(new Rect(w * 0.5f - 120, h * 0.78f, 240, 50), "REPETIR NIVEL 1-1"))
+            if (GUI.Button(new Rect(w * 0.5f - 120, h * 0.78f, 240, 50), "REPETIR NIVEL"))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }

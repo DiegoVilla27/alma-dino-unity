@@ -53,6 +53,14 @@ namespace AlmaDino.Core.Editor
             Debug.Log("<color=#FF9800><b>[AlmaDino]</b> ¡Arena del Jefe 1 cargada exitosamente!</color>");
         }
 
+        [MenuItem("Alma/📂 Cargar Nivel 2-1")]
+        public static void OpenLevel2_1()
+        {
+            if (EditorApplication.isPlaying) return;
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+            EditorSceneManager.OpenScene(LevelBuilder2_1.ScenePath, OpenSceneMode.Single);
+        }
+
         [MenuItem("Alma/🔄 Resetear Progresión de Partida")]
         public static void ResetGameProgression()
         {
@@ -166,10 +174,7 @@ namespace AlmaDino.Core.Editor
                 EditorUtility.SetDirty(joystickBase);
             }
 
-            SetupButton("Button_Jump", VirtualButtonType.Jump);
-            SetupButton("Button_Dash", VirtualButtonType.Dash);
-            SetupButton("Button_Pound", VirtualButtonType.GroundPound);
-            SetupButton("Button_Roar", VirtualButtonType.Roar);
+            SetupTouchControls();
 
             // 7. Setup EventSystem with StandaloneInputModule (Universal & 100% stable)
             var eventSystem = Object.FindAnyObjectByType<EventSystem>(FindObjectsInactive.Include);
@@ -218,14 +223,32 @@ namespace AlmaDino.Core.Editor
             Debug.Log($"<color=#00FF88><b>[AlmaDino]</b> ¡Escena configurada y reparada con éxito! {updatedCount} SpriteRenderers Unlit, Controles Táctiles y EventSystem vinculados.</color>");
         }
 
+        public static void SetupTouchControls()
+        {
+            SetupButton("Button_Jump", VirtualButtonType.Jump);
+            SetupButton("Button_Dash", VirtualButtonType.Dash);
+            SetupButton("Button_GroundPound", VirtualButtonType.GroundPound);
+            SetupButton("Button_Pound", VirtualButtonType.GroundPound);
+            SetupButton("Button_Roar", VirtualButtonType.Roar);
+        }
+
         private static void SetupButton(string gameObjectName, VirtualButtonType buttonType)
         {
-            var btnGo = GameObject.Find(gameObjectName);
+            GameObject btnGo = null;
+            foreach (var transform in Object.FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            {
+                if (transform.name != gameObjectName) continue;
+                btnGo = transform.gameObject;
+                break;
+            }
             if (btnGo != null)
             {
                 var vb = btnGo.GetComponent<VirtualTouchButton>();
                 if (vb == null) vb = btnGo.AddComponent<VirtualTouchButton>();
                 vb.ButtonType = buttonType;
+                var legacy = btnGo.GetComponent<UnityEngine.InputSystem.OnScreen.OnScreenButton>();
+                if (legacy != null) Object.DestroyImmediate(legacy);
+                EditorUtility.SetDirty(vb);
                 EditorUtility.SetDirty(btnGo);
             }
         }
@@ -274,6 +297,18 @@ namespace AlmaDino.Core.Editor
             Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Todas las escenas actualizadas con los sprites animados de Alma!</color>");
         }
 
+        private static Sprite LoadAlmaFrame(string path)
+        {
+            var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            if (sprite != null) return sprite;
+
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate | ImportAssetOptions.ForceSynchronousImport);
+            sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            if (sprite == null)
+                throw new System.InvalidOperationException("No se pudo cargar el frame de Alma: " + path);
+            return sprite;
+        }
+
         public static void SetupAlmaVisuals(GameObject alma)
         {
             if (alma == null) return;
@@ -282,24 +317,24 @@ namespace AlmaDino.Core.Editor
             var idleSprites = new Sprite[10];
             for (int i = 1; i <= 10; i++)
             {
-                string path = $"Assets/Art/Sprites/Characters/Alma/Idle/Alma_Idle_{i:02d}.png";
-                idleSprites[i - 1] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+                string path = $"Assets/Art/Sprites/Characters/Alma/Idle/Alma_Idle_{i:D2}.png";
+                idleSprites[i - 1] = LoadAlmaFrame(path);
             }
 
             // 1b. Obtener frames de Run
             var runSprites = new Sprite[8];
             for (int i = 1; i <= 8; i++)
             {
-                string path = $"Assets/Art/Sprites/Characters/Alma/Run/Alma_Run_{i:02d}.png";
-                runSprites[i - 1] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+                string path = $"Assets/Art/Sprites/Characters/Alma/Run/Alma_Run_{i:D2}.png";
+                runSprites[i - 1] = LoadAlmaFrame(path);
             }
 
             // 1c. Obtener frames de Jump
             var jumpSprites = new Sprite[12];
             for (int i = 1; i <= 12; i++)
             {
-                string path = $"Assets/Art/Sprites/Characters/Alma/Jump/Alma_Jump_{i:02d}.png";
-                jumpSprites[i - 1] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+                string path = $"Assets/Art/Sprites/Characters/Alma/Jump/Alma_Jump_{i:D2}.png";
+                jumpSprites[i - 1] = LoadAlmaFrame(path);
             }
 
             // 1d. Obtener frames de Fall (frames 8 y 9 del set de salto)

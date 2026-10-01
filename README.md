@@ -229,6 +229,7 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 
 - **`Alma ▶ 📂 Cargar Nivel 1-1`**: Loads the tutorial and awakening scene (`Level_1_1.unity`).
 - **`Alma ▶ 📂 Cargar Nivel 1-2`**: Loads the dangerous canopy climb and 5 challenge geometry (`Level_1_2.unity`).
+- **`Alma ▶ 📂 Cargar Nivel 2-1`**: Loads the cave descent, ground-pound altar, four breakable floors and three checkpoints. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 2-1 - Descenso a la Penumbra`**.
 - **`Alma ▶ 🔄 Resetear Progresión de Partida`**: Clears `PlayerPrefs` progression data to test fresh-save onboarding from scratch.
 - **`Alma ▶ 🛠️ Reparar Escena y Visuales`**: Re-imports sprites, verifies URP 2D Unlit materials, and auto-repairs EventSystem and touch controls.
 
@@ -260,7 +261,7 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 
 ### Running Automated Tests (TDD)
 1. In the Unity Editor, navigate to **Window ▶ General ▶ Test Runner**.
-2. Select the **EditMode** tab.
+2. Select the **EditMode** tab for unit tests or **PlayMode** for the level 2-1 physics and full-route checks.
 3. Click **Run All** to execute unit tests for player state transitions (`PlayerStateMachineTests`) and persistence baseline logic (`GameProgressionTests`).
 
 ---

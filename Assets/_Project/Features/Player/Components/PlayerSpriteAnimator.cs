@@ -161,14 +161,20 @@ namespace AlmaDino.Features.Player.Components
 
             _animTimer += Time.deltaTime;
             int frameIndex = Mathf.FloorToInt(_animTimer * fps) % frames.Length;
-            _spriteRenderer.sprite = frames[frameIndex];
+            if (frames[frameIndex] != null)
+                _spriteRenderer.sprite = frames[frameIndex];
+            else
+                PlayFallbackFrame();
         }
 
         private void PlayFallbackFrame()
         {
-            if (_idleFrames != null && _idleFrames.Length > 0)
+            if (_idleFrames == null) return;
+            foreach (var frame in _idleFrames)
             {
-                _spriteRenderer.sprite = _idleFrames[0];
+                if (frame == null) continue;
+                _spriteRenderer.sprite = frame;
+                return;
             }
         }
 

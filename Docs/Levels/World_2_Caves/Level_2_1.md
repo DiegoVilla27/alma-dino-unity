@@ -38,17 +38,18 @@
 ## 3. 🧱 Mecánicas, Comportamiento de Bloques & Obstáculos
 
 - **Habilidades Habilitadas:**
-  - Movimiento base + Doble Salto + **Pisotón Sísmico (`GroundPound`)** desbloqueado a mitad de nivel.
+  - Movimiento base + Doble Salto + **Pisotón Sísmico (`GroundPound`)** desbloqueado al principio, tras el descenso al pozo.
 - **Catálogo de Bloques y Mecánicas:**
   - *Suelo Agrietado (`BreakableGround2D`):*
     - Bloques de roca fracturada con colisionador sólido.
     - Soportan que Alma camine o salte sobre ellos sin romperse.
-    - Al recibir el impacto de un **Pisotón Sísmico** desde el aire (`velocity.y <= -20.0 m/s`), el bloque se fragmenta en pedazos y se destruye con Screen Shake.
+    - Al recibir el impacto de un **Pisotón Sísmico** desde arriba, durante la fase de picado (22 m/s tras 0.1s de preparación), el bloque se desactiva con Screen Shake. Una caída normal, incluso rápida, no lo rompe. Los fragmentos visuales quedan pendientes de producción.
   - *El Pozo Inicial (Tutorial Orgánico):*
     - El nivel comienza haciéndote caer en una fosa sin retorno hacia arriba.
     - La única salida es aprender a ejecutar el Pisotón sobre las losas agrietadas del fondo para abrir el túnel hacia la siguiente cámara.
 - **Peligros:**
-  - Pozos de estalagmitas afiladas en el fondo de las caídas.
+  - Estalagmitas en los laterales de los descensos y en dos huecos de salto. La vertical del primer tutorial y de las dos losas encadenadas tiene una superficie segura debajo.
+  - Las losas se restauran al reaparecer; el desbloqueo del Pisotón se conserva.
 
 ---
 
@@ -74,3 +75,17 @@
 - [ ] **Sprites Alma:** Animación de Ground Pound (preparación en el aire, caída con cola erguida, pose de aterrizaje de impacto).
 - [ ] **VFX:** Polvillo de roca y fragmentos de piedra al destruir un bloque agrietado; onda de choque sísmica circular al tocar tierra.
 - [ ] **Audio:** Pista "Echoes in the Geode", SFX de impacto sísmico, SFX de cristales rompiéndose.
+
+
+## 6. Implementación jugable actual
+
+- **Escena:** `Assets/Scenes/World_2_Caves/Level_2_1.unity`, incluida después de `Boss_1` en Build Settings.
+- **Abrir:** `Alma > 📂 Cargar Nivel 2-1`. Regenerar con `Tools > Alma > Construir Nivel 2-1 - Descenso a la Penumbra`.
+- **Entrada:** Alma comienza en `(0, 13.2)` y cae hacia la cámara del altar. El Doble Salto está disponible; el Pisotón se obtiene tocando la geoda. Dash y Rugido aún no están disponibles en una partida nueva.
+- **Tutorial:** primera losa de 3m, con aterrizaje seguro a 7m por debajo; permite probar caminar, saltar y ejecutar el Pisotón sin un peligro debajo.
+- **Práctica:** segunda losa de 4m y descenso de 5.5m; una pared obliga a abrir el paso inferior.
+- **Combinación:** salto de 3m hacia una cornisa 0.8m más alta, dos losas encadenadas atravesables con un solo Pisotón y salto final de 4m hacia una cornisa 1m más alta. Ambos saltos admiten Doble Salto.
+- **Checkpoints:** altar `(1.5, 5.2)`, primer descenso `(14, -1.8)` y galería profunda `(28, -7.3)`. Límite de muerte por caída: `y = -27`.
+- **Atmósfera:** luz global 0.20, luz de Alma de radio 3.5m, geodas cian/amatista y fondos con parallax. Geometría y decoración provisionales; tileset, animación específica, partículas y audio siguen pendientes según el checklist.
+- **Salida:** portal a `Level_2_2`. Mientras esa escena no exista, muestra la finalización y permite repetir 2-1.
+- **Validación automatizada:** entrada sin habilidades futuras, caída normal sobre losa intacta, desbloqueo y primera rotura, descenso encadenado con restauración al morir, y recorrido completo mediante entradas de movimiento/salto/Pisotón.

@@ -416,12 +416,37 @@ namespace AlmaDino.Features.Player.Controllers
                 return;
             }
 
-            if (_stateMachine.CurrentStateType == PlayerStateEnum.GroundPound)
+            HandleAbilityCollision(collision);
+        }
+
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            HandleAbilityCollision(collision);
+        }
+
+        private void HandleAbilityCollision(Collision2D collision)
+        {
+            if (_stateMachine.CurrentState is PlayerGroundPoundState pound && pound.IsDiving)
             {
+                bool landedFromAbove = false;
+                for (int i = 0; i < collision.contactCount; i++)
+                {
+                    if (collision.GetContact(i).normal.y > 0.5f)
+                    {
+                        landedFromAbove = true;
+                        break;
+                    }
+                }
+                if (!landedFromAbove) return;
+
                 if (collision.collider.TryGetComponent<IBreakable2D>(out var breakable))
                 {
                     breakable.Break();
+                    _groundDetector.ResetGroundState();
+                    SetVelocityY(-(_config != null ? _config.GroundPoundSpeed : 22f));
+                    RequestCameraShake(0.3f, 0.15f);
                 }
+                else pound.RegisterLanding();
             }
             else if (_stateMachine.CurrentStateType == PlayerStateEnum.Dash)
             {
