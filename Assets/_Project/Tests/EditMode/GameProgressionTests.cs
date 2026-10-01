@@ -58,6 +58,16 @@ namespace AlmaDino.Tests.EditMode
         }
 
         [Test]
+        public void Level32_BaselineIncludesDashWithoutRoar()
+        {
+            GameProgression.EnsureLevelBaseline("Level_3_2");
+            Assert.IsTrue(GameProgression.IsAbilityUnlocked(AbilityType.DoubleJump));
+            Assert.IsTrue(GameProgression.IsAbilityUnlocked(AbilityType.GroundPound));
+            Assert.IsTrue(GameProgression.IsAbilityUnlocked(AbilityType.Dash));
+            Assert.IsFalse(GameProgression.IsAbilityUnlocked(AbilityType.Roar));
+        }
+
+        [Test]
         public void ResetProgression_ClearsAllAbilities()
         {
             GameProgression.UnlockAbility(AbilityType.DoubleJump);

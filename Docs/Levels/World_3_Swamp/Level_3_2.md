@@ -33,7 +33,7 @@
      - Esa corriente modifica el recorrido y la velocidad, pero no obliga a retroceder frente a una aceleración de carrera de 70 m/s². Las secciones obligatorias usan barreras rompibles o abismos; si se desea un viento que impida avanzar, debe calibrarse y probarse por encima del control aéreo (~54 m/s²).
   2. *Inmunidad del Dash Aéreo:*
      - Al ejecutar el **Dash Aéreo**, Alma se vuelve inmune a la fuerza de arrastre del viento durante los `0.2 segundos` de su desplazamiento, cortando limpiamente la ráfaga y alcanzando la siguiente roca segura.
-  3. *Barreras de Cañas Podridas (`BreakableBarrier2D`):*
+  3. *Barreras de Cañas Podridas (`DashBreakableBarrier2D`):*
      - Muros de caña seca en medio de los abismos que no se pueden saltar.
      - El impacto frontal del Dash Aéreo las pulveriza al instante sin frenar la inercia de Alma.
 - **Puntos de Control:**
@@ -60,3 +60,17 @@
 - [ ] **Sprites Props:** Muro de cañas rompibles, toberas/géiseres de viento en roca.
 - [ ] **VFX:** Sistema de partículas de ráfaga de viento horizontal (estelas blancas y hojas que viajan rápido).
 - [ ] **Audio:** Pista "Gale-Force Defiance", SFX de aullido de viento en túnel, SFX de ruptura de cañas.
+
+---
+
+## 6. Implementación del prototipo
+
+- Escena: `Assets/Scenes/World_3_Swamp/Level_3_2.unity`. Entrada desde 3-1 y salida preparada para `Level_3_3`, aún sin construir.
+- Abrir con **Alma → 📂 Cargar Nivel 3-2**. Regenerar con **Tools → Alma → Construir Nivel 3-2 - El Cañón de las Ráfagas**.
+- Doble Salto, Pisotón y Dash disponibles al entrar, también con una partida limpia abierta directamente en esta escena. Rugido bloqueado. Física compartida sin cambios; cámara size 6 y anticipo direccional.
+- Pared sólida detrás del punto de aparición. Primera barrera de cañas en X=10 sobre suelo continuo hasta X=16: permite aprender a saltar y embestir sin un abismo debajo.
+- Tres fosos de lodo: X=16–25 (9m), X=40–50 (10m) y X=68–79 (11m). Barreras aéreas en X=45 y X=74.5, de 7m de altura; exigen un impacto de Dash y no se evitan con Doble Salto.
+- Cuatro zonas de viento frontal, aceleración de 12m/s² hacia la izquierda, sin compensación de gravedad. El Dash ignora exclusivamente el viento durante la acción; no protege del lodo.
+- Refugios libres de viento con checkpoints en X=28 y X=64. Las cañas rotas permanecen abiertas durante el intento de la escena; recargar la escena las restaura.
+- Arte geométrico, parallax de cañón y sauces inclinados, estelas y partículas hacia la izquierda. Música y audio definitivos pendientes.
+- Validación: **5 pruebas PlayMode del nivel** y **45 EditMode** pasan. Incluye recorrido completo con entradas reales sin muertes, viento frontal, rechazo de impactos sin Dash, refugios y pared inicial.

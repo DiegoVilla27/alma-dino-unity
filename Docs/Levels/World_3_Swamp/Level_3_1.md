@@ -76,7 +76,7 @@
 
 ## 6. Estado del prototipo y validación
 
-- Escena implementada: `Assets/Scenes/World_3_Swamp/Level_3_1.unity`. Entrada desde `Boss_2`; salida preparada para `Level_3_2`, todavía pendiente de construcción.
+- Escena implementada: `Assets/Scenes/World_3_Swamp/Level_3_1.unity`. Entrada desde `Boss_2`; salida conectada al nivel `Level_3_2`.
 - Abrir con **Alma → 📂 Cargar Nivel 3-1**. Regenerar con **Tools → Alma → Construir Nivel 3-1 - Los Fangales Tóxicos**.
 - Pared sólida de raíces en X=-5.5 (8m de altura), cerrando el extremo detrás del punto de aparición para impedir caídas por el inicio.
 - Isla inicial segura desde X=-6 hasta X=14; Espora del Viento en X=7, antes del primer abismo. Al comenzar una partida limpia, Alma conserva Doble Salto y Pisotón, pero debe recoger la espora para desbloquear Dash.
