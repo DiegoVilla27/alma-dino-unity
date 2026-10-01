@@ -117,13 +117,13 @@ namespace AlmaDino.Core.Editor
         private static void ConfigureCameraAndLight(PlayerController player)
         {
             var camera = Camera.main;
-            camera.orthographicSize = 5.2f;
+            camera.orthographicSize = 6f;
             camera.backgroundColor = new Color(0.025f, 0.045f, 0.1f);
             camera.transform.position = new Vector3(1f, 12.5f, -10f);
             var follow = camera.GetComponent<Camera2DFollow>();
             follow.SetTarget(player.transform);
             follow.SetBounds(new Vector2(-0.5f, -17f), new Vector2(58f, 13f));
-            CaveLevelSceneFactory.Set(follow, "_offset", new Vector2(0.5f, -0.5f));
+            CaveLevelSceneFactory.Set(follow, "_offset", new Vector2(0f, -0.5f));
             CaveLevelSceneFactory.Set(follow, "_smoothTime", 0.12f);
             var global = Object.FindObjectsByType<Light2D>().First(light => light.lightType == Light2D.LightType.Global);
             global.intensity = 0.2f;

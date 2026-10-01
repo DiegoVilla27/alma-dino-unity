@@ -272,9 +272,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 1000000002}
   _offset: {x: 0, y: 1.5}
-  _smoothTime: 0.2
+  _smoothTime: 0.12
   _deadZone: {x: 0.5, y: 0.5}
-  _lookAheadDistance: 2.5
+  _lookAheadDistance: 1.25
   _lookAheadSpeed: 4
   _useBounds: 1
   _minBounds: {x: -15, y: -4}

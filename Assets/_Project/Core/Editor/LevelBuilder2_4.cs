@@ -81,10 +81,10 @@ namespace AlmaDino.Core.Editor
             LevelBuilder2_2.BuildAtmosphere(f,root.transform);
             foreach(var renderer in root.GetComponentsInChildren<SpriteRenderer>())
                 if(renderer.name=="Gallery_Geode") renderer.color=new Color(0.28f,0.79f,0.89f);
-            var camera=Camera.main; camera.orthographicSize=5.5f;
+            var camera=Camera.main; camera.orthographicSize=6f;
             var follow=camera.GetComponent<Camera2DFollow>(); follow.SetTarget(player.transform);
             follow.SetBounds(new Vector2(1f,1f),new Vector2(95f,10f));
-            CaveLevelSceneFactory.Set(follow,"_offset",new Vector2(1f,2f));
+            CaveLevelSceneFactory.Set(follow,"_offset",new Vector2(0f,2f));
             camera.transform.position=new Vector3(1f,2.7f,-10f);
             foreach(var light in Object.FindObjectsByType<Light2D>())
                 if(light.lightType==Light2D.LightType.Global) {light.color=new Color(0.3f,0.75f,1f);light.intensity=0.35f;}

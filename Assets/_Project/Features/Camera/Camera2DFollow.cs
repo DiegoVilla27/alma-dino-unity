@@ -2,19 +2,22 @@ using UnityEngine;
 
 namespace AlmaDino.Features.Camera
 {
+    [RequireComponent(typeof(UnityEngine.Camera))]
     public class Camera2DFollow : MonoBehaviour
     {
+        public const float StandardOrthographicSize = 6f;
+
         [Header("Target")]
         [SerializeField] private Transform _target;
         [SerializeField] private Vector2 _offset = new Vector2(0f, 1.5f);
 
         [Header("Follow Settings")]
-        [SerializeField] private float _smoothTime = 0.2f;
+        [SerializeField] private float _smoothTime = 0.12f;
         [SerializeField] private Vector2 _deadZone = new Vector2(0.5f, 0.5f);
 
         [Header("Dynamic Look-Ahead")]
         [Tooltip("Distancia horizontal que la cámara se adelanta en la dirección de avance")]
-        [SerializeField] private float _lookAheadDistance = 2.5f;
+        [SerializeField] private float _lookAheadDistance = 1.25f;
         [Tooltip("Velocidad de transición del anticipo de cámara")]
         [SerializeField] private float _lookAheadSpeed = 4.0f;
 
@@ -30,7 +33,9 @@ namespace AlmaDino.Features.Camera
         public void SetTarget(Transform target)
         {
             _target = target;
-            if (_target != null) _targetRb = _target.GetComponent<Rigidbody2D>();
+            _targetRb = _target != null ? _target.GetComponent<Rigidbody2D>() : null;
+            _currentVelocity = Vector3.zero;
+            _currentLookAheadX = 0f;
         }
 
         public void SetBounds(Vector2 min, Vector2 max)
@@ -38,6 +43,13 @@ namespace AlmaDino.Features.Camera
             _useBounds = true;
             _minBounds = min;
             _maxBounds = max;
+        }
+
+        private void Awake()
+        {
+            var camera = GetComponent<UnityEngine.Camera>();
+            camera.orthographic = true;
+            camera.orthographicSize = StandardOrthographicSize;
         }
 
         private void Start()

@@ -91,3 +91,7 @@ Referencia de motor: [Rigidbody2D.AddForce, documentación de Unity](https://doc
 ## Techos y rescate del 2-4
 
 Los techos tienen aviso escrito y color, 3 s de preparación, 0,6 s de descenso, 0,4 s de impacto y 2 s de retirada. Los refugios inferiores quedan fuera del volumen de aplastamiento. Se reinician al morir; el Huevo Azul y la salida desbloqueada permanecen guardados. El armadillo de la salida anuncia Boss_2, cuyo combate sigue pendiente.
+
+## Cámara común de los niveles
+
+Todas las escenas, incluidas las arenas de jefes, usan cámara ortográfica de tamaño 6. `Camera2DFollow` sigue a Alma con amortiguación y un anticipo horizontal de 1.25 unidades según su velocidad; al detenerse vuelve suavemente al centro. El desplazamiento horizontal fijo es cero, para mostrar el camino de forma simétrica al caminar hacia izquierda o derecha. La relación de aspecto no cambia el zoom. Cada nivel conserva sus límites y encuadre vertical. Los constructores de escenas guardan el mismo tamaño 6.

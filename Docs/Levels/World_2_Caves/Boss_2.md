@@ -69,3 +69,15 @@
 - [ ] **Sprites Arena:** Pilares de cristal reforzados (con estados de agrietamiento tras los impactos).
 - [ ] **VFX:** Chispas saliendo del caparazón al rozar el suelo; estalactitas cayendo con estela de polvo; destello de rotura de cristal al acertar el Pisotón.
 - [ ] **Audio:** Pista "Heavy Metal and Crushed Stone", SFX de rodar pesado, SFX de choque masivo contra cristal.
+
+## Estado de implementación
+
+Arena jugable en `Assets/Scenes/World_2_Caves/Boss_2.unity`, enlazada desde 2-4 e incluida en Build Settings. Configuración editable en `ArmadilloBossConfig.asset`. Tres impactos contra pilares exponen la coronilla durante 4.5 segundos; solo un Pisotón directo inflige daño. Los saltos normales y ondas cercanas no dañan al jefe. Morir reinicia el ciclo actual y elimina las estalactitas, conservando los impactos acertados. El segundo ciclo incorpora cristales con aviso amarillo en el suelo y el tercero un salto rodante. La victoria registra el Mundo 2 y habilita la salida prevista hacia `Level_3_1`, aún pendiente de construcción. Visuales geométricos provisionales; sprites y audio finales pendientes.
+
+Validación: 42 pruebas EditMode y 2 pruebas PlayMode del Boss 2 superadas. Las pruebas físicas comprueban el daño por Pisotón directo, rechazo de caída normal y reinicio por muerte.
+
+Cámara corregida: tamaño ortográfico fijo 6, seguimiento de Alma y anticipo horizontal de 1.25 unidades. Se eliminó el encuadre automático de toda la arena. Los límites de seguimiento pertenecen a esta arena, sin heredar los de 2-4.
+
+Validación del ajuste: las 11 escenas guardan tamaño 6 y seguimiento activo. Dos pruebas PlayMode confirman el anticipo a izquierda/derecha a 7 m/s y el zoom fijo con distintas relaciones de aspecto; las dos pruebas físicas del boss también pasan.
+
+Acceso y contraataque corregidos: los refugios se centran en X = -5 y +5, con ancho 3 y superficie a Y = 2.15 (antes 2.65). El boss se aturde en X = -8 o +8, fuera de las plataformas; queda libre toda la vertical de la coronilla. Sube al refugio con doble salto, salta hacia el pilar y pulsa POUND al estar encima del jefe. Cuatro pruebas PlayMode superadas, incluidas subida desde suelo y Pisotón desde ambos refugios con controles reales.

@@ -196,7 +196,7 @@ namespace AlmaDino.Core.Editor
             if (cam != null)
             {
                 cam.orthographic = true;
-                cam.orthographicSize = 7.5f;
+                cam.orthographicSize = 6f;
                 cam.clearFlags = CameraClearFlags.SolidColor;
                 cam.backgroundColor = twilightSky;
 
