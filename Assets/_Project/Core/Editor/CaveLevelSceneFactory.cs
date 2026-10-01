@@ -143,7 +143,10 @@ namespace AlmaDino.Core.Editor
                 case Vector2 vector: property.vector2Value = vector; break;
                 case Color color: property.colorValue = color; break;
                 case Enum enumValue: property.enumValueIndex = Convert.ToInt32(enumValue); break;
-                case Object reference: property.objectReferenceValue = reference; break;
+                case Object reference:
+                    if (reference == null) throw new ArgumentException("Missing asset for " + name);
+                    property.objectReferenceValue = reference;
+                    break;
                 default: throw new ArgumentException("Unsupported serialized value for " + name);
             }
             serialized.ApplyModifiedPropertiesWithoutUndo();

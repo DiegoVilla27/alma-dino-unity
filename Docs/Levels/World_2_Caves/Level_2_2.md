@@ -34,13 +34,13 @@
   - Plataformas largas de piedra apoyadas sobre un fulcro central.
   - Al caminar sobre un extremo, bascula lentamente.
   - **Interacción con Pisotón Sísmico:**
-    - Si Alma salta alto y ejecuta un **Pisotón Sísmico** sobre un extremo del balancín:
+    - Si Alma salta y ejecuta un **Pisotón Sísmico** sobre un extremo del balancín:
       1. El extremo impactado desciende de golpe contra el suelo.
       2. El extremo opuesto sale catapultado violentamente hacia arriba.
       3. Si sobre el extremo opuesto hay un bloque de piedra, este es lanzado al aire para golpear un interruptor en el techo o romper un techo frágil.
-      4. Si Alma corre hacia el extremo elevado, puede ser catapultada a alturas imposibles para un salto normal.
+      4. Si Alma corre hacia el extremo elevado, es catapultada durante una ventana de 2.8s tras el impacto, a 15 m/s (altura base aproximada de 5.2m). El Doble Salto se recarga.
 - **Compuertas Rúnicas Temporizadas:**
-  - Interruptores de peso que se abren durante 4 segundos al ser golpeados por los bloques catapultados.
+  - Las runas del techo se activan únicamente con un contrapeso lanzado que aún asciende. Abren su compuerta durante 4 segundos. La compuerta final necesita ambas runas activas simultáneamente. Una barra verde muestra el tiempo restante; el cierre espera si Alma ocupa el hueco.
 - **Puntos de Control:**
   - *Checkpoint 1 (`X = 30.0`):* Tras dominar el primer puzle de balancín simple.
   - *Checkpoint 2 (`X = 65.0`):* Antes del gran balancín doble encadenado.
@@ -65,3 +65,19 @@
 - [ ] **Sprites Props:** Balancín de basalto con pivote central, bloque cúbico de piedra contrapeso, interruptor de techo, compuerta rúnica deslizante.
 - [ ] **VFX:** Polvo de tiza y astillas de piedra despedidas al bascular con violencia; brillo rúnico al activar el interruptor.
 - [ ] **Audio:** Pista "Resonance of Stone", SFX de basculación de roca, SFX de lanzamiento por catapulta.
+
+
+## 6. Implementación jugable actual
+
+- **Escena:** `Assets/Scenes/World_2_Caves/Level_2_2.unity`. Abrir con `Alma > 📂 Cargar Nivel 2-2`; regenerar desde `Tools > Alma > Construir Nivel 2-2 - La Galería de Ecos`.
+- **Entrada:** `(0, 0.7)`. Doble Salto y Pisotón disponibles desde el inicio, incluida la entrada directa en una partida nueva. Dash y Rugido se reservan para mundos posteriores.
+- **Tutorial seguro:** balancín centrado en X=10 y compuerta en X=20. Un salto normal permite subir; caminar inclina la tabla, pero solo un Pisotón en su extremo lanza el contrapeso hacia la runa de techo.
+- **Checkpoint 1:** `(30, 0.7)`.
+- **Práctica de catapulta:** balancín en X=40, runa en `(42.3, 6)` y compuerta en X=46. Tras golpear el extremo izquierdo, correr al derecho impulsa a Alma hacia una cornisa con superficie a Y=6.2. La cámara sigue el ascenso. Debajo hay suelo seguro para volver a intentar.
+- **Checkpoint 2:** `(65, 0.7)`.
+- **Cadena final:** balancines en X=72 y X=82. Usar el impulso del primero para pisotear el segundo; la compuerta en X=90 solo abre cuando las dos runas están activas. El trayecto completo está comprobado dentro de la ventana de 4s.
+- **Salida:** hueco de 4m con estalagmitas entre X=96 y X=100; admite Doble Salto. Portal en X=109 hacia `Level_2_3`; mientras esa escena no exista, muestra la finalización y permite repetir.
+- **Reintentos:** cada contrapeso vuelve a su posición a los 4.7s. Morir restaura tablas, pesos, runas y compuertas y conserva las habilidades.
+- **Física:** tablas cinemáticas con rotación en `FixedUpdate`, inclinación limitada a ±18° y retorno gradual; contrapesos dinámicos de masa 4, gravedad 1.8 y velocidad inicial de 14 m/s. La asistencia de catapulta usa una velocidad acotada para ofrecer resultados predecibles. Ajustes editables en `EchoSeesawConfig.asset`.
+- **Visuales:** runas ámbar/esmeralda, señales de Pisotón y carrera, iluminación local y cuatro capas de profundidad. Tileset, VFX y audio definitivos siguen pendientes según el checklist.
+- **Pruebas:** entrada y UI, inclinación por aterrizaje normal, Pisotón desde UI, temporización y repetición, cornisa alta, ambas runas, reinicio al morir, cierre seguro y recorrido completo sin teletransportes.

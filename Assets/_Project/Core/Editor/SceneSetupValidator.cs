@@ -61,6 +61,14 @@ namespace AlmaDino.Core.Editor
             EditorSceneManager.OpenScene(LevelBuilder2_1.ScenePath, OpenSceneMode.Single);
         }
 
+        [MenuItem("Alma/📂 Cargar Nivel 2-2")]
+        public static void OpenLevel2_2()
+        {
+            if (EditorApplication.isPlaying) return;
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+            EditorSceneManager.OpenScene(LevelBuilder2_2.ScenePath, OpenSceneMode.Single);
+        }
+
         [MenuItem("Alma/🔄 Resetear Progresión de Partida")]
         public static void ResetGameProgression()
         {

@@ -58,6 +58,14 @@ El viento se expresa como aceleración en m/s² y se convierte en fuerza multipl
 
 Las esporas recargan dash y doble salto al contacto. No hay que exigir que el jugador conserve un dash para poder tocar el objeto cuya función es recuperarlo.
 
+## Balancines y catapultas del 2-2
+
+Los balancines de 6m basculan en el paso fijo con inclinación limitada a ±18°. Caminar aplica una inclinación gradual según la distancia al pivote; el Pisotón debe golpear la mitad exterior de un extremo para activar la catapulta. El contrapeso sale desde el extremo contrario a 14 m/s, con gravedad 1.8 y masa 4. La runa reconoce el contrapeso ascendente, evitando activaciones por contacto de Alma o por una caída normal.
+
+Tras el golpe, Alma tiene 2.8s para correr al extremo elevado y recibir un impulso de 15 m/s, con Doble Salto recargado. Ese impulso equivale a unos 5.2m de ascenso con su gravedad base; sostener salto conserva el súper rebote existente. La cornisa de Y=6.2 exige el impulso en su recorrido normal y tiene suelo seguro debajo para reintentar.
+
+Las compuertas abren durante 4s. La final exige que las dos runas estén activas simultáneamente; el recorrido de dos balancines se ha verificado dentro de ese intervalo. Una barra muestra el tiempo restante. Si Alma ocupa el hueco al terminar el plazo, el cierre espera a que lo despeje. Los contrapesos se recuperan tras 4.7s y una muerte restaura todo el puzle. Los parámetros viven en `EchoSeesawConfig.asset`; se priorizan resultados acotados y repetibles sobre una simulación libre de masa y torque.
+
 ## Jefes y rescates
 
 El mono mantiene tres ciclos y fatiga de 3.2 / 2.8 / 2.4 s; estos tiempos coinciden con el controlador y el constructor de arena. Tras cada impacto se conserva la fase alcanzada.
@@ -66,7 +74,7 @@ El cuarto huevo se rescata en 4-4. En el combate final los cuatro están en un r
 
 ## Estado y validación
 
-El Mundo 1 dispone de escenas y constructores; sus tiempos de hojas se actualizan tanto en escenas como en código y prefab. Las fichas de mundos posteriores siguen siendo diseño: no equivalen a niveles ya construidos ni a garantías de que sus secuencias estén probadas.
+El Mundo 1 dispone de escenas y constructores; sus tiempos de hojas se actualizan tanto en escenas como en código y prefab. Los niveles 2-1 y 2-2 también disponen de escenas y constructores, con recorridos completos comprobados mediante entradas de jugador en PlayMode. Las demás fichas de mundos posteriores siguen siendo diseño: no equivalen a niveles ya construidos ni a garantías de que sus secuencias estén probadas.
 
 Las pruebas de física deben cubrir pulsaciones entre pasos, doble salto sin acumulación, distancia y dirección del dash, altura y alcance del salto, velocidad terminal y viento con distintas masas. Después se requiere jugar las escenas para valorar comodidad, lectura de señales y ritmo: una prueba matemática no sustituye la experiencia de un jugador.
 

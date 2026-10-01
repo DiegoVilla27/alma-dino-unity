@@ -87,5 +87,5 @@
 - **Combinación:** salto de 3m hacia una cornisa 0.8m más alta, dos losas encadenadas atravesables con un solo Pisotón y salto final de 4m hacia una cornisa 1m más alta. Ambos saltos admiten Doble Salto.
 - **Checkpoints:** altar `(1.5, 5.2)`, primer descenso `(14, -1.8)` y galería profunda `(28, -7.3)`. Límite de muerte por caída: `y = -27`.
 - **Atmósfera:** luz global 0.20, luz de Alma de radio 3.5m, geodas cian/amatista y fondos con parallax. Geometría y decoración provisionales; tileset, animación específica, partículas y audio siguen pendientes según el checklist.
-- **Salida:** portal a `Level_2_2`. Mientras esa escena no exista, muestra la finalización y permite repetir 2-1.
+- **Salida:** portal a `Level_2_2`. La escena 2-2 ya está disponible y se carga después de la finalización.
 - **Validación automatizada:** entrada sin habilidades futuras, caída normal sobre losa intacta, desbloqueo y primera rotura, descenso encadenado con restauración al morir, y recorrido completo mediante entradas de movimiento/salto/Pisotón.

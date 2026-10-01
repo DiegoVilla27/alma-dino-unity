@@ -446,7 +446,12 @@ namespace AlmaDino.Features.Player.Controllers
                     SetVelocityY(-(_config != null ? _config.GroundPoundSpeed : 22f));
                     RequestCameraShake(0.3f, 0.15f);
                 }
-                else pound.RegisterLanding();
+                else
+                {
+                    if (collision.collider.TryGetComponent<IGroundPoundReceiver2D>(out var receiver))
+                        receiver.ReceiveGroundPound(Rigidbody.position);
+                    pound.RegisterLanding();
+                }
             }
             else if (_stateMachine.CurrentStateType == PlayerStateEnum.Dash)
             {

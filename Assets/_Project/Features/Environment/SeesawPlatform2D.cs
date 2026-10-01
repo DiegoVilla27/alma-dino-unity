@@ -1,77 +1,91 @@
+using AlmaDino.Core.Interfaces;
 using UnityEngine;
 
 namespace AlmaDino.Features.Environment
 {
-    /// <summary>
-    /// Balancín o balancín-catapulta de piedra que oscila sobre un punto de apoyo central.
-    /// Responde a la masa y posición de aterrizaje de Alma, limitando su inclinación máxima
-    /// y regresando a la horizontal cuando no hay peso sobre él.
-    /// </summary>
-    [RequireComponent(typeof(Collider2D))]
-    public class SeesawPlatform2D : MonoBehaviour
+    [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
+    public class SeesawPlatform2D : MonoBehaviour, IGroundPoundReceiver2D
     {
-        [Header("Tilt Settings")]
-        [Tooltip("Ángulo máximo de inclinación en grados hacia cada lado")]
-        [SerializeField] private float _maxAngle = 25f;
-        [Tooltip("Sensibilidad de inclinación según la distancia al fulcro")]
-        [SerializeField] private float _tiltSensitivity = 18f;
-        [Tooltip("Velocidad de retorno a la horizontal cuando queda libre")]
-        [SerializeField] private float _returnSpeed = 4f;
-
-        [Header("Pivot Reference")]
-        [SerializeField] private Transform _plankTransform;
-
-        private float _currentAngle;
+        [SerializeField] private SeesawConfigSO _config;
+        [SerializeField] private CatapultWeight2D _counterweight;
+        [SerializeField] private MonoBehaviour _playerSource;
+        private Rigidbody2D _body;
+        private IPlayerRespawnable _player;
+        private float _halfLength;
         private float _targetAngle;
-        private bool _isOccupied;
-        private float _lastOccupiedTime;
+        private float _occupiedUntil;
+        private float _armedUntil;
+        private float _impactSide;
+        private bool _playerLaunched;
+
+        public float CurrentAngle => _body != null ? Mathf.DeltaAngle(0f, _body.rotation) : 0f;
+        public bool IsOccupied => Time.time < _occupiedUntil;
+        public bool IsArmed => Time.time < _armedUntil;
 
         private void Awake()
         {
-            if (_plankTransform == null)
-                _plankTransform = transform;
+            _body = GetComponent<Rigidbody2D>();
+            _halfLength = GetComponent<BoxCollider2D>().size.x * transform.lossyScale.x * 0.5f;
         }
 
-        private void OnCollisionStay2D(Collision2D collision)
+        private void Start()
         {
-            // Determinar si el objeto está encima de la tabla
+            _player = _playerSource as IPlayerRespawnable;
+            if (_player != null) _player.OnRespawned += ResetMechanism;
+        }
+
+        private void OnDestroy()
+        {
+            if (_player != null) _player.OnRespawned -= ResetMechanism;
+        }
+
+        private void FixedUpdate()
+        {
+            if (_config == null) return;
+            float target = IsArmed ? -_impactSide * _config.MaxAngle : IsOccupied ? _targetAngle : 0f;
+            float speed = IsArmed ? _config.ImpactTiltSpeed : IsOccupied ? _config.TiltSpeed : _config.ReturnSpeed;
+            _body.MoveRotation(Mathf.MoveTowards(CurrentAngle, target, speed * Time.fixedDeltaTime));
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision) => HandleContact(collision);
+        private void OnCollisionStay2D(Collision2D collision) => HandleContact(collision);
+
+        private void HandleContact(Collision2D collision)
+        {
+            if (_config == null || collision.gameObject.GetComponent<IPlayerRespawnable>() == null) return;
+            bool above = false;
             for (int i = 0; i < collision.contactCount; i++)
-            {
-                var contact = collision.GetContact(i);
-                if (contact.point.y >= _plankTransform.position.y - 0.2f)
-                {
-                    _isOccupied = true;
-                    _lastOccupiedTime = Time.time;
-
-                    // Calcular desviación horizontal respecto al centro del fulcro
-                    float deltaX = contact.point.x - _plankTransform.position.x;
-                    // Si deltaX > 0 (derecha), inclinación hacia la derecha (ángulo negativo en Z)
-                    _targetAngle = Mathf.Clamp(-deltaX * _tiltSensitivity, -_maxAngle, _maxAngle);
-                    return;
-                }
-            }
+                if (collision.GetContact(i).normal.y < -0.5f) above = true;
+            if (!above) return;
+            float lever = Mathf.Clamp((collision.transform.position.x - _body.position.x) / _halfLength, -1f, 1f);
+            _occupiedUntil = Time.time + 0.08f;
+            _targetAngle = -lever * _config.MaxAngle;
+            if (!IsArmed || _playerLaunched || lever * _impactSide > -0.65f) return;
+            var bounceable = collision.gameObject.GetComponent<IBounceable2D>();
+            if (bounceable == null) return;
+            _playerLaunched = true;
+            bounceable.ApplyBounce(_config.PlayerLaunchVelocity, true);
         }
 
-        private void Update()
+        public void ReceiveGroundPound(Vector2 impactPosition)
         {
-            if (Time.time - _lastOccupiedTime > 0.1f)
-            {
-                _isOccupied = false;
-                _targetAngle = 0f;
-            }
-
-            float speed = _isOccupied ? _tiltSensitivity * 1.5f : _returnSpeed;
-            _currentAngle = Mathf.MoveTowards(_currentAngle, _targetAngle, speed * Time.deltaTime * 20f);
-            _plankTransform.localRotation = Quaternion.Euler(0f, 0f, _currentAngle);
+            if (_config == null) return;
+            float lever = (impactPosition.x - _body.position.x) / _halfLength;
+            if (Mathf.Abs(lever) < _config.MinimumImpactLever) return;
+            _impactSide = Mathf.Sign(lever);
+            _armedUntil = Time.time + _config.LaunchWindow;
+            _playerLaunched = false;
+            if (_counterweight != null && (_counterweight.transform.position.x - _body.position.x) * _impactSide < 0f)
+                _counterweight.Launch(_config.WeightLaunchVelocity);
         }
 
-        public float CurrentAngle => _currentAngle;
-        public bool IsOccupied => _isOccupied;
-
-        private void OnDrawGizmosSelected()
+        private void ResetMechanism(Vector2 position)
         {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, 0.25f);
+            _armedUntil = _occupiedUntil = 0f;
+            _targetAngle = 0f;
+            _playerLaunched = false;
+            _body.rotation = 0f;
+            if (_counterweight != null) _counterweight.ResetWeight();
         }
     }
 }
