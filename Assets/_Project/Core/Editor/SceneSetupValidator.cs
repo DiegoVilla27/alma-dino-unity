@@ -286,6 +286,25 @@ namespace AlmaDino.Core.Editor
                 idleSprites[i - 1] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
             }
 
+            // 1b. Obtener frames de Run
+            var runSprites = new Sprite[8];
+            for (int i = 1; i <= 8; i++)
+            {
+                string path = $"Assets/Art/Sprites/Characters/Alma/Run/Alma_Run_{i:02d}.png";
+                runSprites[i - 1] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            }
+
+            // 1c. Obtener frames de Jump
+            var jumpSprites = new Sprite[12];
+            for (int i = 1; i <= 12; i++)
+            {
+                string path = $"Assets/Art/Sprites/Characters/Alma/Jump/Alma_Jump_{i:02d}.png";
+                jumpSprites[i - 1] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            }
+
+            // 1d. Obtener frames de Fall (frames 8 y 9 del set de salto)
+            var fallSprites = new Sprite[] { jumpSprites[7], jumpSprites[8] };
+
             // 2. Configurar SpriteRenderer en Visual
             var visualTr = alma.transform.Find("Visual");
             SpriteRenderer sr = null;
@@ -332,6 +351,9 @@ namespace AlmaDino.Core.Editor
             {
                 animator.SetSpriteRenderer(sr);
                 animator.SetIdleFrames(idleSprites, 8f);
+                animator.SetRunFrames(runSprites, 10f);
+                animator.SetJumpFrames(jumpSprites, 12f);
+                animator.SetFallFrames(fallSprites, 10f);
                 EditorUtility.SetDirty(animator);
             }
 

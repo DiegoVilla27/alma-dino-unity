@@ -20,19 +20,36 @@ namespace AlmaDino.Features.Player.Components
         [SerializeField] private Sprite[] _idleFrames;
         [SerializeField] private float _idleFps = 10f;
 
-        [Header("Run Animation (Futuro)")]
+        [Header("Run Animation")]
         [SerializeField] private Sprite[] _runFrames;
         [SerializeField] private float _runFps = 10f;
 
-        [Header("Airborne Animation (Futuro)")]
+        [Header("Airborne Animation")]
         [SerializeField] private Sprite[] _jumpFrames;
+        [SerializeField] private float _jumpFps = 12f;
         [SerializeField] private Sprite[] _fallFrames;
+        [SerializeField] private float _fallFps = 10f;
+
+        [Header("Other Animations")]
+        [SerializeField] private Sprite[] _walkFrames;
+        [SerializeField] private float _walkFps = 10f;
+        [SerializeField] private Sprite[] _deadFrames;
+        [SerializeField] private float _deadFps = 10f;
 
         private float _animTimer = 0f;
         private PlayerStateEnum _currentState = PlayerStateEnum.Idle;
 
         public SpriteRenderer SpriteRenderer => _spriteRenderer;
         public Sprite[] IdleFrames => _idleFrames;
+        public Sprite[] RunFrames => _runFrames;
+        public Sprite[] JumpFrames => _jumpFrames;
+        public Sprite[] FallFrames => _fallFrames;
+        public Sprite[] WalkFrames => _walkFrames;
+        public Sprite[] DeadFrames => _deadFrames;
+        public float IdleFps => _idleFps;
+        public float RunFps => _runFps;
+        public float JumpFps => _jumpFps;
+        public float FallFps => _fallFps;
 
         private void Awake()
         {
@@ -103,7 +120,7 @@ namespace AlmaDino.Features.Player.Components
                 case PlayerStateEnum.DoubleJump:
                     if (_jumpFrames != null && _jumpFrames.Length > 0)
                     {
-                        PlaySequence(_jumpFrames, _idleFps);
+                        PlaySequence(_jumpFrames, _jumpFps);
                     }
                     else
                     {
@@ -114,7 +131,13 @@ namespace AlmaDino.Features.Player.Components
                 case PlayerStateEnum.Fall:
                     if (_fallFrames != null && _fallFrames.Length > 0)
                     {
-                        PlaySequence(_fallFrames, _idleFps);
+                        PlaySequence(_fallFrames, _fallFps);
+                    }
+                    else if (_jumpFrames != null && _jumpFrames.Length > 0)
+                    {
+                        // Fallback al frame de caída/apex de la animación de salto
+                        int fallIdx = Mathf.Clamp(7, 0, _jumpFrames.Length - 1);
+                        _spriteRenderer.sprite = _jumpFrames[fallIdx];
                     }
                     else
                     {
@@ -183,6 +206,36 @@ namespace AlmaDino.Features.Player.Components
             _idleFrames = frames;
             _idleFps = fps;
             CleanLegacyVisuals();
+        }
+
+        public void SetRunFrames(Sprite[] frames, float fps = 10f)
+        {
+            _runFrames = frames;
+            _runFps = fps;
+        }
+
+        public void SetJumpFrames(Sprite[] frames, float fps = 12f)
+        {
+            _jumpFrames = frames;
+            _jumpFps = fps;
+        }
+
+        public void SetFallFrames(Sprite[] frames, float fps = 10f)
+        {
+            _fallFrames = frames;
+            _fallFps = fps;
+        }
+
+        public void SetWalkFrames(Sprite[] frames, float fps = 10f)
+        {
+            _walkFrames = frames;
+            _walkFps = fps;
+        }
+
+        public void SetDeadFrames(Sprite[] frames, float fps = 10f)
+        {
+            _deadFrames = frames;
+            _deadFps = fps;
         }
 
         public void SetSpriteRenderer(SpriteRenderer sr)
