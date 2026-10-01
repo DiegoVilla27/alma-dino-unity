@@ -211,7 +211,15 @@ Fight tuning lives in [ArmadilloBossConfig.asset](Assets/_Project/ScriptableObje
 
 Player death resets the current rolling cycle and clears crystals while preserving successful strikes **within the active encounter**. Defeating the boss records World 2 completion through `GameProgression.CompleteWorld(2)` and enables the exit.
 
-**Current limits:** Boss art is a geometric prototype; final sprites, VFX and audio remain pending. The exit targets `Level_3_1`, which has not been built yet. The current playable campaign ends at Boss 2; Worlds 3 and 4 remain planned content.
+**Current limits:** Boss art is a geometric prototype; final sprites, VFX and audio remain pending. The exit now connects to the playable `Level_3_1` Dash tutorial. The remaining World 3 levels and World 4 remain planned content.
+
+---
+
+### WORLD 3: WIND & MIST SWAMP (First Level Implemented)
+
+**Level 3-1 — Los Fangales Tóxicos** (`Assets/Scenes/World_3_Swamp/Level_3_1.unity`) introduces Air Dash through the Ancestral Wind Spore on a safe island. Alma retains Double Jump and Ground Pound, then learns to combine Jump → Double Jump → Dash across four **11m toxic-mud gaps**. Three checkpoints shorten retries; unlocked Dash persists after death. Four prototype parallax layers establish the swamp atmosphere, with the shared camera size of **6**.
+
+Four `Level3_1PlayTests` pass: protection against walking or jumping off the entrance boundary, fresh-entry abilities and destination, failure to cross the tutorial gap with Double Jump alone, and a complete input-driven route with Dash and no deaths. Boss 2 leads into this scene; its exit targets `Level_3_2`, which is not yet built. Final swamp art and audio remain pending.
 
 ---
 
@@ -291,6 +299,7 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 - **`Alma ▶ 📂 Cargar Nivel 2-4`**: Loads crushing ceilings, Pound shelters, a pressure catapult and the persistent Blue Egg rescue. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 2-4 - El Laberinto de Geodas`**.
 - **`Alma ▶ 📂 Cargar Arena Jefe 1`**: Loads the Giant Thief Monkey arena. Regenerate with **`Alma ▶ 🏗️ Reestructurar Arena Jefe 1`**.
 - **`Alma ▶ 📂 Cargar Arena Jefe 2`**: Loads the Armadillo arena. Regenerate with **`Tools ▶ Alma ▶ Construir Jefe 2 - Armadillo Prehistórico`**. Dodge three pillar impacts, then Ground Pound the glowing crown within 4.5 seconds.
+- **`Alma ▶ 📂 Cargar Nivel 3-1`**: Loads the Dash altar and four toxic gaps. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 3-1 - Los Fangales Tóxicos`**.
 - **`Alma ▶ 🔄 Resetear Progresión de Partida`**: Clears `PlayerPrefs` progression data to test fresh-save onboarding from scratch.
 - **`Alma ▶ 🛠️ Reparar Escena y Visuales`**: Re-imports sprites, verifies URP 2D Unlit materials, and auto-repairs EventSystem and touch controls.
 
@@ -325,7 +334,7 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 2. Select **EditMode** for player states, progression and encounter rules, or **PlayMode** for scene physics, cave routes, camera behavior and boss interactions.
 3. Click **Run All**, or filter by a fixture to verify a specific feature.
 
-The latest camera and Boss 2 validation passed **42 EditMode tests**, **2 camera PlayMode tests** and **4 Boss 2 PlayMode tests**. These results cover the complete EditMode suite and the two targeted PlayMode fixtures; they do not represent a fresh run of the entire PlayMode suite.
+The latest World 3 validation passed **44 EditMode tests** and **4 Level 3-1 PlayMode tests**. The previous camera and Boss 2 validation also passed **2 camera PlayMode tests** and **4 Boss 2 PlayMode tests**. These are complete EditMode and targeted PlayMode runs, rather than a fresh run of the entire PlayMode suite.
 
 - **`ArmadilloFightTests`**: Pillar impacts, vulnerability timing, successful strikes and encounter reset rules.
 - **`CameraFollowPlayTests`**: Directional follow at Alma's actual movement speed and constant size `6` in portrait and landscape.
@@ -341,8 +350,8 @@ The latest camera and Boss 2 validation passed **42 EditMode tests**, **2 camera
 | **Phase 1: Locomotion Prototype** | FSM with 8 states, Celeste-style jump curves, Jump Buffer, Coyote Time, Virtual Touch HUD. | ✅ **Completed** |
 | **Phase 2: Vertical Slice (World 1)** | Levels 1-1 and 1-2, Bouncy Mushrooms, Crumbling Leaves, Carnivorous Plants, Thief Monkey Teaser. | ✅ **Playable Prototype** |
 | **Phase 3: Jungle Conclusion** | Levels 1-3, 1-4, and Boss 1 (Giant Thief Monkey arena battle & Green Egg rescue). | ✅ **Playable Prototype** |
-| **Phase 4: Crystal Caves (World 2)** | Levels 2-1 through 2-4 playable and tested; Blue Egg rescue complete. Boss 2 has reachable refuges, clear crown-strike paths, three-hit progression and World 2 completion. Final art/audio and the World 3 transition remain pending. | ✅ **Playable Prototype** |
-| **Phase 5: Mist Swamp (World 3)** | Levels 9-12, Air Dash mechanic, horizontal wind geysers, and Boss 3 (Alpha Pterodactyl). | ⏳ Planned |
+| **Phase 4: Crystal Caves (World 2)** | Levels 2-1 through 2-4 playable and tested; Blue Egg rescue complete. Boss 2 has reachable refuges, clear crown-strike paths, three-hit progression and World 2 completion. Final art/audio remain pending; the exit connects to Level 3-1. | ✅ **Playable Prototype** |
+| **Phase 5: Mist Swamp (World 3)** | Level 3-1 Dash tutorial playable and tested; levels 3-2 through 3-4, wind challenges and Boss 3 (Alpha Pterodactyl) remain planned. | 🚀 **In Progress** |
 | **Phase 6: Volcanic Summit (World 4)** | Levels 13-16, Shockwave Roar, complete mechanic synthesis puzzles, and Final Boss (The Thief King). | ⏳ Planned |
 | **Phase 7: Polish, Audio & Launch** | Adaptive soundtrack, particle VFX, accessibility settings, and standalone PC/Mobile builds. | ⏳ Planned |
 

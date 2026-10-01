@@ -107,8 +107,9 @@ namespace AlmaDino.Core.Progression
         {
             if (!_isInitialized) Initialize();
 
-            // Nivel 1-2 en adelante y Boss 1: el jugador ya superó el despertar en 1-1, por lo que el Doble Salto es obligatorio
-            if (sceneName == "Level_2_2" || sceneName == "Level_2_3" || sceneName == "Level_2_4")
+            // Tras el altar del 2-1, conservar Doble Salto y Pisotón también al entrar al pantano.
+            if (sceneName == "Level_2_2" || sceneName == "Level_2_3" || sceneName == "Level_2_4"
+                || sceneName == "Boss_2" || sceneName == "Level_3_1")
             {
                 UnlockAbility(AbilityType.DoubleJump);
                 UnlockAbility(AbilityType.GroundPound);

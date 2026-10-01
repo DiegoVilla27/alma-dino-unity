@@ -71,3 +71,16 @@
 - [ ] **Sprites Alma:** Animación de Dash Aéreo con estela de partículas y *smear frames* de velocidad.
 - [ ] **VFX:** Ráfaga cian de viento detrás de Alma durante el Dash; burbujas de gas estallando en el foso tóxico.
 - [ ] **Audio:** Pista "Through the Sunken Mists", SFX de dash aéreo, SFX ambiental de pantano.
+
+---
+
+## 6. Estado del prototipo y validación
+
+- Escena implementada: `Assets/Scenes/World_3_Swamp/Level_3_1.unity`. Entrada desde `Boss_2`; salida preparada para `Level_3_2`, todavía pendiente de construcción.
+- Abrir con **Alma → 📂 Cargar Nivel 3-1**. Regenerar con **Tools → Alma → Construir Nivel 3-1 - Los Fangales Tóxicos**.
+- Pared sólida de raíces en X=-5.5 (8m de altura), cerrando el extremo detrás del punto de aparición para impedir caídas por el inicio.
+- Isla inicial segura desde X=-6 hasta X=14; Espora del Viento en X=7, antes del primer abismo. Al comenzar una partida limpia, Alma conserva Doble Salto y Pisotón, pero debe recoger la espora para desbloquear Dash.
+- Cuatro fosos de 11m: X=14–25, 33–44, 52–63 y 71–82. Las islas de práctica tienen 8m de anchura y la final 12m; sus superficies están en Y=0.
+- Checkpoints estables en X=10, 29 y 67. Morir en el lodo devuelve al último nido sin perder el Dash desbloqueado. Aterrizar repone la carga aérea; sigue vigente el cooldown de 0.4s.
+- Cámara ortográfica size 6, seguimiento de Alma y anticipo horizontal de 1.25 unidades. Cuatro capas de parallax, siluetas de sauces, bancos de niebla y juncos geométricos; arte y audio final pendientes.
+- `Level3_1PlayTests`: entrada y destino correctos, imposibilidad de cruzar el foso tutorial con Doble Salto solo, conservación del Dash al morir y recorrido completo con entradas reales sin muertes. Las cuatro pruebas pasan, incluida la protección del extremo de entrada al caminar y usar Doble Salto.

@@ -46,6 +46,17 @@ namespace AlmaDino.Tests.EditMode
             Assert.IsFalse(GameProgression.IsAbilityUnlocked(AbilityType.Dash));
         }
 
+        [TestCase("Boss_2")]
+        [TestCase("Level_3_1")]
+        public void CaveBossAndSwampEntry_HaveEarlierAbilities_WithoutSkippingDashAltar(string scene)
+        {
+            GameProgression.EnsureLevelBaseline(scene);
+            Assert.IsTrue(GameProgression.IsAbilityUnlocked(AbilityType.DoubleJump));
+            Assert.IsTrue(GameProgression.IsAbilityUnlocked(AbilityType.GroundPound));
+            Assert.IsFalse(GameProgression.IsAbilityUnlocked(AbilityType.Dash));
+            Assert.IsFalse(GameProgression.IsAbilityUnlocked(AbilityType.Roar));
+        }
+
         [Test]
         public void ResetProgression_ClearsAllAbilities()
         {

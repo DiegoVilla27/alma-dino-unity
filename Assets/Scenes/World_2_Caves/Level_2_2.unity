@@ -921,6 +921,9 @@ MonoBehaviour:
   _timerBar: {fileID: 896484114}
   _config: {fileID: 11400000, guid: cffb5f3b52b044e1daf2946a829cdf2e, type: 2}
   _playerSource: {fileID: 1000000007}
+  _allowReturnFromRight: 0
+  _returnPassageMaxY: 5.2
+  _returnPassageWidth: 9
 --- !u!61 &56480503
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17248,6 +17251,9 @@ MonoBehaviour:
   _timerBar: {fileID: 813719217}
   _config: {fileID: 11400000, guid: cffb5f3b52b044e1daf2946a829cdf2e, type: 2}
   _playerSource: {fileID: 1000000007}
+  _allowReturnFromRight: 0
+  _returnPassageMaxY: 5.2
+  _returnPassageWidth: 9
 --- !u!61 &1114460290
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -31662,6 +31668,9 @@ MonoBehaviour:
   _timerBar: {fileID: 583281105}
   _config: {fileID: 11400000, guid: cffb5f3b52b044e1daf2946a829cdf2e, type: 2}
   _playerSource: {fileID: 1000000007}
+  _allowReturnFromRight: 0
+  _returnPassageMaxY: 5.2
+  _returnPassageWidth: 9
 --- !u!61 &2101347844
 BoxCollider2D:
   m_ObjectHideFlags: 0

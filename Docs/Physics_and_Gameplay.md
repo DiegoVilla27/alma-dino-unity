@@ -82,7 +82,7 @@ El cuarto huevo se rescata en 4-4. En el combate final los cuatro están en un r
 
 ## Estado y validación
 
-El Mundo 1 dispone de escenas y constructores; sus tiempos de hojas se actualizan tanto en escenas como en código y prefab. Los niveles 2-1, 2-2, 2-3 y 2-4 también disponen de escenas y constructores, con recorridos completos comprobados mediante entradas de jugador en PlayMode. Las demás fichas de mundos posteriores siguen siendo diseño: no equivalen a niveles ya construidos ni a garantías de que sus secuencias estén probadas.
+El Mundo 1 dispone de escenas y constructores; sus tiempos de hojas se actualizan tanto en escenas como en código y prefab. Los niveles 2-1, 2-2, 2-3 y 2-4 también disponen de escenas y constructores, con recorridos completos comprobados mediante entradas de jugador en PlayMode. El nivel 3-1 dispone de escena y constructor, con cuatro fosos de 11m y recorrido completo verificado mediante Salto → Doble Salto → Dash. El doble salto sin Dash no cruza el foso tutorial y el desbloqueo se conserva al morir. Las demás fichas de mundos posteriores siguen siendo diseño: no equivalen a niveles ya construidos ni a garantías de que sus secuencias estén probadas.
 
 Las pruebas de física deben cubrir pulsaciones entre pasos, doble salto sin acumulación, distancia y dirección del dash, altura y alcance del salto, velocidad terminal y viento con distintas masas. Después se requiere jugar las escenas para valorar comodidad, lectura de señales y ritmo: una prueba matemática no sustituye la experiencia de un jugador.
 
@@ -90,7 +90,7 @@ Referencia de motor: [Rigidbody2D.AddForce, documentación de Unity](https://doc
 
 ## Techos y rescate del 2-4
 
-Los techos tienen aviso escrito y color, 3 s de preparación, 0,6 s de descenso, 0,4 s de impacto y 2 s de retirada. Los refugios inferiores quedan fuera del volumen de aplastamiento. Se reinician al morir; el Huevo Azul y la salida desbloqueada permanecen guardados. El armadillo de la salida anuncia Boss_2, cuyo combate sigue pendiente.
+Los techos tienen aviso escrito y color, 3 s de preparación, 0,6 s de descenso, 0,4 s de impacto y 2 s de retirada. Los refugios inferiores quedan fuera del volumen de aplastamiento. Se reinician al morir; el Huevo Azul y la salida desbloqueada permanecen guardados. El armadillo de la salida anuncia Boss_2, cuyo combate está implementado; vencerlo habilita la transición a Level_3_1.
 
 ## Cámara común de los niveles
 
