@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Unity Version](https://img.shields.io/badge/Unity-6000.0%20(Unity%206%20LTS)-black?style=for-the-badge&logo=unity)
+![Unity Version](https://img.shields.io/badge/Unity-6000.6.0f1%20(Unity%206)-black?style=for-the-badge&logo=unity)
 ![Render Pipeline](https://img.shields.io/badge/Render%20Pipeline-URP%202D-2496ED?style=for-the-badge&logo=unity)
 ![C# Version](https://img.shields.io/badge/C%23-12-239120?style=for-the-badge&logo=c-sharp)
 ![Architecture](https://img.shields.io/badge/Architecture-Modular%20Feature--First-blueviolet?style=for-the-badge)
@@ -40,9 +40,9 @@ Inspired by the tactile precision of **Celeste**, the atmospheric environmental 
 ## 🌟 Key Features
 
 - **Ultra-Responsive Locomotion**: Analogue variable-height jumping, *Coyote Time*, *Jump Buffer*, asymmetric gravity curves, and zero-friction wall/slope interaction.
-- **Cumulative Metroidvania-Lite Progression**: 4 strictly linear worlds encompassing 16 handcrafted precision levels. Each world unlocks an ability that accumulates and organically synthesizes with prior mechanics.
+- **Cumulative Metroidvania-Lite Progression**: A planned campaign of 4 strictly linear worlds encompassing 16 handcrafted precision levels; Worlds 1 and 2 currently have playable scenes and boss arenas. Each world unlocks an ability that accumulates and organically synthesizes with prior mechanics.
 - **Restrained Environmental Storytelling**: Story beats delivered via environmental atmosphere, diegetic visual cues, and short prologue/rescue text banners. Zero intrusive cutscenes or melodrama.
-- **Skill-Puzzle Boss Encounters**: 4 world-ending encounters designed as tight, 3-phase execution puzzles testing mastery of newly acquired abilities rather than repetitive health-sponge attrition.
+- **Skill-Puzzle Boss Encounters**: 4 planned world-ending encounters, with Boss 1 and Boss 2 implemented, designed as tight execution puzzles testing mastery of newly acquired abilities rather than repetitive health-sponge attrition.
 - **Diegetic HUD & Contextual Mobile UI**: Player abilities reflected through in-character feedback (feather luminescence and subtle rumbling) coupled with responsive, contextual mobile on-screen controls.
 - **True Cross-Platform Ready**: Seamless runtime input switching between Keyboard/Mouse, Gamepads (Xbox, PlayStation, Switch), and dynamic on-screen touch interfaces.
 
@@ -83,7 +83,7 @@ The current movement profile and level-design constraints are documented in [Phy
 - **Bouncy Mushrooms & Super Bounce (`BouncyPlatform2D`)**:
   - Solid elastic trampolines propelling Alma vertically at high speed (`17 m/s` by default, ~6.7m theoretical peak height; individual platforms can override it).
   - **Super Bounce (+18%)**: Holding or pressing **Jump** upon landing accelerates Alma to **`20.06 m/s`** from the default `17 m/s` (~9.3m theoretical peak height).
-  - **Ground Detector Decoupling (`IBouncySurface2D`)**: The player's [`GroundDetector2D`](file:///Users/diegovilla/Desktop/unity/AlmaDino/Assets/_Project/Features/Player/Components/GroundDetector2D.cs) ignores bouncy surfaces. This prevents state-machine false transitions into `Idle`/`Run` and avoids early Jump-Cut momentum cancellation.
+  - **Ground Detector Decoupling (`IBouncySurface2D`)**: The player's [`GroundDetector2D`](Assets/_Project/Features/Player/Components/GroundDetector2D.cs) ignores bouncy surfaces. This prevents state-machine false transitions into `Idle`/`Run` and avoids early Jump-Cut momentum cancellation.
   - **Squish & Stretch Animation**: Immediate squash compression (`0.06s`) followed by vertical elastic rebound (`0.14s`) for maximum kinetic juice.
   - **Mid-Air Momentum Preservation**: Activating Double Jump during bounce ascent preserves a stronger upward velocity; otherwise restores at least `7.6 m/s` without stacking impulses. Refreshes aerial abilities upon contact.
 - **Crumbling Canopy Leaves (`CrumblingPlatform2D`)**:
@@ -92,6 +92,17 @@ The current movement profile and level-design constraints are documented in [Phy
   - Environmental hazards operating on a 3-phase cycle: Open/Safe (1.8s) ➔ Yellow Warning (0.5s) ➔ Lethal Red Snap (1.0s).
 - **Diegetic Nest Checkpoints (`Checkpoint2D`)**:
   - Ancient abandoned nests that kindle an emerald/golden flame upon contact, permanently setting Alma's active respawn point.
+
+---
+
+## 📷 Consistent Camera Follow
+
+Every current scene uses an orthographic camera size of **6**, including both boss arenas and `SampleScene`. `Camera2DFollow` also enforces this size at runtime, preserving the same zoom in portrait and landscape orientations.
+
+- The camera follows Alma with smooth movement (`0.12s`) and a small dead zone (`0.5` units per axis).
+- Horizontal movement adds **1.25 units of look-ahead** toward the direction of travel, showing more of the path on the left or right. The offset recenters when Alma stops.
+- Level-specific vertical offsets and camera bounds remain in use. Scene builders preserve the shared zoom and neutral horizontal offset when regenerating levels.
+- Boss 2 uses the same follow behavior; the previous arena-wide automatic zoom has been removed.
 
 ---
 
@@ -133,7 +144,7 @@ To guarantee seamless gameplay across scene transitions and isolated level testi
 
 ## 🗺️ World & Level Structure
 
-### WORLD 1: EMERALD JUNGLE (Current Milestone: Vertical Slice)
+### WORLD 1: EMERALD JUNGLE (Playable Prototype)
 
 - **Atmosphere:** Lush greens, warm canopy-filtered sunlight, birdsong, and creaking boughs.
 - **Milestone:** Rescue of **Egg 1 (Green)**.
@@ -165,6 +176,45 @@ Boss 1    ("Giant Thief Monkey")      --> Canopy arena; dodge rolling fruit and 
 
 ---
 
+### WORLD 2: CRYSTAL CAVES (Playable Prototype)
+
+**Milestone:** Rescue the **Blue Egg**, then defeat the Prehistoric Armadillo using the cumulative Double Jump and Ground Pound abilities.
+
+| Scene | Level | Main Challenges |
+|---|---|---|
+| `Assets/Scenes/World_2_Caves/Level_2_1.unity` | Descenso a la Penumbra | Cave descent, Ground Pound altar, four breakable floors and three checkpoints. |
+| `Assets/Scenes/World_2_Caves/Level_2_2.unity` | La Galería de Ecos | Seesaws, counterweights, timed rune gates and a high catapult ledge. |
+| `Assets/Scenes/World_2_Caves/Level_2_3.unity` | El Filo Resonante | Armored beetles, seismic flipping, fragile-floor bridge and telegraphed bats. |
+| `Assets/Scenes/World_2_Caves/Level_2_4.unity` | El Laberinto de Geodas | Crushing ceilings, Ground Pound shelters, pressure catapult and persistent Blue Egg rescue. |
+| `Assets/Scenes/World_2_Caves/Boss_2.unity` | Armadillo Prehistórico | Pillar-impact cycles, direct crown strikes, falling crystals and a final rolling arc. |
+
+#### Boss 2: How to Win
+
+1. Dodge the rolling armadillo until it hits the arena pillars **three times**. Use the elevated refuges to avoid its path.
+2. After the third impact, its glowing crown becomes vulnerable for **4.5 seconds**.
+3. Jump outward from a refuge, align above the crown and activate **Ground Pound** while airborne (`S`, Down Arrow or the mobile `POUND` button).
+4. Repeat for **three successful crown strikes**. Ordinary landings and nearby seismic shockwaves do not damage this boss.
+
+The two one-way refuges are centered at `X = ±5`, with a width of `3m` and a top surface at `Y = 2.15m`, reachable with Double Jump. They leave clear descent paths to the boss's stun positions at `X = ±8`, so the platforms do not block the finishing dive.
+
+| Fight Parameter | Current Configuration |
+|---|---|
+| Pillar impacts per vulnerability window | `3` |
+| Successful Ground Pounds to win | `3` |
+| Vulnerability duration | `4.5s` |
+| Rolling speed across cycles | `7 / 8.5 / 10 m/s` |
+| Crown strike horizontal tolerance | `0.85m` from the boss center |
+| Falling crystals | Start after the first successful strike; `0.9s` warning, `2s` interval and `10 m/s` fall speed |
+| Final-cycle rolling arc | Third rolling leg, `2.7m` height |
+
+Fight tuning lives in [ArmadilloBossConfig.asset](Assets/_Project/ScriptableObjects/ArmadilloBossConfig.asset). `ArmadilloFight` owns the encounter rules, while `PrehistoricArmadilloBoss2D` handles movement, collisions and scene feedback. Falling crystals use a dedicated prefab and yellow ground warnings.
+
+Player death resets the current rolling cycle and clears crystals while preserving successful strikes **within the active encounter**. Defeating the boss records World 2 completion through `GameProgression.CompleteWorld(2)` and enables the exit.
+
+**Current limits:** Boss art is a geometric prototype; final sprites, VFX and audio remain pending. The exit targets `Level_3_1`, which has not been built yet. The current playable campaign ends at Boss 2; Worlds 3 and 4 remain planned content.
+
+---
+
 ## 🏗️ Software Architecture & Clean Code
 
 The codebase enforces **Modular Feature-First Architecture** with strict compile-time boundaries established by **Assembly Definitions (`.asmdef`)**:
@@ -190,16 +240,22 @@ Assets/_Project/
 │   ├── Environment/                # Interactive World Elements
 │   │   ├── AlmaDino.Features.Environment.asmdef
 │   │   └── [BouncyPlatform2D, ThiefMonkeyTeaser2D, CarnivorousPlant2D, Checkpoint2D, ...]
-│   ├── Camera/                     # Camera Rigs & Cinemachine/Follow Systems
+│   ├── Camera/                     # Smooth Follow, Directional Look-Ahead & Shake
 │   │   ├── AlmaDino.Features.Camera.asmdef
 │   │   └── [Camera2DFollow, CameraShake2D]
+│   ├── Boss/                       # World-ending encounters
+│   │   ├── Controllers/            # PrehistoricArmadilloBoss2D, BossFallingCrystal2D
+│   │   ├── Services/               # ArmadilloFight encounter rules
+│   │   └── ScriptableObjects/      # ArmadilloBossConfigSO
 │   └── MobileUI/                   # Contextual Virtual Touch Controls
 │       ├── AlmaDino.Features.MobileUI.asmdef
 │       └── Controllers/            # VirtualTouchJoystick, VirtualTouchButton, MobileHUD
 └── Tests/
-    └── EditMode/                   # Automated NUnit Tests
-        ├── AlmaDino.Tests.EditMode.asmdef
-        └── [PlayerStateMachineTests, GameProgressionTests]
+    ├── EditMode/                   # Pure rules and state transitions
+    │   ├── AlmaDino.Tests.EditMode.asmdef
+    │   └── [PlayerStateMachineTests, GameProgressionTests, ArmadilloFightTests, ...]
+    └── PlayMode/                   # Scene, input and physics integration
+        └── [CameraFollowPlayTests, Boss2PlayTests, cave route tests, ...]
 ```
 
 ### Architectural Principles:
@@ -233,6 +289,7 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 - **`Alma ▶ 📂 Cargar Nivel 2-2`**: Loads the seesaw gallery, counterweight puzzles, timed gates and high catapult ledge. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 2-2 - La Galería de Ecos`**.
 - **`Alma ▶ 📂 Cargar Nivel 2-3`**: Loads armored beetles, seismic flipping, a fragile-floor bridge puzzle and telegraphed bat flights. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 2-3 - El Filo Resonante`**.
 - **`Alma ▶ 📂 Cargar Nivel 2-4`**: Loads crushing ceilings, Pound shelters, a pressure catapult and the persistent Blue Egg rescue. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 2-4 - El Laberinto de Geodas`**.
+- **`Alma ▶ 📂 Cargar Arena Jefe 1`**: Loads the Giant Thief Monkey arena. Regenerate with **`Alma ▶ 🏗️ Reestructurar Arena Jefe 1`**.
 - **`Alma ▶ 📂 Cargar Arena Jefe 2`**: Loads the Armadillo arena. Regenerate with **`Tools ▶ Alma ▶ Construir Jefe 2 - Armadillo Prehistórico`**. Dodge three pillar impacts, then Ground Pound the glowing crown within 4.5 seconds.
 - **`Alma ▶ 🔄 Resetear Progresión de Partida`**: Clears `PlayerPrefs` progression data to test fresh-save onboarding from scratch.
 - **`Alma ▶ 🛠️ Reparar Escena y Visuales`**: Re-imports sprites, verifies URP 2D Unlit materials, and auto-repairs EventSystem and touch controls.
@@ -242,7 +299,7 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 ## 🚀 Getting Started & Setup Guide
 
 ### Prerequisites
-- **Unity 6 LTS** (recommended: `6000.0.x` or later) with **Universal Render Pipeline (URP)** installed.
+- **Unity `6000.6.0f1`**, matching `ProjectSettings/ProjectVersion.txt`, with **Universal Render Pipeline (URP)** installed.
 - **Git** with **Git LFS** enabled.
 
 ### Standard Setup Instructions
@@ -255,18 +312,25 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 2. **Open in Unity Hub**:
    - Launch Unity Hub.
    - Click **Add** ➔ **Add project from disk** and select the cloned root folder.
-   - Ensure the editor version is set to **Unity 6 LTS**.
+   - Ensure the editor version is set to **`6000.6.0f1`**.
 3. **Domain & Assembly Compilation**:
    - Unity will automatically compile the assembly definitions (`AlmaDino.Core`, `AlmaDino.Features.Player`, etc.).
 4. **Open and Run a Scene**:
    - From the Unity top menu bar, select:
-     **`Alma ▶ 📂 Cargar Nivel 1-1`** or **`Alma ▶ 📂 Cargar Nivel 1-2`**.
+     **`Alma ▶ 📂 Cargar Nivel 1-1`**, any cave level, or **`Alma ▶ 📂 Cargar Arena Jefe 2`** for the new encounter.
    - Press the **Play ▶** button in the Unity Editor toolbar.
 
 ### Running Automated Tests (TDD)
 1. In the Unity Editor, navigate to **Window ▶ General ▶ Test Runner**.
-2. Select the **EditMode** tab for unit tests or **PlayMode** for the level 2-1 physics and full-route checks.
-3. Click **Run All** to execute unit tests for player state transitions (`PlayerStateMachineTests`) and persistence baseline logic (`GameProgressionTests`).
+2. Select **EditMode** for player states, progression and encounter rules, or **PlayMode** for scene physics, cave routes, camera behavior and boss interactions.
+3. Click **Run All**, or filter by a fixture to verify a specific feature.
+
+The latest camera and Boss 2 validation passed **42 EditMode tests**, **2 camera PlayMode tests** and **4 Boss 2 PlayMode tests**. These results cover the complete EditMode suite and the two targeted PlayMode fixtures; they do not represent a fresh run of the entire PlayMode suite.
+
+- **`ArmadilloFightTests`**: Pillar impacts, vulnerability timing, successful strikes and encounter reset rules.
+- **`CameraFollowPlayTests`**: Directional follow at Alma's actual movement speed and constant size `6` in portrait and landscape.
+- **`Boss2PlayTests`**: Direct Ground Pound damage, rejection of ordinary landings, and real-input Double Jump routes onto both refuges followed by outward crown strikes.
+- Existing cave PlayMode fixtures cover level physics and full-route traversal through World 2.
 
 ---
 
@@ -275,9 +339,9 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 | Phase | Scope | Status |
 |---|---|:---:|
 | **Phase 1: Locomotion Prototype** | FSM with 8 states, Celeste-style jump curves, Jump Buffer, Coyote Time, Virtual Touch HUD. | ✅ **Completed** |
-| **Phase 2: Vertical Slice (World 1)** | Levels 1-1 and 1-2, Bouncy Mushrooms, Crumbling Leaves, Carnivorous Plants, Thief Monkey Teaser. | 🚀 **In Progress** |
-| **Phase 3: Jungle Conclusion** | Levels 1-3, 1-4, and Boss 1 (Giant Thief Monkey arena battle & Green Egg rescue). | ⏳ Planned |
-| **Phase 4: Crystal Caves (World 2)** | Levels 2-1 through 2-4 playable and tested; Blue Egg rescue complete. Boss 2 arena implemented with three rolling cycles, Ground Pound counters and World 2 completion. | 🚀 **In Progress** |
+| **Phase 2: Vertical Slice (World 1)** | Levels 1-1 and 1-2, Bouncy Mushrooms, Crumbling Leaves, Carnivorous Plants, Thief Monkey Teaser. | ✅ **Playable Prototype** |
+| **Phase 3: Jungle Conclusion** | Levels 1-3, 1-4, and Boss 1 (Giant Thief Monkey arena battle & Green Egg rescue). | ✅ **Playable Prototype** |
+| **Phase 4: Crystal Caves (World 2)** | Levels 2-1 through 2-4 playable and tested; Blue Egg rescue complete. Boss 2 has reachable refuges, clear crown-strike paths, three-hit progression and World 2 completion. Final art/audio and the World 3 transition remain pending. | ✅ **Playable Prototype** |
 | **Phase 5: Mist Swamp (World 3)** | Levels 9-12, Air Dash mechanic, horizontal wind geysers, and Boss 3 (Alpha Pterodactyl). | ⏳ Planned |
 | **Phase 6: Volcanic Summit (World 4)** | Levels 13-16, Shockwave Roar, complete mechanic synthesis puzzles, and Final Boss (The Thief King). | ⏳ Planned |
 | **Phase 7: Polish, Audio & Launch** | Adaptive soundtrack, particle VFX, accessibility settings, and standalone PC/Mobile builds. | ⏳ Planned |
