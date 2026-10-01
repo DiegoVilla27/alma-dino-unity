@@ -232,6 +232,7 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 - **`Alma ▶ 📂 Cargar Nivel 2-1`**: Loads the cave descent, ground-pound altar, four breakable floors and three checkpoints. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 2-1 - Descenso a la Penumbra`**.
 - **`Alma ▶ 📂 Cargar Nivel 2-2`**: Loads the seesaw gallery, counterweight puzzles, timed gates and high catapult ledge. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 2-2 - La Galería de Ecos`**.
 - **`Alma ▶ 📂 Cargar Nivel 2-3`**: Loads armored beetles, seismic flipping, a fragile-floor bridge puzzle and telegraphed bat flights. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 2-3 - El Filo Resonante`**.
+- **`Alma ▶ 📂 Cargar Nivel 2-4`**: Loads crushing ceilings, Pound shelters, a pressure catapult and the persistent Blue Egg rescue. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 2-4 - El Laberinto de Geodas`**.
 - **`Alma ▶ 🔄 Resetear Progresión de Partida`**: Clears `PlayerPrefs` progression data to test fresh-save onboarding from scratch.
 - **`Alma ▶ 🛠️ Reparar Escena y Visuales`**: Re-imports sprites, verifies URP 2D Unlit materials, and auto-repairs EventSystem and touch controls.
 
@@ -275,7 +276,7 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 | **Phase 1: Locomotion Prototype** | FSM with 8 states, Celeste-style jump curves, Jump Buffer, Coyote Time, Virtual Touch HUD. | ✅ **Completed** |
 | **Phase 2: Vertical Slice (World 1)** | Levels 1-1 and 1-2, Bouncy Mushrooms, Crumbling Leaves, Carnivorous Plants, Thief Monkey Teaser. | 🚀 **In Progress** |
 | **Phase 3: Jungle Conclusion** | Levels 1-3, 1-4, and Boss 1 (Giant Thief Monkey arena battle & Green Egg rescue). | ⏳ Planned |
-| **Phase 4: Crystal Caves (World 2)** | Levels 5-8, Seismic Ground Pound mechanic, brittle floors, and Boss 2 (Prehistoric Armadillo). | ⏳ Planned |
+| **Phase 4: Crystal Caves (World 2)** | Levels 2-1 through 2-4 playable and tested; Blue Egg rescue complete. Boss 2 (Prehistoric Armadillo) pending. | 🚀 **In Progress** |
 | **Phase 5: Mist Swamp (World 3)** | Levels 9-12, Air Dash mechanic, horizontal wind geysers, and Boss 3 (Alpha Pterodactyl). | ⏳ Planned |
 | **Phase 6: Volcanic Summit (World 4)** | Levels 13-16, Shockwave Roar, complete mechanic synthesis puzzles, and Final Boss (The Thief King). | ⏳ Planned |
 | **Phase 7: Polish, Audio & Launch** | Adaptive soundtrack, particle VFX, accessibility settings, and standalone PC/Mobile builds. | ⏳ Planned |

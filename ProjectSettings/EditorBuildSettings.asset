@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/World_2_Caves/Level_2_3.unity
     guid: b2f335f75ef134f2ca049e8e4a9e4ecc
   - enabled: 1
+    path: Assets/Scenes/World_2_Caves/Level_2_4.unity
+    guid: 8de4b7e462fc143b08e818c895c1425a
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:

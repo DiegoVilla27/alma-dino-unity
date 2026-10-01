@@ -11,6 +11,10 @@ namespace AlmaDino.Features.Environment
         [SerializeField] private Transform _timerBar;
         [SerializeField] private SeesawConfigSO _config;
         [SerializeField] private MonoBehaviour _playerSource;
+        [Header("Recovery Route")]
+        [SerializeField] private bool _allowReturnFromRight;
+        [SerializeField] private float _returnPassageMaxY = 5.2f;
+        [SerializeField, Min(1f)] private float _returnPassageWidth = 9f;
         private IPlayerRespawnable _player;
         private BoxCollider2D _collider;
         private Vector2 _center;
@@ -42,12 +46,21 @@ namespace AlmaDino.Features.Environment
             if (_config == null || _switches == null) return;
             float remaining = _config.GateOpenDuration;
             foreach (var rune in _switches) remaining = Mathf.Min(remaining, rune.RemainingTime);
-            bool open = _switches.Length > 0 && remaining > 0f;
+            bool open = (_switches.Length > 0 && remaining > 0f) || CanReturnFromLowerChamber();
             if (!open && IsOpen) open = PlayerInsideGate();
             _collider.enabled = !open;
             if (_visual != null)
                 _visual.color = open ? new Color(0.3f, 0.9f, 0.55f, 0.15f) : new Color(0.82f, 0.54f, 0.18f);
             if (_timerBar != null) _timerBar.localScale = new Vector3(1f, Mathf.Clamp01(remaining / _config.GateOpenDuration), 1f);
+        }
+
+        private bool CanReturnFromLowerChamber()
+        {
+            if (!_allowReturnFromRight || _playerSource == null) return false;
+            Vector2 position = _playerSource.transform.position;
+            return position.x > _center.x + _size.x * 0.5f
+                && position.x < _center.x + _returnPassageWidth
+                && position.y < _returnPassageMaxY;
         }
 
         private bool PlayerInsideGate()

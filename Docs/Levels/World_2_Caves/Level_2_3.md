@@ -72,7 +72,7 @@
 - **Puzle de sincronía:** tres escalones hasta una losa a Y=3.6. El Pisotón desde X≈40.5 rompe la losa, voltea al escarabajo y lleva a una repisa segura. El escarabajo cae sobre un pequeño apoyo de roca; su vientre sirve como plataforma antes de recuperarse. Un cierre superior evita continuar por encima de la losa; el paso inferior admite un salto corto seguido de Doble Salto hacia la cornisa de X=47.5.
 - **Checkpoint 2:** `(58, 2.2)`, antes del ascenso.
 - **Murciélagos:** tres vuelos en arco con aviso de 0.65s (símbolo `!` y cambio de color), recorrido de 1.6s y descanso de 2s. Solo el vuelo causa daño. Esperar en las cornisas y saltar durante el descanso permite subir desde Y=1.5 hasta Y=7.5.
-- **Salida:** portal en `(97, 9)` hacia `Level_2_4`. Hasta que esa escena exista, muestra la finalización y permite repetir 2-3.
+- **Salida:** portal en `(97, 9)` hacia `Level_2_4`. La escena 2-4 ya está construida y se carga tras completar el nivel.
 - **Reintentos:** morir restaura losa, patrullas y murciélagos y conserva las habilidades. Estalagmitas protegen el fondo del puzle y del ascenso; límite de caída Y=-10.
 - **Arquitectura:** módulo `AlmaDino.Features.Enemies` sin referencias internas a Player. La onda y el peligro condicional usan interfaces de Core; parámetros de enemigos en `CrystalEnemyConfig.asset` y radio sísmico en el perfil de física de Alma.
 - **Estado de producción:** iluminación turquesa, caparazón perla, vientre naranja y cuerpos provisionales. Refracción, sprites definitivos, VFX y audio siguen pendientes según el checklist.

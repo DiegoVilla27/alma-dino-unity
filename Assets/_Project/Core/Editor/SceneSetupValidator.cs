@@ -69,6 +69,14 @@ namespace AlmaDino.Core.Editor
             EditorSceneManager.OpenScene(LevelBuilder2_2.ScenePath, OpenSceneMode.Single);
         }
 
+        [MenuItem("Alma/📂 Cargar Nivel 2-4")]
+        public static void LoadLevel2_4()
+        {
+            if (EditorApplication.isPlaying) return;
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+            EditorSceneManager.OpenScene(LevelBuilder2_4.ScenePath);
+        }
+
         [MenuItem("Alma/📂 Cargar Nivel 2-3")]
         public static void OpenLevel2_3()
         {

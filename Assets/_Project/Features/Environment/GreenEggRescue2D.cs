@@ -54,6 +54,7 @@ namespace AlmaDino.Features.Environment
             if (GameProgression.IsEggRescued(_eggType))
             {
                 _isRescued = true;
+                if (_linkedPortal != null) _linkedPortal.gameObject.SetActive(true);
                 if (_pointLight != null)
                 {
                     _pointLight.intensity = 1.6f;
@@ -120,7 +121,7 @@ namespace AlmaDino.Features.Environment
             }
 
             OnEggRescued?.Invoke(_eggType);
-            Debug.Log($"<color=#00F5D4><b>[GreenEggRescue2D]</b> ¡Huevo Verde rescatado con éxito!</color>");
+            Debug.Log($"<color=#00F5D4><b>[GreenEggRescue2D]</b> ¡Huevo {_eggType} rescatado con éxito!</color>");
         }
 
         public void Configure(EggType eggType, string title, string text, Color color, LevelExit2D portal = null)

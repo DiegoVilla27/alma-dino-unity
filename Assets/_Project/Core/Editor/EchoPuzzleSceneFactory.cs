@@ -59,7 +59,7 @@ namespace AlmaDino.Core.Editor
             return rune;
         }
 
-        public void Gate(string name, float x, params RuneSwitch2D[] switches)
+        public TimedRuneGate2D Gate(string name, float x, params RuneSwitch2D[] switches)
         {
             var go = _visuals.Visual(name, _root, new Vector2(x, 7f), new Vector2(0.8f, 15f), new Color(0.82f, 0.54f, 0.18f), true);
             go.AddComponent<BoxCollider2D>();
@@ -75,9 +75,10 @@ namespace AlmaDino.Core.Editor
             for (int i = 0; i < switches.Length; i++) array.GetArrayElementAtIndex(i).objectReferenceValue = switches[i];
             serialized.ApplyModifiedPropertiesWithoutUndo();
             Label(name + "_Time_Sign", new Vector2(x - 0.8f, 3.8f), switches.Length > 1 ? "DOS RUNAS · 4 s" : "4 s →");
+            return gate;
         }
 
-        private void Label(string name, Vector2 position, string text)
+        internal void Label(string name, Vector2 position, string text)
         {
             var go = new GameObject(name);
             go.transform.SetParent(_root, false);

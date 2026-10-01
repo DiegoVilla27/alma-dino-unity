@@ -68,3 +68,18 @@
 - [ ] **Sprites Props:** Pedestal de geoda central, Huevo Azul con halo de luz 2D, techo aplastador con estalactitas afiladas.
 - [ ] **VFX:** Polvo de cristal cayendo del techo antes de descender; partículas de destellos azulados flotantes.
 - [ ] **Audio:** Pista "Labyrinth of the Sapphires", tema de rescate del Huevo Azul, SFX de terremoto y derrumbe de pared.
+
+## 6. Implementación jugable
+
+- Escena: `Assets/Scenes/World_2_Caves/Level_2_4.unity`. Abrir con `Alma > 📂 Cargar Nivel 2-4`; regenerar con `Tools > Alma > Construir Nivel 2-4 - El Laberinto de Geodas`.
+- Tres techos cinemáticos con movimiento en `FixedUpdate`, activación por proximidad y señal escrita antes de descender. Ciclo: 3 s arriba (últimos 0,8 s de aviso), descenso de 0,6 s, impacto de 0,4 s y retirada de 2 s. El ciclo completo dura 6 s; los 3 s del diseño son la ventana de preparación, no la duración total.
+- Dos refugios bajo suelo quebradizo (X 12–16 y 75–79). Pound abre un hueco de 3 m de profundidad. El techo solo llega al suelo superior, dejando el refugio seguro. Los pasos de salida permiten recuperar altura con doble salto; el sello superior impide saltarse el descenso.
+- Balancín en X 40, runa y puerta temporizada en X 46, salida elevada a 6,2 m. El aplastador presiona el extremo de Pound, dejando libre el extremo de catapulta y la trayectoria hacia la cornisa. Si Alma cae a la cámara inferior, la barrera permite volver hacia la izquierda aunque se hayan agotado los 4 s; se cierra al regresar y permite reintentar el balancín. Una señal y una rampa de regreso permiten regresar y subir de nuevo al balancín con un salto normal.
+- Escarabajo acorazado en X 61,5: se voltea con la onda sísmica durante 3,5 s. El techo bajo impide ignorar su caparazón con un salto alto.
+- Checkpoints en X 32 y X 68. Al morir se restauran suelos, techos, escarabajo, runa, contrapeso y balancín. El daño mantiene el respawn inmediato del resto del juego.
+- Huevo Azul en `(92, 2)`, sobre pedestal. El rescate se guarda y activa la salida a `Boss_2`, incluso al repetir la escena con el huevo ya rescatado. El armadillo aparece como anuncio visual del siguiente combate; el jefe aún no está construido.
+- Se reutiliza la atmósfera de cuatro capas de cuevas con geodas celestes. Arte de enemigos, techo, huevo y armadillo son provisionales. Música, rugido, partículas y cinemática de derrumbe quedan pendientes de los assets de producción.
+
+- Validación: 28 pruebas PlayMode de los cuatro niveles de cuevas y 38 EditMode aprobadas. El recorrido del 2-4 usa entradas de movimiento, salto y Pound (incluido botón UI), sin teletransportes; comprueba ambos refugios, la catapulta, la plataforma de escarabajo, el rescate y la salida. Capturas de Unity verifican Alma visible, aviso escrito, refugio y santuario.
+
+- Recuperación del balancín comprobada: desde la cámara inferior, esperar más de 4 s, volver por la puerta, subir la rampa, saltar al balancín y repetir la catapulta hasta la cornisa. La puerta se vuelve a cerrar al regresar al lado inicial; el avance por arriba sigue requerido. Las siete pruebas de puertas y catapultas del 2-2 también pasan con la apertura de retorno desactivada.
