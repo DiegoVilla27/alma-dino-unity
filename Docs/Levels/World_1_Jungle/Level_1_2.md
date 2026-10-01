@@ -43,17 +43,17 @@
   - Movimiento base completo + **Doble Salto (Aleteo Materno)** activo desde el inicio.
 - **Catálogo de Bloques y Plataformas:**
   - *Hongos Rebotadores (`BouncyPlatform2D`):*
-    - Impulso vertical base: `16.5 m/s` (~6.5m de elevación).
-    - **Súper Rebote (+18%):** Al mantener pulsado el botón de Salto (`Espacio` / `JUMP`), Alma alcanza `20.0 m/s` (~9.2m de elevación).
+    - Impulso vertical base: `17.0 m/s` (~6.7m de elevación teórica).
+    - **Súper Rebote (+18%):** Al mantener pulsado el botón de Salto (`Espacio` / `JUMP`), Alma alcanza `20.06 m/s` (~9.3m de elevación teórica).
     - Trampolín continuo: pararse encima genera rebotes sucesivos sin atascarse.
     - Desacoplados del suelo (`IBouncySurface2D`): no cortan el estado de salto ni reinician la inercia.
-  - *Plataformas de Hojas Quebradizas (`CrumblingPlatform2D`):* Hojas que tiemblan con tinte rojizo y colapsan a los `0.65 segundos`.
+  - *Plataformas de Hojas Quebradizas (`CrumblingPlatform2D`):* Hojas que tiemblan con tinte rojizo y colapsan a los `1.0 segundos`.
   - *Plantas Carnívoras Rítmicas (`CarnivorousPlant2D`):* Ciclo de 1.8s abierta ➔ 0.5s advertencia amarilla ➔ 1.0s mordisco rojo letal.
 - **Los 5 Desafíos de Diseño:**
   1. *Desafío 1 (Rebote Guiado bajo Techo de Espinas):* Hongo en `X = 8.5` bajo un techo de zarzas a `Y = 7.0`. Requiere controlar el impulso aéreo hacia la derecha para esquivar el techo y alcanzar la rama `Branch_Ledge_1`.
   2. *Desafío 2 (Compuerta Rítmica con Planta Carnívora):* Atravesar una rama estrecha con planta carnívora o saltar sobre ella hacia el segundo hongo (`X = 25.5`). Cuenta con rama de seguridad inferior.
   3. *Desafío 3 (Gran Salto de Altura / Súper Rebote & Checkpoint 1):* Desnivel vertical de +8.0m hacia `Canopy_Cliff_1` (`Y = 13.5`). Exige Súper Rebote o Doble Salto en la cima del vuelo.
-  4. *Desafío 4 (Hojas Quebradizas sobre el Gran Abismo):* Cruce ágil sobre dos hojas quebradizas (0.65s) separadas por una liana espinosa colgante.
+  4. *Desafío 4 (Hojas Quebradizas sobre el Gran Abismo):* Cruce ágil sobre dos hojas quebradizas (1.0s) separadas por una liana espinosa colgante.
   5. *Desafío 5 (Cadena Aérea de Hongos en el Vacío):* Encadenamiento de dos hongos suspendidos en troncos aéreos sobre el abismo para alcanzar la Gran Copa del Nido (`Y = 31.0`), Checkpoint 2 y el portal al Mundo 1-3.
 
 ---

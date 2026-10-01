@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AlmaDino.Core.Interfaces;
 using UnityEngine;
 
 namespace AlmaDino.Features.Environment
@@ -49,8 +50,6 @@ namespace AlmaDino.Features.Environment
 
         private void FixedUpdate()
         {
-            Vector2 force = _direction.normalized * _windStrength;
-
             for (int i = _affectedBodies.Count - 1; i >= 0; i--)
             {
                 var rb = _affectedBodies[i];
@@ -60,13 +59,19 @@ namespace AlmaDino.Features.Environment
                     continue;
                 }
 
+                if (rb.TryGetComponent<IWindAffected2D>(out var windAffected) && windAffected.IgnoresWind)
+                {
+                    continue;
+                }
+
+                Vector2 acceleration = _direction.normalized * _windStrength;
                 if (_counteractGravity && rb.gravityScale > 0f)
                 {
                     // Contrarrestar caída para permitir flotar o ascender suavemente
-                    force.y += Physics2D.gravity.magnitude * rb.gravityScale * 0.5f;
+                    acceleration -= Physics2D.gravity * rb.gravityScale * 0.5f;
                 }
 
-                rb.AddForce(force, ForceMode2D.Force);
+                rb.AddForce(acceleration * rb.mass, ForceMode2D.Force);
             }
         }
 

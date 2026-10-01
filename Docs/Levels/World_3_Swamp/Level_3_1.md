@@ -12,7 +12,7 @@
   - *Texto en Pantalla:*
     > *"¡HABILIDAD DESPERTADA: DASH AÉREO!*  
     > *Tus alas se afilan con la velocidad del vendaval.*  
-    > *En el aire, pulsa DASH para impulsarte horizontalmente, congelar la gravedad y cruzar abismos infinitos."*
+    > *En el aire, pulsa DASH para impulsarte horizontalmente, congelar la gravedad y cruzar abismos más anchos."*
 - **Pistas Narrativas en el Entorno:** Juncos doblados en la dirección del viento, huellas de simio que cruzan troncos flotantes y plumas moradas que flotan en el agua estancada.
 
 ---
@@ -40,13 +40,13 @@
   - Movimiento base + Doble Salto + Pisotón Sísmico + **Dash Aéreo (`AirDash`)** desbloqueado en el altar del nivel.
 - **Catálogo de Bloques y Mecánicas:**
   - *El Foso de Lodo Tóxico (Tutorial Orgánico de Distancia):*
-    - Un abismo de 8.5 metros de longitud sobre un lago ácido.
-    - El Doble Salto solo cubre 5.5 metros como máximo.
-    - La combinación obligatoria: **Salto ➔ Aleteo (Doble Salto) en el ápice ➔ Dash Aéreo horizontal** cubre cómodamente 9.5 metros, permitiendo aterrizar seguro en la otra orilla.
+    - Un abismo de 11 metros de longitud sobre un lago ácido.
+    - A velocidad máxima y entre superficies a la misma altura, el doble salto cubre aproximadamente 7.6–7.9 m sin ayudas de borde. La distancia útil se verifica con colisionadores y desnivel.
+    - La combinación obligatoria: **Salto ➔ Aleteo (Doble Salto) cerca del ápice ➔ Dash Aéreo cerca del final del segundo ascenso** añade 6 m al recorrido durante 0.2 s; el hueco de 11 m deja margen para aterrizar sin exigir el máximo teórico.
   - *Mecánica del Dash Aéreo:*
     - Desplaza a Alma 6 metros horizontales en `0.2 segundos`.
     - Congela la velocidad en el eje Y a cero durante esos 0.2s, permitiendo mantener la altura exacta en el aire.
-    - Cooldown de 0.4s y se recarga al tocar cualquier superficie de suelo.
+    - Cooldown de 0.4s y una carga aérea, recuperada al aterrizar o tocar una espora. La dirección se fija al iniciar el dash; no se invierte durante el impulso.
 - **Peligros:**
   - Aguas sulfurosas (daño por contacto y respawn instantáneo).
 

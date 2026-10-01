@@ -8,6 +8,7 @@ namespace AlmaDino.Features.Player.Services.States
     {
         private readonly PlayerController _player;
         private float _timer;
+        private int _direction;
 
         public PlayerStateEnum StateType => PlayerStateEnum.Dash;
 
@@ -27,21 +28,22 @@ namespace AlmaDino.Features.Player.Services.States
             float duration = _player.Config != null ? _player.Config.DashDuration : 0.2f;
             float dashSpeed = distance / Mathf.Max(0.01f, duration);
 
-            int direction = (int)_player.FacingDirection;
-            _player.SetVelocity(new Vector2(direction * dashSpeed, 0f));
+            _direction = (int)_player.FacingDirection;
+            _player.SetVelocity(new Vector2(_direction * dashSpeed, 0f));
         }
 
         public void Exit()
         {
             _player.ResetGravityScale();
+            float moveSpeed = _player.Config != null ? _player.Config.MoveSpeed : 7f;
+            _player.SetVelocityX(_direction * moveSpeed);
         }
 
         public void UpdateLogic(float deltaTime)
         {
-            _timer += deltaTime;
             float duration = _player.Config != null ? _player.Config.DashDuration : 0.2f;
 
-            if (_timer >= duration)
+            if (_timer >= duration - 0.00001f)
             {
                 if (_player.GroundDetector.IsGrounded)
                     _player.StateMachine.ChangeState(PlayerStateEnum.Run);
@@ -56,8 +58,8 @@ namespace AlmaDino.Features.Player.Services.States
             float distance = _player.Config != null ? _player.Config.DashDistance : 6.0f;
             float duration = _player.Config != null ? _player.Config.DashDuration : 0.2f;
             float dashSpeed = distance / Mathf.Max(0.01f, duration);
-            int direction = (int)_player.FacingDirection;
-            _player.SetVelocity(new Vector2(direction * dashSpeed, 0f));
+            _player.SetVelocity(new Vector2(_direction * dashSpeed, 0f));
+            _timer += fixedDeltaTime;
         }
     }
 }

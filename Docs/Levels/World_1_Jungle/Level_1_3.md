@@ -41,18 +41,18 @@
   - Movimiento base + **Doble Salto (Aleteo Materno)**. *(Sin Dash, Sin Pisotón, Sin Rugido)*.
 - **Filosofía de Nivel: "Suelo Cero"**:
   - El 85% de la superficie inferior es un foso continuo de zarzas letales. No existe suelo común de tierra donde descansar indefinidamente; la travesía se realiza de plataforma en plataforma.
-- **Catálogo de Bloques y Mecánicas Complejas (Diseño Hardcore: Doble Salto Obligatorio y Columnas de Espinas):**
+- **Catálogo de Bloques y Mecánicas Complejas (Diseño de precisión: Doble Salto Obligatorio y Columnas de Espinas):**
   1. *El Desfiladero de Espinas con Doble Salto Obligatorio:*
-     - Distancias al límite físico (`5.3m`) donde el salto simple fracasa al 100%. Exige carrera máxima y **Aleteo Materno** en el momento exacto.
+     - Huecos de aproximadamente `5.3m` combinados con desniveles y columnas de espinas. Se validan con el volumen del personaje y el coyote time: la distancia sola no demuestra que el doble salto sea obligatorio. El aleteo permite salvar altura con margen de aterrizaje.
      - Columnas verticales de espinas entre hojas que obligan a saltar hacia arriba, arquear la trayectoria y usar el segundo salto sobre las púas.
-     - Hojas reducidas a **`1.4m`** con colapso ultra rápido a los **`0.45 segundos`**.
+     - Hojas reducidas a **`1.4m`** con colapso anunciado a los **`0.75 segundos`**.
   2. *El Vuelo del Hongo entre Agujas Gigantes:*
-     - Rebote en hongo elástico (`17.0 m/s`) que exige sobrevolar una torre de espinas de 7 metros de altura, amortiguar la caída sobre una hoja aérea de `1.3m` (0.45s) y aletear de inmediato a una segunda hoja aérea hacia el Checkpoint 1.
-  3. *La Gran Bifurcación Hardcore:*
+     - Rebote en hongo elástico (`17.0 m/s`) que exige sobrevolar una torre de espinas de 7 metros de altura, amortiguar la caída sobre una hoja aérea de `1.3m` (0.75s) y aletear de inmediato a una segunda hoja aérea hacia el Checkpoint 1.
+  3. *La Gran Bifurcación:*
      - *Ruta Baja ("El Campo Minado de Zarzas"):* 4 hojas quebradizas rápidas (`1.3m`) separadas por dientes verticales de espinas que se deben saltar por encima a ritmo vertiginoso.
-     - *Ruta Alta ("El Paso del Vértigo"):* Súper Rebote (`18.5 m/s`) hacia hojas en el techo del bosque (`Y = 9.8`) divididas por una pared de espinas.
+     - *Ruta Alta ("El Paso del Vértigo"):* Rebote base (`18.5 m/s`, o `21.83 m/s` manteniendo salto) hacia hojas en el techo del bosque (`Y = 9.8`) divididas por una pared de espinas.
   4. *El Pasaje de las Dos Plantas Carnívoras (Zona 4):*
-     - Dos plantas carnívoras con ciclos desfasados encadenadas con 3 hojas quebradizas (`0.45s`): Hoja 1 ➔ Salto sobre Planta 1 ➔ Hoja Central 2 ➔ Salto sobre Planta 2 ➔ Hoja 3. Cero margen de error.
+     - Dos plantas carnívoras con ciclos desfasados encadenadas con 3 hojas quebradizas (`0.75s`): Hoja 1 ➔ Salto sobre Planta 1 ➔ Hoja Central 2 ➔ Salto sobre Planta 2 ➔ Hoja 3. Margen suficiente para leer la siguiente plataforma; el reto está en encadenar movimientos.
   5. *Ascenso Final entre Hojas en Cascada (Zona 5):*
      - Rebote ascensor (`16.5 m/s`) que exige encadenar dos hojas quebradizas en subida antes de alcanzar la cornisa de cumbre.
 - **Puntos de Control:**

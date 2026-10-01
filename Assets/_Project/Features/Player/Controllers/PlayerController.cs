@@ -16,7 +16,7 @@ namespace AlmaDino.Features.Player.Controllers
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(PlayerInputReader))]
     [RequireComponent(typeof(GroundDetector2D))]
-    public class PlayerController : MonoBehaviour, IPlayerRespawnable, IAbilityUnlockable, IBounceable2D, IDashRefillable2D
+    public class PlayerController : MonoBehaviour, IPlayerRespawnable, IAbilityUnlockable, IBounceable2D, IDashRefillable2D, IWindAffected2D
     {
         [Header("Config")]
         [SerializeField] private AlmaPhysicsConfigSO _config;
@@ -41,6 +41,9 @@ namespace AlmaDino.Features.Player.Controllers
         [SerializeField] private Transform _visualRoot;
 
         private PlayerStateMachine _stateMachine;
+        private PlayerFrameInput _pendingInput;
+        private PlayerFrameInput _physicsInput;
+        private bool _processingPhysics;
         private FacingDirection2D _facingDirection = FacingDirection2D.Right;
 
         private float _coyoteTimer;
@@ -53,15 +56,17 @@ namespace AlmaDino.Features.Player.Controllers
         private Vector2 _activeCheckpointPosition;
 
         public AlmaPhysicsConfigSO Config => _config;
-        public PlayerFrameInput Input => _inputReader.CurrentInput;
+        public PlayerFrameInput Input => _processingPhysics ? _physicsInput : _inputReader.CurrentInput;
         public Rigidbody2D Rigidbody => _rigidbody;
         public GroundDetector2D GroundDetector => _groundDetector;
         public FacingDirection2D FacingDirection => _facingDirection;
         public PlayerStateMachine StateMachine => _stateMachine;
 
         public bool IsBouncing => _isBouncing;
+        public bool IgnoresWind => _stateMachine != null && _stateMachine.CurrentStateType == PlayerStateEnum.Dash;
         public bool HasDoubleJump { get => _hasDoubleJump; set => _hasDoubleJump = value; }
-        public bool CanAirDash => _dashUnlocked && _canAirDash && _dashCooldownTimer <= 0f;
+        public bool CanAirDash => _dashUnlocked && _canAirDash && _dashCooldownTimer <= 0f
+            && (_config == null || _config.CanDash);
         public float CoyoteTimer => _coyoteTimer;
         public float JumpBufferTimer => _jumpBufferTimer;
 
@@ -197,15 +202,22 @@ namespace AlmaDino.Features.Player.Controllers
         private void Update()
         {
             HandleTimers(Time.deltaTime);
-            _stateMachine.UpdateLogic(Time.deltaTime);
+            CapturePhysicsInput();
             UpdateFacingDirection();
         }
 
         private void FixedUpdate()
         {
+            _physicsInput = _pendingInput;
+            _pendingInput.JumpDown = false;
+            _pendingInput.JumpUp = false;
+            _pendingInput.DashDown = false;
+            _pendingInput.GroundPoundDown = false;
+            _pendingInput.RoarDown = false;
+            _processingPhysics = true;
             _groundDetector.CheckGround(_rigidbody.position);
 
-            if (_groundDetector.IsGrounded)
+            if (_groundDetector.IsGrounded && _rigidbody.linearVelocity.y <= 0.1f && !_isBouncing)
             {
                 _isBouncing = false;
                 _coyoteTimer = _config != null ? _config.CoyoteTime : 0.14f;
@@ -216,9 +228,25 @@ namespace AlmaDino.Features.Player.Controllers
             if (_rigidbody.position.y < _fallDeathY)
             {
                 KillAndRespawn();
+                _processingPhysics = false;
+                return;
             }
 
+            _stateMachine.UpdateLogic(Time.fixedDeltaTime);
             _stateMachine.PhysicsUpdate(Time.fixedDeltaTime);
+            _processingPhysics = false;
+        }
+
+        private void CapturePhysicsInput()
+        {
+            var input = _inputReader.CurrentInput;
+            _pendingInput.MoveVector = input.MoveVector;
+            _pendingInput.JumpHeld = input.JumpHeld;
+            _pendingInput.JumpDown |= input.JumpDown;
+            _pendingInput.JumpUp |= input.JumpUp;
+            _pendingInput.DashDown |= input.DashDown;
+            _pendingInput.GroundPoundDown |= input.GroundPoundDown;
+            _pendingInput.RoarDown |= input.RoarDown;
         }
 
         private void HandleTimers(float dt)
@@ -263,6 +291,7 @@ namespace AlmaDino.Features.Player.Controllers
         {
             _canAirDash = _dashUnlocked && (_config == null || _config.CanDash);
             _dashCooldownTimer = 0f;
+            _hasDoubleJump = _doubleJumpUnlocked && (_config == null || _config.CanDoubleJump);
         }
 
         public void SetVelocityX(float vx)
@@ -282,8 +311,9 @@ namespace AlmaDino.Features.Player.Controllers
 
         public void AccelerateHorizontally(float targetSpeed, float rate)
         {
-            float newX = Mathf.MoveTowards(_rigidbody.linearVelocity.x, targetSpeed, rate * Time.fixedDeltaTime);
-            SetVelocityX(newX);
+            float speedDifference = targetSpeed - _rigidbody.linearVelocity.x;
+            float acceleration = Mathf.Clamp(speedDifference / Time.fixedDeltaTime, -rate, rate);
+            _rigidbody.AddForce(Vector2.right * (acceleration * _rigidbody.mass));
         }
 
         public void ApplyBounce(float verticalVelocity, bool refreshAirAbilities)
@@ -351,6 +381,9 @@ namespace AlmaDino.Features.Player.Controllers
             ResetGravityScale();
             _coyoteTimer = _config != null ? _config.CoyoteTime : 0.15f;
             _jumpBufferTimer = 0f;
+            _dashCooldownTimer = 0f;
+            _pendingInput = default;
+            _physicsInput = default;
             _hasDoubleJump = _doubleJumpUnlocked && (_config == null || _config.CanDoubleJump);
             _canAirDash = _dashUnlocked && (_config == null || _config.CanDash);
             _isBouncing = false;

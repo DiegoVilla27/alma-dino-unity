@@ -44,10 +44,11 @@
   - *Fase 2 (Tras el Altar):* **Doble Salto (Aleteo Materno)** permanente.
 - **Catálogo de Bloques y Plataformas:**
   - *Suelo de Musgo Firme (`Floor_Nest`, `Floor_Plains`):* Suelo plano y seguro con fricción cero para respuesta instantánea de movimiento.
-  - *El Gran Abismo de Aprendizaje:* Foso de 4.8 metros de ancho. Si Alma intenta cruzarlo antes de recoger la Gema, la física del salto simple se queda corta a propósito, guiándola de forma orgánica hacia la cornisa inferior donde reposa el Altar.
+  - *El Gran Abismo de Aprendizaje:* El desnivel y la cornisa inferior guían hacia el Altar. Un hueco de 4.8 m por sí solo no garantiza bloquear el salto simple: hay que contar coyote time, ancho del personaje y altura de llegada. Los obstáculos de evaluación deben requerir altura o combinar salto y aleteo, sin depender de una distancia falsa.
   - *Altar Materno (`AbilityRelic2D`):* Pedestal de piedra ancestral con una gema flotante que pulsa suavemente. Al tocarlo, congela brevemente el tiempo (hit stop) y desbloquea el Doble Salto.
+- **Hojas de práctica:** Colapso tras 1.0 s, con aviso visual desde el primer contacto.
 - **Peligros:**
-  - Ningún enemigo hostil todavía. El único peligro es caer al abismo inferior, el cual devuelve a Alma a la entrada mediante el sistema de respawn rápido.
+  - Sin enemigos hostiles. En las escenas actuales hay espinas bajo los fosos de práctica y las hojas. El contacto o una caída profunda devuelven al último checkpoint mediante respawn rápido.
 
 ---
 

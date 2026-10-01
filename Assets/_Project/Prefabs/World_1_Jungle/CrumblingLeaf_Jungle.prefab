@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4000000000000000000000000000007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: AlmaDino.Features.Environment::AlmaDino.Features.Environment.CrumblingPlatform2D
-  _crumbleDelay: 0.65
+  _crumbleDelay: 1
   _respawnDelay: 2.5
   _shakeIntensity: 0.05
   _crackingTint: {r: 0.85, g: 0.4, b: 0.4, a: 1}

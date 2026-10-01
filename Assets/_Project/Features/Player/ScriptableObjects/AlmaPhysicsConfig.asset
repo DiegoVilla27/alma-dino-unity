@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AlmaPhysicsConfig
   m_EditorClassIdentifier: 
   _moveSpeed: 7
-  _accelerationTime: 0.05
-  _decelerationTime: 0.04
+  _accelerationTime: 0.1
+  _decelerationTime: 0.08
   _gravityScale: 2.2
   _jumpForce: 8.2
   _doubleJumpForce: 7.6

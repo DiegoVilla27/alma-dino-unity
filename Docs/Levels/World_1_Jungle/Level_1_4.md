@@ -42,6 +42,7 @@
 
 - **Habilidades Habilitadas:**
   - Movimiento base completo + **Doble Salto (Aleteo Materno)** llevado a su máxima expresión.
+- **Hojas de evaluación:** Colapso tras 0.65 s, con el mismo aviso visual aprendido antes.
 - **Objetivo de Diseño: El Examen Maestro del Mundo 1**:
   - El nivel evalúa la síntesis fluida de todas las mecánicas aprendidas en 1-1, 1-2 y 1-3 sin introducir elementos nuevos:
     1. *Carrera Ascendente Vertical:* Tramo de escalada vertical rápida con hongos elásticos, donde el jugador debe alternar entre rebotes normales y **Súper Rebotes** para calcular cornisas distantes.

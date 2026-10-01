@@ -9,9 +9,9 @@ namespace AlmaDino.Features.Player.ScriptableObjects
         [Tooltip("Velocidad horizontal máxima en m/s (Calibrado: 7.0)")]
         [SerializeField] private float _moveSpeed = 7.0f;
         [Tooltip("Tiempo de aceleración hacia velocidad máxima")]
-        [SerializeField] private float _accelerationTime = 0.05f;
+        [SerializeField] private float _accelerationTime = 0.10f;
         [Tooltip("Tiempo de desaceleración hasta detenerse")]
-        [SerializeField] private float _decelerationTime = 0.04f;
+        [SerializeField] private float _decelerationTime = 0.08f;
 
         [Header("Jump Physics")]
         [Tooltip("Escala de gravedad base para físicas 2D ágiles (Calibrado: 2.2)")]
@@ -28,9 +28,9 @@ namespace AlmaDino.Features.Player.ScriptableObjects
         [SerializeField] private float _maxFallSpeed = 20.0f;
 
         [Header("Mobile Latency Compensation")]
-        [Tooltip("Tiempo tras dejar una plataforma en el que aún se permite saltar (GDD: 0.12s, ajustado para mobile: 0.14s)")]
+        [Tooltip("Tiempo tras dejar una plataforma en el que aún se permite saltar (0.14s)")]
         [SerializeField] private float _coyoteTime = 0.14f;
-        [Tooltip("Tiempo en que se almacena una pulsación de salto previa al aterrizaje (GDD: 0.10s, ajustado para mobile: 0.12s)")]
+        [Tooltip("Tiempo en que se almacena una pulsación de salto previa al aterrizaje (0.12s)")]
         [SerializeField] private float _jumpBufferTime = 0.12f;
 
         [Header("Air Dash (Mundo 3)")]

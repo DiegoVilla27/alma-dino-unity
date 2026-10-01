@@ -27,9 +27,9 @@
 
 - **Habilidades Habilitadas:**
   - Movimiento base + Doble Salto + Pisotón Sísmico + Dash Aéreo.
-- **Mecánica Estrella: Globos de Esporas (`SporeRefill2D`):**
+- **Mecánica Estrella: Globos de Esporas (`DashRefillPickup2D`):**
   - Orbes vegetales flotantes suspendidos en el aire sobre el abismo.
-  - **Recarga Aérea Instantánea:** Al atravesar un globo de esporas mediante un **Dash Aéreo**:
+  - **Recarga Aérea Instantánea:** Al tocar un globo disponible en el aire (incluido durante un **Dash Aéreo**):
     1. El globo estalla en un destello de polen bioluminiscente.
     2. El Dash Aéreo y el Doble Salto de Alma **se reinician instantáneamente en pleno vuelo** sin necesidad de tocar tierra.
     3. Permite encadenar secuencias acrobáticas: *Dash ➔ Recarga ➔ Doble Salto ➔ Dash ➔ Recarga*.

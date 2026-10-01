@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace AlmaDino.Features.Player.Controllers
 {
+    [DefaultExecutionOrder(-100)]
     public class PlayerInputReader : MonoBehaviour
     {
         [SerializeField] private InputActionAsset _inputActions;

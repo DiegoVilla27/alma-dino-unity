@@ -17,11 +17,12 @@ namespace AlmaDino.Features.Player.Services.States
 
         public void Enter()
         {
+            _player.ResetGravityScale();
             _player.HasDoubleJump = false;
             _player.ConsumeJumpBuffer();
             float force = _player.Config != null ? _player.Config.DoubleJumpForce : 7.6f;
             float currentY = _player.Rigidbody.linearVelocity.y;
-            float newVelocityY = currentY > 0f ? currentY + (force * 0.55f) : force;
+            float newVelocityY = Mathf.Max(currentY, force);
             _player.SetVelocityY(newVelocityY);
         }
 
@@ -29,6 +30,12 @@ namespace AlmaDino.Features.Player.Services.States
 
         public void UpdateLogic(float deltaTime)
         {
+            if (_player.Input.RoarDown && _player.IsRoarUnlocked && (_player.Config == null || _player.Config.CanRoar))
+            {
+                _player.StateMachine.ChangeState(PlayerStateEnum.Roar);
+                return;
+            }
+
             if (_player.Input.DashDown && _player.CanAirDash)
             {
                 _player.StateMachine.ChangeState(PlayerStateEnum.Dash);
@@ -54,13 +61,10 @@ namespace AlmaDino.Features.Player.Services.States
             float airAccel = _player.Config != null ? moveSpeed / Mathf.Max(0.01f, _player.Config.AccelerationTime * 1.3f) : 70f;
             _player.AccelerateHorizontally(targetSpeed, airAccel);
 
-            if (!_player.Input.JumpHeld && _player.Rigidbody.linearVelocity.y > 0f)
-            {
-                float cutMult = _player.Config != null ? _player.Config.JumpCutGravityMultiplier : 2.4f;
-                float baseGravScale = _player.Config != null ? _player.Config.GravityScale : 2.2f;
-                float extraGravity = Physics2D.gravity.y * baseGravScale * (cutMult - 1f) * fixedDeltaTime;
-                _player.SetVelocityY(_player.Rigidbody.linearVelocity.y + extraGravity);
-            }
+            float baseGravity = _player.Config != null ? _player.Config.GravityScale : 2.2f;
+            float cutMultiplier = _player.Config != null ? _player.Config.JumpCutGravityMultiplier : 2.4f;
+            _player.Rigidbody.gravityScale = !_player.Input.JumpHeld
+                && _player.Rigidbody.linearVelocity.y > 0f ? baseGravity * cutMultiplier : baseGravity;
         }
     }
 }

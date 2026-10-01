@@ -79,24 +79,28 @@ Las habilidades se desbloquean al inicio de cada mundo y son **acumulativas**: n
 
 | Mundo | Niveles | Habilidad | Descripción | Combinación |
 |---|---|---|---|---|
-| **1. Jungla** | 1-4 | **Doble Salto / Aleteo** | Segundo salto en el aire. El aleteo permite un pequeño impulso extra si se mantiene pulsado. | Solo habilidades base. |
+| **1. Jungla** | 1-4 | **Doble Salto / Aleteo** | Segundo impulso en el aire; mantener salto conserva la altura y soltarlo acorta el ascenso. | Solo habilidades base. |
 | **2. Cuevas** | 5-8 | **Pisotón Sísmico** | En el aire, pulsar abajo para caer rápido y golpear el suelo. Rompe suelos frágiles y aturde enemigos. | Requiere Doble Salto para alcanzar altura. |
 | **3. Pantano** | 9-12 | **Dash Aéreo** | Impulso horizontal rápido en el aire. Otorga invulnerabilidad momentánea frente a vientos. | Requiere Doble Salto + Dash para cruzar abismos largos. |
 | **4. Volcán** | 13-16 | **Rugido de Choque** | Proyectil cónico de corto alcance que empuja objetos y activa interruptores. | Requiere combinar todas las anteriores en puzles de *timing*. |
 
 ### 3.4. Física del personaje (Game Feel)
 
-Valores de partida, ajustables durante el prototipo:
+Perfil vigente, compartido por todos los mundos. La configuración de Unity y [la especificación de física](Docs/Physics_and_Gameplay.md) deben actualizarse juntas al recalibrarlo:
 
 | Parámetro | Valor sugerido | Propósito |
 |---|---|---|
-| Move Speed | 8.5 m/s | Velocidad horizontal ágil y constante. |
-| Jump Force | 14.0 m/s | Salto responsivo con gravedad ajustada. |
-| Double Jump Force | 12.0 m/s | Ligeramente inferior para mejor control. |
+| Move Speed | 7.0 m/s | Velocidad horizontal máxima. |
+| Aceleración / frenado | 0.10 / 0.08 s | Inercia breve; control aéreo en 0.13 s. |
+| Gravedad base | 21.58 m/s² | Gravedad de Unity × escala 2.2. |
+| Jump Force | 8.2 m/s | Altura teórica de 1.56 m manteniendo salto. |
+| Double Jump Force | 7.6 m/s | Restablece al menos esa velocidad; no suma impulsos ilimitados. |
+| Gravedad de caída / salto soltado | ×1.8 / ×2.4 | Caída con peso y salto de altura variable. |
+| Velocidad terminal normal | 20 m/s | El pisotón usa su límite propio de 22 m/s. |
 | Dash Distance / Time | 6 m en 0.2 s | Impulso rápido; congela la gravedad en Y durante el dash. |
 | Ground Pound Speed | 22.0 m/s hacia abajo | Caída seca con *wind-up* de 0.1 s antes de caer. |
-| Coyote Time | 0.12 s | Permite saltar tras abandonar el borde. |
-| Jump Buffer | 0.10 s | Registra el salto pulsado justo antes de aterrizar. |
+| Coyote Time | 0.14 s | Permite saltar tras abandonar el borde. |
+| Jump Buffer | 0.12 s | Registra el salto pulsado justo antes de aterrizar. |
 
 ### 3.5. Máquina de estados finita (FSM)
 
@@ -109,7 +113,7 @@ Para evitar código espagueti, el `PlayerController` se implementa como una FSM:
 [GROUND_POUND] <-----------> [AIR_DASH] <--> [ROAR_ACTION]
 ```
 
-Cada estado gestiona sus propias transiciones y animaciones. Ningún estado se solapa con otro.
+Cada estado gestiona sus propias transiciones y animaciones. Ningún estado se solapa con otro. Las pulsaciones se capturan en cada fotograma y se consumen una sola vez en el paso fijo de física; las transiciones y los impulsos se resuelven en ese paso.
 
 ### 3.6. Loop de juego
 
@@ -134,15 +138,15 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 
 | Nivel | Función pedagógica | Descripción |
 |---|---|---|
-| **1** | Introducir | Abismo infranqueable. Alma recoge la gema de energía materna y desbloquea el Doble Salto. Tutorial orgánico sin texto. |
+| **1** | Introducir | Abismo infranqueable. Alma recoge la gema de energía materna y desbloquea el Doble Salto. Tutorial mediante el entorno, con un aviso breve al despertar la habilidad. |
 | **2** | Practicar | Verticalidad y ramas elásticas. Lianas que exigen calcular el segundo salto en el punto más alto de la parábola. |
-| **3** | Complicar | Suelo de zarzas con espinas. Plataformas de hojas que se desmoronan a los 1.5 s de pisarlas. |
+| **3** | Complicar | Suelo de zarzas con espinas. Plataformas de hojas que colapsan a los 0.75 s; se enseñan con 1.0 s en 1-1/1-2 y se evalúan con 0.65 s en 1-4. |
 | **4** | Evaluar + Rescate | Carrera ascendente hacia la copa del árbol más alto. **Huevo 1 (Verde)**. |
 
 **Jefe 1 — Mono Ladrón Gigante**
 - **Arena:** Copa de árbol con tres plataformas flotantes.
 - **Fase 1:** El mono se cuelga del centro y lanza frutos rodantes. Se esquivan con Doble Salto.
-- **Fase 2:** Desciende agotado 4 segundos. Alma salta sobre su cabeza. 3 impactos para vencer.
+- **Fase 2:** Desciende agotado durante 3.2, 2.8 y 2.4 segundos según el ciclo. Alma salta sobre su cabeza. 3 impactos para vencer; se conserva el ciclo alcanzado tras morir.
 
 ---
 
@@ -203,10 +207,12 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 | **16** | Evaluar + Rescate | Antecámara del volcán antes del colapso. **Huevo 4 (Rojo)** sobre un pedestal rodeado de fuego. |
 
 **Jefe Final — El Rey Ladrón (T-Rex Anciano)**
-- **Arena:** Tres niveles de cornisas de roca rodeadas de magma.
-- **Fase 1 (Acoso):** Lanza llamaradas y muerde las plataformas inferiores. Requiere Doble Salto + Dash para escalar.
-- **Fase 2 (Contraataque):** Ruge provocando lluvia de rocas. Alma usa Rugido de Choque para batear una roca directo a sus ojos y aturdirlo.
-- **Fase 3 (Remate):** Con el jefe aturdido, Alma ejecuta Pisotón Sísmico sobre un interruptor que deja caer una estalactita masiva. 3 ciclos para vencer.
+- **Estado del rescate:** Alma entra con los cuatro huevos ya recuperados en 4-4. Los deja en un saliente protegido durante el combate.
+- **Arena:** Cornisas de basalto sobre magma; el espacio se reduce en la última fase.
+- **Fase 1:** Doble Salto + Dash para esquivar embestidas; Pisotón sobre la placa dorsal expuesta durante 4 segundos. Primer impacto.
+- **Fase 2:** Rugido para devolver un meteorito; Pisotón sobre el punto débil expuesto. Segundo impacto.
+- **Fase 3:** Ascenso ante magma creciente, combinando las cuatro habilidades para desprender la estalactita final. Tercer impacto.
+- **Recuperación:** Checkpoint por fase; reintentar restaura plataformas, mecanismos y altura del magma a un estado seguro de esa fase. Después, Alma recoge a sus cuatro hijos del refugio y escapa hacia el epílogo.
 
 ---
 
@@ -307,7 +313,7 @@ HUD minimalista y diegético.
 - **Screen shake** ligero en Pisotón Sísmico y Rugido.
 - **Hit stop** de 0.05 s al golpear jefes.
 - **Partículas:** polvo al aterrizar, chispas de cristal, hojas al correr, humo de lava.
-- **Vignette** sutil en momentos de baja vida o tensión narrativa.
+- **Vignette** sutil en momentos de tensión narrativa (no hay barra de vida).
 
 ---
 
@@ -315,7 +321,7 @@ HUD minimalista y diegético.
 
 ### 9.1. Motor y versión
 
-- **Unity 2023 LTS** con URP 2D Renderer, **o**
+- **Unity 6000.6.0f1** con URP 2D Renderer, **o**
 - **Godot 4.x** con Light2D.
 
 Ambos tienen herramientas nativas para plataformas 2D, tilemaps, luces 2D y animación por sprites.

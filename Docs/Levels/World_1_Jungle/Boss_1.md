@@ -73,7 +73,7 @@ Siguiendo la filosofía del GDD, el jefe es un **puzle de habilidad y timing**, 
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
-- [x] **Mecánicas & FSM Jefe:** Controlador modular `GiantMonkeyBoss2D` con 3 fases, lanzamiento de proyectiles, aturdimiento de 4s y derrota.
+- [x] **Mecánicas & FSM Jefe:** Controlador modular `GiantMonkeyBoss2D` con 3 fases, lanzamiento de proyectiles, fatiga de 3.2/2.8/2.4s y derrota.
 - [x] **Sprites & Prefab Proyectil:** `RollingFruitProjectile2D` con giro continuo y peligro letal `IHazard2D`.
 - [x] **Hurtbox de Cabeza:** `BossHeadHurtbox2D` para rebote satisfactorio de Alma (`ApplyBounce`) al pisar la cabeza vulnerable.
 - [x] **VFX & Cámara:** Screen Shake mediante `CameraShakeEventChannelSO`, encuadre cinemático de arena y atardecer crepuscular en luz 2D.

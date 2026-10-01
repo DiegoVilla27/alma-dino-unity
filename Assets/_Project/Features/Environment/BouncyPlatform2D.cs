@@ -13,7 +13,7 @@ namespace AlmaDino.Features.Environment
     public class BouncyPlatform2D : MonoBehaviour, IBouncySurface2D
     {
         [Header("Bounce Physics")]
-        [Tooltip("Velocidad de rebote normal en m/s (altura alcanzable ~6.5m)")]
+        [Tooltip("Velocidad de rebote normal en m/s (altura teórica ~6.7m con gravedad base 2.2)")]
         [SerializeField] private float _bounceVelocity = 17.0f;
         [Tooltip("Si el rebote renueva el Doble Salto en el aire")]
         [SerializeField] private bool _refreshDoubleJump = true;

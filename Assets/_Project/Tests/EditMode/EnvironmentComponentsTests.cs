@@ -27,6 +27,10 @@ namespace AlmaDino.Tests.EditMode
             go.AddComponent<BoxCollider2D>();
             var barrier = go.AddComponent<DashBreakableBarrier2D>();
 
+            // EditMode does not invoke the runtime Awake lifecycle automatically.
+            typeof(DashBreakableBarrier2D).GetMethod("Awake",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).Invoke(barrier, null);
+
             Assert.IsFalse(barrier.IsBroken);
             barrier.BreakWithDash();
             Assert.IsTrue(barrier.IsBroken);

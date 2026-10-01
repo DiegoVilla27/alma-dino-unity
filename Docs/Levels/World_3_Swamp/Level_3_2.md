@@ -28,9 +28,9 @@
 - **Habilidades Habilitadas:**
   - Movimiento base + Doble Salto + Pisotón Sísmico + Dash Aéreo.
 - **Mecánicas del Entorno:**
-  1. *Corrientes de Viento Frontales (`WindCurrent2D`):*
-     - Zonas de túnel donde una fuerza continua empuja a Alma hacia la izquierda con una aceleración de `-12.0 m/s`.
-     - Intentar saltar o caminar normal frena a Alma y la hace retroceder.
+  1. *Corrientes de Viento Frontales (`WindCurrentZone2D`):*
+     - Zonas de túnel donde una fuerza continua empuja a Alma hacia la izquierda con una aceleración de `-12.0 m/s²`.
+     - Esa corriente modifica el recorrido y la velocidad, pero no obliga a retroceder frente a una aceleración de carrera de 70 m/s². Las secciones obligatorias usan barreras rompibles o abismos; si se desea un viento que impida avanzar, debe calibrarse y probarse por encima del control aéreo (~54 m/s²).
   2. *Inmunidad del Dash Aéreo:*
      - Al ejecutar el **Dash Aéreo**, Alma se vuelve inmune a la fuerza de arrastre del viento durante los `0.2 segundos` de su desplazamiento, cortando limpiamente la ráfaga y alcanzando la siguiente roca segura.
   3. *Barreras de Cañas Podridas (`BreakableBarrier2D`):*

@@ -124,23 +124,23 @@ namespace AlmaDino.Core.Editor
 
             // ==========================================
             // ZONA 1: El Desfiladero de Espinas & Doble Salto Obligatorio (X = 2 a 25)
-            // Desafío: 3 hojas quebradizas estrechas (1.4m, timer 0.45s) con columnas de espinas que
+            // Desafío: 3 hojas quebradizas estrechas (1.4m, timer 0.75s) con columnas de espinas que
             // OBLIGAN a saltar alto, arquear y aletear con el doble salto sobre las columnas.
             // ==========================================
             // Hoja 1: Salto largo desde el borde (X = 1.7 ➔ X = 7.0 = 5.3m de salto obligatorio con doble salto!)
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Z1_1", new Vector3(7.0f, 1.5f, 0f), new Vector3(1.4f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Z1_1", new Vector3(7.0f, 1.5f, 0f), new Vector3(1.4f, 0.35f, 1f), 0.75f);
 
             // Columna de espinas 1: se alza entre hoja 1 y hoja 2
             CreateSpikePillar(prefabSpikes, levelRoot.transform, "Spike_Pillar_Z1_A", new Vector3(10.0f, 1.8f, 0f), new Vector2(1.2f, 3.6f), square, darkStone, unlitMat);
 
             // Hoja 2: tras sobrevolar la columna 1
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Z1_2", new Vector3(13.0f, 2.0f, 0f), new Vector3(1.4f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Z1_2", new Vector3(13.0f, 2.0f, 0f), new Vector3(1.4f, 0.35f, 1f), 0.75f);
 
             // Columna de espinas 2: se alza entre hoja 2 y hoja 3
             CreateSpikePillar(prefabSpikes, levelRoot.transform, "Spike_Pillar_Z1_B", new Vector3(16.0f, 2.4f, 0f), new Vector2(1.2f, 4.2f), square, darkStone, unlitMat);
 
             // Hoja 3: elevada, exige doble salto al ápice
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Z1_3", new Vector3(19.0f, 2.8f, 0f), new Vector3(1.4f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Z1_3", new Vector3(19.0f, 2.8f, 0f), new Vector3(1.4f, 0.35f, 1f), 0.75f);
 
             // Pilar de descanso estrecho (1.8m de ancho)
             CreateGround("Pillar_Rest_1", levelRoot.transform, new Vector3(23.5f, 2.2f, 0f), new Vector2(1.8f, 0.8f), darkStone, square, unlitMat);
@@ -149,7 +149,7 @@ namespace AlmaDino.Core.Editor
             // ==========================================
             // ZONA 2: Vuelo del Hongo entre Agujas de Espinas hacia Hojas Aéreas (X = 24 a 43)
             // Desafío: El hongo te dispara alto (17.0 m/s). Debes sobrevolar una aguja gigante de espinas,
-            // aterrizar en caída sobre una hoja quebradiza aérea (1.3m, 0.45s) y de inmediato saltar a otra!
+            // aterrizar en caída sobre una hoja quebradiza aérea (1.3m, 0.75s) y de inmediato saltar a otra!
             // ==========================================
             CreateGround("Mushroom_Stump_1", levelRoot.transform, new Vector3(26.2f, 1.0f, 0f), new Vector2(2.0f, 0.8f), darkStone, square, unlitMat);
             if (prefabMushroom != null)
@@ -171,10 +171,10 @@ namespace AlmaDino.Core.Editor
             CreateSpikePillar(prefabSpikes, levelRoot.transform, "Spike_Tower_Z2", new Vector3(30.2f, 3.8f, 0f), new Vector2(1.4f, 7.0f), square, darkStone, unlitMat);
 
             // Hoja aérea 1 (en descenso tras sobrevolar la aguja)
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Air_1", new Vector3(33.5f, 5.0f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Air_1", new Vector3(33.5f, 5.0f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
 
             // Hoja aérea 2 (salto inmediato desde hoja 1)
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Air_2", new Vector3(37.5f, 4.0f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Air_2", new Vector3(37.5f, 4.0f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
 
             // Isla Checkpoint 1 (estrecha: 2.2m)
             CreateGround("Mid_Island_Cliff", levelRoot.transform, new Vector3(41.5f, 3.2f, 0f), new Vector2(2.2f, 1.0f), darkStone, square, unlitMat);
@@ -192,17 +192,17 @@ namespace AlmaDino.Core.Editor
             // ZONA 3: La Gran Bifurcación (Campo Minado vs Vértigo en el Dosel) (X = 42 a 65)
             // ==========================================
             // --- RUTA BAJA: "El Campo Minado de Zarzas" ---
-            // 4 hojas quebradizas (1.3m, 0.45s) separadas por dientes verticales de espinas que debes saltar por encima!
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Low_1", new Vector3(45.0f, 1.6f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
+            // 4 hojas quebradizas (1.3m, 0.75s) separadas por dientes verticales de espinas que debes saltar por encima!
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Low_1", new Vector3(45.0f, 1.6f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
             CreateSpikePillar(prefabSpikes, levelRoot.transform, "Spike_Tooth_Low_1", new Vector3(47.2f, 1.8f, 0f), new Vector2(1.0f, 2.2f), square, darkStone, unlitMat);
 
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Low_2", new Vector3(49.5f, 1.6f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Low_2", new Vector3(49.5f, 1.6f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
             CreateSpikePillar(prefabSpikes, levelRoot.transform, "Spike_Tooth_Low_2", new Vector3(51.7f, 1.8f, 0f), new Vector2(1.0f, 2.2f), square, darkStone, unlitMat);
 
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Low_3", new Vector3(54.0f, 1.6f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Low_3", new Vector3(54.0f, 1.6f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
             CreateSpikePillar(prefabSpikes, levelRoot.transform, "Spike_Tooth_Low_3", new Vector3(56.2f, 1.8f, 0f), new Vector2(1.0f, 2.2f), square, darkStone, unlitMat);
 
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Low_4", new Vector3(58.5f, 1.6f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Low_4", new Vector3(58.5f, 1.6f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
 
             // --- RUTA ALTA: "El Paso del Vértigo en el Dosel" ---
             // Súper Rebote (18.5 m/s) disparado hacia hojas en la corona del bosque (Y = 9.8)
@@ -222,9 +222,9 @@ namespace AlmaDino.Core.Editor
                 }
             }
 
-            CreateLeaf(prefabLeaf, levelRoot.transform, "High_Crumbling_Leaf_1", new Vector3(48.0f, 9.8f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "High_Crumbling_Leaf_1", new Vector3(48.0f, 9.8f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
             CreateSpikePillar(prefabSpikes, levelRoot.transform, "High_Spike_Divider", new Vector3(51.0f, 10.5f, 0f), new Vector2(1.0f, 2.5f), square, darkStone, unlitMat);
-            CreateLeaf(prefabLeaf, levelRoot.transform, "High_Crumbling_Leaf_2", new Vector3(54.0f, 9.2f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "High_Crumbling_Leaf_2", new Vector3(54.0f, 9.2f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
 
             // Plataforma de convergencia de ambas rutas (2.4m)
             CreateGround("Rest_Rock_Zone3", levelRoot.transform, new Vector3(62.5f, 3.5f, 0f), new Vector2(2.4f, 1.0f), darkStone, square, unlitMat);
@@ -232,7 +232,7 @@ namespace AlmaDino.Core.Editor
 
             // ==========================================
             // ZONA 4: El Pasaje de las Dos Plantas Carnívoras y Hojas Trampa (X = 64 a 85)
-            // Desafío brutal: Checkpoint 2 ➔ Hoja 1 (0.45s) ➔ Salto sobre Planta 1 ➔ Hoja Central 2 (0.45s) ➔ Salto sobre Planta 2 ➔ Hoja 3!
+            // Desafío brutal: Checkpoint 2 ➔ Hoja 1 (0.75s) ➔ Salto sobre Planta 1 ➔ Hoja Central 2 (0.75s) ➔ Salto sobre Planta 2 ➔ Hoja 3!
             // No puedes parar ni un milisegundo: o saltas sobre las fauces al ritmo exacto o la hoja te tira a las espinas!
             // ==========================================
             CreateGround("Cliff_Checkpoint_2", levelRoot.transform, new Vector3(65.5f, 3.8f, 0f), new Vector2(2.2f, 1.0f), darkStone, square, unlitMat);
@@ -247,7 +247,7 @@ namespace AlmaDino.Core.Editor
             }
 
             // Hoja 1 antes de Planta 1
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Carnivore_1", new Vector3(69.2f, 4.2f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Carnivore_1", new Vector3(69.2f, 4.2f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
 
             // Planta Carnívora 1
             CreateGround("Carnivorous_Pillar_1", levelRoot.transform, new Vector3(72.5f, 3.4f, 0f), new Vector2(1.8f, 1.4f), darkStone, square, unlitMat);
@@ -260,7 +260,7 @@ namespace AlmaDino.Core.Editor
             }
 
             // Hoja 2 central (flota entre ambas plantas carnívoras!)
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Carnivore_2", new Vector3(76.0f, 4.4f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Carnivore_2", new Vector3(76.0f, 4.4f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
 
             // Planta Carnívora 2 (ciclo ligeramente desfasado)
             CreateGround("Carnivorous_Pillar_2", levelRoot.transform, new Vector3(79.5f, 3.4f, 0f), new Vector2(1.8f, 1.4f), darkStone, square, unlitMat);
@@ -280,7 +280,7 @@ namespace AlmaDino.Core.Editor
             }
 
             // Hoja 3 posterior a Planta 2
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Carnivore_3", new Vector3(83.0f, 4.4f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Carnivore_3", new Vector3(83.0f, 4.4f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
 
             // ==========================================
             // ZONA 5: El Gran Ascenso de la Cumbre entre Espinas (X = 85 a 104)
@@ -303,8 +303,8 @@ namespace AlmaDino.Core.Editor
             }
 
             // Hojas quebradizas de ascenso hacia la cumbre
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Summit_1", new Vector3(90.5f, 6.8f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
-            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Summit_2", new Vector3(94.5f, 8.2f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.45f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Summit_1", new Vector3(90.5f, 6.8f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
+            CreateLeaf(prefabLeaf, levelRoot.transform, "Crumbling_Leaf_Summit_2", new Vector3(94.5f, 8.2f, 0f), new Vector3(1.3f, 0.35f, 1f), 0.75f);
 
             // Peñasco de la cumbre y portal hacia 1-4
             CreateGround("Exit_Ridge_Zone5", levelRoot.transform, new Vector3(99.0f, 9.2f, 0f), new Vector2(4.5f, 1.2f), darkStone, square, unlitMat);

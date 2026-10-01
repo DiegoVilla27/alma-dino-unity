@@ -8,7 +8,7 @@ namespace AlmaDino.Features.Environment
     {
         [Header("Timing")]
         [Tooltip("Tiempo desde que se pisa hasta que colapsa (exige decisión ágil)")]
-        [SerializeField] private float _crumbleDelay = 0.65f;
+        [SerializeField] private float _crumbleDelay = 1.0f;
         [Tooltip("Tiempo en reaparecer tras colapsar")]
         [SerializeField] private float _respawnDelay = 2.5f;
 

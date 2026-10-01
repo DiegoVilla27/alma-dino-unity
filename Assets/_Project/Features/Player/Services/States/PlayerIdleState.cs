@@ -20,13 +20,13 @@ namespace AlmaDino.Features.Player.Services.States
 
         public void UpdateLogic(float deltaTime)
         {
-            if (_player.JumpBufferTimer > 0f)
+            if (_player.JumpBufferTimer > 0f && (_player.GroundDetector.IsGrounded || _player.CoyoteTimer > 0f))
             {
                 _player.StateMachine.ChangeState(PlayerStateEnum.Jump);
                 return;
             }
 
-            if (_player.Input.DashDown && _player.IsDashUnlocked && (_player.Config == null || _player.Config.CanDash))
+            if (_player.Input.DashDown && _player.CanAirDash)
             {
                 _player.StateMachine.ChangeState(PlayerStateEnum.Dash);
                 return;

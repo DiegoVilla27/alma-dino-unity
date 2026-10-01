@@ -19,10 +19,20 @@ namespace AlmaDino.Features.Player.Services.States
         {
             _player.ClearBouncing();
         }
-        public void Exit() { }
+        public void Exit() => _player.ResetGravityScale();
 
         public void UpdateLogic(float deltaTime)
         {
+            if (_player.GroundDetector.IsGrounded)
+            {
+                if (_player.JumpBufferTimer > 0f)
+                    _player.StateMachine.ChangeState(PlayerStateEnum.Jump);
+                else if (Mathf.Abs(_player.Input.MoveVector.x) > 0.05f)
+                    _player.StateMachine.ChangeState(PlayerStateEnum.Run);
+                else
+                    _player.StateMachine.ChangeState(PlayerStateEnum.Idle);
+                return;
+            }
             // Coyote Time Jump
             if (_player.CoyoteTimer > 0f && _player.JumpBufferTimer > 0f)
             {
@@ -33,6 +43,12 @@ namespace AlmaDino.Features.Player.Services.States
             if (_player.Input.JumpDown && _player.HasDoubleJump)
             {
                 _player.StateMachine.ChangeState(PlayerStateEnum.DoubleJump);
+                return;
+            }
+
+            if (_player.Input.RoarDown && _player.IsRoarUnlocked && (_player.Config == null || _player.Config.CanRoar))
+            {
+                _player.StateMachine.ChangeState(PlayerStateEnum.Roar);
                 return;
             }
 
@@ -47,14 +63,6 @@ namespace AlmaDino.Features.Player.Services.States
                 _player.StateMachine.ChangeState(PlayerStateEnum.GroundPound);
                 return;
             }
-
-            if (_player.GroundDetector.IsGrounded)
-            {
-                if (Mathf.Abs(_player.Input.MoveVector.x) > 0.05f)
-                    _player.StateMachine.ChangeState(PlayerStateEnum.Run);
-                else
-                    _player.StateMachine.ChangeState(PlayerStateEnum.Idle);
-            }
         }
 
         public void PhysicsUpdate(float fixedDeltaTime)
@@ -65,18 +73,16 @@ namespace AlmaDino.Features.Player.Services.States
             float airAccel = _player.Config != null ? moveSpeed / Mathf.Max(0.01f, _player.Config.AccelerationTime * 1.3f) : 70f;
             _player.AccelerateHorizontally(targetSpeed, airAccel);
 
-            // Gravedad de caída incrementada proporcional a base gravityScale para feeling ágil tipo Celeste
-            float fallMult = _player.Config != null ? _player.Config.FallGravityMultiplier : 1.8f;
-            float baseGravScale = _player.Config != null ? _player.Config.GravityScale : 2.2f;
-            float extraGravity = Physics2D.gravity.y * baseGravScale * (fallMult - 1f) * fixedDeltaTime;
-            _player.SetVelocityY(_player.Rigidbody.linearVelocity.y + extraGravity);
+            float fallMultiplier = _player.Config != null ? _player.Config.FallGravityMultiplier : 1.8f;
+            float baseGravity = _player.Config != null ? _player.Config.GravityScale : 2.2f;
+            float maxFallSpeed = _player.Config != null ? _player.Config.MaxFallSpeed : 20f;
+            float velocityY = Mathf.Max(_player.Rigidbody.linearVelocity.y, -maxFallSpeed);
+            _player.SetVelocityY(velocityY);
 
-            // Clamp a velocidad terminal
-            float maxFall = _player.Config != null ? _player.Config.MaxFallSpeed : 20.0f;
-            if (_player.Rigidbody.linearVelocity.y < -maxFall)
-            {
-                _player.SetVelocityY(-maxFall);
-            }
+            // Reduce the final gravity step so integration cannot exceed terminal speed.
+            float remainingSpeed = Mathf.Max(0f, maxFallSpeed + velocityY);
+            float gravityStep = Mathf.Max(0.0001f, -Physics2D.gravity.y * fixedDeltaTime);
+            _player.Rigidbody.gravityScale = Mathf.Min(baseGravity * fallMultiplier, remainingSpeed / gravityStep);
         }
     }
 }

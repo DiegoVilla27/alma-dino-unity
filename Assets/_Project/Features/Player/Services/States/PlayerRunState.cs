@@ -20,13 +20,13 @@ namespace AlmaDino.Features.Player.Services.States
 
         public void UpdateLogic(float deltaTime)
         {
-            if (_player.JumpBufferTimer > 0f)
+            if (_player.JumpBufferTimer > 0f && (_player.GroundDetector.IsGrounded || _player.CoyoteTimer > 0f))
             {
                 _player.StateMachine.ChangeState(PlayerStateEnum.Jump);
                 return;
             }
 
-            if (_player.Input.DashDown && _player.IsDashUnlocked && (_player.Config == null || _player.Config.CanDash))
+            if (_player.Input.DashDown && _player.CanAirDash)
             {
                 _player.StateMachine.ChangeState(PlayerStateEnum.Dash);
                 return;
@@ -52,7 +52,7 @@ namespace AlmaDino.Features.Player.Services.States
 
         public void PhysicsUpdate(float fixedDeltaTime)
         {
-            float targetSpeed = _player.Input.MoveVector.x * (_player.Config != null ? _player.Config.MoveSpeed : 8.5f);
+            float targetSpeed = _player.Input.MoveVector.x * (_player.Config != null ? _player.Config.MoveSpeed : 7.0f);
             float accelRate = _player.Config != null ? _player.Config.MoveSpeed / Mathf.Max(0.01f, _player.Config.AccelerationTime) : 120f;
             _player.AccelerateHorizontally(targetSpeed, accelRate);
         }

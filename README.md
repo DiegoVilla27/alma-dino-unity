@@ -63,9 +63,11 @@ Inspired by the tactile precision of **Celeste**, the atmospheric environmental 
 
 ### Precision Locomotion Calibration
 
+The current movement profile and level-design constraints are documented in [Physics and Gameplay](Docs/Physics_and_Gameplay.md).
+
 | Parameter | Calibrated Value | Gameplay Purpose |
 |---|---|---|
-| **Horizontal Speed (`MoveSpeed`)** | `7.0 - 8.5 m/s` | Agile, instant horizontal speed reaching max velocity in `0.08s`. |
+| **Horizontal Speed (`MoveSpeed`)** | `7.0 m/s` | Reaches max speed in `0.10s`; brakes in `0.08s` and uses `0.13s` air acceleration. |
 | **Jump Force (`JumpForce`)** | `8.2 m/s` | Base jump height of ~1.56m; variable height based on button hold duration. |
 | **Gravity Scale (`GravityScale`)** | `2.2` | Snappy, grounded descent preventing "floaty" platforming feel. |
 | **Jump Cut Multiplier (`JumpCutMult`)** | `2.4x gravity` | Enables micro-hops and tight trajectory control by releasing Jump early. |
@@ -79,13 +81,13 @@ Inspired by the tactile precision of **Celeste**, the atmospheric environmental 
 ### Interactive Environmental Elements
 
 - **Bouncy Mushrooms & Super Bounce (`BouncyPlatform2D`)**:
-  - Solid elastic trampolines propelling Alma vertically at high speed (`16.5 to 17.5 m/s`, ~6.5m peak height).
-  - **Super Bounce (+18%)**: Holding or pressing **Jump** upon landing accelerates Alma to **`20.0 m/s`** (~9.2m peak height).
+  - Solid elastic trampolines propelling Alma vertically at high speed (`17 m/s` by default, ~6.7m theoretical peak height; individual platforms can override it).
+  - **Super Bounce (+18%)**: Holding or pressing **Jump** upon landing accelerates Alma to **`20.06 m/s`** from the default `17 m/s` (~9.3m theoretical peak height).
   - **Ground Detector Decoupling (`IBouncySurface2D`)**: The player's [`GroundDetector2D`](file:///Users/diegovilla/Desktop/unity/AlmaDino/Assets/_Project/Features/Player/Components/GroundDetector2D.cs) ignores bouncy surfaces. This prevents state-machine false transitions into `Idle`/`Run` and avoids early Jump-Cut momentum cancellation.
   - **Squish & Stretch Animation**: Immediate squash compression (`0.06s`) followed by vertical elastic rebound (`0.14s`) for maximum kinetic juice.
-  - **Mid-Air Momentum Preservation**: Activating Double Jump during bounce ascent boosts upward velocity rather than clamping to static speed. Refreshes aerial abilities upon contact.
+  - **Mid-Air Momentum Preservation**: Activating Double Jump during bounce ascent preserves a stronger upward velocity; otherwise restores at least `7.6 m/s` without stacking impulses. Refreshes aerial abilities upon contact.
 - **Crumbling Canopy Leaves (`CrumblingPlatform2D`)**:
-  - Unstable tree-canopy foliage that quivers with a warning red tint and collapses **`0.65 seconds`** after being stepped on. Respawns after 2.5s.
+  - Unstable tree-canopy foliage that quivers with a warning red tint and collapses after **1.0s in 1-1/1-2, 0.75s in 1-3, and 0.65s in 1-4**. Respawns after 2.5s.
 - **Rhythmic Carnivorous Plants (`CarnivorousPlant2D`)**:
   - Environmental hazards operating on a 3-phase cycle: Open/Safe (1.8s) ➔ Yellow Warning (0.5s) ➔ Lethal Red Snap (1.0s).
 - **Diegetic Nest Checkpoints (`Checkpoint2D`)**:
@@ -158,7 +160,7 @@ Boss 1    ("Giant Thief Monkey")      --> Canopy arena; dodge rolling fruit and 
     1. *Guided High Bounce under Thorn Spikes (`X = 8.5`)*: A ground mushroom launches towards an overhead thorn ceiling (`Y = 7.0`); players must steer right in mid-air to land safely on `Branch_Ledge_1` (`Y = 4.2`).
     2. *Carnivorous Plant Timing Gate (`X = 21.0`)*: Rhythmic plant obstacle requiring timing or a high double jump onto the second mushroom, supported by a lower safety branch.
     3. *Super Bounce Height Check & Checkpoint 1 (`X = 25.5` to `32.5`)*: An elevation climb of +8.0m to `Canopy_Cliff_1` (`Y = 13.5`) demanding Super Bounce execution (holding Jump) or apex double jumping. Features **Nest Checkpoint 1**.
-    4. *Crumbling Leaves Sequence (`X = 38.5` to `45.5`)*: Two decaying leaves with `0.65s` collapse timers separated by a hanging vine hazard over an abyss.
+    4. *Crumbling Leaves Sequence (`X = 38.5` to `45.5`)*: Two decaying leaves with `1.0s` collapse timers separated by a hanging vine hazard over an abyss.
     5. *Aerial Mushroom Chain in the Void (`X = 57.0` to `69.0`)*: Chaining mid-air suspended mushrooms past a snapping plant hazard to ascend to the **Great Canopy Nest** (`Y = 31.0`), **Checkpoint 2**, and the exit portal to World 1-3.
 
 ---

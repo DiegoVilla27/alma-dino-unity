@@ -5,7 +5,7 @@
 
 ## 1. 📖 Sinopsis Narrativa & Contexto Emocional
 
-- **Momento Narrativo:** En el corazón del cráter volcánico, sobre un altar de basalto flotando sobre un lago de magma burbujeante, aguarda el causante de toda la tragedia: el **Rey Ladrón**, un colosal T-Rex Anciano con placas tectónicas de obsidiana fundidas a su lomo y ojos carmesí como carbón encendido. A sus pies, en un nido de cenizas, palpita el **Huevo 4 (Rojo)**. En la entrada de la arena, sobre un saliente elevado a salvo del fuego, los tres huevos rescatados (Verde, Azul y Púrpura) brillan intensamente como faros de aliento para su madre.
+- **Momento Narrativo:** En el corazón del cráter volcánico, sobre un altar de basalto flotando sobre un lago de magma burbujeante, aguarda el causante de toda la tragedia: el **Rey Ladrón**, un colosal T-Rex Anciano con placas tectónicas de obsidiana fundidas a su lomo y ojos carmesí como carbón encendido. Tras el rescate del **Huevo Rojo en 4-4**, Alma deja los cuatro huevos (Verde, Azul, Morado y Rojo) en un nido sobre un saliente elevado y protegido de la arena. Los cuatro brillan como faros de aliento mientras su madre abre la salida.
 - **Estado Emocional de Alma:** Determinación suprema, furia maternal implacable y devoción absoluta. Toda la travesía, cada golpe, caída y aprendizaje convergen en este instante. No hay duda ni miedo: Alma regresará a casa con todos sus hijos.
 - **Textos en Pantalla / Banners & Diálogos:**
   - *Inicio del Enfrentamiento:*
@@ -18,7 +18,7 @@
     > *"¡RUGE, ALMA! ¡HAZ TEMBLAR LA TIERRA!"*
   - *Cinemática de Epílogo (Texto de Cierre):*
     > *"El titán ruge por última vez mientras la estalactita de basalto lo hunde en las profundidades del abismo ardiente.*  
-    > *Alma no mira hacia atrás. Con zancadas apresuradas corre hacia el nido y estrecha el Huevo Rojo contra su pecho.*  
+    > *Alma no mira hacia atrás. Con zancadas apresuradas corre hacia el refugio y vuelve a reunir a sus cuatro hijos.*
     > *Reuniendo a sus cuatro tesoros, desciende de la montaña humeante antes del gran colapso.*  
     > *Al atardecer, en un verde y sereno valle alejado del fuego, la madre contempla sus cuatro joyas.*  
     > *De pronto... un tenue chasquido rompe el silencio:*  
@@ -44,6 +44,8 @@
 ---
 
 ## 3. 🧱 Mecánicas de Combate & Fases del Jefe (Puzle de las 4 Habilidades)
+
+Cada fase aporta un impacto y queda guardada como checkpoint. Al reintentar, el magma, las plataformas y los mecanismos vuelven al estado seguro de entrada de esa fase; los cuatro huevos siguen rescatados.
 
 El combate final es un examen maestro donde Alma debe sincronizar las **4 habilidades aprendidas**:
 - **Fase 1: La Carga del Coloso (Doble Salto + Dash Aéreo)**
