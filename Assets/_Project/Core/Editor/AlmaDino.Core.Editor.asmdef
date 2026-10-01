@@ -10,7 +10,8 @@
         "AlmaDino.Features.Boss",
         "Unity.InputSystem",
         "Unity.RenderPipelines.Universal.Runtime",
-        "Unity.RenderPipelines.Universal.2D.Runtime"
+        "Unity.RenderPipelines.Universal.2D.Runtime",
+        "AlmaDino.Features.Enemies"
     ],
     "includePlatforms": [
         "Editor"

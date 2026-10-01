@@ -121,6 +121,7 @@ namespace AlmaDino.Features.Player.Controllers
 
             ConfigurePhysics();
             InitializeStateMachine();
+            _collisionService = new PlayerCollisionService2D(this);
 
             _activeCheckpointPosition = transform.position;
             _hasDoubleJump = _doubleJumpUnlocked;
@@ -398,69 +399,11 @@ namespace AlmaDino.Features.Player.Controllers
             RespawnAt(_activeCheckpointPosition);
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.TryGetComponent<IHazard2D>(out var hazard))
-            {
-                hazard.OnHazardTouch();
-                KillAndRespawn();
-            }
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.collider.TryGetComponent<IHazard2D>(out var hazard) || collision.gameObject.TryGetComponent<IHazard2D>(out hazard))
-            {
-                hazard.OnHazardTouch();
-                KillAndRespawn();
-                return;
-            }
-
-            HandleAbilityCollision(collision);
-        }
-
-        private void OnCollisionStay2D(Collision2D collision)
-        {
-            HandleAbilityCollision(collision);
-        }
-
-        private void HandleAbilityCollision(Collision2D collision)
-        {
-            if (_stateMachine.CurrentState is PlayerGroundPoundState pound && pound.IsDiving)
-            {
-                bool landedFromAbove = false;
-                for (int i = 0; i < collision.contactCount; i++)
-                {
-                    if (collision.GetContact(i).normal.y > 0.5f)
-                    {
-                        landedFromAbove = true;
-                        break;
-                    }
-                }
-                if (!landedFromAbove) return;
-
-                if (collision.collider.TryGetComponent<IBreakable2D>(out var breakable))
-                {
-                    breakable.Break();
-                    _groundDetector.ResetGroundState();
-                    SetVelocityY(-(_config != null ? _config.GroundPoundSpeed : 22f));
-                    RequestCameraShake(0.3f, 0.15f);
-                }
-                else
-                {
-                    if (collision.collider.TryGetComponent<IGroundPoundReceiver2D>(out var receiver))
-                        receiver.ReceiveGroundPound(Rigidbody.position);
-                    pound.RegisterLanding();
-                }
-            }
-            else if (_stateMachine.CurrentStateType == PlayerStateEnum.Dash)
-            {
-                if (collision.collider.TryGetComponent<IDashBreakable2D>(out var dashBreakable))
-                {
-                    dashBreakable.BreakWithDash();
-                }
-            }
-        }
+        private PlayerCollisionService2D _collisionService;
+        private void OnTriggerEnter2D(Collider2D other) => _collisionService.HandleTrigger(other);
+        private void OnTriggerStay2D(Collider2D other) => _collisionService.HandleTrigger(other);
+        private void OnCollisionEnter2D(Collision2D collision) => _collisionService.HandleCollision(collision);
+        private void OnCollisionStay2D(Collision2D collision) => _collisionService.HandleCollision(collision);
 
 #if UNITY_EDITOR || DEBUG
         private void OnGUI()

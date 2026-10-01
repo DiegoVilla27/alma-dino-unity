@@ -1,0 +1,17 @@
+{
+    "name": "AlmaDino.Features.Enemies",
+    "rootNamespace": "AlmaDino.Features.Enemies",
+    "references": [
+        "AlmaDino.Core",
+        "AlmaDino.Shared"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

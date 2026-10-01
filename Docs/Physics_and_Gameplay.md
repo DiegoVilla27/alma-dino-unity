@@ -66,6 +66,14 @@ Tras el golpe, Alma tiene 2.8s para correr al extremo elevado y recibir un impul
 
 Las compuertas abren durante 4s. La final exige que las dos runas estén activas simultáneamente; el recorrido de dos balancines se ha verificado dentro de ese intervalo. Una barra muestra el tiempo restante. Si Alma ocupa el hueco al terminar el plazo, el cierre espera a que lo despeje. Los contrapesos se recuperan tras 4.7s y una muerte restaura todo el puzle. Los parámetros viven en `EchoSeesawConfig.asset`; se priorizan resultados acotados y repetibles sobre una simulación libre de masa y torque.
 
+## Enemigos y onda sísmica del 2-3
+
+Un Pisotón que impacta desde arriba emite una onda de radio 2m. La consulta ocurre antes de romper la losa o resolver el daño del caparazón, para que el impacto directo pueda voltear al escarabajo sin matar primero a Alma. Un aterrizaje normal no emite la onda. El escarabajo voltea durante 3.5s, con un pequeño impulso de 1.5 m/s; permanece sólido y su vientre se reconoce como suelo seguro. Recuperar el caparazón vuelve a causar daño por contacto, incluso si Alma sigue encima.
+
+El puzle quebradizo incluye una repisa que termina el picado y da tiempo a que el escarabajo caiga sobre su apoyo. Desde ella se salta al vientre y después se combina salto corto con Doble Salto para salir por debajo del cierre. Este apoyo evita exigir que Alma, que desciende a 22 m/s, aterrice sobre un enemigo que cae más despacio.
+
+Los murciélagos avisan durante 0.65s con cambio de color y símbolo `!`; vuelan en arco durante 1.6s y descansan 2s. Solo el vuelo hace daño, incluyendo el caso en que el contacto empezó durante el aviso. La muerte restaura los enemigos y el suelo quebradizo. Las condiciones de daño y recepción de onda se exponen mediante interfaces de Core; el módulo Enemies no depende del código interno de Player.
+
 ## Jefes y rescates
 
 El mono mantiene tres ciclos y fatiga de 3.2 / 2.8 / 2.4 s; estos tiempos coinciden con el controlador y el constructor de arena. Tras cada impacto se conserva la fase alcanzada.
@@ -74,7 +82,7 @@ El cuarto huevo se rescata en 4-4. En el combate final los cuatro están en un r
 
 ## Estado y validación
 
-El Mundo 1 dispone de escenas y constructores; sus tiempos de hojas se actualizan tanto en escenas como en código y prefab. Los niveles 2-1 y 2-2 también disponen de escenas y constructores, con recorridos completos comprobados mediante entradas de jugador en PlayMode. Las demás fichas de mundos posteriores siguen siendo diseño: no equivalen a niveles ya construidos ni a garantías de que sus secuencias estén probadas.
+El Mundo 1 dispone de escenas y constructores; sus tiempos de hojas se actualizan tanto en escenas como en código y prefab. Los niveles 2-1, 2-2 y 2-3 también disponen de escenas y constructores, con recorridos completos comprobados mediante entradas de jugador en PlayMode. Las demás fichas de mundos posteriores siguen siendo diseño: no equivalen a niveles ya construidos ni a garantías de que sus secuencias estén probadas.
 
 Las pruebas de física deben cubrir pulsaciones entre pasos, doble salto sin acumulación, distancia y dirección del dash, altura y alcance del salto, velocidad terminal y viento con distintas masas. Después se requiere jugar las escenas para valorar comodidad, lectura de señales y ritmo: una prueba matemática no sustituye la experiencia de un jugador.
 

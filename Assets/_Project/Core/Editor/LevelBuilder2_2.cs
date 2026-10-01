@@ -112,7 +112,7 @@ namespace AlmaDino.Core.Editor
             global.color = new Color(0.62f, 0.82f, 0.74f);
         }
 
-        private static void BuildAtmosphere(CaveLevelSceneFactory f, Transform root)
+        internal static void BuildAtmosphere(CaveLevelSceneFactory f, Transform root)
         {
             var far = new GameObject("Parallax_0_Echo_Void");
             far.transform.SetParent(root, false);

@@ -76,7 +76,7 @@
 - **Práctica de catapulta:** balancín en X=40, runa en `(42.3, 6)` y compuerta en X=46. Tras golpear el extremo izquierdo, correr al derecho impulsa a Alma hacia una cornisa con superficie a Y=6.2. La cámara sigue el ascenso. Debajo hay suelo seguro para volver a intentar.
 - **Checkpoint 2:** `(65, 0.7)`.
 - **Cadena final:** balancines en X=72 y X=82. Usar el impulso del primero para pisotear el segundo; la compuerta en X=90 solo abre cuando las dos runas están activas. El trayecto completo está comprobado dentro de la ventana de 4s.
-- **Salida:** hueco de 4m con estalagmitas entre X=96 y X=100; admite Doble Salto. Portal en X=109 hacia `Level_2_3`; mientras esa escena no exista, muestra la finalización y permite repetir.
+- **Salida:** hueco de 4m con estalagmitas entre X=96 y X=100; admite Doble Salto. Portal en X=109 hacia `Level_2_3`; la escena 2-3 ya está disponible y se carga después de completar la galería.
 - **Reintentos:** cada contrapeso vuelve a su posición a los 4.7s. Morir restaura tablas, pesos, runas y compuertas y conserva las habilidades.
 - **Física:** tablas cinemáticas con rotación en `FixedUpdate`, inclinación limitada a ±18° y retorno gradual; contrapesos dinámicos de masa 4, gravedad 1.8 y velocidad inicial de 14 m/s. La asistencia de catapulta usa una velocidad acotada para ofrecer resultados predecibles. Ajustes editables en `EchoSeesawConfig.asset`.
 - **Visuales:** runas ámbar/esmeralda, señales de Pisotón y carrera, iluminación local y cuatro capas de profundidad. Tileset, VFX y audio definitivos siguen pendientes según el checklist.

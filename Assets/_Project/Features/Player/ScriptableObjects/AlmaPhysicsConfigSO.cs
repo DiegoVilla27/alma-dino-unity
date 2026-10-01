@@ -46,6 +46,8 @@ namespace AlmaDino.Features.Player.ScriptableObjects
         [SerializeField] private float _groundPoundWindup = 0.1f;
         [Tooltip("Velocidad vertical descendente en m/s (GDD: 22.0)")]
         [SerializeField] private float _groundPoundSpeed = 22.0f;
+        [Tooltip("Radio de la onda sísmica al impactar desde arriba") ]
+        [SerializeField] private float _groundPoundShockRadius = 2f;
 
         [Header("Shock Roar / Rugido (Mundo 4)")]
         [Tooltip("Duración de la animación y efecto del rugido")]
@@ -73,6 +75,8 @@ namespace AlmaDino.Features.Player.ScriptableObjects
         public float DashDistance => _dashDistance;
         public float DashDuration => _dashDuration;
         public float DashCooldown => _dashCooldown;
+        public float GroundPoundShockRadius => _groundPoundShockRadius;
+
         public float GroundPoundWindup => _groundPoundWindup;
         public float GroundPoundSpeed => _groundPoundSpeed;
         public float RoarDuration => _roarDuration;
