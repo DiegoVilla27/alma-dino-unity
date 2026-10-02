@@ -59,6 +59,7 @@ namespace AlmaDino.Tests.EditMode
 
         [TestCase("Level_3_2")]
         [TestCase("Level_3_3")]
+        [TestCase("Level_3_4")]
         public void SwampPractice_BaselineIncludesDashWithoutRoar(string scene)
         {
             GameProgression.EnsureLevelBaseline(scene);
@@ -91,6 +92,30 @@ namespace AlmaDino.Tests.EditMode
             Assert.AreEqual(1, GameProgression.RescuedEggCount);
             Assert.IsTrue(GameProgression.IsEggRescued(EggType.GreenEgg));
             Assert.IsFalse(GameProgression.IsEggRescued(EggType.BlueEgg));
+        }
+
+        [Test]
+        public void PurpleEgg_UsesThirdSlotAndPersistsWithoutCompletingWorld()
+        {
+            Assert.AreEqual(3, (int)EggType.PurpleEgg);
+            GameProgression.RescueEgg(EggType.PurpleEgg);
+            GameProgression.LoadProgression();
+            Assert.IsTrue(GameProgression.IsEggRescued(EggType.PurpleEgg));
+            Assert.AreEqual(1, GameProgression.RescuedEggCount);
+            Assert.IsFalse(GameProgression.IsWorldCompleted(3));
+        }
+
+        [Test]
+        public void LegacyThirdEggSave_LoadsAsPurple_AndResetClearsIt()
+        {
+            UnityEngine.PlayerPrefs.SetInt("AlmaDino_EggRescued_YellowEgg", 1);
+            GameProgression.LoadProgression();
+            Assert.IsTrue(GameProgression.IsEggRescued(EggType.PurpleEgg));
+            GameProgression.RescueEgg(EggType.PurpleEgg);
+            Assert.AreEqual(1, GameProgression.RescuedEggCount);
+            GameProgression.ResetProgression();
+            GameProgression.LoadProgression();
+            Assert.IsFalse(GameProgression.IsEggRescued(EggType.PurpleEgg));
         }
 
         [Test]

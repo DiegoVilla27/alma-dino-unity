@@ -58,6 +58,7 @@ namespace AlmaDino.Core.Editor
             Mud(factory, root.transform, "Spore_Lake_Final", 82f, 110f);
             factory.Checkpoint("Checkpoint_Roots_One", 28f, 0f);
             factory.Checkpoint("Checkpoint_Roots_Two", 76f, 0f);
+            Rock(factory, "Toad_Two_Approach_Cover", 70f, 0.8f, 0.6f, 1.6f);
             Rock(factory, "Checkpoint_Two_Cover", 74.5f, 0.8f, 0.6f, 1.6f);
             var reeds = factory.Visual("Reed_Dash_Gate", root.transform, new Vector2(65f, 3.5f),
                 new Vector2(0.45f, 7f), new Color(0.36f, 0.3f, 0.24f), true);
@@ -100,8 +101,8 @@ namespace AlmaDino.Core.Editor
             groundEntries.ApplyModifiedPropertiesWithoutUndo();
             var config = ToadConfig();
             var bubble = BubblePrefab(factory, root.transform);
-            Toad(factory, root.transform, player, config, bubble, "Poison_Toad_One", new Vector2(43.5f, 0.65f), -1f);
-            Toad(factory, root.transform, player, config, bubble, "Poison_Toad_Two", new Vector2(72.5f, 0.65f), 1f);
+            Toad(factory, root.transform, player, config, bubble, "Poison_Toad_One", new Vector2(43.5f, 0.65f));
+            Toad(factory, root.transform, player, config, bubble, "Poison_Toad_Two", new Vector2(72.5f, 0.65f));
 
             var camera = Camera.main;
             camera.orthographicSize = 6f;
@@ -210,8 +211,8 @@ namespace AlmaDino.Core.Editor
             return prefab.GetComponent<PoisonBubble2D>();
         }
 
-        private static void Toad(CaveLevelSceneFactory factory, Transform root, PlayerController player,
-            PoisonToadConfigSO config, PoisonBubble2D bubble, string name, Vector2 position, float direction)
+        internal static void Toad(CaveLevelSceneFactory factory, Transform root, PlayerController player,
+            PoisonToadConfigSO config, PoisonBubble2D bubble, string name, Vector2 position)
         {
             var go = new GameObject(name);
             go.transform.SetParent(root);
@@ -240,7 +241,6 @@ namespace AlmaDino.Core.Editor
             CaveLevelSceneFactory.Set(toad, "_playerSource", player);
             CaveLevelSceneFactory.Set(toad, "_visual", visual.GetComponent<SpriteRenderer>());
             CaveLevelSceneFactory.Set(toad, "_warningSign", warning);
-            CaveLevelSceneFactory.Set(toad, "_shotDirection", direction);
         }
 
         private static void Portal(Transform root)

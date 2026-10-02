@@ -65,20 +65,20 @@
 
 ## 6. Recorrido del prototipo
 
-- Escena: `Assets/Scenes/World_3_Swamp/Level_3_3.unity`, conectada desde 3-2. Salida a `Level_3_4`, todavía pendiente; el Huevo Morado se rescata allí.
+- Escena: `Assets/Scenes/World_3_Swamp/Level_3_3.unity`, conectada desde 3-2. Salida al nivel jugable `Level_3_4`, donde se rescata el Huevo Morado.
 - Menús: **Alma → 📂 Cargar Nivel 3-3** y **Tools → Alma → Construir Nivel 3-3 - El Vuelo de las Esporas**.
 - Cámara size 6 y anticipo direccional; pared detrás del inicio. Doble Salto, Pisotón y Dash disponibles; Rugido bloqueado.
 
 ### Retos por sección
 
 1. **Esporas horizontales:** lago X=10–26, con esporas en (14, 2.7) y (20, 2.7). Salto → Doble Salto → Dash y continuar con Dash recargado hacia la derecha. Llegada a tierra a la misma altura.
-2. **Pisotón sobre tierra firme:** checkpoint X=28. El suelo agrietado X=30–34 soporta a Alma hasta romperlo con Salto → POUND. La raíz X=34–39 bloquea el camino superior; el pasaje seguro tiene suelo en Y=-3. Un Doble Salto al salir del túnel permite alcanzar el escalón seguro de X=41 (Y=-1). La cobertura X=42 protege mientras se prepara el salto sobre el sapo hacia la siguiente cadena. Un sapo en X=43.5 dispara hacia la izquierda al salir: hay que saltar su cuerpo y esquivar sus disparos.
-3. **Esporas y barrera de Dash:** lago X=46–62, esporas en (50, 2.7) y (56, 2.7). Barrera de cañas X=65 sobre suelo firme: se rompe con Dash. Sapo en X=72.5, disparando hacia la derecha; raíz protectora X=74.5 y checkpoint X=76.
+2. **Pisotón sobre tierra firme:** checkpoint X=28. El suelo agrietado X=30–34 soporta a Alma hasta romperlo con Salto → POUND. La raíz X=34–39 bloquea el camino superior; el pasaje seguro tiene suelo en Y=-3. Un Doble Salto al salir del túnel permite alcanzar el escalón seguro de X=41 (Y=-1). La cobertura X=42 protege mientras se prepara el salto sobre el sapo hacia la siguiente cadena. Un sapo en X=43.5 dispara hacia el lado donde esté Alma: hay que saltar su cuerpo y esquivar sus disparos.
+3. **Esporas y barrera de Dash:** lago X=46–62, esporas en (50, 2.7) y (56, 2.7). Barrera de cañas X=65 sobre suelo firme: se rompe con Dash. Sapo en X=72.5, disparando hacia el lado donde esté Alma; raíces protectoras X=70 y X=74.5 y checkpoint X=76. Tras romper las cañas sobre suelo firme, la cobertura permite preparar Salto → Doble Salto → Dash sobre el sapo.
 4. **Cadena horizontal final:** lago X=82–110, con esporas en (86, 2.7), (92, 2.7), (98, 2.7) y (104, 2.7). Todas se atraviesan avanzando hacia la derecha y repitiendo Dash. Llegada despejada a tierra firme; portal en X=122.
 
 ### Sapos, recargas y reintentos
 
-- Dos sapos al nivel del camino, peligrosos por contacto. Aviso `!` de 0.6s antes de cada disparo, cadencia de 2s y detección de 18m. Burbujas a 8m/s, impulso vertical 3m/s y gravedad 0.6; Dash no protege del veneno.
+- Dos sapos al nivel del camino, peligrosos por contacto. Eligen el lado de disparo según la posición actual de Alma, también si cruza durante el aviso. Aviso `!` de 0.6s antes de cada disparo, cadencia de 2s y detección de 18m. Burbujas a 8m/s, impulso vertical 3m/s y gravedad 0.6; Dash no protege del veneno.
 - Ocho esporas alineadas a Y=2.7 restauran Dash y Doble Salto, anulan el cooldown y reaparecen a los 2.5s.
 - Morir restaura esporas y suelo agrietado, limpia proyectiles y reinicia los sapos. La barrera de Dash queda abierta una vez rota.
 - Los avisos de Pisotón y cañas aparecen al llegar a cada obstáculo.

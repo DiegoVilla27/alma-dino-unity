@@ -11,7 +11,7 @@ namespace AlmaDino.Features.Enemies.Controllers
         [SerializeField] private MonoBehaviour _playerSource;
         [SerializeField] private SpriteRenderer _visual;
         [SerializeField] private GameObject _warningSign;
-        [SerializeField] private float _shotDirection = -1f;
+        private float _shotDirection = -1f;
         private PoisonBubble2D[] _pool;
         private PoisonShotCycle _cycle;
         private IPlayerRespawnable _player;
@@ -48,6 +48,8 @@ namespace AlmaDino.Features.Enemies.Controllers
             if (_cycle == null || _playerSource == null) return;
             if (Mathf.Abs(_playerSource.transform.position.x - transform.position.x) > _config.DetectionDistance)
             { _cycle.Reset(); return; }
+            float horizontalDistance = _playerSource.transform.position.x - transform.position.x;
+            if (Mathf.Abs(horizontalDistance) > 0.01f) _shotDirection = Mathf.Sign(horizontalDistance);
             if (!_cycle.Tick(Time.fixedDeltaTime)) return;
             foreach (var bubble in _pool)
             {

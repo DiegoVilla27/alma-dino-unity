@@ -9,7 +9,7 @@ namespace AlmaDino.Core.Progression
     {
         GreenEgg = 1,
         BlueEgg = 2,
-        YellowEgg = 3,
+        PurpleEgg = 3,
         RedEgg = 4
     }
 
@@ -115,7 +115,7 @@ namespace AlmaDino.Core.Progression
                 UnlockAbility(AbilityType.GroundPound);
             }
 
-            if (sceneName == "Level_3_2" || sceneName == "Level_3_3")
+            if (sceneName == "Level_3_2" || sceneName == "Level_3_3" || sceneName == "Level_3_4")
             {
                 UnlockAbility(AbilityType.DoubleJump);
                 UnlockAbility(AbilityType.GroundPound);
@@ -143,7 +143,8 @@ namespace AlmaDino.Core.Progression
             _rescuedEggs.Clear();
             foreach (EggType egg in Enum.GetValues(typeof(EggType)))
             {
-                if (PlayerPrefs.GetInt(PREF_EGG_PREFIX + egg, 0) == 1)
+                if (PlayerPrefs.GetInt(PREF_EGG_PREFIX + egg, 0) == 1
+                    || (egg == EggType.PurpleEgg && PlayerPrefs.GetInt(PREF_EGG_PREFIX + "YellowEgg", 0) == 1))
                 {
                     _rescuedEggs.Add(egg);
                 }
@@ -173,6 +174,7 @@ namespace AlmaDino.Core.Progression
                 PlayerPrefs.DeleteKey(PREF_EGG_PREFIX + egg);
             }
 
+            PlayerPrefs.DeleteKey(PREF_EGG_PREFIX + "YellowEgg");
             _completedWorlds.Clear();
             for (int w = 1; w <= 4; w++)
             {

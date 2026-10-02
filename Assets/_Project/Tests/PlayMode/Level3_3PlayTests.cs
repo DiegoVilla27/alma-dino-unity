@@ -213,15 +213,14 @@ namespace AlmaDino.Tests.PlayMode
                 yield return LandAt(41f);
                 // Shelter before vaulting the cover and toad into the horizontal chain.
                 yield return CrossLake(41f, 63f, 2);
-                yield return LaunchJumpDash();
+                VirtualInputBridge.MoveVector = Vector2.right;
+                VirtualInputBridge.TriggerDash();
+                yield return WaitFor(() => _player.StateMachine.CurrentStateType == PlayerStateEnum.Dash, "Ground Dash must break the gate.");
                 yield return FinishDash();
                 Assert.IsTrue(UnityEngine.Object.FindObjectsByType<DashBreakableBarrier2D>(FindObjectsInactive.Include)[0].IsBroken);
-                yield return LandAt(70f);
-                VirtualInputBridge.MoveVector = Vector2.right;
-                VirtualInputBridge.TriggerJump();
-                yield return new WaitForSeconds(0.34f);
-                VirtualInputBridge.TriggerJump();
-                yield return new WaitForSeconds(0.3f);
+                yield return LandAt(68.5f);
+                yield return LaunchJumpDash();
+                yield return FinishDash();
                 yield return LandAt(76f);
                 yield return CrossLake(80.5f, 114f, 4);
                 yield return WalkTo(120f);
