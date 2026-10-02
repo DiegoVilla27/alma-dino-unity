@@ -2,7 +2,7 @@ using AlmaDino.Core.Interfaces;
 using UnityEngine;
 namespace AlmaDino.Features.Environment.Controllers
 {
-    [RequireComponent(typeof(LineRenderer), typeof(AudioSource))]
+    [RequireComponent(typeof(LineRenderer))]
     public sealed class RoarWaveVisual2D : MonoBehaviour
     {
         [SerializeField] private MonoBehaviour _playerSource;
@@ -11,22 +11,15 @@ namespace AlmaDino.Features.Environment.Controllers
         [SerializeField] private float _halfAngle = 45f;
         private IRoarEmitter2D _emitter;
         private LineRenderer _line;
-        private AudioSource _audio;
-        private AudioClip _clip;
         private Vector2 _origin, _direction;
         private float _remaining;
         private void Awake()
         {
             _line = GetComponent<LineRenderer>(); _line.positionCount = 17; _line.useWorldSpace = true; _line.enabled = false;
-            _audio = GetComponent<AudioSource>();
-            _clip = AudioClip.Create("Roar_Prototype", 11025, 1, 44100, false);
-            var samples = new float[11025];
-            for (int i = 0; i < samples.Length; i++) samples[i] = (Mathf.Sin(i * .014f) + .3f * Mathf.Sin(i * .039f)) * (1f - i / 11025f) * .2f;
-            _clip.SetData(samples, 0);
         }
         private void Start() { _emitter = _playerSource as IRoarEmitter2D; if (_emitter != null) _emitter.OnRoared += Show; }
-        private void OnDestroy() { if (_emitter != null) _emitter.OnRoared -= Show; if (_clip != null) Destroy(_clip); }
-        private void Show(Vector2 origin, Vector2 direction) { _origin = origin; _direction = direction; _remaining = _duration; _line.enabled = true; _audio.PlayOneShot(_clip); }
+        private void OnDestroy() { if (_emitter != null) _emitter.OnRoared -= Show; }
+        private void Show(Vector2 origin, Vector2 direction) { _origin = origin; _direction = direction; _remaining = _duration; _line.enabled = true; }
         private void Update()
         {
             if (_remaining <= 0f) { _line.enabled = false; return; }

@@ -69,7 +69,6 @@ namespace AlmaDino.Core.Editor
             rb.interpolation = RigidbodyInterpolation2D.Interpolate;
             rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             var boss = go.AddComponent<PterodactylBoss2D>();
-            go.GetComponent<AudioSource>().playOnAwake = false;
             go.AddComponent<CircleCollider2D>().radius = .65f;
             go.GetComponent<CircleCollider2D>().isTrigger = true;
             var head = go.AddComponent<PterodactylHead2D>();

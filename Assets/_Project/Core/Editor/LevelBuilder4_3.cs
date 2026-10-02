@@ -53,7 +53,7 @@ namespace AlmaDino.Core.Editor
             var waveGo = new GameObject("Fracture_Roar_Wave"); waveGo.transform.SetParent(root.transform, false);
             var wave = waveGo.AddComponent<RoarWaveVisual2D>(); var line = waveGo.GetComponent<LineRenderer>();
             line.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>("Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat");
-            line.startWidth = .08f; line.endWidth = .08f; line.sortingOrder = 8; waveGo.GetComponent<AudioSource>().playOnAwake = false;
+            line.startWidth = .08f; line.endWidth = .08f; line.sortingOrder = 8;
             CaveLevelSceneFactory.Set(wave, "_playerSource", player); CaveLevelSceneFactory.Set(wave, "_radius", player.Config.RoarRadius);
             CaveLevelSceneFactory.Set(wave, "_duration", player.Config.RoarDuration); CaveLevelSceneFactory.Set(wave, "_halfAngle", player.Config.RoarHalfAngle);
             var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
@@ -205,7 +205,7 @@ namespace AlmaDino.Core.Editor
             var prefab = PrefabUtility.SaveAsPrefabAsset(go, "Assets/_Project/Prefabs/World_4_Volcano/Magma_Fireball.prefab");
             Object.DestroyImmediate(go); return prefab.GetComponent<PoisonBubble2D>();
         }
-        private static void Salamander(CaveLevelSceneFactory f, Transform root, PlayerController player, MagmaSalamanderConfigSO config, PoisonBubble2D fireball, int index, float x, float floorTop = 0f, float patrolWidth = 3f, bool climbingWall = true)
+        internal static void Salamander(CaveLevelSceneFactory f, Transform root, PlayerController player, MagmaSalamanderConfigSO config, PoisonBubble2D fireball, int index, float x, float floorTop = 0f, float patrolWidth = 3f, bool climbingWall = true)
         {
             if (climbingWall) f.Platform("Salamander_Climbing_Wall_" + index, new Vector2(x + 3.6f, .85f), new Vector2(.4f, 1.7f));
             if (climbingWall) LevelBuilder4_1.Hint(root, "Climbing_Wall_Hint_" + index, new Vector2(x + 3.6f, 3.1f), "DOBLE SALTO →", Color.cyan);

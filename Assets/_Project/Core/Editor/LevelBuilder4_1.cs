@@ -91,7 +91,6 @@ namespace AlmaDino.Core.Editor
             var line = waveGo.GetComponent<LineRenderer>();
             line.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>("Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat");
             line.startWidth = .08f; line.endWidth = .08f; line.sortingOrder = 8;
-            waveGo.GetComponent<AudioSource>().playOnAwake = false;
             CaveLevelSceneFactory.Set(wave, "_playerSource", player);
             CaveLevelSceneFactory.Set(wave, "_duration", player.Config.RoarDuration);
             CaveLevelSceneFactory.Set(wave, "_radius", player.Config.RoarRadius);

@@ -58,7 +58,6 @@ namespace AlmaDino.Core.Editor
             var wave = waveGo.AddComponent<RoarWaveVisual2D>();
             var line = waveGo.GetComponent<LineRenderer>(); line.startWidth = .07f; line.endWidth = .07f; line.sortingOrder = 8;
             line.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>("Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat");
-            waveGo.GetComponent<AudioSource>().playOnAwake = false;
             CaveLevelSceneFactory.Set(wave, "_playerSource", player); CaveLevelSceneFactory.Set(wave, "_duration", player.Config.RoarDuration);
             CaveLevelSceneFactory.Set(wave, "_radius", player.Config.RoarResonanceRange); CaveLevelSceneFactory.Set(wave, "_halfAngle", player.Config.RoarHalfAngle);
             var exitGo = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
@@ -90,7 +89,7 @@ namespace AlmaDino.Core.Editor
             f.Visual("Bell_Clapper", visual.transform, new Vector2(0f, -.82f), new Vector2(.17f, .5f), new Color(.87f, .63f, .37f), true);
             f.Visual("Hanging_Chain", go.transform, new Vector2(0f, 1.5f), new Vector2(.09f, 1.8f), new Color(.4f, .3f, .23f), true);
             var label = LevelBuilder4_1.Hint(go.transform, "Bell_Countdown", position + Vector2.up * 1.1f, "ROAR → CAMPANA", Color.white);
-            var bell = go.AddComponent<ResonanceBell2D>(); go.GetComponent<AudioSource>().playOnAwake = false;
+            var bell = go.AddComponent<ResonanceBell2D>();
             CaveLevelSceneFactory.Set(bell, "_config", config); CaveLevelSceneFactory.Set(bell, "_playerSource", player);
             CaveLevelSceneFactory.Set(bell, "_visual", visual.transform); CaveLevelSceneFactory.Set(bell, "_rim", rim.GetComponent<SpriteRenderer>()); CaveLevelSceneFactory.Set(bell, "_countdown", label);
             return bell;

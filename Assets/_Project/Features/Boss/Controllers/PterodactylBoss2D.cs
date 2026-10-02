@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace AlmaDino.Features.Boss.Controllers
 {
-    [RequireComponent(typeof(Rigidbody2D), typeof(AudioSource))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public sealed class PterodactylBoss2D : MonoBehaviour
     {
         [SerializeField] private PterodactylBossConfigSO _config;
@@ -27,8 +27,6 @@ namespace AlmaDino.Features.Boss.Controllers
         private Rigidbody2D _body;
         private Rigidbody2D _playerBody;
         private IPlayerRespawnable _player;
-        private AudioSource _audio;
-        private AudioClip _impact;
         private float _timer;
         private float _direction = -1f;
         private Vector2 _target;
@@ -46,11 +44,6 @@ namespace AlmaDino.Features.Boss.Controllers
             _body = GetComponent<Rigidbody2D>();
             _player = _playerSource as IPlayerRespawnable;
             _playerBody = _playerSource.GetComponent<Rigidbody2D>();
-            _audio = GetComponent<AudioSource>();
-            _impact = AudioClip.Create("Pterodactyl_Impact_Prototype", 4410, 1, 44100, false);
-            var samples = new float[4410];
-            for (int i = 0; i < samples.Length; i++) samples[i] = Mathf.Sin(i * 0.045f) * (1f - i / 4410f) * 0.25f;
-            _impact.SetData(samples, 0);
             _timer = _config.WindDuration + 2f;
             _exit.SetActive(false);
         }
@@ -60,7 +53,6 @@ namespace AlmaDino.Features.Boss.Controllers
             if (_player != null) _player.OnRespawned -= ResetAfterRespawn;
             RestoreTimeScale();
         }
-        private void OnDestroy() { if (_impact != null) Destroy(_impact); }
         private void Start() => NarrativeBannerEvents.RequestBanner("PTERODÁCTILO ALFA",
             "Resiste el viento. En el aviso: Doble Salto, luego DASH de frente a la cresta cian. Tres impactos.", Color.cyan, 6f);
 
@@ -128,7 +120,6 @@ namespace AlmaDino.Features.Boss.Controllers
             _timer = _config.WarningDuration;
             _crest.color = Color.cyan;
             SetHint("PICADO " + (_direction < 0f ? "←" : "→") + "  DOBLE SALTO + DASH " + (_direction < 0f ? "→" : "←"), Color.yellow);
-            _audio.PlayOneShot(_impact, .4f);
         }
 
         public bool TryStrike(Vector2 dashVelocity)
@@ -140,7 +131,6 @@ namespace AlmaDino.Features.Boss.Controllers
             SetHint("¡IMPACTO! " + _fight.Hits + "/3", Color.yellow);
             _shake?.Raise(.4f, .25f);
             _sparks.Play();
-            _audio.PlayOneShot(_impact);
             StartCoroutine(HitStop());
             if (_fight.IsDefeated)
             {

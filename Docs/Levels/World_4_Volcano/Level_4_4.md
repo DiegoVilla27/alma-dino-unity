@@ -69,3 +69,27 @@
 - [ ] **Sprites Alma:** Alma portando los cuatro huevos visibles acurrucados en su espalda con sus respectivos tonos de luz.
 - [ ] **VFX:** Vetas de lava líquida iluminadas en URP; aura cuadrilateral de luz (verde, azul, morada, roja) emanando de los huevos.
 - [ ] **Audio:** Pista "The Fourth Ember", tema orquestal "Lullaby for the Four Hearts", rugido titánico del T-Rex Anciano.
+
+
+## 6. Implementación jugable
+
+Escena `Assets/Scenes/World_4_Volcano/Level_4_4.unity`, accesible desde `Alma/📂 Cargar Nivel 4-4`. El portal del 4-3 carga esta escena. Las cuatro habilidades están disponibles al entrar directamente; entrar no concede huevos ni completa el mundo.
+
+1. **Alas — altura:** columnas X=7–12 con superficie Y=2.2 y X=14–17 con superficie Y=3.2. La primera exige Doble Salto real; la siguiente asciende solo 1m desde ella. Una salamandra patrulla la salida en X=20.
+2. **Tierra — pilares:** Pisotón atraviesa dos suelos agrietados superpuestos en X=25–29, superficies Y=0 e Y=-1. Romper ambos abre la barrera X=30.5. El refugio inferior está en Y=-2; Doble Salto permite volver a suelo Y=0. Una salamandra debajo de los pilares recibe el impacto sísmico antes de que Alma llegue a su altura. Checkpoint X=35.
+3. **Impulso — fuego:** una salamandra protege la aproximación. El foso X=44–52 contiene una corriente de fuego elevada con 2.2s seguros, 0.8s de aviso y 1.2s activos. Esperar PASA y combinar salto con Dash permite romper la reja X=50 y aterrizar en X=52–58. El fuego activo daña también durante Dash.
+4. **Voz — puente:** desde X=53.5–53.8, Rugido frontal mueve el basalto X=56 cinco metros. Se solidifica en X=61 con apoyo plano de 4.2m y superficie Y=0.2 sobre lava X=58–74. Saltar al apoyo y usar Doble Salto + Dash desde X=62.5 permite llegar al checkpoint X=75. El cuerpo alto del basalto y el foso de 16m impiden cruzar caminando o ignorar la alineación.
+5. **Pedestal:** último Doble Salto + Dash desde X=77.4 sobre lava X=78–86. La isla X=86–104 alberga el Huevo Rojo en X=90, Y=1.1. El portal al jefe está cerrado hasta tocar físicamente el huevo.
+
+**Momento del rescate:** se guarda el Huevo Rojo, el combate y sus proyectiles se apagan, las corrientes de fuego quedan inactivas y el rescate ocurre en silencio. Alma pasa a tener checkpoint de rescate X=90. Las siluetas de huevos en su espalda muestran únicamente los huevos realmente recuperados, con luces verde, azul, morada y roja. En la partida normal, el texto es «Los cuatro están aquí. Mi nido vuelve a estar completo. (Cuatro de cuatro rescatados)». Entrar directamente para probar el nivel no concede los otros tres huevos.
+
+Tras 2.5s de calma, una silueta del Rey Ladrón emerge junto al pedestal con temblor breve. Es la anticipación del combate: no inflige daño. El portal X=95 se dirige a `Boss_Final`, todavía pendiente de implementación. Rescatar el huevo no completa Mundo 4; eso corresponde a derrotar al jefe final. Al recargar, el rescate y el acceso al portal persisten sin duplicar huevos.
+
+Morir restaura pilares y reja pendientes, mientras los mecanismos ya resueltos detrás del checkpoint y el puente completado permanecen. Los enemigos y la corriente reinician sus ciclos. El checkpoint del rescate permite recuperarse en el pedestal. Cámara size 6, seguimiento de Alma y anticipación horizontal 1.25m; muro detrás del inicio. Se retiraron las columnas decorativas y los bloques del fondo para despejar el santuario. El arte definitivo sigue pendiente. Por petición del usuario, el juego no reproduce sonidos; las propuestas de audio anteriores quedan descartadas para la implementación.
+
+### Validación de la implementación
+
+- 13 pruebas PlayMode del Nivel 4-4 aprobadas, incluido el recorrido completo con controles reales y sin muertes.
+- 16 pruebas PlayMode del Nivel 4-3 aprobadas como regresión, incluida la transición al 4-4.
+- 79 pruebas EditMode aprobadas.
+- Verificados alcance del doble salto, pisotón de ambos pilares, dash sobre corrientes, puente de rugido, checkpoints, rescate persistente y cámara de tamaño 6.
