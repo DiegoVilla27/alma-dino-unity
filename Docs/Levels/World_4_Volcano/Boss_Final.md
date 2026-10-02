@@ -88,3 +88,20 @@ El combate final es un examen maestro donde Alma debe sincronizar las **4 habili
 - [ ] **Sprites Epílogo:** Cuatro crías de dinosaurio bebé (Verde, Azul, Púrpura, Rojo) animadas saliendo de sus respectivos cascarones; Alma en pose pacífica recostada en la hierba.
 - [ ] **VFX:** Chispas volcánicas, lava ascendente procedural, distorsión de calor en pantalla, onda de choque sónica para el rugido devuelto, pantalla en blanco suave para la transición al epílogo.
 - [ ] **Audio:** Pistas musicales "Alma: The Mother's Symphony" (fases de combate y versión suave de epílogo), rugidos del T-Rex, piadas de las crías.
+
+## 6. Implementación jugable
+
+`Assets/Scenes/World_4_Volcano/Boss_Final.unity`, disponible desde **Alma → 📂 Cargar Jefe Final**, continúa el portal del 4-4. Mantiene cámara ortográfica 6, seguimiento vertical y anticipación horizontal 1.25m. El juego permanece completamente silencioso: las propuestas de audio de las secciones anteriores no se implementan por petición expresa del usuario.
+
+- **Carga:** mandíbula baja precedida por aviso. Doble salto y Dash aéreo contra el sello de calor X=8 exponen la placa dorsal X=12 durante 4 segundos. Solo un Pisotón desde arriba confirma el impacto; caminar, aterrizar normalmente o rugir no dañan la coraza.
+- **Meteoros:** un peñasco se acerca desde la derecha. El Rugido frontal lo devuelve a las fauces y abre otra ventana de 4 segundos para el Pisotón. La lluvia secundaria marca primero su punto de caída en amarillo y no persigue después a Alma.
+- **Colapso:** checkpoint X=20. El altar desaparece; tras 7 segundos, el magma sube a 0.38m/s. Cornisas a 2.2m y 4.4m avisan durante 1.5s antes de colapsar. Un salto con Dash cruza el paso bajo la cortina de fuego. Pisotón en el sello X=38 libera el vapor; el impulso y la cornisa superior permiten alcanzar el anclaje. Rugido frontal para agrietarlo, salto y Pisotón para soltar la estalactita. El tercer impacto guarda Mundo 4 completado.
+- **Reintentos:** cada impacto conserva la fase durante el encuentro. Morir reinicia la ventana, las posiciones de meteoritos, las cornisas, el sello, el anclaje y el magma a la entrada segura de esa fase. Los huevos guardados no se modifican; probar el jefe directamente no concede rescates.
+- **Final:** caída visual de la estalactita y del tirano, transición al valle de atardecer, nacimiento secuencial de cuatro crías y mensaje de cierre. El arte del tirano, las crías y el escenario es provisional.
+
+### Validación
+
+- 7 pruebas PlayMode del jefe final aprobadas: recorrido completo con controles reales y sin muertes, daño de la mandíbula, requisitos de habilidades, ventanas, checkpoints, ausencia de audio y portal del 4-4.
+- 13 pruebas PlayMode del Nivel 4-4 aprobadas como regresión.
+- 83 pruebas EditMode aprobadas, incluidas las reglas de exposición, impactos, vapor, anclaje y reinicio de fase.
+- Revisadas visualmente arena, ascenso y epílogo; cámara en tamaño 6 en todo momento.

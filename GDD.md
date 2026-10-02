@@ -208,6 +208,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 | **16** | Evaluar + Rescate | `Level_4_4` jugable: cuatro pruebas distintas de Doble Salto, Pisotón, Dash y Rugido, con salamandras, corriente de fuego cronometrada y puente de basalto. **Huevo 4 (Rojo)** en pedestal tras salto final; rescate persistente, calma, aura de huevos y anticipación del Rey Ladrón. Checkpoints X=35 y X=75. |
 
 **Jefe Final — El Rey Ladrón (T-Rex Anciano)**
+- **Estado:** `Boss_Final` jugable, conectado al 4-4; tres fases con checkpoint y epílogo silencioso. Solo el golpe definitivo completa Mundo 4.
 - **Estado del rescate:** Alma entra con los cuatro huevos ya recuperados en 4-4. Los deja en un saliente protegido durante el combate.
 - **Arena:** Cornisas de basalto sobre magma; el espacio se reduce en la última fase.
 - **Fase 1:** Doble Salto + Dash para esquivar embestidas; Pisotón sobre la placa dorsal expuesta durante 4 segundos. Primer impacto.
