@@ -115,14 +115,14 @@ namespace AlmaDino.Core.Progression
                 UnlockAbility(AbilityType.GroundPound);
             }
 
-            if (sceneName == "Level_3_2" || sceneName == "Level_3_3" || sceneName == "Level_3_4" || sceneName == "Boss_3" || sceneName == "Level_4_1" || sceneName == "Level_4_2")
+            if (sceneName == "Level_3_2" || sceneName == "Level_3_3" || sceneName == "Level_3_4" || sceneName == "Boss_3" || sceneName == "Level_4_1" || sceneName == "Level_4_2" || sceneName == "Level_4_3")
             {
                 UnlockAbility(AbilityType.DoubleJump);
                 UnlockAbility(AbilityType.GroundPound);
                 UnlockAbility(AbilityType.Dash);
             }
 
-            if (sceneName == "Level_4_2") UnlockAbility(AbilityType.Roar);
+            if (sceneName == "Level_4_2" || sceneName == "Level_4_3") UnlockAbility(AbilityType.Roar);
 
             if (sceneName == "Level_1_2" || sceneName == "Level_1_3" || sceneName == "Level_1_4" || sceneName == "Boss_1"
                 || sceneName == "Level_2_1")

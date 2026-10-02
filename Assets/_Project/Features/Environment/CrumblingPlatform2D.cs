@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using AlmaDino.Core.Interfaces;
 
 namespace AlmaDino.Features.Environment
 {
@@ -16,6 +17,8 @@ namespace AlmaDino.Features.Environment
         [SerializeField] private float _shakeIntensity = 0.05f;
         [SerializeField] private Color _crackingTint = new Color(0.85f, 0.4f, 0.4f, 1f);
 
+        [SerializeField] private MonoBehaviour _playerSource;
+        private IPlayerRespawnable _player;
         private Vector3 _originalPosition;
         private Color _originalColor = Color.white;
         private Collider2D _collider;
@@ -32,6 +35,25 @@ namespace AlmaDino.Features.Environment
             {
                 _originalColor = _renderer.color;
             }
+        }
+
+        private void Start()
+        {
+            _player = _playerSource as IPlayerRespawnable;
+            if (_player != null) _player.OnRespawned += RestoreForCheckpoint;
+        }
+
+        private void OnDestroy()
+        {
+            if (_player != null) _player.OnRespawned -= RestoreForCheckpoint;
+        }
+
+        private void RestoreForCheckpoint(Vector2 checkpoint)
+        {
+            StopAllCoroutines(); _isCrumbling = false; transform.position = _originalPosition;
+            _collider.enabled = true;
+            foreach (var renderer in GetComponentsInChildren<SpriteRenderer>()) renderer.enabled = true;
+            if (_renderer != null) _renderer.color = _originalColor;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -78,7 +100,7 @@ namespace AlmaDino.Features.Environment
             // Colapso
             transform.position = _originalPosition;
             if (_collider != null) _collider.enabled = false;
-            if (_renderer != null) _renderer.enabled = false;
+            foreach (var renderer in GetComponentsInChildren<SpriteRenderer>()) renderer.enabled = false;
 
             // Esperar tiempo de reaparición
             yield return new WaitForSeconds(_respawnDelay);
@@ -89,6 +111,7 @@ namespace AlmaDino.Features.Environment
                 _renderer.color = _originalColor;
                 _renderer.enabled = true;
             }
+            foreach (var renderer in GetComponentsInChildren<SpriteRenderer>()) renderer.enabled = true;
             if (_collider != null) _collider.enabled = true;
 
             _isCrumbling = false;

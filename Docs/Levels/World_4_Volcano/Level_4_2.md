@@ -70,6 +70,6 @@ Escena `Assets/Scenes/World_4_Volcano/Level_4_2.unity`, accesible desde `Alma/�
 - Cadena final: rugir desde cada isla para activar las campanas (68, 5.2), (85.5, 4.6) y (99.5, 4.6). Abren respectivamente las puertas X=68, X=82 y X=96. Los fosos X=70–78, X=84–92 y X=98–106 requieren Doble Salto + Dash.
 - Cada campana apaga únicamente su puerta durante 5s. Otro rugido renueva el plazo. Cuenta atrás visible, aviso amarillo en el último segundo y tono provisional al activarse. Ni contacto ni Pisotón activan campanas.
 - Las llamas cerradas dañan incluso durante Dash. Morir cierra todas las puertas; los checkpoints quedan en zonas seguras. Muro detrás del inicio para impedir caer por el extremo.
-- Cámara size 6, seguimiento de Alma y anticipación horizontal 1.25m. Portal X=118 hacia `Level_4_3`, pendiente de implementación. El mundo todavía no se completa. Arte y audio definitivos pendientes.
+- Cámara size 6, seguimiento de Alma y anticipación horizontal 1.25m. Portal X=118 hacia `Level_4_3`, La Gran Fractura. El mundo todavía no se completa. Arte y audio definitivos pendientes.
 
 Validación: 12 pruebas PlayMode del 4-2, incluyendo recorrido completo sin muertes mediante entradas normales, y 10 pruebas de regresión del 4-1. Suite EditMode: 75 pruebas.

@@ -110,3 +110,10 @@ Rugido dura 0.25s y consulta un cono frontal de 3m y 45° de semiancho. Los obje
 ### Mundo 4-2: Campanas y llamas cronometradas
 
 `IRangedRoarReactive2D` permite a las campanas responder hasta 8m dentro del cono frontal de 45°; las rocas y el impulso físico conservan 3m. La consulta incluye triggers y excluye el propio cuerpo de Alma. El Rugido aéreo permite orientar el cono hacia campanas elevadas sin modificar salto ni cámara. Cada campana mantiene un temporizador independiente de 5s, renovable con otro Rugido, y desactiva el collider peligroso de su puerta. Al expirar, las llamas vuelven a dañar, incluido durante Dash. Morir reinicia todos los temporizadores. Checkpoints X=30 y X=62 están fuera de las puertas. Los cinco fosos de 8m se cruzan con Doble Salto + Dash; el recorrido completo pasa sin muertes. Cámara size 6 y anticipación horizontal 1.25m.
+
+
+### Mundo 4-3: La Gran Fractura
+
+La entrada conserva una única cadena de Doble Salto, Dash, Pisotón y Rugido con meteorito; su refugio está 1.5m bajo el suelo de llegada. El centro permite elegir: cornisas altas en Y=2.2/2.8/2.8 que ceden tras 1.5s, o piedras bajas en Y=-0.6 con vapor corto y una salamandra. La lava central queda en Y=-2.2 y el vapor no alcanza las cornisas altas. Ambas rutas convergen en X=68.
+
+En el cierre, romper el sello con Pisotón libera una barrera y arma `RisingGasCycle`, reutilizado para magma: aviso 1.4s, altura inicial -3.2m, subida 0.9m/s y techo 3.4m. El refugio bajo el sello tiene suelo Y=-1.5; su primer salto asciende 1.3m y los siguientes escalones no ascienden más de 1.2m. Las últimas dos cornisas ceden y el foso final de 8m exige Doble Salto + Dash hacia suelo Y=3.8. Alcanzar X=106 a la altura de ese refugio detiene la lava. Morir cierra la barrera, restaura el sello y reinicia la subida; la compuerta de meteorito ya completada detrás del checkpoint se conserva. Cámara size 6 y anticipación horizontal 1.25m.

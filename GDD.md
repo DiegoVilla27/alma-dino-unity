@@ -204,7 +204,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 |---|---|---|
 | **13** | Introducir | `Level_4_1` jugable: fumarola que desbloquea Rugido, cono frontal de 3m, rocas que avanzan 5m y forman apoyos sobre lava, vapor con aviso y checkpoints. |
 | **14** | Practicar | `Level_4_2` jugable: cinco campanas elevadas responden al Rugido frontal hasta 8m y apagan su puerta de llamas durante 5s. Práctica en suelo, Doble Salto + Rugido aéreo y cadena final de tres campanas sobre lava, con checkpoints X=30 y X=62. |
-| **15** | Complicar | El nivel más exigente. Secuencia: Doble Salto → Dash sobre púas → Pisotón en el aire para romper suelo → Rugido al caer para desviar meteorito. |
+| **15** | Complicar | `Level_4_3` jugable: una cadena inicial de cuatro habilidades devuelve un meteorito; zona central con elección entre cornisas colapsantes y piedras con vapor; cierre con Pisotón que provoca una erupción, ascenso bajo presión y Dash final. Salamandras activas y checkpoints X=32 y X=68. |
 | **16** | Evaluar + Rescate | Antecámara del volcán antes del colapso. **Huevo 4 (Rojo)** sobre un pedestal rodeado de fuego. |
 
 **Jefe Final — El Rey Ladrón (T-Rex Anciano)**

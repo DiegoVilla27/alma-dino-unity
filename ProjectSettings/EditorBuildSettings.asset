@@ -57,6 +57,9 @@ EditorBuildSettings:
     path: Assets/Scenes/World_4_Volcano/Level_4_2.unity
     guid: d6981cb37e39e4fc6af54721b76caffe
   - enabled: 1
+    path: Assets/Scenes/World_4_Volcano/Level_4_3.unity
+    guid: dddb5ad5800d24fb0b59c056083457a2
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
