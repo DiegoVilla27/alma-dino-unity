@@ -56,6 +56,7 @@ namespace AlmaDino.Features.Player.ScriptableObjects
         [SerializeField] private float _roarRadius = 3f;
 
         [SerializeField] private float _roarHalfAngle = 45f;
+        [SerializeField] private float _roarResonanceRange = 8f;
 
         [Header("Abilities Unlocked (Para pruebas o progresión)")]
         [SerializeField] private bool _canDoubleJump = true;
@@ -82,6 +83,7 @@ namespace AlmaDino.Features.Player.ScriptableObjects
         public float GroundPoundWindup => _groundPoundWindup;
         public float GroundPoundSpeed => _groundPoundSpeed;
         public float RoarDuration => _roarDuration;
+        public float RoarResonanceRange => _roarResonanceRange;
         public float RoarHalfAngle => _roarHalfAngle;
         public float RoarRadius => _roarRadius;
 

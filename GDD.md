@@ -203,7 +203,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 | Nivel | Función pedagógica | Descripción |
 |---|---|---|
 | **13** | Introducir | `Level_4_1` jugable: fumarola que desbloquea Rugido, cono frontal de 3m, rocas que avanzan 5m y forman apoyos sobre lava, vapor con aviso y checkpoints. |
-| **14** | Practicar | Campanas de basalto fuera del mapa que solo activa la onda del rugido para apagar llamaradas durante 5 s. |
+| **14** | Practicar | `Level_4_2` jugable: cinco campanas elevadas responden al Rugido frontal hasta 8m y apagan su puerta de llamas durante 5s. Práctica en suelo, Doble Salto + Rugido aéreo y cadena final de tres campanas sobre lava, con checkpoints X=30 y X=62. |
 | **15** | Complicar | El nivel más exigente. Secuencia: Doble Salto → Dash sobre púas → Pisotón en el aire para romper suelo → Rugido al caer para desviar meteorito. |
 | **16** | Evaluar + Rescate | Antecámara del volcán antes del colapso. **Huevo 4 (Rojo)** sobre un pedestal rodeado de fuego. |
 

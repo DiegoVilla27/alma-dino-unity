@@ -123,13 +123,13 @@ namespace AlmaDino.Core.Editor
             if (config == null) { config = ScriptableObject.CreateInstance<T>(); AssetDatabase.CreateAsset(config, path); }
             return config;
         }
-        private static void Floor(CaveLevelSceneFactory f, string name, float left, float right)
+        internal static void Floor(CaveLevelSceneFactory f, string name, float left, float right)
         {
             var floor = f.Platform(name, new Vector2((left + right) * .5f, -.75f), new Vector2(right - left, 1.5f));
             floor.GetComponent<SpriteRenderer>().color = Basalt;
             floor.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(.4f, .3f, .22f);
         }
-        private static Collider2D Lava(CaveLevelSceneFactory f, Transform root, string name, float left, float right)
+        internal static Collider2D Lava(CaveLevelSceneFactory f, Transform root, string name, float left, float right)
         {
             var go = f.Visual(name, root, new Vector2((left + right) * .5f, -1.6f), new Vector2(right - left, 2.4f), Magma, true);
             go.AddComponent<BoxCollider2D>().isTrigger = true; go.AddComponent<HazardTrigger2D>();
@@ -192,7 +192,7 @@ namespace AlmaDino.Core.Editor
             var prefab = PrefabUtility.SaveAsPrefabAsset(go, "Assets/_Project/Prefabs/World_4_Volcano/LavaGeyser_Volcano.prefab");
             Object.DestroyImmediate(go); return prefab;
         }
-        private static TextMesh Hint(Transform root, string name, Vector2 position, string text, Color color)
+        internal static TextMesh Hint(Transform root, string name, Vector2 position, string text, Color color)
         {
             var go = new GameObject(name); go.transform.SetParent(root, false); go.transform.position = position;
             var label = go.AddComponent<TextMesh>();
@@ -209,7 +209,7 @@ namespace AlmaDino.Core.Editor
             CaveLevelSceneFactory.Set(go.GetComponent<LevelExit2D>(), "_levelTitle", "LOS RÍOS DE CENIZA COMPLETADOS");
             CaveLevelSceneFactory.Set(go.GetComponent<LevelExit2D>(), "_victoryMessage", "Tu voz abre camino.\nLas campanas del fuego esperan más arriba en el volcán.");
         }
-        private static void Atmosphere(CaveLevelSceneFactory f, Transform root, Transform camera)
+        internal static void Atmosphere(CaveLevelSceneFactory f, Transform root, Transform camera)
         {
             for (int layer = 0; layer < 4; layer++)
             {

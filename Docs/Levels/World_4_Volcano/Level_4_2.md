@@ -59,3 +59,17 @@
 - [ ] **Sprites Props:** Campana de basalto suspendida (reposo, vibración con ondas, retorno), quemador de llamaradas (activo, apagado).
 - [ ] **VFX:** Onda de calor distorsionante en la pantalla; anillo sónico expandiéndose de la campana; llamarada de gas encendiéndose y apagándose.
 - [ ] **Audio:** Pista "Chimes of the Caldera", SFX de campana de piedra, SFX de gas encendiéndose.
+
+
+## 6. Implementación jugable
+
+Escena `Assets/Scenes/World_4_Volcano/Level_4_2.unity`, accesible desde `Alma/📂 Cargar Nivel 4-2`. El portal del 4-1 carga esta escena. Las cuatro habilidades están disponibles también al entrar directamente.
+
+- Introducción: rugir mirando a la derecha desde X=6 activa la campana (12, 5.2), abre la puerta X=16 y permite cruzar lava X=20–28 con Doble Salto + Dash. Checkpoint X=30.
+- Rugido aéreo: desde X=40, ejecutar Doble Salto y rugir hacia la campana (45.5, 6.5). Desde ese punto, en suelo queda fuera del cono. Altura rebajada de Y=8 a Y=6.5 para permitir Rugido temprano o tardío tras Doble Salto, incluso soltando el salto pronto. Cruzar la puerta X=48 y lava X=50–58. Checkpoint X=62.
+- Cadena final: rugir desde cada isla para activar las campanas (68, 5.2), (85.5, 4.6) y (99.5, 4.6). Abren respectivamente las puertas X=68, X=82 y X=96. Los fosos X=70–78, X=84–92 y X=98–106 requieren Doble Salto + Dash.
+- Cada campana apaga únicamente su puerta durante 5s. Otro rugido renueva el plazo. Cuenta atrás visible, aviso amarillo en el último segundo y tono provisional al activarse. Ni contacto ni Pisotón activan campanas.
+- Las llamas cerradas dañan incluso durante Dash. Morir cierra todas las puertas; los checkpoints quedan en zonas seguras. Muro detrás del inicio para impedir caer por el extremo.
+- Cámara size 6, seguimiento de Alma y anticipación horizontal 1.25m. Portal X=118 hacia `Level_4_3`, pendiente de implementación. El mundo todavía no se completa. Arte y audio definitivos pendientes.
+
+Validación: 12 pruebas PlayMode del 4-2, incluyendo recorrido completo sin muertes mediante entradas normales, y 10 pruebas de regresión del 4-1. Suite EditMode: 75 pruebas.

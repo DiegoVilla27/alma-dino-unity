@@ -90,7 +90,7 @@
 
 - La lava y el vapor activo causan daño por contacto; reaparece Alma en el último checkpoint.
 - Morir restaura las rocas pendientes o movidas del tramo actual. Los puentes completados detrás del checkpoint se conservan, y los chorros vuelven a un período seguro completo.
-- El nivel no rescata todavía el Huevo Rojo ni completa Mundo 4; corresponden al 4-4 y al jefe final. `Level_4_2` sigue pendiente, por lo que su portal muestra el cierre del nivel.
+- El nivel no rescata todavía el Huevo Rojo ni completa Mundo 4; corresponden al 4-4 y al jefe final. Su portal carga `Level_4_2`, Las Campanas de Basalto.
 - Cámara **size 6**, seguimiento de Alma y anticipación horizontal **1.25m**. Cuatro capas de parallax volcánico con basalto, lava lejana, ceniza y brasas; luz cálida naranja.
 - Constructor: `Tools → Alma → Construir Nivel 4-1 - Los Ríos de Ceniza`. Acceso: `Alma → 📂 Cargar Nivel 4-1`.
 - Reutiliza `PushableBoulder2D`, `LavaGeyser2D`, el altar de habilidad y el portal. Datos de roca y vapor en `BoulderRoarConfig.asset` y `GeyserConfig.asset`; el Rugido se ajusta en `AlmaPhysicsConfig.asset`.

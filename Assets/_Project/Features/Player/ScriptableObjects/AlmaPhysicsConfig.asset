@@ -31,6 +31,7 @@ MonoBehaviour:
   _roarDuration: 0.25
   _roarRadius: 3
   _roarHalfAngle: 45
+  _roarResonanceRange: 8
   _canDoubleJump: 1
   _canGroundPound: 1
   _canDash: 1

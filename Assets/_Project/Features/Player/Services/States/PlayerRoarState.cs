@@ -19,7 +19,7 @@ namespace AlmaDino.Features.Player.Services.States
         public PlayerRoarState(PlayerController player)
         {
             _player = player;
-            _contactFilter.useTriggers = false;
+            _contactFilter.useTriggers = true;
         }
 
         public void Enter()
@@ -31,19 +31,20 @@ namespace AlmaDino.Features.Player.Services.States
             _player.RequestCameraShake(0.25f, 0.2f);
 
             // Onda de choque hacia adelante (Zero-alloc query)
-            float radius = _player.Config != null ? _player.Config.RoarRadius : 2.5f;
+            float radius = _player.Config != null ? _player.Config.RoarRadius : 3f;
+            float resonanceRange = _player.Config != null ? _player.Config.RoarResonanceRange : 8f;
             Vector2 forwardOrigin = _player.Rigidbody.position;
             Vector2 direction = Vector2.right * (int)_player.FacingDirection;
             float halfAngle = _player.Config != null ? _player.Config.RoarHalfAngle : 45f;
             _player.EmitRoar(forwardOrigin, direction);
-            int hitCount = Physics2D.OverlapCircle(forwardOrigin, radius, _contactFilter, _hitBuffer);
+            int hitCount = Physics2D.OverlapCircle(forwardOrigin, Mathf.Max(radius, resonanceRange), _contactFilter, _hitBuffer);
 
             for (int i = 0; i < hitCount; i++)
             {
                 var col = _hitBuffer[i];
-                if (col == null || col.gameObject == _player.gameObject) continue;
-
-                if (!RoarTargeting.Contains(forwardOrigin, col.bounds.center, direction, radius, halfAngle)) continue;
+                if (col == null || col.attachedRigidbody == _player.Rigidbody) continue;
+                float targetRange = col.TryGetComponent<IRangedRoarReactive2D>(out var ranged) ? Mathf.Min(resonanceRange, ranged.RoarRange) : radius;
+                if (!RoarTargeting.Contains(forwardOrigin, col.bounds.center, direction, targetRange, halfAngle)) continue;
                 if (col.TryGetComponent<IRoarReactive2D>(out var reactive))
                 { reactive.ReceiveRoar(direction); continue; }
 
