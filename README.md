@@ -211,7 +211,7 @@ Fight tuning lives in [ArmadilloBossConfig.asset](Assets/_Project/ScriptableObje
 
 Player death resets the current rolling cycle and clears crystals while preserving successful strikes **within the active encounter**. Defeating the boss records World 2 completion through `GameProgression.CompleteWorld(2)` and enables the exit.
 
-**Current limits:** Boss art is a geometric prototype; final sprites, VFX and audio remain pending. The exit now connects to the playable `Level_3_1` Dash tutorial. Boss 3 is playable; World 4 remains planned content.
+**Current limits:** Boss art is a geometric prototype; final sprites, VFX and audio remain pending. The exit now connects to the playable `Level_3_1` Dash tutorial. Boss 3 is playable; Level 4-1 is playable; later World 4 levels remain planned.
 
 ---
 
@@ -234,7 +234,10 @@ Four `Level3_1PlayTests` pass: protection against walking or jumping off the ent
 
 **Level 3-4 — El Sauce Ancestral** (`Assets/Scenes/World_3_Swamp/Level_3_4.unity`) climbs solid branches with Double Jump while toxic gas rises by sections. Each section has a `3s` warning, gas speed `0.9 m/s` and a `4m` initial clearance; checkpoints at `(40, 7.5)` and `(84, 12)` provide time to rest. Two horizontal spores cross a `16m` lake, followed by a Dash reed gate. Reused Pound seesaws provide an optional early shortcut and the required launch to the crown at `Y = 19.5`. Contact with the Purple Egg at `X = 118` persists the rescue, stops the gas, reveals the Alpha Pterodactyl silhouette and opens the exit to the playable `Boss_3`. Three poison toads guard the lower branches, middle ascent and crown, with warned shots aimed toward Alma’s current side and contact damage. Gas restarts on each attempt, including replays with the Purple Egg already saved. Cover before the nest provides a safe place to prepare the last jump. Death resets the active gas section, spores and seesaws and clears poison shots. Camera size stays **6**; final art/audio remain pending.
 
-**Boss 3 — Alpha Pterodactyl** (`Assets/Scenes/World_3_Swamp/Boss_3.unity`) closes World 3 with three frontal Air Dash counters to the cyan head. Four branches are reachable with Double Jump. Horizontal wind at `12 m/s²` precedes a `1.4s` dive warning that locks the target height and shows the counter direction. Dives accelerate from `7` to `8` to `9 m/s`. Single Jump cannot reach the dive head at `3.5m` above the selected branch. Ground Dash and ordinary contact do not damage the boss; body contact remains dangerous during Dash. Successful counters bounce Alma, restore aerial abilities and remove the farthest side branch, leaving the central branch after victory. Death preserves successful hits and broken branches while restarting the current attack cycle. Three hits persist World 3 completion and open the exit to the future `Level_4_1`. Camera size stays **6** with directional follow; art and audio are prototypes.
+**Boss 3 — Alpha Pterodactyl** (`Assets/Scenes/World_3_Swamp/Boss_3.unity`) closes World 3 with three frontal Air Dash counters to the cyan head. Four branches are reachable with Double Jump. Horizontal wind at `12 m/s²` precedes a `1.4s` dive warning that locks the target height and shows the counter direction. Dives accelerate from `7` to `8` to `9 m/s`. Single Jump cannot reach the dive head at `3.5m` above the selected branch. Ground Dash and ordinary contact do not damage the boss; body contact remains dangerous during Dash. Successful counters bounce Alma, restore aerial abilities and remove the farthest side branch, leaving the central branch after victory. Death preserves successful hits and broken branches while restarting the current attack cycle. Three hits persist World 3 completion and open the exit to the playable `Level_4_1`. Camera size stays **6** with directional follow; art and audio are prototypes.
+
+**Level 4-1 — Los Ríos de Ceniza** (`Assets/Scenes/World_4_Volcano/Level_4_1.unity`) introduces Shockwave Roar at the sacred fumarole at `X = 6`. Alma retains Double Jump, Ground Pound and Air Dash; Roar unlocks through physical contact and persists after death. The golden forward cone reaches `3m`, with a `45°` half-angle and `0.25s` action. Three heavy basalt rocks resist walking and Dash. Roar moves each rock exactly `5m` in `0.8s`, creating a flat `4.2m` support over **14 / 16 / 16m lava rivers**. Basalt overhangs prevent bypassing the rocks. Jump onto each support, then combine Double Jump and Dash to reach the far bank. Two hot-steam geysers use a `2.2s` safe window, `0.8s` warning and `1.2s` eruption, with explicit safe/warning/danger labels. Four checkpoints support retries: current obstacles reset on death while completed bridges behind the checkpoint and the unlocked Roar persist. Camera size stays **6** with directional follow; four volcanic parallax layers and warm lighting establish the new biome. The Boss 3 portal loads this scene, whose exit targets the future `Level_4_2`. Final art and audio remain pending.
+
 
 
 ---
@@ -322,6 +325,7 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 - **`Alma ▶ 📂 Cargar Nivel 3-1`**: Loads the Dash altar and four toxic gaps. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 3-1 - Los Fangales Tóxicos`**.
 - **`Alma ▶ 📂 Cargar Nivel 3-2`**: Loads frontal wind, breakable reeds and sheltered checkpoints. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 3-2 - El Cañón de las Ráfagas`**.
 - **`Alma ▶ 📂 Cargar Nivel 3-3`**: Loads horizontal refill chains, a Ground Pound passage, a Dash gate and poison toads. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 3-3 - El Vuelo de las Esporas`**.
+- **`Alma ▶ 📂 Cargar Nivel 4-1`**: Loads the Roar altar, basalt bridges and timed steam. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 4-1 - Los Ríos de Ceniza`**.
 - **`Alma ▶ 📂 Cargar Arena Jefe 3`**: Loads the wind and Air Dash counter arena. Regenerate with **`Tools ▶ Alma ▶ Construir Jefe 3 - Pterodáctilo Alfa`**.
 - **`Alma ▶ 📂 Cargar Nivel 3-4`**: Loads the staged gas ascent, Pound catapults and Purple Egg rescue. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 3-4 - El Sauce Ancestral`**.
 - **`Alma ▶ 🔄 Resetear Progresión de Partida`**: Clears `PlayerPrefs` progression data to test fresh-save onboarding from scratch.
@@ -358,7 +362,7 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 2. Select **EditMode** for player states, progression and encounter rules, or **PlayMode** for scene physics, cave routes, camera behavior and boss interactions.
 3. Click **Run All**, or filter by a fixture to verify a specific feature.
 
-The latest boss validation passed **59 EditMode tests** and **8 Boss 3 PlayMode tests**. Previous World 3 validation passed **13 Level 3-4 PlayMode tests** and **11 Level 3-3 PlayMode tests**. Previous runs passed **5 Level 3-2 PlayMode tests** and **4 Level 3-1 PlayMode tests**. The previous camera and Boss 2 validation also passed **2 camera PlayMode tests** and **4 Boss 2 PlayMode tests**. These are complete EditMode and targeted PlayMode runs, rather than a fresh run of the entire PlayMode suite.
+The latest volcano validation passed **69 EditMode tests** and **10 Level 4-1 PlayMode tests**. Previous boss validation passed **8 Boss 3 PlayMode tests**. Previous World 3 validation passed **13 Level 3-4 PlayMode tests** and **11 Level 3-3 PlayMode tests**. Previous runs passed **5 Level 3-2 PlayMode tests** and **4 Level 3-1 PlayMode tests**. The previous camera and Boss 2 validation also passed **2 camera PlayMode tests** and **4 Boss 2 PlayMode tests**. These are complete EditMode and targeted PlayMode runs, rather than a fresh run of the entire PlayMode suite.
 
 - **`ArmadilloFightTests`**: Pillar impacts, vulnerability timing, successful strikes and encounter reset rules.
 - **`CameraFollowPlayTests`**: Directional follow at Alma's actual movement speed and constant size `6` in portrait and landscape.
@@ -366,6 +370,8 @@ The latest boss validation passed **59 EditMode tests** and **8 Boss 3 PlayMode 
 - **`Level3_2PlayTests`**: Headwind response, Dash-only reed breaking, sheltered respawn, entrance boundary and a complete route without deaths.
 - **`Level3_3PlayTests`**: Horizontal Dash chains, a Pound tunnel, a Dash gate, real toad attacks, airborne refills, death reset, protected checkpoints and a complete route without deaths.
 - **`Level3_4PlayTests`**: Faster gas that rises on saved-egg replays, toads aiming at Alma’s current side, actual shots and cover, safe checkpoint resets, optional and required Pound launches, persistent Purple Egg rescue, and a complete route without deaths.
+- **`Level4_1PlayTests`**: Roar unlock, immovable boulders, cone range/direction, safe lava bridges, required supports, checkpoint persistence, actual steam/lava damage and a complete route without deaths.
+- **`VolcanoMechanicsTests`**: Roar cone targeting, exact boulder displacement, movement reset, steam phases and direct-entry abilities.
 - **`Boss3PlayTests`**: Four reachable branches, fixed camera size, dangerous head/body contact, rejection of ground Dash and insufficient single-jump height, scene transition from 3-4, and three real Air Dash counters with checkpoint persistence and a working victory portal.
 - **`PterodactylFightTests`**: Dive-only frontal hits, rejection of repeat hits, cycle reset, three-hit victory and direct-entry abilities.
 - **`RisingGasCycleTests`**: Warning time, rising speed, safe ceilings, stopping and checkpoint reset.
@@ -382,7 +388,7 @@ The latest boss validation passed **59 EditMode tests** and **8 Boss 3 PlayMode 
 | **Phase 3: Jungle Conclusion** | Levels 1-3, 1-4, and Boss 1 (Giant Thief Monkey arena battle & Green Egg rescue). | ✅ **Playable Prototype** |
 | **Phase 4: Crystal Caves (World 2)** | Levels 2-1 through 2-4 playable and tested; Blue Egg rescue complete. Boss 2 has reachable refuges, clear crown-strike paths, three-hit progression and World 2 completion. Final art/audio remain pending; the exit connects to Level 3-1. | ✅ **Playable Prototype** |
 | **Phase 5: Mist Swamp (World 3)** | Levels 3-1 through 3-4 implement Dash, wind/reeds, horizontal spores, poison toads, rising gas, Pound catapults and Purple Egg rescue; Boss 3 adds three Air Dash counters, collapsing branches and persistent World 3 completion. Final art/audio remain pending. | ✅ **Playable Prototype** |
-| **Phase 6: Volcanic Summit (World 4)** | Levels 13-16, Shockwave Roar, complete mechanic synthesis puzzles, and Final Boss (The Thief King). | ⏳ Planned |
+| **Phase 6: Volcanic Summit (World 4)** | Level 4-1 implements Shockwave Roar, mandatory basalt supports over lava, timed steam and checkpoint resets. Levels 4-2 through 4-4 and the Final Boss remain planned. | 🚀 **In Progress** |
 | **Phase 7: Polish, Audio & Launch** | Adaptive soundtrack, particle VFX, accessibility settings, and standalone PC/Mobile builds. | ⏳ Planned |
 
 ---

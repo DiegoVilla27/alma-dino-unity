@@ -29,7 +29,8 @@ MonoBehaviour:
   _groundPoundWindup: 0.1
   _groundPoundSpeed: 22
   _roarDuration: 0.25
-  _roarRadius: 2.5
+  _roarRadius: 3
+  _roarHalfAngle: 45
   _canDoubleJump: 1
   _canGroundPound: 1
   _canDash: 1

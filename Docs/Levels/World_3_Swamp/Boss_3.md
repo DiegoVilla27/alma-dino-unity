@@ -80,7 +80,7 @@
 - **Impacto:** cancela el Dash, rebota a Alma, recarga habilidades aéreas, muestra el contador y activa sacudida, pausa de 0.05s, partículas y sonido provisional. El jefe cae aturdido durante una recuperación de 2.5s.
 - Tras cada impacto se destruye la rama lateral activa más alejada de Alma, evitando retirar el apoyo desde el que acaba de contraatacar. Después del tercer golpe queda la rama central.
 - Caer o tocar al jefe reinicia el ciclo actual; conserva los golpes acertados y las ramas ya destruidas. Un picado esquivado vuelve al vendaval sin sumar impactos.
-- Tres impactos completan y guardan Mundo 3, desactivan el jefe y abren el portal hacia `Level_4_1`. Esa escena todavía no existe; el portal muestra el cierre del mundo mientras se implementa Mundo 4.
+- Tres impactos completan y guardan Mundo 3, desactivan el jefe y abren el portal hacia `Level_4_1`. Esa escena ya es jugable: el portal carga Los Ríos de Ceniza y su tutorial de Rugido.
 - Constructor: `Tools → Alma → Construir Jefe 3 - Pterodáctilo Alfa`. Acceso: `Alma → 📂 Cargar Arena Jefe 3`.
 
 ### Validación

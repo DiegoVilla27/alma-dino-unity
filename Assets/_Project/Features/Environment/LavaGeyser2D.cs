@@ -1,114 +1,45 @@
-using System.Collections;
 using AlmaDino.Core.Interfaces;
+using AlmaDino.Features.Environment.ScriptableObjects;
+using AlmaDino.Features.Environment.Services;
 using UnityEngine;
-
 namespace AlmaDino.Features.Environment
 {
-    /// <summary>
-    /// Géiser volcánico intermitente que alterna en un ciclo rítmico:
-    /// Inactivo -> Advertencia (chispas / humo) -> Erupción ardiente (letal) -> Enfriamiento.
-    /// </summary>
     [RequireComponent(typeof(Collider2D))]
-    public class LavaGeyser2D : MonoBehaviour, IHazard2D
+    public sealed class LavaGeyser2D : MonoBehaviour, IConditionalHazard2D
     {
-        [Header("Cycle Timings")]
-        [SerializeField] private float _dormantDuration = 2.2f;
-        [SerializeField] private float _warningDuration = 0.8f;
-        [SerializeField] private float _eruptingDuration = 1.2f;
-
-        [Header("Visual References")]
+        [SerializeField] private GeyserConfigSO _config;
+        [SerializeField] private MonoBehaviour _playerSource;
         [SerializeField] private Transform _flamePillarRoot;
-        [SerializeField] private SpriteRenderer _flameRenderer;
         [SerializeField] private SpriteRenderer _ventBaseRenderer;
-
-        [Header("Colors")]
-        [SerializeField] private Color _dormantVentColor = new Color(0.2f, 0.15f, 0.15f, 1f);
-        [SerializeField] private Color _warningVentColor = new Color(1f, 0.6f, 0.1f, 1f);
-        [SerializeField] private Color _eruptingFlameColor = new Color(1f, 0.25f, 0.05f, 0.9f);
-
-        private Collider2D _flameCollider;
-        private bool _isErupting;
-
-        public bool IsErupting => _isErupting;
-
+        [SerializeField] private TextMesh _warningLabel;
+        private Collider2D _collider;
+        private GeyserCycle _cycle;
+        private IPlayerRespawnable _player;
+        public GeyserPhase Phase => _cycle != null ? _cycle.Phase : GeyserPhase.Dormant;
+        public bool IsErupting => Phase == GeyserPhase.Erupting;
+        public bool IsDangerous => IsErupting;
         private void Awake()
         {
-            _flameCollider = GetComponent<Collider2D>();
-            _flameCollider.isTrigger = true;
-
-            if (_flameRenderer == null && _flamePillarRoot != null)
-                _flameRenderer = _flamePillarRoot.GetComponentInChildren<SpriteRenderer>();
-
-            SetErupting(false);
+            _collider = GetComponent<Collider2D>(); _collider.isTrigger = true; _collider.enabled = false;
+            if (_config == null) { enabled = false; return; }
+            _cycle = new GeyserCycle(_config.DormantDuration, _config.WarningDuration, _config.EruptionDuration);
+            _flamePillarRoot.gameObject.SetActive(false);
         }
-
-        private void OnEnable()
+        private void Start()
         {
-            StartCoroutine(GeyserCycleRoutine());
+            _player = _playerSource as IPlayerRespawnable;
+            if (_player != null) _player.OnRespawned += ResetForCheckpoint;
         }
-
-        private void OnDisable()
+        private void OnDestroy() { if (_player != null) _player.OnRespawned -= ResetForCheckpoint; }
+        private void FixedUpdate() { _cycle?.Tick(Time.fixedDeltaTime); _collider.enabled = IsErupting; }
+        private void Update()
         {
-            StopAllCoroutines();
-            SetErupting(false);
+            _flamePillarRoot.gameObject.SetActive(IsErupting);
+            _ventBaseRenderer.color = Phase == GeyserPhase.Dormant ? new Color(.25f, .23f, .2f) : Color.yellow;
+            _warningLabel.text = Phase == GeyserPhase.Warning ? "¡VAPOR!" : IsErupting ? "¡ESPERA!" : "PASA";
+            _warningLabel.color = Phase == GeyserPhase.Dormant ? Color.cyan : Color.yellow;
         }
-
-        private IEnumerator GeyserCycleRoutine()
-        {
-            while (true)
-            {
-                // 1. Inactivo
-                SetVentColor(_dormantVentColor);
-                SetErupting(false);
-                yield return new WaitForSeconds(_dormantDuration);
-
-                // 2. Advertencia
-                float warningElapsed = 0f;
-                while (warningElapsed < _warningDuration)
-                {
-                    warningElapsed += Time.deltaTime;
-                    float flash = Mathf.PingPong(warningElapsed * 8f, 1f);
-                    SetVentColor(Color.Lerp(_dormantVentColor, _warningVentColor, flash));
-                    yield return null;
-                }
-
-                // 3. Erupción ardiente
-                SetVentColor(_warningVentColor);
-                SetErupting(true);
-                yield return new WaitForSeconds(_eruptingDuration);
-
-                // 4. Fin de erupción
-                SetErupting(false);
-            }
-        }
-
-        private void SetErupting(bool erupting)
-        {
-            _isErupting = erupting;
-            _flameCollider.enabled = erupting;
-
-            if (_flamePillarRoot != null)
-            {
-                _flamePillarRoot.gameObject.SetActive(erupting);
-            }
-            else if (_flameRenderer != null)
-            {
-                _flameRenderer.enabled = erupting;
-                _flameRenderer.color = _eruptingFlameColor;
-            }
-        }
-
-        private void SetVentColor(Color color)
-        {
-            if (_ventBaseRenderer != null)
-            {
-                _ventBaseRenderer.color = color;
-            }
-        }
-
-        public void OnHazardTouch()
-        {
-            Debug.Log($"<color=#FF3300><b>[LavaGeyser2D]</b> Jugador alcanzado por el chorro de magma de {gameObject.name}.</color>");
-        }
+        private void ResetForCheckpoint(Vector2 checkpoint) { _cycle?.Reset(); _collider.enabled = false; _flamePillarRoot.gameObject.SetActive(false); }
+        public void OnHazardTouch() { }
     }
 }

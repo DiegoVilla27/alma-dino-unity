@@ -115,7 +115,7 @@ namespace AlmaDino.Core.Progression
                 UnlockAbility(AbilityType.GroundPound);
             }
 
-            if (sceneName == "Level_3_2" || sceneName == "Level_3_3" || sceneName == "Level_3_4" || sceneName == "Boss_3")
+            if (sceneName == "Level_3_2" || sceneName == "Level_3_3" || sceneName == "Level_3_4" || sceneName == "Boss_3" || sceneName == "Level_4_1")
             {
                 UnlockAbility(AbilityType.DoubleJump);
                 UnlockAbility(AbilityType.GroundPound);

@@ -16,8 +16,11 @@ namespace AlmaDino.Features.Player.Controllers
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(PlayerInputReader))]
     [RequireComponent(typeof(GroundDetector2D))]
-    public class PlayerController : MonoBehaviour, IPlayerRespawnable, IAbilityUnlockable, IBounceable2D, IDashRefillable2D, IWindAffected2D
+    public class PlayerController : MonoBehaviour, IPlayerRespawnable, IAbilityUnlockable, IBounceable2D, IDashRefillable2D, IWindAffected2D, IRoarEmitter2D
     {
+        public event Action<Vector2, Vector2> OnRoared;
+        public void EmitRoar(Vector2 origin, Vector2 direction) => OnRoared?.Invoke(origin, direction);
+
         [Header("Config")]
         [SerializeField] private AlmaPhysicsConfigSO _config;
 

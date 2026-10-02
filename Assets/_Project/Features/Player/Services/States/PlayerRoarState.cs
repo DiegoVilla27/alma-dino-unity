@@ -1,3 +1,5 @@
+using AlmaDino.Core.Interfaces;
+using AlmaDino.Features.Player.Services;
 using AlmaDino.Features.Player.Controllers;
 using AlmaDino.Features.Player.Models;
 using UnityEngine;
@@ -30,13 +32,20 @@ namespace AlmaDino.Features.Player.Services.States
 
             // Onda de choque hacia adelante (Zero-alloc query)
             float radius = _player.Config != null ? _player.Config.RoarRadius : 2.5f;
-            Vector2 forwardOrigin = (Vector2)_player.transform.position + new Vector2((int)_player.FacingDirection * 1.2f, 0f);
+            Vector2 forwardOrigin = _player.Rigidbody.position;
+            Vector2 direction = Vector2.right * (int)_player.FacingDirection;
+            float halfAngle = _player.Config != null ? _player.Config.RoarHalfAngle : 45f;
+            _player.EmitRoar(forwardOrigin, direction);
             int hitCount = Physics2D.OverlapCircle(forwardOrigin, radius, _contactFilter, _hitBuffer);
 
             for (int i = 0; i < hitCount; i++)
             {
                 var col = _hitBuffer[i];
                 if (col == null || col.gameObject == _player.gameObject) continue;
+
+                if (!RoarTargeting.Contains(forwardOrigin, col.bounds.center, direction, radius, halfAngle)) continue;
+                if (col.TryGetComponent<IRoarReactive2D>(out var reactive))
+                { reactive.ReceiveRoar(direction); continue; }
 
                 if (col.attachedRigidbody != null && col.attachedRigidbody.bodyType == RigidbodyType2D.Dynamic)
                 {

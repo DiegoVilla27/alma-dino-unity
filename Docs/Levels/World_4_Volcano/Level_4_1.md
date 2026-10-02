@@ -69,3 +69,34 @@
 - [ ] **Sprites Alma:** Animación de rugido con apertura mandibular, pecho hinchado y emisión de ondas sónicas.
 - [ ] **VFX:** Ondas de choque sónicas translúcidas en arco; lluvia de partículas de ceniza y ascuas flotantes.
 - [ ] **Audio:** Pista "Rivers of Ash and Embers", SFX del rugido de Alma, SFX de roca rodando en basalto.
+
+
+## 6. Implementación jugable
+
+- Escena `Assets/Scenes/World_4_Volcano/Level_4_1.unity`, registrada después de `Boss_3`. La salida del Pterodáctilo ya lleva al nivel.
+- Alma entra con Doble Salto, Pisotón y Dash. El Rugido se desbloquea al tocar la fumarola de X=6; se guarda y permanece después de morir. Teclas **E/F**, botón de mando **Y/△** o botón móvil **ROAR**.
+- La onda es un cono frontal de **3m** y **45° de semiancho**, dura **0.25s** y muestra un arco dorado con sonido y sacudida provisionales. No afecta objetivos detrás de Alma ni fuera del alcance.
+- Las tres rocas son cinemáticas: caminar, Dash y Pisotón no las desplazan. Las gargantas de basalto impiden trepar sobre ellas para omitir el Rugido.
+- Rugir frente a la roca la desplaza **5m en 0.8s**. Al caer en lava forma una superficie plana de **4.2m** de ancho, con suelo a **Y=0.2**, indicada por el cambio de color.
+
+### Recorrido
+
+1. **Introducción:** isla inicial X=-6–16, pared posterior X=-5.5, fumarola X=6 y checkpoint X=10. Acercarse a X=11.5 y rugir hacia la roca de X=14. Cae en X=19, dentro del río X=16–30 (14m). Saltar al apoyo, colocarse en X=20.5 y cruzar con Salto → Doble Salto → Dash. Sin el apoyo, la combinación no alcanza la otra orilla.
+2. **Práctica:** isla X=30–48 y checkpoint X=34. Roca X=46 → apoyo X=51 sobre río X=48–64 (16m). Rugir desde X=43.5, saltar al apoyo, avanzar a X=52.5 y encadenar Doble Salto y Dash hacia la orilla.
+3. **Vapor ardiente:** isla X=64–90, checkpoint X=68 y dos chorros en X=74 y X=82. Cada uno permanece seguro 2.2s, avisa durante 0.8s y erupciona 1.2s. Las etiquetas **PASA / ¡VAPOR! / ¡ESPERA!** y el cambio de color permiten elegir el momento de cruzar. No hay inmunidad al calor durante Dash.
+4. **Aplicación final:** roca X=88 → apoyo X=93 sobre río X=90–106 (16m). Rugir desde X=85.5 y repetir el cruce desde X=94.5. Isla final X=106–124, checkpoint X=110 y portal X=120 hacia `Level_4_2`.
+
+### Reintentos y estado
+
+- La lava y el vapor activo causan daño por contacto; reaparece Alma en el último checkpoint.
+- Morir restaura las rocas pendientes o movidas del tramo actual. Los puentes completados detrás del checkpoint se conservan, y los chorros vuelven a un período seguro completo.
+- El nivel no rescata todavía el Huevo Rojo ni completa Mundo 4; corresponden al 4-4 y al jefe final. `Level_4_2` sigue pendiente, por lo que su portal muestra el cierre del nivel.
+- Cámara **size 6**, seguimiento de Alma y anticipación horizontal **1.25m**. Cuatro capas de parallax volcánico con basalto, lava lejana, ceniza y brasas; luz cálida naranja.
+- Constructor: `Tools → Alma → Construir Nivel 4-1 - Los Ríos de Ceniza`. Acceso: `Alma → 📂 Cargar Nivel 4-1`.
+- Reutiliza `PushableBoulder2D`, `LavaGeyser2D`, el altar de habilidad y el portal. Datos de roca y vapor en `BoulderRoarConfig.asset` y `GeyserConfig.asset`; el Rugido se ajusta en `AlmaPhysicsConfig.asset`.
+
+### Validación
+
+Pruebas EditMode cubren el cono del Rugido, movimiento y reinicio de rocas, ciclo del vapor y baseline de entrada. **10 pruebas PlayMode** validan entrada segura, bloqueo de las rocas ante caminar/Dash/saltos, alcance y dirección del Rugido, apoyo seguro sobre lava, imposibilidad de cruzar sin puente, reinicio por checkpoint y persistencia del Rugido, daño real de vapor/lava y recorrido completo con entradas reales sin muertes.
+
+Arte, música, partículas y sonidos finales siguen pendientes; la escena utiliza formas y sonido de prototipo.

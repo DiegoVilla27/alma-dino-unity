@@ -53,7 +53,9 @@ namespace AlmaDino.Features.Player.ScriptableObjects
         [Tooltip("Duración de la animación y efecto del rugido")]
         [SerializeField] private float _roarDuration = 0.25f;
         [Tooltip("Radio del área de choque")]
-        [SerializeField] private float _roarRadius = 2.5f;
+        [SerializeField] private float _roarRadius = 3f;
+
+        [SerializeField] private float _roarHalfAngle = 45f;
 
         [Header("Abilities Unlocked (Para pruebas o progresión)")]
         [SerializeField] private bool _canDoubleJump = true;
@@ -80,6 +82,7 @@ namespace AlmaDino.Features.Player.ScriptableObjects
         public float GroundPoundWindup => _groundPoundWindup;
         public float GroundPoundSpeed => _groundPoundSpeed;
         public float RoarDuration => _roarDuration;
+        public float RoarHalfAngle => _roarHalfAngle;
         public float RoarRadius => _roarRadius;
 
         public bool CanDoubleJump { get => _canDoubleJump; set => _canDoubleJump = value; }

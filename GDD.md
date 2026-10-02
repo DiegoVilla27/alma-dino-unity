@@ -202,7 +202,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 
 | Nivel | Función pedagógica | Descripción |
 |---|---|---|
-| **13** | Introducir | Rocas ígneas pesadas bloquean el paso. El rugido las desplaza para tapar ríos de lava y crear puentes. |
+| **13** | Introducir | `Level_4_1` jugable: fumarola que desbloquea Rugido, cono frontal de 3m, rocas que avanzan 5m y forman apoyos sobre lava, vapor con aviso y checkpoints. |
 | **14** | Practicar | Campanas de basalto fuera del mapa que solo activa la onda del rugido para apagar llamaradas durante 5 s. |
 | **15** | Complicar | El nivel más exigente. Secuencia: Doble Salto → Dash sobre púas → Pisotón en el aire para romper suelo → Rugido al caer para desviar meteorito. |
 | **16** | Evaluar + Rescate | Antecámara del volcán antes del colapso. **Huevo 4 (Rojo)** sobre un pedestal rodeado de fuego. |
