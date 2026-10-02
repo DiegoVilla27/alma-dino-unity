@@ -95,3 +95,8 @@ Los techos tienen aviso escrito y color, 3 s de preparación, 0,6 s de descenso,
 ## Cámara común de los niveles
 
 Todas las escenas, incluidas las arenas de jefes, usan cámara ortográfica de tamaño 6. `Camera2DFollow` sigue a Alma con amortiguación y un anticipo horizontal de 1.25 unidades según su velocidad; al detenerse vuelve suavemente al centro. El desplazamiento horizontal fijo es cero, para mostrar el camino de forma simétrica al caminar hacia izquierda o derecha. La relación de aspecto no cambia el zoom. Cada nivel conserva sus límites y encuadre vertical. Los constructores de escenas guardan el mismo tamaño 6.
+
+
+### Jefe 3: contraataque aéreo
+
+`Boss_3` conserva Dash de 6m/0.2s y cámara size 6. Sus cuatro ramas tienen desniveles de 0.6m y huecos de 1–2m. El picado fija la cabeza a 3.5m sobre la rama escogida, dentro del alcance del Doble Salto. Durante el aviso de 1.4s se marca la altura y dirección del contraataque. Solo un Dash aéreo frontal que toque la cabeza durante el picado suma impacto; cuerpo y contactos ordinarios causan daño. El impacto cancela Dash, aplica rebote de 8.2m/s y recarga las habilidades aéreas. Tres impactos destruyen tres ramas laterales, completan Mundo 3 y abren la salida. Morir conserva impactos y ramas destruidas, reiniciando el ciclo en la rama central. Ocho pruebas PlayMode validan la arena y los contraataques con entradas reales.

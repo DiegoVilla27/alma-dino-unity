@@ -14,6 +14,15 @@ namespace AlmaDino.Features.Player.Services
 
         public void HandleTrigger(Collider2D other)
         {
+            if (_player.StateMachine.CurrentStateType == PlayerStateEnum.Dash && !_player.GroundDetector.IsGrounded
+                && other.TryGetComponent<IDashStrikeReceiver2D>(out var receiver)
+                && receiver.TryReceiveAirDash(_player.Rigidbody.linearVelocity))
+            {
+                _player.ApplyBounce(receiver.BounceVelocity, true);
+                _player.SetVelocityX(0f);
+                _player.RefreshAirDash();
+                return;
+            }
             if (other.TryGetComponent<IHazard2D>(out var hazard) && IsDangerous(hazard))
             {
                 hazard.OnHazardTouch();

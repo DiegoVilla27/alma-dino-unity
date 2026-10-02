@@ -188,7 +188,8 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 **Jefe 3 — Pterodáctilo Alfa**
 - **Arena:** Plataformas inestables sobre un abismo con niebla.
 - **Fase 1:** Vuela fuera del alcance y bate alas creando ráfagas que intentan tirar a Alma.
-- **Fase 2:** Se lanza en picado. Alma salta, espera y usa Dash Aéreo contra su cabeza. 3 impactos.
+- **Fase 2:** Se lanza en picado horizontal a altura señalada. Alma usa Doble Salto y Dash Aéreo frontal contra su cabeza cian. 3 impactos.
+- **Fase 3:** Cada impacto elimina una rama lateral y acelera el siguiente picado. La muerte reinicia el ciclo actual conservando impactos y ramas rotas. `Boss_3` jugable; victoria guarda Mundo 3 y abre el paso hacia Mundo 4.
 
 ---
 

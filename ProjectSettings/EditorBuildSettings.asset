@@ -48,6 +48,9 @@ EditorBuildSettings:
     path: Assets/Scenes/World_3_Swamp/Level_3_4.unity
     guid: 880c686aa1b4e4a5e87d8799205737c9
   - enabled: 1
+    path: Assets/Scenes/World_3_Swamp/Boss_3.unity
+    guid: 088544bdb2dfd42f0b542860b90492db
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:

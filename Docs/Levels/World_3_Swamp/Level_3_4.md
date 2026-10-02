@@ -101,7 +101,7 @@
 - El gas hace daño por contacto, incluido durante Dash. Morir restablece la sección del checkpoint, las esporas y ambos balancines.
 - Rescate mediante contacto real con el Huevo Morado: persiste, abre el portal, detiene el gas y revela la silueta del Pterodáctilo Alfa. No completa Mundo 3 hasta derrotar al jefe.
 - El tercer huevo usa `EggType.PurpleEgg = 3`; se conserva lectura de partidas antiguas que lo llamaban `YellowEgg`.
-- `Boss_3` todavía está pendiente; el portal muestra la conclusión del nivel. Arte, VFX y audio son provisionales.
+- `Boss_3` ya es jugable: el portal carga la arena del Pterodáctilo Alfa. Arte, VFX y audio son provisionales.
 
 
 ### Validación
