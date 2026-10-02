@@ -211,11 +211,11 @@ Fight tuning lives in [ArmadilloBossConfig.asset](Assets/_Project/ScriptableObje
 
 Player death resets the current rolling cycle and clears crystals while preserving successful strikes **within the active encounter**. Defeating the boss records World 2 completion through `GameProgression.CompleteWorld(2)` and enables the exit.
 
-**Current limits:** Boss art is a geometric prototype; final sprites, VFX and audio remain pending. The exit now connects to the playable `Level_3_1` Dash tutorial. World 3 levels 3-3 and 3-4, its boss and World 4 remain planned content.
+**Current limits:** Boss art is a geometric prototype; final sprites, VFX and audio remain pending. The exit now connects to the playable `Level_3_1` Dash tutorial. World 3 level 3-4, its boss and World 4 remain planned content.
 
 ---
 
-### WORLD 3: WIND & MIST SWAMP (Levels 3-1 and 3-2 Implemented)
+### WORLD 3: WIND & MIST SWAMP (Levels 3-1 through 3-3 Implemented)
 
 **Level 3-1 — Los Fangales Tóxicos** (`Assets/Scenes/World_3_Swamp/Level_3_1.unity`) introduces Air Dash through the Ancestral Wind Spore on a safe island. Alma retains Double Jump and Ground Pound, then learns to combine Jump → Double Jump → Dash across four **11m toxic-mud gaps**. Three checkpoints shorten retries; unlocked Dash persists after death. Four prototype parallax layers establish the swamp atmosphere, with the shared camera size of **6**.
 
@@ -223,7 +223,11 @@ Four `Level3_1PlayTests` pass: protection against walking or jumping off the ent
 
 ---
 
-**Level 3-2 — El Cañón de las Ráfagas** (`Assets/Scenes/World_3_Swamp/Level_3_2.unity`) practices Dash against four leftward wind zones at `12 m/s²`. A reed barrier over safe ground teaches the impact before three canyon gaps of **9, 10 and 11m**, including two aerial reed walls. Dash ignores wind during its `0.2s` action; it does not prevent hazard damage. Sheltered checkpoints at `X = 28` and `64`, a solid entrance boundary and the shared camera size **6** support retries. Broken reeds stay open until scene reload. The exit targets the future `Level_3_3`; final art and audio remain pending.
+**Level 3-2 — El Cañón de las Ráfagas** (`Assets/Scenes/World_3_Swamp/Level_3_2.unity`) practices Dash against four leftward wind zones at `12 m/s²`. A reed barrier over safe ground teaches the impact before three canyon gaps of **9, 10 and 11m**, including two aerial reed walls. Dash ignores wind during its `0.2s` action; it does not prevent hazard damage. Sheltered checkpoints at `X = 28` and `64`, a solid entrance boundary and the shared camera size **6** support retries. Broken reeds stay open until scene reload. The exit connects to the playable `Level_3_3`; final art and audio remain pending.
+
+---
+
+**Level 3-3 — El Vuelo de las Esporas** (`Assets/Scenes/World_3_Swamp/Level_3_3.unity`) has eight spores aligned at `Y = 2.7` across **16 / 16 / 28m lakes**. Cross each chain by repeating rightward Dash. Difficulty comes from solid-ground obstacles: Ground Pound opens a cracked floor leading beneath a root, steps lead back up, and Dash breaks a reed gate. Two ground-level toads threaten the route with contact damage and pooled poison shots at `8 m/s`, preceded by a `0.6s` warning every `2s`. Checkpoints at `X = 28` and `76` provide safe retries. Death restores spores and the cracked floor and clears poison. Contextual hints explain each obstacle. The exit targets the future `Level_3_4`, where the Purple Egg rescue is planned. Final art and audio remain pending.
 
 ---
 
@@ -252,6 +256,10 @@ Assets/_Project/
 │   ├── Environment/                # Interactive World Elements
 │   │   ├── AlmaDino.Features.Environment.asmdef
 │   │   └── [BouncyPlatform2D, ThiefMonkeyTeaser2D, CarnivorousPlant2D, Checkpoint2D, ...]
+│   ├── Enemies/                    # Cave enemies and poison toads
+│   │   ├── Controllers/            # PoisonToad2D, pooled PoisonBubble2D
+│   │   ├── Services/               # PoisonShotCycle warning and shot timing
+│   │   └── ScriptableObjects/      # PoisonToadConfigSO
 │   ├── Camera/                     # Smooth Follow, Directional Look-Ahead & Shake
 │   │   ├── AlmaDino.Features.Camera.asmdef
 │   │   └── [Camera2DFollow, CameraShake2D]
@@ -305,6 +313,7 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 - **`Alma ▶ 📂 Cargar Arena Jefe 2`**: Loads the Armadillo arena. Regenerate with **`Tools ▶ Alma ▶ Construir Jefe 2 - Armadillo Prehistórico`**. Dodge three pillar impacts, then Ground Pound the glowing crown within 4.5 seconds.
 - **`Alma ▶ 📂 Cargar Nivel 3-1`**: Loads the Dash altar and four toxic gaps. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 3-1 - Los Fangales Tóxicos`**.
 - **`Alma ▶ 📂 Cargar Nivel 3-2`**: Loads frontal wind, breakable reeds and sheltered checkpoints. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 3-2 - El Cañón de las Ráfagas`**.
+- **`Alma ▶ 📂 Cargar Nivel 3-3`**: Loads horizontal refill chains, a Ground Pound passage, a Dash gate and poison toads. Regenerate with **`Tools ▶ Alma ▶ Construir Nivel 3-3 - El Vuelo de las Esporas`**.
 - **`Alma ▶ 🔄 Resetear Progresión de Partida`**: Clears `PlayerPrefs` progression data to test fresh-save onboarding from scratch.
 - **`Alma ▶ 🛠️ Reparar Escena y Visuales`**: Re-imports sprites, verifies URP 2D Unlit materials, and auto-repairs EventSystem and touch controls.
 
@@ -339,12 +348,13 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 2. Select **EditMode** for player states, progression and encounter rules, or **PlayMode** for scene physics, cave routes, camera behavior and boss interactions.
 3. Click **Run All**, or filter by a fixture to verify a specific feature.
 
-The latest World 3 validation passed **45 EditMode tests** and **5 Level 3-2 PlayMode tests**. The previous Level 3-1 validation passed **4 PlayMode tests**. The previous camera and Boss 2 validation also passed **2 camera PlayMode tests** and **4 Boss 2 PlayMode tests**. These are complete EditMode and targeted PlayMode runs, rather than a fresh run of the entire PlayMode suite.
+The latest World 3 validation passed **48 EditMode tests** and **11 Level 3-3 PlayMode tests**. Previous runs passed **5 Level 3-2 PlayMode tests** and **4 Level 3-1 PlayMode tests**. The previous camera and Boss 2 validation also passed **2 camera PlayMode tests** and **4 Boss 2 PlayMode tests**. These are complete EditMode and targeted PlayMode runs, rather than a fresh run of the entire PlayMode suite.
 
 - **`ArmadilloFightTests`**: Pillar impacts, vulnerability timing, successful strikes and encounter reset rules.
 - **`CameraFollowPlayTests`**: Directional follow at Alma's actual movement speed and constant size `6` in portrait and landscape.
 - **`Boss2PlayTests`**: Direct Ground Pound damage, rejection of ordinary landings, and real-input Double Jump routes onto both refuges followed by outward crown strikes.
 - **`Level3_2PlayTests`**: Headwind response, Dash-only reed breaking, sheltered respawn, entrance boundary and a complete route without deaths.
+- **`Level3_3PlayTests`**: Height and direction changes, real toad attacks, failure of flat Dash chaining, airborne refills, death reset, protected checkpoints and a complete route without deaths.
 - Existing cave PlayMode fixtures cover level physics and full-route traversal through World 2.
 
 ---
@@ -357,7 +367,7 @@ The latest World 3 validation passed **45 EditMode tests** and **5 Level 3-2 Pla
 | **Phase 2: Vertical Slice (World 1)** | Levels 1-1 and 1-2, Bouncy Mushrooms, Crumbling Leaves, Carnivorous Plants, Thief Monkey Teaser. | ✅ **Playable Prototype** |
 | **Phase 3: Jungle Conclusion** | Levels 1-3, 1-4, and Boss 1 (Giant Thief Monkey arena battle & Green Egg rescue). | ✅ **Playable Prototype** |
 | **Phase 4: Crystal Caves (World 2)** | Levels 2-1 through 2-4 playable and tested; Blue Egg rescue complete. Boss 2 has reachable refuges, clear crown-strike paths, three-hit progression and World 2 completion. Final art/audio remain pending; the exit connects to Level 3-1. | ✅ **Playable Prototype** |
-| **Phase 5: Mist Swamp (World 3)** | Levels 3-1 and 3-2 implement the Dash tutorial and headwind/reed challenges; levels 3-3, 3-4 and Boss 3 (Alpha Pterodactyl) remain planned. | 🚀 **In Progress** |
+| **Phase 5: Mist Swamp (World 3)** | Levels 3-1 through 3-3 implement Dash, headwind/reeds and airborne spore chains with poison toads; level 3-4 and Boss 3 (Alpha Pterodactyl) remain planned. | 🚀 **In Progress** |
 | **Phase 6: Volcanic Summit (World 4)** | Levels 13-16, Shockwave Roar, complete mechanic synthesis puzzles, and Final Boss (The Thief King). | ⏳ Planned |
 | **Phase 7: Polish, Audio & Launch** | Adaptive soundtrack, particle VFX, accessibility settings, and standalone PC/Mobile builds. | ⏳ Planned |
 

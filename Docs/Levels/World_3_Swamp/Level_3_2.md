@@ -65,7 +65,7 @@
 
 ## 6. Implementación del prototipo
 
-- Escena: `Assets/Scenes/World_3_Swamp/Level_3_2.unity`. Entrada desde 3-1 y salida preparada para `Level_3_3`, aún sin construir.
+- Escena: `Assets/Scenes/World_3_Swamp/Level_3_2.unity`. Entrada desde 3-1 y salida conectada a `Level_3_3`.
 - Abrir con **Alma → 📂 Cargar Nivel 3-2**. Regenerar con **Tools → Alma → Construir Nivel 3-2 - El Cañón de las Ráfagas**.
 - Doble Salto, Pisotón y Dash disponibles al entrar, también con una partida limpia abierta directamente en esta escena. Rugido bloqueado. Física compartida sin cambios; cámara size 6 y anticipo direccional.
 - Pared sólida detrás del punto de aparición. Primera barrera de cañas en X=10 sobre suelo continuo hasta X=16: permite aprender a saltar y embestir sin un abismo debajo.

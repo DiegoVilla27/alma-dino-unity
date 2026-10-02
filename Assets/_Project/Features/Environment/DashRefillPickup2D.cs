@@ -1,6 +1,7 @@
 using System.Collections;
 using AlmaDino.Core.Interfaces;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace AlmaDino.Features.Environment
 {
@@ -24,6 +25,7 @@ namespace AlmaDino.Features.Environment
         [SerializeField] private Color _activeColor = new Color(0f, 1f, 0.85f, 1f);
         [SerializeField] private Color _consumedColor = new Color(0f, 1f, 0.85f, 0.15f);
 
+        [SerializeField] private Light2D _glowLight;
         private Vector3 _startPosition;
         private Collider2D _collider;
         private bool _isAvailable = true;
@@ -44,6 +46,8 @@ namespace AlmaDino.Features.Environment
 
         private void Update()
         {
+            if (_glowLight != null)
+                _glowLight.intensity = _isAvailable ? 0.5f + Mathf.Sin(Time.time * _bobFrequency) * 0.1f : 0.05f;
             if (_isAvailable)
             {
                 // Efecto flotante suave
@@ -65,6 +69,7 @@ namespace AlmaDino.Features.Environment
 
         public void Consume(IDashRefillable2D dashRefillable)
         {
+            if (!_isAvailable || dashRefillable == null) return;
             _isAvailable = false;
             _collider.enabled = false;
             UpdateVisual(false);
@@ -81,6 +86,15 @@ namespace AlmaDino.Features.Environment
 
             _isAvailable = true;
             _collider.enabled = true;
+            UpdateVisual(true);
+        }
+
+        public void Restore()
+        {
+            StopAllCoroutines();
+            _isAvailable = true;
+            _collider.enabled = true;
+            transform.position = _startPosition;
             UpdateVisual(true);
         }
 

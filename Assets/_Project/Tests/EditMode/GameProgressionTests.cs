@@ -57,10 +57,11 @@ namespace AlmaDino.Tests.EditMode
             Assert.IsFalse(GameProgression.IsAbilityUnlocked(AbilityType.Roar));
         }
 
-        [Test]
-        public void Level32_BaselineIncludesDashWithoutRoar()
+        [TestCase("Level_3_2")]
+        [TestCase("Level_3_3")]
+        public void SwampPractice_BaselineIncludesDashWithoutRoar(string scene)
         {
-            GameProgression.EnsureLevelBaseline("Level_3_2");
+            GameProgression.EnsureLevelBaseline(scene);
             Assert.IsTrue(GameProgression.IsAbilityUnlocked(AbilityType.DoubleJump));
             Assert.IsTrue(GameProgression.IsAbilityUnlocked(AbilityType.GroundPound));
             Assert.IsTrue(GameProgression.IsAbilityUnlocked(AbilityType.Dash));

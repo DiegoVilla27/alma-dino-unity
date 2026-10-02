@@ -15,11 +15,13 @@ namespace AlmaDino.Features.Environment
         [SerializeField] private Color _bannerColor = new Color(0.95f, 0.75f, 0.2f, 1f);
         [SerializeField] private float _displayDuration = 6.5f;
 
+        [SerializeField] private bool _triggerOnStart = true;
+
         private bool _hasTriggered;
 
         private void Start()
         {
-            Invoke(nameof(TriggerPrologue), 0.35f);
+            if (_triggerOnStart) Invoke(nameof(TriggerPrologue), 0.35f);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -31,8 +33,9 @@ namespace AlmaDino.Features.Environment
             }
         }
 
-        public void Configure(string title, string message, Color? bannerColor = null, float displayDuration = 6.5f)
+        public void Configure(string title, string message, Color? bannerColor = null, float displayDuration = 6.5f, bool triggerOnStart = true)
         {
+            _triggerOnStart = triggerOnStart;
             _title = title;
             _message = message;
             if (bannerColor.HasValue) _bannerColor = bannerColor.Value;

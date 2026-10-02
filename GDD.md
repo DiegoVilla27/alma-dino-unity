@@ -182,7 +182,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 |---|---|---|
 | **9** | Introducir | Fosos de lodo tóxico demasiado anchos para el Doble Salto. La combinación Salto → Salto → Dash cubre distancias largas. |
 | **10** | Practicar | Géiseres de aire horizontales que empujan hacia atrás. El Dash da invulnerabilidad momentánea frente al empuje. |
-| **11** | Complicar | Globos de esporas flotantes. Atravesarlos con Dash recarga el movimiento aéreo al instante. |
+| **11** | Complicar | Esporas alineadas para encadenar Dash horizontal. En tierra: suelo agrietado para Pisotón, barrera de Dash y sapos venenosos. |
 | **12** | Evaluar + Rescate | Subida con gas pantanoso ascendente. **Huevo 3 (Morado)** en un sauce ancestral. |
 
 **Jefe 3 — Pterodáctilo Alfa**

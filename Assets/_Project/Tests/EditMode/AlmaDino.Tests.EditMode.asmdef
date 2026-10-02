@@ -8,6 +8,7 @@
         "AlmaDino.Features.Environment",
         "AlmaDino.Features.Camera",
         "AlmaDino.Features.Boss",
+        "AlmaDino.Features.Enemies",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],
