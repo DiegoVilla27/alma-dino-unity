@@ -11,8 +11,7 @@
         "Unity.InputSystem",
         "Unity.RenderPipelines.Universal.Runtime",
         "Unity.RenderPipelines.Universal.2D.Runtime",
-        "AlmaDino.Features.Enemies",
-        "AlmaDino.Shared"
+        "AlmaDino.Features.Enemies"
     ],
     "includePlatforms": [
         "Editor"

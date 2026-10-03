@@ -60,7 +60,7 @@ namespace AlmaDino.Core.Editor
             line.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>("Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat");
             CaveLevelSceneFactory.Set(wave, "_playerSource", player); CaveLevelSceneFactory.Set(wave, "_duration", player.Config.RoarDuration);
             CaveLevelSceneFactory.Set(wave, "_radius", player.Config.RoarResonanceRange); CaveLevelSceneFactory.Set(wave, "_halfAngle", player.Config.RoarHalfAngle);
-            var exitGo = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
+            var exitGo = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
             exitGo.name = "Portal_Exit_To_4_3"; exitGo.transform.SetParent(root.transform, false); exitGo.transform.position = new Vector2(118f, 1.5f);
             CaveLevelSceneFactory.Set(exitGo.GetComponent<LevelExit2D>(), "_nextSceneName", "Level_4_3");
             CaveLevelSceneFactory.Set(exitGo.GetComponent<LevelExit2D>(), "_levelTitle", "LAS CAMPANAS DE BASALTO COMPLETADAS");

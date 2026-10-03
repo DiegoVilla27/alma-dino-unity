@@ -76,7 +76,7 @@ namespace AlmaDino.Core.Editor
             root.AddComponent<BoxCollider2D>().isTrigger = true;
             var intro = root.AddComponent<NarrativePrologueTrigger>();
             intro.Configure("EL FILO RESONANTE", "El cristal protege sus caparazones.\nPisotea la roca cercana para voltearlos durante 3,5 segundos.\nAnte los murciélagos, espera el vuelo y usa el Doble Salto.", new Color(0f, 0.96f, 0.83f), 7f);
-            var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
+            var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
             portal.name = "Portal_Exit_To_2_4";
             portal.transform.SetParent(root.transform, false);
             portal.transform.position = new Vector2(97f, 9f);

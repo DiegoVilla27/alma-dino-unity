@@ -341,7 +341,7 @@ namespace AlmaDino.Core.Editor
             var idleSprites = new Sprite[10];
             for (int i = 1; i <= 10; i++)
             {
-                string path = $"Assets/_Project/Prefabs/Player/Alma/Sprites/Idle/Alma_Idle_{i:D2}.png";
+                string path = $"Assets/Art/Sprites/Characters/Alma/Idle/Alma_Idle_{i:D2}.png";
                 idleSprites[i - 1] = LoadAlmaFrame(path);
             }
 
@@ -349,7 +349,7 @@ namespace AlmaDino.Core.Editor
             var runSprites = new Sprite[8];
             for (int i = 1; i <= 8; i++)
             {
-                string path = $"Assets/_Project/Prefabs/Player/Alma/Sprites/Run/Alma_Run_{i:D2}.png";
+                string path = $"Assets/Art/Sprites/Characters/Alma/Run/Alma_Run_{i:D2}.png";
                 runSprites[i - 1] = LoadAlmaFrame(path);
             }
 
@@ -357,7 +357,7 @@ namespace AlmaDino.Core.Editor
             var jumpSprites = new Sprite[12];
             for (int i = 1; i <= 12; i++)
             {
-                string path = $"Assets/_Project/Prefabs/Player/Alma/Sprites/Jump/Alma_Jump_{i:D2}.png";
+                string path = $"Assets/Art/Sprites/Characters/Alma/Jump/Alma_Jump_{i:D2}.png";
                 jumpSprites[i - 1] = LoadAlmaFrame(path);
             }
 

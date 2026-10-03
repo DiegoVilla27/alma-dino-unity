@@ -53,7 +53,7 @@ namespace AlmaDino.Core.Editor
                 CaveLevelSceneFactory.Light(pillar.transform, Vector2.zero, Color.magenta, 3f, .7f);
             }
             var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(
-                "Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
+                "Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
             portal.name = "Portal_Victory_To_World_3";
             portal.transform.SetParent(root.transform, false);
             portal.transform.position = new Vector2(0f, 1.4f);
@@ -132,7 +132,7 @@ namespace AlmaDino.Core.Editor
             var marker = f.Visual("Impact_Warning", go.transform, new Vector2(0f, -9.8f),
                 new Vector2(2.5f, .08f), Color.yellow, true);
             CaveLevelSceneFactory.Set(crystal, "_warningMarker", marker);
-            const string path = "Assets/_Project/Prefabs/Projectiles/Projectile_FallingCrystal_Caves.prefab";
+            const string path = "Assets/_Project/Prefabs/World_2_Caves/Boss_Falling_Crystal.prefab";
             var prefab = PrefabUtility.SaveAsPrefabAsset(go, path);
             Object.DestroyImmediate(go);
             return prefab.GetComponent<BossFallingCrystal2D>();
