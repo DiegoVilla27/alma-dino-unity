@@ -80,7 +80,7 @@ namespace AlmaDino.Core.Editor
             Catapult(f, root.transform, player, "Root_Catapult_Shortcut", 8f, 0f);
             Catapult(f, root.transform, player, "Crown_Catapult", 92f, 12f);
             var toadConfig = AssetDatabase.LoadAssetAtPath<PoisonToadConfigSO>("Assets/_Project/ScriptableObjects/PoisonToadConfig.asset");
-            var bubble = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/World_3_Swamp/Poison_Bubble.prefab").GetComponent<PoisonBubble2D>();
+            var bubble = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Projectiles/Projectile_PoisonBubble_Swamp.prefab").GetComponent<PoisonBubble2D>();
             LevelBuilder3_3.Toad(f, root.transform, player, toadConfig, bubble, "Willow_Toad_Lower", new Vector2(18f, 2.15f));
             LevelBuilder3_3.Toad(f, root.transform, player, toadConfig, bubble, "Willow_Toad_Middle", new Vector2(65.5f, 8.15f));
             LevelBuilder3_3.Toad(f, root.transform, player, toadConfig, bubble, "Willow_Toad_Crown", new Vector2(114.5f, 20.15f));
@@ -134,7 +134,7 @@ namespace AlmaDino.Core.Editor
         private static DashRefillPickup2D Spore(Transform root, Vector2 position)
         {
             var go = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(
-                "Assets/_Project/Prefabs/World_3_Swamp/DashRefillSpore_Swamp.prefab"));
+                "Assets/_Project/Prefabs/Resources/Resource_DashRefillSpore_Swamp.prefab"));
             go.name = "Refill_Spore_" + position.x;
             go.transform.SetParent(root);
             go.transform.position = position;
@@ -176,7 +176,7 @@ namespace AlmaDino.Core.Editor
         private static GreenEggRescue2D Sanctuary(CaveLevelSceneFactory f, Transform root)
         {
             var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(
-                "Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
+                "Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
             portal.name = "Portal_Exit_To_Boss_3";
             portal.transform.SetParent(root);
             portal.transform.position = new Vector2(123f, 21f);
