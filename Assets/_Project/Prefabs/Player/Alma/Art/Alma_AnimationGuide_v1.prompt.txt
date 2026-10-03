@@ -1,0 +1,12 @@
+Use case: stylized-concept. Make a clear ANIMATION KEY-POSE GUIDE for ALMA, a mother dinosaur from a 2D platformer. Reference image is the existing gameplay sprite and must determine character identity exactly: lime/apple green skin, pale yellow cream belly and muzzle, very large CYAN BLUE eyes, round short snout, tiny forearms, two powerful hind legs, thick long tail, ivory claws. No added horns, clothes, wings, hair or armor. All instances same character. Hand-drawn stylized 2D illustration, clean dark outlines, soft cel shading, warm ivory parchment, thin brown catalog frames. Wide 3:2 board title "ALMA · GUÍA DE ANIMACIÓN". Exactly TEN numbered panels, layout four across top, three middle, three bottom. One full-body pose per panel facing RIGHT, all tails and feet visible; these are illustrative key poses, not production spritesheet frames. Spanish labels exact:
+01 · Reposo — relaxed upright stance, gentle breathing posture and friendly alert expression.
+02 · Correr — dynamic running stride, one hind leg ahead and one trailing, tail balances, arms bent.
+03 · Salto — initial upward leap, torso lifted and legs extending, subtle short upward motion strokes.
+04 · Caída — legs lowered to prepare landing, arms slightly raised, tail lifted, subtle downward strokes.
+05 · Doble Salto — airborne second impulse with body tucked, two small upward teal arcs, no wings.
+06 · Pisotón — compact pose dropping feet-first vertically, two downward streaks, tail upright and determined eyes, no head-first dive.
+07 · Dash aéreo — clearly HORIZONTAL rightward stretched airborne burst, short fading silhouettes behind, body streamlined, no upward diagonal.
+08 · Rugido — firmly planted hind feet, chest expanded and mouth wide, three turquoise wave arcs heading right, no music notes.
+09 · Daño y reaparición — brief surprised recoiling pose with translucent dissolving outline and a few teal sparkles suggesting respawn; no blood, gore or gravestone.
+10 · Rescate — tender mother crouching with a single intact green spotted dinosaur egg held close, affectionate protective expression, no hatching baby.
+Keep silhouette/proportions and colors consistent, adequate empty space, no scenery or enemies, readable labels. Simple reference for future animation sequences; no false frame numbering or timing diagrams.

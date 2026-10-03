@@ -8,7 +8,7 @@ Movimiento semirreal: aceleración breve, trayectorias parabólicas, caída con 
 
 ## Perfil compartido
 
-La fuente de valores en ejecución es `Assets/_Project/Features/Player/ScriptableObjects/AlmaPhysicsConfig.asset`. Los valores predeterminados de `AlmaPhysicsConfigSO` deben coincidir con ese asset.
+La fuente de valores en ejecución es `Assets/_Project/Prefabs/Player/Alma/Configuration/AlmaPhysicsConfig.asset`. Los valores predeterminados de `AlmaPhysicsConfigSO` deben coincidir con ese asset.
 
 | Parámetro | Valor | Resultado buscado |
 |---|---:|---|
@@ -124,3 +124,7 @@ En el cierre, romper el sello con Pisotón libera una barrera y arma `RisingGasC
 La sala de altura exige Doble Salto para subir 2.2m; después solo asciende 1m. Un único Pisotón atraviesa las dos capas agrietadas Y=0/-1 y aturde a la salamandra bajo ellas mediante el impacto sísmico. Ambas capas deben estar rotas para abrir la barrera. El refugio Y=-2 se abandona con Doble Salto. La prueba de Dash tiene lava de 8m, reja que solo rompe Dash y una corriente elevada que avisa antes de dañar; Dash no concede inmunidad. El Rugido de 3m mueve el basalto 5m y crea un apoyo de 4.2m, Y=0.2, sobre un foso de 16m. Un último foso de 8m combina Doble Salto y Dash antes del Huevo Rojo.
 
 Checkpoint X=35 conserva los pilares resueltos; X=75 conserva también reja y puente. Morir restaura mecanismos por delante y reinicia los ataques. El rescate físico persiste en `GameProgression`, apaga enemigos/proyectiles y fuego, y establece checkpoint X=90. El aura solo muestra huevos rescatados. El portal a `Boss_Final` se activa con el huevo, pero Mundo 4 sigue incompleto hasta el combate final. Cámara size 6 y anticipación horizontal 1.25m.
+
+### Jefe final — El Rey Ladrón
+
+`Boss_Final` enlaza desde el rescate del 4-4 y conserva las cuatro habilidades. La carga baja requiere elevarse y golpear con Dash el sello de calor; una ventana de 4s permite Pisotón en la placa. El meteorito se devuelve con Rugido frontal, mientras la lluvia fija su objetivo al aparecer el aviso. El segundo impacto cambia al checkpoint X=20: cornisas de 2.2m/4.4m, magma tras 7s a 0.38m/s, paso bajo fuego con Dash, Pisotón que libera vapor, cornisa superior y anclaje atravesables desde abajo, Rugido que agrieta el anclaje y Pisotón definitivo. Los impactos conservan la fase durante los reintentos; cada muerte restaura el estado seguro de esa fase. El remate mantiene cámara 6 siguiendo el descenso de Alma con la estalactita, antes del epílogo. No se reproduce audio ni se conceden huevos al entrar directamente. Solo el tercer golpe persiste Mundo 4 completado.

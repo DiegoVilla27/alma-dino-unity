@@ -159,12 +159,12 @@ namespace AlmaDino.Core.Editor
             CaveLevelSceneFactory.Set(boulder, "_boulderRenderer", sprite.GetComponent<SpriteRenderer>());
             CaveLevelSceneFactory.Set(boulder, "_bridgeCollider", cap);
             CaveLevelSceneFactory.Set(boulder, "_bridgeVisual", bridge);
-            var prefab = PrefabUtility.SaveAsPrefabAsset(go, "Assets/_Project/Prefabs/World_4_Volcano/PushableBoulder_Volcano.prefab");
+            var prefab = PrefabUtility.SaveAsPrefabAsset(go, "Assets/_Project/Prefabs/Resources/Resource_RoarBoulder_Volcano.prefab");
             Object.DestroyImmediate(go); return prefab;
         }
         private static void Altar(CaveLevelSceneFactory f, Transform root)
         {
-            var go = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Universal/Ability_Relic_Altar.prefab"));
+            var go = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_DoubleJump.prefab"));
             go.name = "Altar_Primordial_Fumarole"; go.transform.SetParent(root, false); go.transform.position = new Vector2(6f, 1f);
             var relic = go.GetComponent<AbilityRelic2D>();
             CaveLevelSceneFactory.Set(relic, "_abilityToUnlock", AbilityType.Roar);
@@ -188,7 +188,7 @@ namespace AlmaDino.Core.Editor
             CaveLevelSceneFactory.Set(geyser, "_config", config);
             CaveLevelSceneFactory.Set(geyser, "_flamePillarRoot", flame.transform); CaveLevelSceneFactory.Set(geyser, "_ventBaseRenderer", vent.GetComponent<SpriteRenderer>());
             CaveLevelSceneFactory.Set(geyser, "_warningLabel", label);
-            var prefab = PrefabUtility.SaveAsPrefabAsset(go, "Assets/_Project/Prefabs/World_4_Volcano/LavaGeyser_Volcano.prefab");
+            var prefab = PrefabUtility.SaveAsPrefabAsset(go, "Assets/_Project/Prefabs/Traps/Trap_FireGeyser_Volcano.prefab");
             Object.DestroyImmediate(go); return prefab;
         }
         internal static TextMesh Hint(Transform root, string name, Vector2 position, string text, Color color)
@@ -202,7 +202,7 @@ namespace AlmaDino.Core.Editor
         }
         private static void Exit(Transform root)
         {
-            var go = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
+            var go = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
             go.name = "Portal_Exit_To_4_2"; go.transform.SetParent(root, false); go.transform.position = new Vector2(120f, 1.5f);
             CaveLevelSceneFactory.Set(go.GetComponent<LevelExit2D>(), "_nextSceneName", "Level_4_2");
             CaveLevelSceneFactory.Set(go.GetComponent<LevelExit2D>(), "_levelTitle", "LOS RÍOS DE CENIZA COMPLETADOS");

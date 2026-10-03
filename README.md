@@ -83,7 +83,7 @@ The current movement profile and level-design constraints are documented in [Phy
 - **Bouncy Mushrooms & Super Bounce (`BouncyPlatform2D`)**:
   - Solid elastic trampolines propelling Alma vertically at high speed (`17 m/s` by default, ~6.7m theoretical peak height; individual platforms can override it).
   - **Super Bounce (+18%)**: Holding or pressing **Jump** upon landing accelerates Alma to **`20.06 m/s`** from the default `17 m/s` (~9.3m theoretical peak height).
-  - **Ground Detector Decoupling (`IBouncySurface2D`)**: The player's [`GroundDetector2D`](Assets/_Project/Features/Player/Components/GroundDetector2D.cs) ignores bouncy surfaces. This prevents state-machine false transitions into `Idle`/`Run` and avoids early Jump-Cut momentum cancellation.
+  - **Ground Detector Decoupling (`IBouncySurface2D`)**: The player's [`GroundDetector2D`](Assets/_Project/Prefabs/Player/Alma/Scripts/Components/GroundDetector2D.cs) ignores bouncy surfaces. This prevents state-machine false transitions into `Idle`/`Run` and avoids early Jump-Cut momentum cancellation.
   - **Squish & Stretch Animation**: Immediate squash compression (`0.06s`) followed by vertical elastic rebound (`0.14s`) for maximum kinetic juice.
   - **Mid-Air Momentum Preservation**: Activating Double Jump during bounce ascent preserves a stronger upward velocity; otherwise restores at least `7.6 m/s` without stacking impulses. Refreshes aerial abilities upon contact.
 - **Crumbling Canopy Leaves (`CrumblingPlatform2D`)**:
@@ -242,8 +242,10 @@ Four `Level3_1PlayTests` pass: protection against walking or jumping off the ent
 
 **Level 4-3 — La Gran Fractura** (`Assets/Scenes/World_4_Volcano/Level_4_3.unity`) has three distinct beats. Its opening combines Double Jump, Air Dash, Ground Pound and Roar to reflect one meteor into a gate. The middle offers a choice: high ledges that crumble after `1.5s`, or stable lower stones with timed steam and a salamander. Both routes meet at checkpoint `X = 68`. The finale changes the pace: Pound breaks a volcanic seal, releases a barrier and triggers rising lava after a `1.4s` warning. Ascend steps no more than `1.3m` apart, stun the ledge guard, then cross the last `8m` gap with Double Jump and Dash. Lava rises at `0.9m/s` and stops at the final sanctuary. Checkpoints reset upcoming hazards while preserving the completed entrance gate. Camera size remains **6** with directional follow. Both middle routes and the complete upper route plus escape passed without deaths using normal inputs. The exit loads `Level_4_4`; final art and audio remain pending.
 
-**Level 4-4 — La Antecámara del Fuego** (`Assets/Scenes/World_4_Volcano/Level_4_4.unity`) evaluates all four abilities through distinct rooms: Double Jump onto obsidian columns, one Ground Pound through two stacked cracked pillars, Air Dash through a breakable grid above lava during a safe fire-current window, and Roar to align a basalt support over a `16m` lava moat. Three active salamanders guard different situations; the lower gallery guard reacts to the seismic impact. Checkpoints at `X = 35` and `X = 75` preserve completed trials. A final Double Jump and Dash reach the **Red Egg** on its isolated pedestal. Contact saves the rescue, silences combat and fire, keeps the rescue silent and establishes a sanctuary checkpoint. Carried egg silhouettes display the actual saved eggs in green, blue, purple and red. After a quiet beat, the Thief King emerges as a harmless teaser. The rescued egg unlocks the portal to the future `Boss_Final`; it does **not** complete World 4. Camera size remains **6** with directional follow. Final art remains pending; audio is excluded by user request.
+**Level 4-4 — La Antecámara del Fuego** (`Assets/Scenes/World_4_Volcano/Level_4_4.unity`) evaluates all four abilities through distinct rooms: Double Jump onto obsidian columns, one Ground Pound through two stacked cracked pillars, Air Dash through a breakable grid above lava during a safe fire-current window, and Roar to align a basalt support over a `16m` lava moat. Three active salamanders guard different situations; the lower gallery guard reacts to the seismic impact. Checkpoints at `X = 35` and `X = 75` preserve completed trials. A final Double Jump and Dash reach the **Red Egg** on its isolated pedestal. Contact saves the rescue, silences combat and fire, keeps the rescue silent and establishes a sanctuary checkpoint. Carried egg silhouettes display the actual saved eggs in green, blue, purple and red. After a quiet beat, the Thief King emerges as a harmless teaser. The rescued egg unlocks the portal to the playable `Boss_Final`; it does **not** complete World 4. Camera size remains **6** with directional follow. Final art remains pending; audio is excluded by user request.
 
+
+**Final Boss — El Rey Ladrón** (`Boss_Final`) combines three different phases: Double Jump and Air Dash to expose dorsal armor for Ground Pound; Roar to reflect a meteor and expose a second weak point; then a vertical escape with crumbling basalt, rising magma, a Pound-unlocked steam vent and a Roar/Pound stalactite finisher. Each hit checkpoints the next phase, restoring safe mechanisms and lava on death. Only the final strike completes World 4. The silent epilogue reunites Alma with four hatchlings in a sunset meadow. Camera size stays **6**; art remains provisional.
 
 
 ---
@@ -316,6 +318,14 @@ Assets/_Project/
 
 ---
 
+## Reusable level prefabs
+
+The prefab catalog covers all 20 gameplay scenes: 103 piece types and 33 connected puzzle/boss assemblies. World 1 (`Level_1_1` through `Level_1_4` and `Boss_1`) now uses prefab instances for all 201 level roots. Worlds 2–4 are catalogued for a later scene migration.
+
+Find the library under `Assets/_Project/Prefabs/Enemies`, `Traps`, `Projectiles`, `Bosses`, `Resources`, `Narrative` and `Player`. All 82 filenames in the [gameplay inventory](INVENTARIO_GAMEPLAY_PREFABS.md) are available; the library contains 166 prefabs including variants and 33 connected assemblies. Boss assemblies live under `Bosses/Assemblies`; puzzle assemblies under `Resources/Assemblies`. Existing GUIDs are preserved. Environment SpriteRenderers have an optional **Prefab Sprite 2D > Sprite** artwork slot that preserves collision geometry. Use **Alma > Prefabs** to place assets, bind their player/camera dependencies, build the catalog or validate the migration.
+
+See the [prefab workflow](Docs/PrefabWorkflow.md) for placement, connections and artwork, and the [full inventory](Docs/PrefabCatalogInventory.md) for asset paths and coverage.
+
 ## 🛠️ Unity Editor Tooling
 
 The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
@@ -368,7 +378,7 @@ The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
 2. Select **EditMode** for player states, progression and encounter rules, or **PlayMode** for scene physics, cave routes, camera behavior and boss interactions.
 3. Click **Run All**, or filter by a fixture to verify a specific feature.
 
-The latest volcano validation passed **79 EditMode tests**, **13 Level 4-4 PlayMode tests** and **16 Level 4-3 PlayMode tests**. Previous volcano validation passed **12 Level 4-2 PlayMode tests**. Previous volcano validation passed **10 Level 4-1 PlayMode tests**. Previous boss validation passed **8 Boss 3 PlayMode tests**. Previous World 3 validation passed **13 Level 3-4 PlayMode tests** and **11 Level 3-3 PlayMode tests**. Previous runs passed **5 Level 3-2 PlayMode tests** and **4 Level 3-1 PlayMode tests**. The previous camera and Boss 2 validation also passed **2 camera PlayMode tests** and **4 Boss 2 PlayMode tests**. These are complete EditMode and targeted PlayMode runs, rather than a fresh run of the entire PlayMode suite.
+The latest volcano validation passed **83 EditMode tests**, **7 Final Boss PlayMode tests** and **13 Level 4-4 PlayMode tests**. The complete final encounter passed with real inputs and no hazard deaths. Previous volcano validation passed **16 Level 4-3 PlayMode tests**. Previous volcano validation passed **12 Level 4-2 PlayMode tests**. Previous volcano validation passed **10 Level 4-1 PlayMode tests**. Previous boss validation passed **8 Boss 3 PlayMode tests**. Previous World 3 validation passed **13 Level 3-4 PlayMode tests** and **11 Level 3-3 PlayMode tests**. Previous runs passed **5 Level 3-2 PlayMode tests** and **4 Level 3-1 PlayMode tests**. The previous camera and Boss 2 validation also passed **2 camera PlayMode tests** and **4 Boss 2 PlayMode tests**. These are complete EditMode and targeted PlayMode runs, rather than a fresh run of the entire PlayMode suite.
 
 - **`ArmadilloFightTests`**: Pillar impacts, vulnerability timing, successful strikes and encounter reset rules.
 - **`CameraFollowPlayTests`**: Directional follow at Alma's actual movement speed and constant size `6` in portrait and landscape.
@@ -394,7 +404,7 @@ The latest volcano validation passed **79 EditMode tests**, **13 Level 4-4 PlayM
 | **Phase 3: Jungle Conclusion** | Levels 1-3, 1-4, and Boss 1 (Giant Thief Monkey arena battle & Green Egg rescue). | ✅ **Playable Prototype** |
 | **Phase 4: Crystal Caves (World 2)** | Levels 2-1 through 2-4 playable and tested; Blue Egg rescue complete. Boss 2 has reachable refuges, clear crown-strike paths, three-hit progression and World 2 completion. Final art/audio remain pending; the exit connects to Level 3-1. | ✅ **Playable Prototype** |
 | **Phase 5: Mist Swamp (World 3)** | Levels 3-1 through 3-4 implement Dash, wind/reeds, horizontal spores, poison toads, rising gas, Pound catapults and Purple Egg rescue; Boss 3 adds three Air Dash counters, collapsing branches and persistent World 3 completion. Final art/audio remain pending. | ✅ **Playable Prototype** |
-| **Phase 6: Volcanic Summit (World 4)** | Level 4-1 implements Shockwave Roar, mandatory basalt supports over lava, timed steam and checkpoint resets. Level 4-2 adds timed resonance bells, airborne Roar and a triple flame-door chain. Level 4-3 combines an opening meteor puzzle, two alternate routes and a rising-lava escape with magma salamanders. Level 4-4 adds four ability trials and the Red Egg rescue. The Final Boss remains planned. | 🚀 **In Progress** |
+| **Phase 6: Volcanic Summit (World 4)** | Level 4-1 implements Shockwave Roar, mandatory basalt supports over lava, timed steam and checkpoint resets. Level 4-2 adds timed resonance bells, airborne Roar and a triple flame-door chain. Level 4-3 combines an opening meteor puzzle, two alternate routes and a rising-lava escape with magma salamanders. Level 4-4 adds four ability trials and the Red Egg rescue. The Final Boss adds charge counters, reflected meteors, a rising-magma ascent, phase checkpoints and a silent hatchling epilogue. | ✅ **Playable Prototype** |
 | **Phase 7: Polish, Audio & Launch** | Particle VFX, accessibility settings, and standalone PC/Mobile builds; audio excluded by user request. | ⏳ Planned |
 
 ---
@@ -408,3 +418,7 @@ The latest volcano validation passed **79 EditMode tests**, **13 Level 4-4 PlayM
 ### Audio policy
 
 The game is silent by user request. Scenes and prefabs contain no audio sources or listeners; roar, bells, boss impacts and egg rescues retain only their visual and gameplay feedback. Do not add music or sound effects without an explicit new request. Earlier audio concepts in design documents are not implementation requirements.
+
+### Alma player prefab
+
+[`Player_Alma.prefab`](Assets/_Project/Prefabs/Player/Alma/Player_Alma.prefab) packages the existing configured player. Exclusive scripts (with the original assembly), sprites, physics settings, animation coverage and concept sheets are grouped under [`Player/Alma`](Assets/_Project/Prefabs/Player/Alma/README.md). GUIDs and runtime code are preserved. Existing scenes retain their current players. Idle/Run/Jump/Fall are wired; dedicated Dash/Pound/Roar, hurt and rescue animation cycles still require production and integration.
