@@ -134,7 +134,7 @@ namespace AlmaDino.Core.Editor
         private static void Altar(CaveLevelSceneFactory factory, Transform root)
         {
             var altar = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(
-                "Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_DoubleJump.prefab"));
+                "Assets/_Project/Prefabs/Universal/Ability_Relic_Altar.prefab"));
             altar.name = "Altar_Ancestral_Wind_Spore";
             altar.transform.SetParent(root);
             altar.transform.position = new Vector2(7f, 1f);
@@ -161,7 +161,7 @@ namespace AlmaDino.Core.Editor
         private static void Exit(Transform root)
         {
             var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(
-                "Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
+                "Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
             portal.name = "Portal_Exit_To_3_2";
             portal.transform.SetParent(root);
             portal.transform.position = new Vector2(91f, 1.5f);

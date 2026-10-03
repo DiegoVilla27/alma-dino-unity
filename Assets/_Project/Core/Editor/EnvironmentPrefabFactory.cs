@@ -21,7 +21,7 @@ namespace AlmaDino.Core.Editor
 
         private static void AutoGenerateIfMissing()
         {
-            if (!File.Exists(PREFABS_ROOT + "/Resources/Resource_CheckpointNest_Universal.prefab"))
+            if (!File.Exists(PREFABS_ROOT + "/Universal/Checkpoint_Nest.prefab"))
             {
                 GenerateAllPrefabs();
             }
@@ -30,13 +30,11 @@ namespace AlmaDino.Core.Editor
         [MenuItem("Alma/📦 Generar Biblioteca de Prefabs Ambientales")]
         public static void GenerateAllPrefabs()
         {
-
-            EnsureDirectoryExists(PREFABS_ROOT + "/Enemies");
-            EnsureDirectoryExists(PREFABS_ROOT + "/Traps");
-            EnsureDirectoryExists(PREFABS_ROOT + "/Projectiles");
-            EnsureDirectoryExists(PREFABS_ROOT + "/Bosses");
-            EnsureDirectoryExists(PREFABS_ROOT + "/Resources");
-            EnsureDirectoryExists(PREFABS_ROOT + "/Narrative");
+            EnsureDirectoryExists(PREFABS_ROOT + "/Universal");
+            EnsureDirectoryExists(PREFABS_ROOT + "/World_1_Jungle");
+            EnsureDirectoryExists(PREFABS_ROOT + "/World_2_Caves");
+            EnsureDirectoryExists(PREFABS_ROOT + "/World_3_Swamp");
+            EnsureDirectoryExists(PREFABS_ROOT + "/World_4_Volcano");
 
             Sprite square = AssetDatabase.LoadAssetAtPath<Sprite>(SPRITE_SQUARE);
             Sprite circle = AssetDatabase.LoadAssetAtPath<Sprite>(SPRITE_CIRCLE);
@@ -51,7 +49,7 @@ namespace AlmaDino.Core.Editor
             int count = 0;
 
             // 1. UNIVERSAL
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_CheckpointNest_Universal.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/Universal/Checkpoint_Nest.prefab", () =>
             {
                 var go = new GameObject("Checkpoint_Nest");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -77,7 +75,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_LevelExitPortal_Universal.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/Universal/Level_Exit_Portal.prefab", () =>
             {
                 var go = new GameObject("Level_Exit_Portal");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -102,7 +100,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_AbilityAltar_DoubleJump.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/Universal/Ability_Relic_Altar.prefab", () =>
             {
                 var go = new GameObject("Ability_Relic_Altar");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -129,7 +127,7 @@ namespace AlmaDino.Core.Editor
             });
 
             // 2. WORLD 1 (JUNGLE)
-            count += CreatePrefab($"{PREFABS_ROOT}/Traps/Trap_Spikes_Jungle.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_1_Jungle/Hazard_Spikes_Jungle.prefab", () =>
             {
                 var go = new GameObject("Hazard_Spikes_Jungle");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -144,7 +142,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_BouncyMushroom_Jungle.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_1_Jungle/BouncyMushroom_Jungle.prefab", () =>
             {
                 var go = new GameObject("BouncyMushroom_Jungle");
 
@@ -174,7 +172,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Platform_CrumblingLeaf_Jungle.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_1_Jungle/CrumblingLeaf_Jungle.prefab", () =>
             {
                 var go = new GameObject("CrumblingLeaf_Jungle");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -188,7 +186,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Enemies/Plant_Carnivorous_Jungle.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_1_Jungle/CarnivorousPlant_Jungle.prefab", () =>
             {
                 var go = new GameObject("CarnivorousPlant_Jungle");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -204,7 +202,7 @@ namespace AlmaDino.Core.Editor
             });
 
             // 3. WORLD 2 (CAVES)
-            count += CreatePrefab($"{PREFABS_ROOT}/Traps/Trap_CrystalSpikes_Caves.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_2_Caves/Hazard_Crystals_Caves.prefab", () =>
             {
                 var go = new GameObject("Hazard_Crystals_Caves");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -219,7 +217,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_BreakableFloor_Caves_Caves.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_2_Caves/BreakableFloor_Caves.prefab", () =>
             {
                 var go = new GameObject("BreakableFloor_Caves");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -233,7 +231,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_SeesawPlatform_Caves_Caves.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_2_Caves/SeesawPlatform_Caves.prefab", () =>
             {
                 var go = new GameObject("SeesawPlatform_Caves");
 
@@ -260,7 +258,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_TimedRuneGate_Caves_Caves.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_2_Caves/TimedRuneGate_Caves.prefab", () =>
             {
                 var go = new GameObject("TimedRuneGate_Caves");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -274,7 +272,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_BouncyCrystal_Caves.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_2_Caves/BouncyCrystal_Caves.prefab", () =>
             {
                 var go = new GameObject("BouncyCrystal_Caves");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -292,7 +290,7 @@ namespace AlmaDino.Core.Editor
             });
 
             // 4. WORLD 3 (SWAMP)
-            count += CreatePrefab($"{PREFABS_ROOT}/Traps/Trap_Briers_Swamp.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_3_Swamp/Hazard_Brier_Swamp.prefab", () =>
             {
                 var go = new GameObject("Hazard_Brier_Swamp");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -307,7 +305,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_WindCurrent_Swamp_Swamp.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_3_Swamp/WindCurrent_Swamp.prefab", () =>
             {
                 var go = new GameObject("WindCurrent_Swamp");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -322,7 +320,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_DashRefillSpore_Swamp.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_3_Swamp/DashRefillSpore_Swamp.prefab", () =>
             {
                 var go = new GameObject("DashRefillSpore_Swamp");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -337,7 +335,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_DashReedBarrier_Swamp.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_3_Swamp/ReedBarrier_Swamp.prefab", () =>
             {
                 var go = new GameObject("ReedBarrier_Swamp");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -351,7 +349,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Platform_CrumblingLilypad_Swamp.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_3_Swamp/CrumblingLilypad_Swamp.prefab", () =>
             {
                 var go = new GameObject("CrumblingLilypad_Swamp");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -367,7 +365,7 @@ namespace AlmaDino.Core.Editor
             });
 
             // 5. WORLD 4 (VOLCANO)
-            count += CreatePrefab($"{PREFABS_ROOT}/Traps/Trap_LavaPool_Volcano.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_4_Volcano/Hazard_Lava_Volcano.prefab", () =>
             {
                 var go = new GameObject("Hazard_Lava_Volcano");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -382,7 +380,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_RoarBoulder_Volcano.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_4_Volcano/PushableBoulder_Volcano.prefab", () =>
             {
                 var go = new GameObject("PushableBoulder_Volcano");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -398,7 +396,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Traps/Trap_FireGeyser_Volcano.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_4_Volcano/LavaGeyser_Volcano.prefab", () =>
             {
                 var go = new GameObject("LavaGeyser_Volcano");
 
@@ -428,7 +426,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Platform_SinkingBasalt_Volcano.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_4_Volcano/SinkingBasalt_Volcano.prefab", () =>
             {
                 var go = new GameObject("SinkingBasalt_Volcano");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -442,7 +440,7 @@ namespace AlmaDino.Core.Editor
                 return go;
             });
 
-            count += CreatePrefab($"{PREFABS_ROOT}/Resources/Resource_SteamVent_Volcano.prefab", () =>
+            count += CreatePrefab($"{PREFABS_ROOT}/World_4_Volcano/BouncySteamVent_Volcano.prefab", () =>
             {
                 var go = new GameObject("BouncySteamVent_Volcano");
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -465,9 +463,7 @@ namespace AlmaDino.Core.Editor
 
         private static int CreatePrefab(string assetPath, System.Func<GameObject> buildAction)
         {
-            if (File.Exists(assetPath)) return 0;
             GameObject tempGo = buildAction();
-            PrefabStructure.AddSpriteSlots(tempGo);
             PrefabUtility.SaveAsPrefabAsset(tempGo, assetPath);
             Object.DestroyImmediate(tempGo);
             return 1;

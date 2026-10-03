@@ -132,7 +132,7 @@ namespace AlmaDino.Core.Editor
         }
         private static void BuildSanctuary(CaveLevelSceneFactory f,Transform root)
         {
-            var portal=(GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
+            var portal=(GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
             portal.name="Portal_Exit_To_Boss_2";portal.transform.SetParent(root,false);portal.transform.position=new Vector2(98f,1.4f);
             var exit=portal.GetComponent<LevelExit2D>();CaveLevelSceneFactory.Set(exit,"_nextSceneName","Boss_2");
             CaveLevelSceneFactory.Set(exit,"_levelTitle","EL HUEVO AZUL ESTÁ A SALVO");

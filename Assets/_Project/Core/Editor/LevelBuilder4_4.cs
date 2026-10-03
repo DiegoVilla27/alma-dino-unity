@@ -40,7 +40,7 @@ namespace AlmaDino.Core.Editor
             var dash=BuildDashHall(f,root.transform,player,fire.transform); CaveLevelSceneFactory.Set(trials,"_dashGate",dash);
             BuildRoarHall(f,root.transform,player);
             var enemyConfig=AssetDatabase.LoadAssetAtPath<MagmaSalamanderConfigSO>("Assets/_Project/ScriptableObjects/MagmaSalamanderConfig.asset");
-            var fireball=AssetDatabase.LoadAssetAtPath<PoisonBubble2D>("Assets/_Project/Prefabs/Projectiles/Projectile_MagmaFireball_Volcano.prefab");
+            var fireball=AssetDatabase.LoadAssetAtPath<PoisonBubble2D>("Assets/_Project/Prefabs/World_4_Volcano/Magma_Fireball.prefab");
             LevelBuilder4_3.Salamander(f,combat.transform,player,enemyConfig,fireball,0,20f,0f,.8f,false);
             LevelBuilder4_3.Salamander(f,combat.transform,player,enemyConfig,fireball,1,27f,-2f,.4f,false);
             LevelBuilder4_3.Salamander(f,combat.transform,player,enemyConfig,fireball,2,40f,0f,.8f,false);
@@ -107,7 +107,7 @@ namespace AlmaDino.Core.Editor
         private static void BuildRoarHall(CaveLevelSceneFactory f,Transform root,PlayerController player)
         {
             var lava=LevelBuilder4_1.Lava(f,root,"Basalt_Alignment_Lava",58f,74f);
-            var boulder=(GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Resources/Resource_RoarBoulder_Volcano.prefab"));
+            var boulder=(GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/World_4_Volcano/PushableBoulder_Volcano.prefab"));
             boulder.name="Basalt_Alignment_Boulder";boulder.transform.SetParent(root,false);boulder.transform.position=new Vector2(56f,1.8f);
             CaveLevelSceneFactory.Set(boulder.GetComponent<PushableBoulder2D>(),"_playerSource",player);CaveLevelSceneFactory.Set(boulder.GetComponent<PushableBoulder2D>(),"_lava",lava);
             f.Visual("Bridge_Alignment_Marker",root,new Vector2(61f,-.25f),new Vector2(4.2f,.08f),Gold,true);
@@ -115,7 +115,7 @@ namespace AlmaDino.Core.Editor
         }
         private static void BuildSanctuary(CaveLevelSceneFactory f,Transform root,PlayerController player,GameObject combat,GameObject fire)
         {
-            var portal=(GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
+            var portal=(GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
             portal.name="Portal_Exit_To_Boss_Final";portal.transform.SetParent(root,false);portal.transform.position=new Vector2(95f,1.5f);
             var exit=portal.GetComponent<LevelExit2D>();CaveLevelSceneFactory.Set(exit,"_nextSceneName","Boss_Final");
             CaveLevelSceneFactory.Set(exit,"_levelTitle","EL NIDO VUELVE A ESTAR COMPLETO");

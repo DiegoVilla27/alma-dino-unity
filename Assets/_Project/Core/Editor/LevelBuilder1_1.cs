@@ -19,12 +19,12 @@ namespace AlmaDino.Core.Editor
     public static class LevelBuilder1_1
     {
         private const string SCENE_PATH = "Assets/Scenes/World_1_Jungle/Level_1_1.unity";
-        private const string PREFAB_CHECKPOINT = "Assets/_Project/Prefabs/Resources/Resource_CheckpointNest_Universal.prefab";
-        private const string PREFAB_PORTAL = "Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab";
-        private const string PREFAB_ALTAR = "Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_DoubleJump.prefab";
-        private const string PREFAB_SPIKES = "Assets/_Project/Prefabs/Traps/Trap_Spikes_Jungle.prefab";
-        private const string PREFAB_MUSHROOM = "Assets/_Project/Prefabs/Resources/Resource_BouncyMushroom_Jungle.prefab";
-        private const string PREFAB_LEAF = "Assets/_Project/Prefabs/Resources/Platform_CrumblingLeaf_Jungle.prefab";
+        private const string PREFAB_CHECKPOINT = "Assets/_Project/Prefabs/Universal/Checkpoint_Nest.prefab";
+        private const string PREFAB_PORTAL = "Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab";
+        private const string PREFAB_ALTAR = "Assets/_Project/Prefabs/Universal/Ability_Relic_Altar.prefab";
+        private const string PREFAB_SPIKES = "Assets/_Project/Prefabs/World_1_Jungle/Hazard_Spikes_Jungle.prefab";
+        private const string PREFAB_MUSHROOM = "Assets/_Project/Prefabs/World_1_Jungle/BouncyMushroom_Jungle.prefab";
+        private const string PREFAB_LEAF = "Assets/_Project/Prefabs/World_1_Jungle/CrumblingLeaf_Jungle.prefab";
 
         private const string SPRITE_SQUARE = "Assets/Sprites/Square.png";
         private const string SPRITE_CIRCLE = "Assets/Sprites/Circle.png";
@@ -90,8 +90,8 @@ namespace AlmaDino.Core.Editor
             // ==========================================
             // ZONA 0: El Despertar en el Nido (X = -4 a 10)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Floor_Nest_Zone0", levelRoot.transform, new Vector3(3f, -1f, 0f), new Vector2(14f, 2f), mossGreen, square, unlitMat);
-            WorldOnePrefabFactory.CreateGround("Wall_Left_Boundary", levelRoot.transform, new Vector3(-4.5f, 5f, 0f), new Vector2(1f, 12f), darkStone, square, unlitMat);
+            CreateGround("Floor_Nest_Zone0", levelRoot.transform, new Vector3(3f, -1f, 0f), new Vector2(14f, 2f), mossGreen, square, unlitMat);
+            CreateGround("Wall_Left_Boundary", levelRoot.transform, new Vector3(-4.5f, 5f, 0f), new Vector2(1f, 12f), darkStone, square, unlitMat);
 
             // Cuna de inicio con prefab Checkpoint_Nest
             if (prefabCheckpoint != null)
@@ -105,8 +105,8 @@ namespace AlmaDino.Core.Editor
             // ==========================================
             // ZONA 1: Primer Salto y Desnivel (X = 10 a 22)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Step_1_Rock", levelRoot.transform, new Vector3(12f, 0.4f, 0f), new Vector2(3f, 0.8f), darkStone, square, unlitMat);
-            WorldOnePrefabFactory.CreateGround("Pit_Floor", levelRoot.transform, new Vector3(16f, -1.8f, 0f), new Vector2(4f, 1f), soilBrown, square, unlitMat);
+            CreateGround("Step_1_Rock", levelRoot.transform, new Vector3(12f, 0.4f, 0f), new Vector2(3f, 0.8f), darkStone, square, unlitMat);
+            CreateGround("Pit_Floor", levelRoot.transform, new Vector3(16f, -1.8f, 0f), new Vector2(4f, 1f), soilBrown, square, unlitMat);
 
             // Pinchos en foso con prefab Hazard_Spikes_Jungle
             if (prefabSpikes != null)
@@ -117,13 +117,13 @@ namespace AlmaDino.Core.Editor
                 spikes1.transform.position = new Vector3(16f, -0.9f, 0f);
             }
 
-            WorldOnePrefabFactory.CreateGround("Step_2_Rock", levelRoot.transform, new Vector3(20f, 1.2f, 0f), new Vector2(3.5f, 0.8f), darkStone, square, unlitMat);
+            CreateGround("Step_2_Rock", levelRoot.transform, new Vector3(20f, 1.2f, 0f), new Vector2(3.5f, 0.8f), darkStone, square, unlitMat);
 
             // ==========================================
             // ZONA 2: El Gran Abismo & Altar Materno (X = 22 a 36)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Cliff_Edge_Zone2", levelRoot.transform, new Vector3(23.5f, 2.0f, 0f), new Vector2(3f, 0.8f), mossGreen, square, unlitMat);
-            WorldOnePrefabFactory.CreateGround("Altar_Grotto_Floor", levelRoot.transform, new Vector3(28.5f, 0.0f, 0f), new Vector2(9f, 1.5f), darkStone, square, unlitMat);
+            CreateGround("Cliff_Edge_Zone2", levelRoot.transform, new Vector3(23.5f, 2.0f, 0f), new Vector2(3f, 0.8f), mossGreen, square, unlitMat);
+            CreateGround("Altar_Grotto_Floor", levelRoot.transform, new Vector3(28.5f, 0.0f, 0f), new Vector2(9f, 1.5f), darkStone, square, unlitMat);
 
             // Altar Materno con prefab Ability_Relic_Altar
             if (prefabAltar != null)
@@ -154,7 +154,7 @@ namespace AlmaDino.Core.Editor
             // ==========================================
             // ZONA 3: Gran Abismo de Evaluación & Nido 2 (X = 36 a 55)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Chasm_Floor", levelRoot.transform, new Vector3(39f, -3.5f, 0f), new Vector2(10f, 1.5f), soilBrown, square, unlitMat);
+            CreateGround("Chasm_Floor", levelRoot.transform, new Vector3(39f, -3.5f, 0f), new Vector2(10f, 1.5f), soilBrown, square, unlitMat);
             if (prefabSpikes != null)
             {
                 var chasmSpikes = (GameObject)PrefabUtility.InstantiatePrefab(prefabSpikes);
@@ -165,8 +165,8 @@ namespace AlmaDino.Core.Editor
             }
 
             // Cornisa de aterrizaje de Doble Salto
-            WorldOnePrefabFactory.CreateGround("Landing_Cliff_Zone3", levelRoot.transform, new Vector3(45.5f, 2.8f, 0f), new Vector2(4f, 0.8f), mossGreen, square, unlitMat);
-            WorldOnePrefabFactory.CreateGround("Rest_Platform_Zone3", levelRoot.transform, new Vector3(50.5f, 3.8f, 0f), new Vector2(5f, 0.8f), darkStone, square, unlitMat);
+            CreateGround("Landing_Cliff_Zone3", levelRoot.transform, new Vector3(45.5f, 2.8f, 0f), new Vector2(4f, 0.8f), mossGreen, square, unlitMat);
+            CreateGround("Rest_Platform_Zone3", levelRoot.transform, new Vector3(50.5f, 3.8f, 0f), new Vector2(5f, 0.8f), darkStone, square, unlitMat);
 
             // Nido Checkpoint 1 con prefab Checkpoint_Nest
             if (prefabCheckpoint != null)
@@ -180,7 +180,7 @@ namespace AlmaDino.Core.Editor
             // ==========================================
             // ZONA 4: Hojas Quebradizas sobre Zarzas (X = 55 a 75)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Brambles_Floor_Zone4", levelRoot.transform, new Vector3(65f, -2.5f, 0f), new Vector2(22f, 1.5f), soilBrown, square, unlitMat);
+            CreateGround("Brambles_Floor_Zone4", levelRoot.transform, new Vector3(65f, -2.5f, 0f), new Vector2(22f, 1.5f), soilBrown, square, unlitMat);
             if (prefabSpikes != null)
             {
                 var leafSpikes = (GameObject)PrefabUtility.InstantiatePrefab(prefabSpikes);
@@ -212,8 +212,8 @@ namespace AlmaDino.Core.Editor
             // ==========================================
             // ZONA 5: Salida del Nivel hacia el 1-2 (X = 76 a 86)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Exit_Cliff_Zone5", levelRoot.transform, new Vector3(80f, 5.0f, 0f), new Vector2(8f, 1.2f), mossGreen, square, unlitMat);
-            WorldOnePrefabFactory.CreateGround("Wall_Right_Boundary", levelRoot.transform, new Vector3(84.5f, 9.0f, 0f), new Vector2(1f, 10f), darkStone, square, unlitMat);
+            CreateGround("Exit_Cliff_Zone5", levelRoot.transform, new Vector3(80f, 5.0f, 0f), new Vector2(8f, 1.2f), mossGreen, square, unlitMat);
+            CreateGround("Wall_Right_Boundary", levelRoot.transform, new Vector3(84.5f, 9.0f, 0f), new Vector2(1f, 10f), darkStone, square, unlitMat);
 
             // Portal de salida con prefab Level_Exit_Portal
             if (prefabPortal != null)
@@ -323,13 +323,26 @@ namespace AlmaDino.Core.Editor
 
             // 9. Guardar la escena
             EditorSceneManager.MarkSceneDirty(scene);
-            LevelPrefabLibrary.ConvertLevel(scene);
             EditorSceneManager.SaveScene(scene);
 
             Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Nivel 1-1 ('Despertar en el Nido') reestructurado exitosamente con la biblioteca de Prefabs!</color>");
         }
 
+        private static void CreateGround(string name, Transform parent, Vector3 position, Vector2 size, Color color, Sprite sprite, Material material)
+        {
+            var go = new GameObject(name);
+            go.transform.SetParent(parent);
+            go.transform.position = position;
+            go.transform.localScale = new Vector3(size.x, size.y, 1f);
 
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = sprite;
+            sr.sharedMaterial = material;
+            sr.color = color;
+
+            var col = go.AddComponent<BoxCollider2D>();
+            col.size = Vector2.one;
+        }
 
         private static void CreateDeadZone(Transform parent, Vector3 position, Vector2 size)
         {

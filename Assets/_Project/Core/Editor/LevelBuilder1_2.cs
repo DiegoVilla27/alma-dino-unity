@@ -19,12 +19,12 @@ namespace AlmaDino.Core.Editor
     public static class LevelBuilder1_2
     {
         private const string SCENE_PATH = "Assets/Scenes/World_1_Jungle/Level_1_2.unity";
-        private const string PREFAB_CHECKPOINT = "Assets/_Project/Prefabs/Resources/Resource_CheckpointNest_Universal.prefab";
-        private const string PREFAB_PORTAL = "Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab";
-        private const string PREFAB_SPIKES = "Assets/_Project/Prefabs/Traps/Trap_Spikes_Jungle.prefab";
-        private const string PREFAB_MUSHROOM = "Assets/_Project/Prefabs/Resources/Resource_BouncyMushroom_Jungle.prefab";
-        private const string PREFAB_LEAF = "Assets/_Project/Prefabs/Resources/Platform_CrumblingLeaf_Jungle.prefab";
-        private const string PREFAB_PLANT = "Assets/_Project/Prefabs/Enemies/Plant_Carnivorous_Jungle.prefab";
+        private const string PREFAB_CHECKPOINT = "Assets/_Project/Prefabs/Universal/Checkpoint_Nest.prefab";
+        private const string PREFAB_PORTAL = "Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab";
+        private const string PREFAB_SPIKES = "Assets/_Project/Prefabs/World_1_Jungle/Hazard_Spikes_Jungle.prefab";
+        private const string PREFAB_MUSHROOM = "Assets/_Project/Prefabs/World_1_Jungle/BouncyMushroom_Jungle.prefab";
+        private const string PREFAB_LEAF = "Assets/_Project/Prefabs/World_1_Jungle/CrumblingLeaf_Jungle.prefab";
+        private const string PREFAB_PLANT = "Assets/_Project/Prefabs/World_1_Jungle/CarnivorousPlant_Jungle.prefab";
 
         private const string SPRITE_SQUARE = "Assets/Sprites/Square.png";
         private const string SPRITE_CIRCLE = "Assets/Sprites/Circle.png";
@@ -90,8 +90,8 @@ namespace AlmaDino.Core.Editor
             // ==========================================
             // ZONA DE SPAWN & ENCUENTRO CON MONO LADRÓN (X = -4 a 6)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Floor_Spawn", levelRoot.transform, new Vector3(3f, -1f, 0f), new Vector2(10f, 2f), mossGreen, square, unlitMat);
-            WorldOnePrefabFactory.CreateGround("Wall_Left_Boundary", levelRoot.transform, new Vector3(-3.5f, 8f, 0f), new Vector2(1f, 18f), darkTrunk, square, unlitMat);
+            CreateGround("Floor_Spawn", levelRoot.transform, new Vector3(3f, -1f, 0f), new Vector2(10f, 2f), mossGreen, square, unlitMat);
+            CreateGround("Wall_Left_Boundary", levelRoot.transform, new Vector3(-3.5f, 8f, 0f), new Vector2(1f, 18f), darkTrunk, square, unlitMat);
 
             // Nido de spawn con prefab Checkpoint_Nest
             if (prefabCheckpoint != null)
@@ -108,7 +108,7 @@ namespace AlmaDino.Core.Editor
             // ==========================================
             // DESAFÍO 1: Rebote Guiado bajo Techo de Espinas (X = 6 a 16)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Mushroom_Floor_1", levelRoot.transform, new Vector3(8.5f, -1.5f, 0f), new Vector2(4f, 1.5f), darkTrunk, square, unlitMat);
+            CreateGround("Mushroom_Floor_1", levelRoot.transform, new Vector3(8.5f, -1.5f, 0f), new Vector2(4f, 1.5f), darkTrunk, square, unlitMat);
             
             if (prefabMushroom != null)
             {
@@ -119,7 +119,7 @@ namespace AlmaDino.Core.Editor
             }
 
             // Techo de espinas encima del hongo
-            WorldOnePrefabFactory.CreateGround("Ceiling_Branch_1", levelRoot.transform, new Vector3(8.5f, 7.5f, 0f), new Vector2(5.5f, 0.8f), woodBrown, square, unlitMat);
+            CreateGround("Ceiling_Branch_1", levelRoot.transform, new Vector3(8.5f, 7.5f, 0f), new Vector2(5.5f, 0.8f), woodBrown, square, unlitMat);
             if (prefabSpikes != null)
             {
                 var spikesCeiling = (GameObject)PrefabUtility.InstantiatePrefab(prefabSpikes);
@@ -130,12 +130,12 @@ namespace AlmaDino.Core.Editor
             }
 
             // Repisa de aterrizaje seguro a la derecha
-            WorldOnePrefabFactory.CreateGround("Branch_Ledge_1", levelRoot.transform, new Vector3(14.5f, 4.2f, 0f), new Vector2(4.5f, 0.8f), woodBrown, square, unlitMat);
+            CreateGround("Branch_Ledge_1", levelRoot.transform, new Vector3(14.5f, 4.2f, 0f), new Vector2(4.5f, 0.8f), woodBrown, square, unlitMat);
 
             // ==========================================
             // DESAFÍO 2: Compuerta Rítmica con Planta Carnívora (X = 18 a 28)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Branch_Carnivorous_Gate", levelRoot.transform, new Vector3(21.0f, 5.0f, 0f), new Vector2(5f, 0.8f), woodBrown, square, unlitMat);
+            CreateGround("Branch_Carnivorous_Gate", levelRoot.transform, new Vector3(21.0f, 5.0f, 0f), new Vector2(5f, 0.8f), woodBrown, square, unlitMat);
             
             // Planta Carnívora con prefab CarnivorousPlant_Jungle
             if (prefabPlant != null)
@@ -147,10 +147,10 @@ namespace AlmaDino.Core.Editor
             }
 
             // Rama de seguridad inferior
-            WorldOnePrefabFactory.CreateGround("Safety_Branch_1", levelRoot.transform, new Vector3(21.0f, 1.0f, 0f), new Vector2(6f, 0.8f), darkTrunk, square, unlitMat);
+            CreateGround("Safety_Branch_1", levelRoot.transform, new Vector3(21.0f, 1.0f, 0f), new Vector2(6f, 0.8f), darkTrunk, square, unlitMat);
 
             // Rama del segundo hongo
-            WorldOnePrefabFactory.CreateGround("Mushroom_Branch_2", levelRoot.transform, new Vector3(25.5f, 6.3f, 0f), new Vector2(3.5f, 0.8f), woodBrown, square, unlitMat);
+            CreateGround("Mushroom_Branch_2", levelRoot.transform, new Vector3(25.5f, 6.3f, 0f), new Vector2(3.5f, 0.8f), woodBrown, square, unlitMat);
             if (prefabMushroom != null)
             {
                 var mush2 = (GameObject)PrefabUtility.InstantiatePrefab(prefabMushroom);
@@ -162,7 +162,7 @@ namespace AlmaDino.Core.Editor
             // ==========================================
             // DESAFÍO 3: Gran Salto de Altura & Checkpoint 1 (X = 28 a 35)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Canopy_Cliff_1", levelRoot.transform, new Vector3(32.5f, 14.5f, 0f), new Vector2(6f, 1.2f), mossGreen, square, unlitMat);
+            CreateGround("Canopy_Cliff_1", levelRoot.transform, new Vector3(32.5f, 14.5f, 0f), new Vector2(6f, 1.2f), mossGreen, square, unlitMat);
 
             // Checkpoint 1 con prefab Checkpoint_Nest
             if (prefabCheckpoint != null)
@@ -176,7 +176,7 @@ namespace AlmaDino.Core.Editor
             // ==========================================
             // DESAFÍO 4: Hojas Quebradizas sobre Gran Abismo (X = 36 a 53)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Under_Chasm_Floor", levelRoot.transform, new Vector3(44.0f, 4.0f, 0f), new Vector2(16f, 1.5f), darkTrunk, square, unlitMat);
+            CreateGround("Under_Chasm_Floor", levelRoot.transform, new Vector3(44.0f, 4.0f, 0f), new Vector2(16f, 1.5f), darkTrunk, square, unlitMat);
             if (prefabSpikes != null)
             {
                 var underSpikes = (GameObject)PrefabUtility.InstantiatePrefab(prefabSpikes);
@@ -214,12 +214,12 @@ namespace AlmaDino.Core.Editor
                 leaf2.transform.position = new Vector3(47.5f, 16.5f, 0f);
             }
 
-            WorldOnePrefabFactory.CreateGround("Rest_Branch_Zone3", levelRoot.transform, new Vector3(52.0f, 18.0f, 0f), new Vector2(4.5f, 0.8f), woodBrown, square, unlitMat);
+            CreateGround("Rest_Branch_Zone3", levelRoot.transform, new Vector3(52.0f, 18.0f, 0f), new Vector2(4.5f, 0.8f), woodBrown, square, unlitMat);
 
             // ==========================================
             // DESAFÍO 5: Cadena Aérea de Hongos en el Vacío (X = 55 a 73)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Midair_Stem_1", levelRoot.transform, new Vector3(57.5f, 20.0f, 0f), new Vector2(1.2f, 3.0f), darkTrunk, square, unlitMat);
+            CreateGround("Midair_Stem_1", levelRoot.transform, new Vector3(57.5f, 20.0f, 0f), new Vector2(1.2f, 3.0f), darkTrunk, square, unlitMat);
             if (prefabMushroom != null)
             {
                 var midMush1 = (GameObject)PrefabUtility.InstantiatePrefab(prefabMushroom);
@@ -229,7 +229,7 @@ namespace AlmaDino.Core.Editor
             }
 
             // Planta carnívora aérea suspendida
-            WorldOnePrefabFactory.CreateGround("Midair_Plant_Ledge", levelRoot.transform, new Vector3(63.0f, 23.5f, 0f), new Vector2(2.5f, 0.8f), darkTrunk, square, unlitMat);
+            CreateGround("Midair_Plant_Ledge", levelRoot.transform, new Vector3(63.0f, 23.5f, 0f), new Vector2(2.5f, 0.8f), darkTrunk, square, unlitMat);
             if (prefabPlant != null)
             {
                 var plant2 = (GameObject)PrefabUtility.InstantiatePrefab(prefabPlant);
@@ -238,7 +238,7 @@ namespace AlmaDino.Core.Editor
                 plant2.transform.position = new Vector3(63.0f, 24.5f, 0f);
             }
 
-            WorldOnePrefabFactory.CreateGround("Midair_Stem_2", levelRoot.transform, new Vector3(68.5f, 25.0f, 0f), new Vector2(1.2f, 3.0f), darkTrunk, square, unlitMat);
+            CreateGround("Midair_Stem_2", levelRoot.transform, new Vector3(68.5f, 25.0f, 0f), new Vector2(1.2f, 3.0f), darkTrunk, square, unlitMat);
             if (prefabMushroom != null)
             {
                 var midMush2 = (GameObject)PrefabUtility.InstantiatePrefab(prefabMushroom);
@@ -250,8 +250,8 @@ namespace AlmaDino.Core.Editor
             // ==========================================
             // LA CIMA DEL GRAN ÁRBOL & PORTAL DE SALIDA (X = 75 a 86)
             // ==========================================
-            WorldOnePrefabFactory.CreateGround("Great_Canopy_Floor", levelRoot.transform, new Vector3(80.0f, 30.0f, 0f), new Vector2(10f, 1.5f), mossGreen, square, unlitMat);
-            WorldOnePrefabFactory.CreateGround("Wall_Right_Boundary", levelRoot.transform, new Vector3(85.5f, 35.0f, 0f), new Vector2(1f, 12f), darkTrunk, square, unlitMat);
+            CreateGround("Great_Canopy_Floor", levelRoot.transform, new Vector3(80.0f, 30.0f, 0f), new Vector2(10f, 1.5f), mossGreen, square, unlitMat);
+            CreateGround("Wall_Right_Boundary", levelRoot.transform, new Vector3(85.5f, 35.0f, 0f), new Vector2(1f, 12f), darkTrunk, square, unlitMat);
 
             // Checkpoint 2 con prefab Checkpoint_Nest
             if (prefabCheckpoint != null)
@@ -367,13 +367,26 @@ namespace AlmaDino.Core.Editor
 
             // 8. Guardar la escena
             EditorSceneManager.MarkSceneDirty(scene);
-            LevelPrefabLibrary.ConvertLevel(scene);
             EditorSceneManager.SaveScene(scene);
 
             Debug.Log("<color=#00FF88><b>[AlmaDino]</b> ¡Nivel 1-2 ('El Dosel Peligroso') reestructurado exitosamente con la biblioteca de Prefabs!</color>");
         }
 
+        private static void CreateGround(string name, Transform parent, Vector3 position, Vector2 size, Color color, Sprite sprite, Material material)
+        {
+            var go = new GameObject(name);
+            go.transform.SetParent(parent);
+            go.transform.position = position;
+            go.transform.localScale = new Vector3(size.x, size.y, 1f);
 
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = sprite;
+            sr.sharedMaterial = material;
+            sr.color = color;
+
+            var col = go.AddComponent<BoxCollider2D>();
+            col.size = Vector2.one;
+        }
 
         private static void CreateDeadZone(Transform parent, Vector3 position, Vector2 size)
         {

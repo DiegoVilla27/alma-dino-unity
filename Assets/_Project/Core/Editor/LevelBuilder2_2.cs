@@ -87,7 +87,7 @@ namespace AlmaDino.Core.Editor
             f.Platform("Right_Boundary", new Vector2(113f, 6f), new Vector2(1f, 14f));
             f.Hazard("Abyss_Death_Zone", new Vector2(55f, -11f), new Vector2(120f, 2f));
             var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(
-                "Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
+                "Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
             portal.name = "Portal_Exit_To_2_3";
             portal.transform.SetParent(GameObject.Find("--- LEVEL ---").transform, false);
             portal.transform.position = new Vector2(109f, 1.4f);
