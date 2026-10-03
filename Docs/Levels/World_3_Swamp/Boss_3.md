@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 👑 Jefe 3: "El Señor de las Ráfagas — Pterodáctilo Alfa"
 > **Mundo 3: Pantano de Viento y Niebla** | **Arena de Combate y Cierre del Mundo 3**
 
@@ -48,25 +50,15 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Wings over the Abyss" (Alas sobre el Abismo).
-  - *Estilo:* Orquestación épica y vertiginosa: cuerdas en staccato furioso, metales triunfales y percusión militarizada rápida que imita el aleteo descomunal de una bestia voladora.
-  - *Tempo:* 150 BPM. Sensación de combate aéreo al borde del abismo.
-- **Efectos de Sonido (SFX):**
-  - Batido de Alas: Ondas de viento de baja frecuencia (*WHUMP... WHUMP... WHUMP*).
-  - Picado del Jefe: Silbido agudo sónico de avión en picada antes del impacto.
-  - Impacto del Dash: Colisión sónica crujiente con vibración de pantalla (*¡WHACK!*).
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Sprites Jefe:** Pterodáctilo Alfa (pose de aleteo estático, animación de ráfaga, pose de picado aéreo, animación de aturdimiento y derrota).
 - [ ] **Sprites Arena:** Ramas de sauce quebradizas que se rompen tras cada ciclo.
 - [ ] **VFX:** Ráfagas de viento huracanadas; estela de viento sónico durante el picado del jefe; plumas y chispas al golpear la cabeza con el Dash.
-- [ ] **Audio:** Pista "Wings over the Abyss", SFX de aleteo huracanado, graznido de picado.
 
 
 ## 6. Implementación jugable
@@ -77,7 +69,7 @@
 - **Vendaval:** 3s de viento horizontal a 12m/s², con 2s adicionales de preparación inicial. La dirección alterna tras cada impacto. Dash ignora el viento y conserva el peligro por contacto con el cuerpo.
 - **Aviso:** 1.4s. Fija la altura del ataque a 3.5m sobre la rama más próxima a Alma. Una línea cian señala esa altura y el texto indica la dirección del Dash de contraataque. La trayectoria queda fijada durante el aviso.
 - **Picado horizontal:** velocidad 7, 8 y 9m/s según los impactos. Salto → Doble Salto → Dash frontal contra la cabeza cian. Un salto corriente, Pisotón, Dash en el suelo o ataque en la dirección del vuelo no dañan al jefe.
-- **Impacto:** cancela el Dash, rebota a Alma, recarga habilidades aéreas, muestra el contador y activa sacudida, pausa de 0.05s, partículas y sonido provisional. El jefe cae aturdido durante una recuperación de 2.5s.
+- **Impacto:** cancela el Dash, rebota a Alma, recarga habilidades aéreas, muestra el contador y activa sacudida, pausa de 0.05s, partículas visuales. El jefe cae aturdido durante una recuperación de 2.5s.
 - Tras cada impacto se destruye la rama lateral activa más alejada de Alma, evitando retirar el apoyo desde el que acaba de contraatacar. Después del tercer golpe queda la rama central.
 - Caer o tocar al jefe reinicia el ciclo actual; conserva los golpes acertados y las ramas ya destruidas. Un picado esquivado vuelve al vendaval sin sumar impactos.
 - Tres impactos completan y guardan Mundo 3, desactivan el jefe y abren el portal hacia `Level_4_1`. Esa escena ya es jugable: el portal carga Los Ríos de Ceniza y su tutorial de Rugido.
@@ -87,4 +79,4 @@
 
 59 pruebas EditMode y 8 pruebas Boss3 PlayMode: fases y rechazos de ataques, habilidades iniciales, cuatro ramas alcanzables con entradas reales, daño por cabeza/cuerpo, rechazo de Dash terrestre y de salto simple con Dash, carga desde el portal del 3-4 y tres contraataques reales desde ambos lados con persistencia tras una muerte y activación del portal final.
 
-El arte geométrico, las partículas y el sonido son provisionales; los assets finales de producción siguen pendientes.
+El arte geométrico, las partículas son provisionales; los assets finales de producción siguen pendientes.

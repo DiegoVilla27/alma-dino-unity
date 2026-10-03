@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 4-2: "Las Campanas de Basalto"
 > **Mundo 4: Cima Volcánica** | **Función Pedagógica:** Practicar (Campanas Resonantes & Puertas de Llamas Cronometradas)
 
@@ -5,7 +7,7 @@
 
 ## 1. 📖 Sinopsis Narrativa & Contexto Emocional
 
-- **Momento Narrativo:** En el interior de un desfiladero volcánico, antiguos monumentos de basalto cuelgan sobre las chimeneas térmicas. Son campanas de piedra esculpidas por civilizaciones olvidadas para modular las corrientes de gas del volcán. Llamaradas intermitentes de fuego bloquean los corredores estrechos, impidiendo el avance a menos que el sonido apague temporalmente el flujo de oxígeno.
+- **Momento Narrativo:** En el interior de un desfiladero volcánico, antiguos monumentos de basalto cuelgan sobre las chimeneas térmicas. Son campanas de piedra esculpidas por civilizaciones olvidadas para modular las corrientes de gas del volcán. Llamaradas intermitentes bloquean los corredores estrechos hasta que la onda visual del Rugido activa los monumentos.
 - **Estado Emocional de Alma:** Precisión y serenidad bajo fuego. No basta con gritar; debe proyectar su rugido en el ángulo y momento exactos para mantener las vías abiertas.
 - **Pistas Narrativas en el Entorno:** Marcas de tizne en las campanas que muestran que han vibrado durante siglos y huellas de garras que esquivaron las llamas por escasos centímetros.
 
@@ -41,24 +43,14 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Chimes of the Caldera" (Campanas de la Caldera).
-  - *Estilo:* Percusión ritualista con gongs gigantescos, platillos tibetanos y una sección de violonchelos que genera tensión en una cuenta regresiva auditiva implacable.
-  - *Tempo:* 100 BPM. Ritmo tenso y disciplinado.
-- **Efectos de Sonido (SFX):**
-  - Campana de Basalto: Campanada colosal de piedra profunda con vibración de reverberación prolongada (*¡DUMMMMNGGG!*).
-  - Sofocación de Llamas: Silbido de fuego apagándose por corte de aire (*¡whooosh-fizzz!*).
-  - Ignición de Llamas: Estallido de gas encendiéndose de nuevo (*¡FOOOM!*).
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Sprites Props:** Campana de basalto suspendida (reposo, vibración con ondas, retorno), quemador de llamaradas (activo, apagado).
 - [ ] **VFX:** Onda de calor distorsionante en la pantalla; anillo sónico expandiéndose de la campana; llamarada de gas encendiéndose y apagándose.
-- [ ] **Audio:** Pista "Chimes of the Caldera", SFX de campana de piedra, SFX de gas encendiéndose.
 
 
 ## 6. Implementación jugable
@@ -70,6 +62,6 @@ Escena `Assets/Scenes/World_4_Volcano/Level_4_2.unity`, accesible desde `Alma/�
 - Cadena final: rugir desde cada isla para activar las campanas (68, 5.2), (85.5, 4.6) y (99.5, 4.6). Abren respectivamente las puertas X=68, X=82 y X=96. Los fosos X=70–78, X=84–92 y X=98–106 requieren Doble Salto + Dash.
 - Cada campana apaga únicamente su puerta durante 5s. Otro rugido renueva el plazo. Cuenta atrás visible, aviso amarillo en el último segundo y tono provisional al activarse. Ni contacto ni Pisotón activan campanas.
 - Las llamas cerradas dañan incluso durante Dash. Morir cierra todas las puertas; los checkpoints quedan en zonas seguras. Muro detrás del inicio para impedir caer por el extremo.
-- Cámara size 6, seguimiento de Alma y anticipación horizontal 1.25m. Portal X=118 hacia `Level_4_3`, La Gran Fractura. El mundo todavía no se completa. Arte y audio definitivos pendientes.
+- Cámara size 6, seguimiento de Alma y anticipación horizontal 1.25m. Portal X=118 hacia `Level_4_3`, La Gran Fractura. El mundo todavía no se completa. Arte definitivo pendiente.
 
 Validación: 12 pruebas PlayMode del 4-2, incluyendo recorrido completo sin muertes mediante entradas normales, y 10 pruebas de regresión del 4-1. Suite EditMode: 75 pruebas.

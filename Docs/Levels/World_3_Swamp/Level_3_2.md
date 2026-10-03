@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 3-2: "El Cañón de las Ráfagas"
 > **Mundo 3: Pantano de Viento y Niebla** | **Función Pedagógica:** Practicar (Géiseres de Viento & Inmunidad del Dash Aéreo)
 
@@ -42,24 +44,14 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Gale-Force Defiance" (Desafío al Vendaval).
-  - *Estilo:* Cuerdas frotadas con ritmo galopante y viento silbante continuo integrado como parte de la pista rítmica, con intervenciones agresivas de percusión de madera.
-  - *Tempo:* 115 BPM. Sensación de lucha contra los elementos.
-- **Efectos de Sonido (SFX):**
-  - Silbido del Viento: Aullido dinámico que sube de volumen cuando Alma entra en un túnel de ráfaga.
-  - Dash Cortando el Viento: Efecto de látigo sónico que corta el ruido del viento durante una fracción de segundo (*¡SLICCK!*).
-  - Ruptura de Barrera: Crujido seco de cañas y maderas que se parten.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Sprites Props:** Muro de cañas rompibles, toberas/géiseres de viento en roca.
 - [ ] **VFX:** Sistema de partículas de ráfaga de viento horizontal (estelas blancas y hojas que viajan rápido).
-- [ ] **Audio:** Pista "Gale-Force Defiance", SFX de aullido de viento en túnel, SFX de ruptura de cañas.
 
 ---
 
@@ -72,5 +64,5 @@
 - Tres fosos de lodo: X=16–25 (9m), X=40–50 (10m) y X=68–79 (11m). Barreras aéreas en X=45 y X=74.5, de 7m de altura; exigen un impacto de Dash y no se evitan con Doble Salto.
 - Cuatro zonas de viento frontal, aceleración de 12m/s² hacia la izquierda, sin compensación de gravedad. El Dash ignora exclusivamente el viento durante la acción; no protege del lodo.
 - Refugios libres de viento con checkpoints en X=28 y X=64. Las cañas rotas permanecen abiertas durante el intento de la escena; recargar la escena las restaura.
-- Arte geométrico, parallax de cañón y sauces inclinados, estelas y partículas hacia la izquierda. Música y audio definitivos pendientes.
+- Arte geométrico, parallax de cañón y sauces inclinados, estelas y partículas hacia la izquierda. Efectos visuales definitivos pendientes.
 - Validación: **5 pruebas PlayMode del nivel** y **45 EditMode** pasan. Incluye recorrido completo con entradas reales sin muertes, viento frontal, rechazo de impactos sin Dash, refugios y pared inicial.

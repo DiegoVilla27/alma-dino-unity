@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 1-1: "Despertar en el Nido"
 > **Mundo 1: Jungla Esmeralda** | **Función Pedagógica:** Introducir (Locomoción Base + Despertar del Doble Salto)
 
@@ -52,24 +54,12 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "The Silent Cradle" (El Nido en Silencio).
-  - *Estilo:* Melodía minimalista y conmovedora en piano acústico solo, acompañada de suaves pizzicatos de chelo y una flauta de madera andina/indígena.
-  - *Tempo:* 72 BPM. Tono melancólico pero con una línea de bajo que denota resolución y avance.
-  - *Transición adaptativa:* Al despertar el doble salto en el altar, entran cuerdas completas que elevan la sensación de esperanza y poder maternal.
-- **Efectos de Sonido (SFX):**
-  - Pasos: Impacto suave sobre tierra blanda y hojas secas con variación de 4 tonos aleatorios.
-  - Salto Simple: Despegue ágil con silbido de aire ligero.
-  - Aleteo (Doble Salto): Sacudida rápida de plumas y una ráfaga de aire cálido (*woosh* suave pero enérgico).
-  - Altar: Resonancia cristalina mágica que reverbera en estéreo al tocar la gema.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Tileset:** Tierra con hierba superior, tierra interior, bordes de raíz y rocas musgosas (16x16 o 32x32).
 - [ ] **Props:** Nido de ramas y plumas destrozado, altar de piedra runal, gema flotante con halo emisor, flores tropicales.
 - [ ] **Sprites Alma:** Animaciones de Idle (respiración atenta), Run (zancadas ágiles), Jump (despegue firme) y Double Jump (aleteo de plumas del lomo).
-- [ ] **Audio:** Pista de música "The Silent Cradle", SFX de pasos en hierba/tierra, SFX de despertar de gema, SFX de viento en salto.

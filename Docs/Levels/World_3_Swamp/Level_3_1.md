@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 3-1: "Los Fangales Tóxicos"
 > **Mundo 3: Pantano de Viento y Niebla** | **Función Pedagógica:** Introducir (Despertar del Dash Aéreo & Fosos Infranqueables)
 
@@ -52,17 +54,9 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Through the Sunken Mists" (A Través de las Nieblas Hundidas).
-  - *Estilo:* Paisaje sonoro minimalista con flauta de bambú grave (shakuhachi), cuerdas tenues con sordina y grabaciones de campo de ranas y viento distante.
-  - *Tempo:* 70 BPM. Sensación de avance cauteloso y misterio.
-- **Efectos de Sonido (SFX):**
-  - Dash Aéreo: Ráfaga sónica rápida y cortante (*¡FWOOOOSH!*) acompañada por el brillo de plumas.
-  - Lodo Tóxico: Burbujeo viscoso constante en el fondo (*bloop-blop*).
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
@@ -70,7 +64,6 @@
 - [ ] **Props:** Flor del Viento Ancestral, capas de niebla semitransparente animada para parallax.
 - [ ] **Sprites Alma:** Animación de Dash Aéreo con estela de partículas y *smear frames* de velocidad.
 - [ ] **VFX:** Ráfaga cian de viento detrás de Alma durante el Dash; burbujas de gas estallando en el foso tóxico.
-- [ ] **Audio:** Pista "Through the Sunken Mists", SFX de dash aéreo, SFX ambiental de pantano.
 
 ---
 
@@ -82,5 +75,5 @@
 - Isla inicial segura desde X=-6 hasta X=14; Espora del Viento en X=7, antes del primer abismo. Al comenzar una partida limpia, Alma conserva Doble Salto y Pisotón, pero debe recoger la espora para desbloquear Dash.
 - Cuatro fosos de 11m: X=14–25, 33–44, 52–63 y 71–82. Las islas de práctica tienen 8m de anchura y la final 12m; sus superficies están en Y=0.
 - Checkpoints estables en X=10, 29 y 67. Morir en el lodo devuelve al último nido sin perder el Dash desbloqueado. Aterrizar repone la carga aérea; sigue vigente el cooldown de 0.4s.
-- Cámara ortográfica size 6, seguimiento de Alma y anticipo horizontal de 1.25 unidades. Cuatro capas de parallax, siluetas de sauces, bancos de niebla y juncos geométricos; arte y audio final pendientes.
+- Cámara ortográfica size 6, seguimiento de Alma y anticipo horizontal de 1.25 unidades. Cuatro capas de parallax, siluetas de sauces, bancos de niebla y juncos geométricos; arte final pendiente.
 - `Level3_1PlayTests`: entrada y destino correctos, imposibilidad de cruzar el foso tutorial con Doble Salto solo, conservación del Dash al morir y recorrido completo con entradas reales sin muertes. Las cuatro pruebas pasan, incluida la protección del extremo de entrada al caminar y usar Doble Salto.

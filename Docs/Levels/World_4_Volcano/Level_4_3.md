@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 4-3: "La Gran Fractura"
 > **Mundo 4: Cima Volcánica** | **Función Pedagógica:** Complicar (La Gran Prueba de Síntesis Mecánica Total)
 
@@ -41,23 +43,14 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "The Shattered Caldera" (La Caldera Fracturada).
-  - *Estilo:* Metal sinfónico con batería vertiginosa a doble bombo, guitarras distorsionadas pesadas, cuerdas agudas en semicorcheas y un coro en latín/lengua tribal que clama por la salvación de la vida.
-  - *Tempo:* 160 BPM. Adrenalina pura y concentración implacable.
-- **Efectos de Sonido (SFX):**
-  - Meteoritos: Silbido grave ardiente descendiendo (*wheeeesh*) y explosión al impactar.
-  - Desvío por Rugido: Onda expansiva que desvía la trayectoria con sonido de cañón sónico (*¡BOOOM!*).
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Sprites Props:** Meteoritos en llamas, salamandras de magma (trepando, escupiendo fuego, cayendo).
 - [ ] **VFX:** Lluvia continua de meteoritos con estelas de partículas de fuego y humo; temblor de cámara screen shake regular.
-- [ ] **Audio:** Pista "The Shattered Caldera", SFX de meteorito cayendo, SFX de estallido de magma.
 
 
 ## 6. Implementación jugable y ritmo del nivel
@@ -72,6 +65,6 @@ El nivel tiene tres situaciones distintas, con descanso en X=32 y X=68:
 
 El meteorito de la entrada aparece 2.4m a la derecha y 1.35m sobre Alma, dentro del Rugido normal de 3m. Cambia a cian al devolverse. Si se falla, hay otra oportunidad con aviso; junto a la compuerta se pide retroceder para mantener un ángulo alcanzable. Rugir directamente sobre la compuerta no la abre. Las salamandras apuntan hacia ambos lados y Rugido/Pisotón las aturden.
 
-Morir conserva la compuerta de entrada si ya quedó detrás del checkpoint y restaura el sello, la erupción, las cornisas, los chorros y los enemigos. Muro detrás del inicio. Cámara size 6, seguimiento de Alma y anticipación horizontal 1.25m. Portal X=110, Y=5.3 hacia `Level_4_4`, La Antecámara del Fuego. No rescata el Huevo Rojo ni completa el mundo. Arte y audio definitivos pendientes.
+Morir conserva la compuerta de entrada si ya quedó detrás del checkpoint y restaura el sello, la erupción, las cornisas, los chorros y los enemigos. Muro detrás del inicio. Cámara size 6, seguimiento de Alma y anticipación horizontal 1.25m. Portal X=110, Y=5.3 hacia `Level_4_4`, La Antecámara del Fuego. No rescata el Huevo Rojo ni completa el mundo. Arte definitivo pendiente.
 
 Validación: 16 pruebas PlayMode del 4-3, con ruta alta + huida completas sin muertes, ruta baja sin muertes, ascenso real de lava y reinicios de checkpoints. 77 pruebas EditMode aprobadas. Revisión visual a size 6.

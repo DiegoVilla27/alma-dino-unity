@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 2-4: "El Laberinto de Geodas"
 > **Mundo 2: Cuevas de Cristal** | **Función Pedagógica:** Evaluar + Segundo Rescate (El Techo Móvil & Huevo Azul)
 
@@ -9,7 +11,7 @@
 - **Estado Emocional de Alma:** Una combinación de angustia por el peligro inminente del colapso y una infinita ternura al reconocer la segunda vida que late ante ella.
 - **El Momento del Rescate (Cinemática Diegética en Gameplay):**
   - Alma alcanza el pedestal y toca el **Huevo Azul**.
-  - La música de persecución se desvanece en un instante; el piano acústico retoma el motivo de la "Nana Maternal":
+  - La tensión visual se desvanece y una luz cálida destaca el rescate:
   - *Texto del Rescate (Huevo Azul):*
     > *"Sentí tu latido contra la piedra fría.*  
     > *Ya somos dos. No descansaré hasta que estemos los cinco juntos.*  
@@ -49,25 +51,14 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Labyrinth of the Sapphires" (El Laberinto de los Zafiros).
-  - *Estilo:* Cuerdas frotadas con tensión en crescendo, percusión de tambores orquestales profundos y un xilófono cristalino que marca un compás apremiante.
-  - *Tempo:* 120 BPM.
-  - *Tema de Rescate ("Lullaby for the Blue Shell"):* Piano solo lento y suave a 58 BPM, con notas agudas que evocan la tranquilidad del hielo.
-- **Efectos de Sonido (SFX):**
-  - Descenso del Techo: Retumbar de toneladas de roca frotando contra las paredes (*THUUUUUM*).
-  - Latido del Huevo Azul: Pulso cristalino con armónicos agudos sutiles.
-  - Rugido del Armadillo: Bramido gutural cavernoso al romper la pared al final del nivel.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Sprites Props:** Pedestal de geoda central, Huevo Azul con halo de luz 2D, techo aplastador con estalactitas afiladas.
 - [ ] **VFX:** Polvo de cristal cayendo del techo antes de descender; partículas de destellos azulados flotantes.
-- [ ] **Audio:** Pista "Labyrinth of the Sapphires", tema de rescate del Huevo Azul, SFX de terremoto y derrumbe de pared.
 
 ## 6. Implementación jugable
 
@@ -78,7 +69,7 @@
 - Escarabajo acorazado en X 61,5: se voltea con la onda sísmica durante 3,5 s. El techo bajo impide ignorar su caparazón con un salto alto.
 - Checkpoints en X 32 y X 68. Al morir se restauran suelos, techos, escarabajo, runa, contrapeso y balancín. El daño mantiene el respawn inmediato del resto del juego.
 - Huevo Azul en `(92, 2)`, sobre pedestal. El rescate se guarda y activa la salida a `Boss_2`, incluso al repetir la escena con el huevo ya rescatado. El armadillo aparece como anuncio visual del siguiente combate; el jefe aún no está construido.
-- Se reutiliza la atmósfera de cuatro capas de cuevas con geodas celestes. Arte de enemigos, techo, huevo y armadillo son provisionales. Música, rugido, partículas y cinemática de derrumbe quedan pendientes de los assets de producción.
+- Se reutiliza la atmósfera de cuatro capas de cuevas con geodas celestes. Arte de enemigos, techo, huevo y armadillo son provisionales. Efectos visuales del rugido, partículas y derrumbe quedan pendientes de producción.
 
 - Validación: 28 pruebas PlayMode de los cuatro niveles de cuevas y 38 EditMode aprobadas. El recorrido del 2-4 usa entradas de movimiento, salto y Pound (incluido botón UI), sin teletransportes; comprueba ambos refugios, la catapulta, la plataforma de escarabajo, el rescate y la salida. Capturas de Unity verifican Alma visible, aviso escrito, refugio y santuario.
 
