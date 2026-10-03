@@ -8,7 +8,7 @@ Movimiento semirreal: aceleración breve, trayectorias parabólicas, caída con 
 
 ## Perfil compartido
 
-La fuente de valores en ejecución es `Assets/_Project/Features/Player/ScriptableObjects/AlmaPhysicsConfig.asset`. Los valores predeterminados de `AlmaPhysicsConfigSO` deben coincidir con ese asset.
+La fuente de valores en ejecución es `Assets/_Project/Prefabs/Player/Alma/Configuration/AlmaPhysicsConfig.asset`. Los valores predeterminados de `AlmaPhysicsConfigSO` deben coincidir con ese asset.
 
 | Parámetro | Valor | Resultado buscado |
 |---|---:|---|

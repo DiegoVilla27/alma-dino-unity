@@ -83,7 +83,7 @@ The current movement profile and level-design constraints are documented in [Phy
 - **Bouncy Mushrooms & Super Bounce (`BouncyPlatform2D`)**:
   - Solid elastic trampolines propelling Alma vertically at high speed (`17 m/s` by default, ~6.7m theoretical peak height; individual platforms can override it).
   - **Super Bounce (+18%)**: Holding or pressing **Jump** upon landing accelerates Alma to **`20.06 m/s`** from the default `17 m/s` (~9.3m theoretical peak height).
-  - **Ground Detector Decoupling (`IBouncySurface2D`)**: The player's [`GroundDetector2D`](Assets/_Project/Features/Player/Components/GroundDetector2D.cs) ignores bouncy surfaces. This prevents state-machine false transitions into `Idle`/`Run` and avoids early Jump-Cut momentum cancellation.
+  - **Ground Detector Decoupling (`IBouncySurface2D`)**: The player's [`GroundDetector2D`](Assets/_Project/Prefabs/Player/Alma/Scripts/Components/GroundDetector2D.cs) ignores bouncy surfaces. This prevents state-machine false transitions into `Idle`/`Run` and avoids early Jump-Cut momentum cancellation.
   - **Squish & Stretch Animation**: Immediate squash compression (`0.06s`) followed by vertical elastic rebound (`0.14s`) for maximum kinetic juice.
   - **Mid-Air Momentum Preservation**: Activating Double Jump during bounce ascent preserves a stronger upward velocity; otherwise restores at least `7.6 m/s` without stacking impulses. Refreshes aerial abilities upon contact.
 - **Crumbling Canopy Leaves (`CrumblingPlatform2D`)**:
@@ -318,6 +318,14 @@ Assets/_Project/
 
 ---
 
+## Reusable level prefabs
+
+The prefab catalog covers all 20 gameplay scenes: 103 piece types and 33 connected puzzle/boss assemblies. World 1 (`Level_1_1` through `Level_1_4` and `Boss_1`) now uses prefab instances for all 201 level roots. Worlds 2–4 are catalogued for a later scene migration.
+
+Find the library under `Assets/_Project/Prefabs/Enemies`, `Traps`, `Projectiles`, `Bosses`, `Resources`, `Narrative` and `Player`. All 82 filenames in the [gameplay inventory](INVENTARIO_GAMEPLAY_PREFABS.md) are available; the library contains 166 prefabs including variants and 33 connected assemblies. Boss assemblies live under `Bosses/Assemblies`; puzzle assemblies under `Resources/Assemblies`. Existing GUIDs are preserved. Environment SpriteRenderers have an optional **Prefab Sprite 2D > Sprite** artwork slot that preserves collision geometry. Use **Alma > Prefabs** to place assets, bind their player/camera dependencies, build the catalog or validate the migration.
+
+See the [prefab workflow](Docs/PrefabWorkflow.md) for placement, connections and artwork, and the [full inventory](Docs/PrefabCatalogInventory.md) for asset paths and coverage.
+
 ## 🛠️ Unity Editor Tooling
 
 The top-level **`Alma`** menu bar in Unity provides instant developer workflows:
@@ -410,3 +418,7 @@ The latest volcano validation passed **83 EditMode tests**, **7 Final Boss PlayM
 ### Audio policy
 
 The game is silent by user request. Scenes and prefabs contain no audio sources or listeners; roar, bells, boss impacts and egg rescues retain only their visual and gameplay feedback. Do not add music or sound effects without an explicit new request. Earlier audio concepts in design documents are not implementation requirements.
+
+### Alma player prefab
+
+[`Player_Alma.prefab`](Assets/_Project/Prefabs/Player/Alma/Player_Alma.prefab) packages the existing configured player. Exclusive scripts (with the original assembly), sprites, physics settings, animation coverage and concept sheets are grouped under [`Player/Alma`](Assets/_Project/Prefabs/Player/Alma/README.md). GUIDs and runtime code are preserved. Existing scenes retain their current players. Idle/Run/Jump/Fall are wired; dedicated Dash/Pound/Roar, hurt and rescue animation cycles still require production and integration.

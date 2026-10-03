@@ -1,0 +1,178 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1299128121394429059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3141927180984657291}
+  m_Layer: 0
+  m_Name: Level_2_2_SeesawPlatform2D_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3141927180984657291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299128121394429059}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2429416513043720195}
+  - {fileID: 2624766873099491889}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2350779056328653180
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3141927180984657291}
+    m_Modifications:
+    - target: {fileID: 356539220806558541, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 42.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 356539220806558541, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 356539220806558541, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 356539220806558541, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 356539220806558541, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 356539220806558541, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 356539220806558541, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 356539220806558541, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 356539220806558541, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 356539220806558541, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6361504872798643942, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+      propertyPath: m_Name
+      value: Seesaw_High_Ledge_Counterweight
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409257106585988968, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+      propertyPath: _plank
+      value: 
+      objectReference: {fileID: 2429416513043720195}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+--- !u!4 &2624766873099491889 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 356539220806558541, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+  m_PrefabInstance: {fileID: 2350779056328653180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5065807469943264788 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7409257106585988968, guid: 811a783933dfe4d868c5c20b00a5b0f8, type: 3}
+  m_PrefabInstance: {fileID: 2350779056328653180}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec22a4ec4a13945cfb3acd0044767292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AlmaDino.Features.Environment::AlmaDino.Features.Environment.CatapultWeight2D
+--- !u!1001 &2920092602035741744
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3141927180984657291}
+    m_Modifications:
+    - target: {fileID: 662387252632374323, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 662387252632374323, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 662387252632374323, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 662387252632374323, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 662387252632374323, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 662387252632374323, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 662387252632374323, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 662387252632374323, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 662387252632374323, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 662387252632374323, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1772180083618860935, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+      propertyPath: _counterweight
+      value: 
+      objectReference: {fileID: 5065807469943264788}
+    - target: {fileID: 4740151170456614138, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+      propertyPath: m_Name
+      value: Seesaw_High_Ledge
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+--- !u!4 &2429416513043720195 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 662387252632374323, guid: eec524edcc44e474eb636bc9e6cdf274, type: 3}
+  m_PrefabInstance: {fileID: 2920092602035741744}
+  m_PrefabAsset: {fileID: 0}
