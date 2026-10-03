@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 1-2: "El Dosel Peligroso"
 > **Mundo 1: Jungla Esmeralda** | **Función Pedagógica:** Practicar (Verticalidad, Hongos Elásticos y Encuentro con el Mono Ladrón)
 
@@ -14,7 +16,7 @@
     > *"¡MONO LADRÓN!*  
     > *¡Kikiki! ¿Creías que podías alcanzarme con tus pesadas patas, mamá lagarto?*  
     > *¡Tus huevos son míos! ¡Sube a buscarme a la cima si te atreves!"*
-- **Pistas Narrativas en el Entorno:** Una cáscara dorada caída en una rama, hojas quebradas que marcan la trayectoria de huida del mono, y el sonido lejano de sus chillidos resonando en la altura.
+- **Pistas Narrativas en el Entorno:** Una cáscara dorada caída en una rama, hojas quebradas que marcan la trayectoria de huida del mono, y marcas de garras entre las ramas.
 
 ---
 
@@ -58,23 +60,9 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Ascent through the Boughs" (Ascenso entre las Ramas).
-  - *Estilo:* Percusión orgánica con tambores de madera (slit drums, marimbas ligeras) combinados con flauta travesera y pizzicatos de violín que transmiten verticalidad, agilidad y curiosidad.
-  - *Tempo:* 96 BPM. Ritmo sincopado que acompaña el compás de los rebotes.
-- **Efectos de Sonido (SFX):**
-  - Hongo Rebotador: Efecto elástico contundente (*¡BOING!* resonante con sub-graves y armónico ascendente).
-  - Súper Rebote: Tono adicional brillante tipo chirrido de viento y resonancia de energía.
-  - Planta Carnívora:
-    - Fase abierta: Respiración vegetal siseante.
-    - Advertencia: Chasquido de mandíbulas secas.
-    - Mordisco: Latigazo seco y contundente (*¡CHOMP!*).
-  - Hoja Quebradiza: Crujido de tallos y crujido seco al desprenderse en caída.
-  - Mono Ladrón: Chillido acrobático simiesco ("¡Kikiki!") y carcajada juguetona al saltar.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
@@ -82,4 +70,3 @@
 - [ ] **Sprites Enemigos:** Planta carnívora (animación de 3 frames: abierta, amenazante con espinas expuestas, mordisco cerrado).
 - [ ] **Sprites Mono Ladrón:** Mono con huevo dorado en brazos, pose de burla con risa, sprite rotatorio para acrobacia aérea.
 - [ ] **VFX:** Partículas de esporas fucsia al rebotar en el hongo, partículas de polvillo vegetal al romperse la hoja quebradiza.
-- [ ] **Audio:** Pista "Ascent through the Boughs", SFX de resorte/boing, SFX de chomp de planta, voz/chillido del mono ladrón.

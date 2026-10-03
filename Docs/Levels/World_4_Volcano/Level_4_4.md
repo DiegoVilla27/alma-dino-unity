@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 4-4: "La Antecámara del Fuego"
 > **Mundo 4: Cima Volcánica** | **Función Pedagógica:** Evaluar + Cuarto Rescate (El Nido Completo & Huevo Rojo)
 
@@ -50,25 +52,15 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "The Fourth Ember" (La Cuarta Ascua).
-  - *Estilo:* Orquestación de clímax con coros completos, chelos arpegiados y un tema de vientos que mezcla el heroísmo con la melancolía del final del viaje.
-  - *Tempo:* 120 BPM.
-  - *Tema del Rescate ("Lullaby for the Four Hearts"):* La versión definitiva del tema del juego. El piano comienza solo a 55 BPM y, conforme Alma abraza el cuarto huevo, se le suman violines cálidos y un chelo profundo que simbolizan a la familia reunida.
-- **Efectos de Sonido (SFX):**
-  - Cuatro latidos simultáneos que laten sincronizados como un solo corazón al tocar el huevo rojo.
-  - Rugido del T-Rex: Un bramido titánico de graves demoledores que estremece el subwoofer al romper el suelo.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Sprites Props:** Pedestal de obsidiana tallada, Huevo Rojo carmesí con aura de calor, puente de basalto deslizante.
 - [ ] **Sprites Alma:** Alma portando los cuatro huevos visibles acurrucados en su espalda con sus respectivos tonos de luz.
 - [ ] **VFX:** Vetas de lava líquida iluminadas en URP; aura cuadrilateral de luz (verde, azul, morada, roja) emanando de los huevos.
-- [ ] **Audio:** Pista "The Fourth Ember", tema orquestal "Lullaby for the Four Hearts", rugido titánico del T-Rex Anciano.
 
 
 ## 6. Implementación jugable
@@ -85,7 +77,7 @@ Escena `Assets/Scenes/World_4_Volcano/Level_4_4.unity`, accesible desde `Alma/�
 
 Tras 2.5s de calma, una silueta del Rey Ladrón emerge junto al pedestal con temblor breve. Es la anticipación del combate: no inflige daño. El portal X=95 se dirige a `Boss_Final`, todavía pendiente de implementación. Rescatar el huevo no completa Mundo 4; eso corresponde a derrotar al jefe final. Al recargar, el rescate y el acceso al portal persisten sin duplicar huevos.
 
-Morir restaura pilares y reja pendientes, mientras los mecanismos ya resueltos detrás del checkpoint y el puente completado permanecen. Los enemigos y la corriente reinician sus ciclos. El checkpoint del rescate permite recuperarse en el pedestal. Cámara size 6, seguimiento de Alma y anticipación horizontal 1.25m; muro detrás del inicio. Se retiraron las columnas decorativas y los bloques del fondo para despejar el santuario. El arte definitivo sigue pendiente. Por petición del usuario, el juego no reproduce sonidos; las propuestas de audio anteriores quedan descartadas para la implementación.
+Morir restaura pilares y reja pendientes, mientras los mecanismos ya resueltos detrás del checkpoint y el puente completado permanecen. Los enemigos y la corriente reinician sus ciclos. El checkpoint del rescate permite recuperarse en el pedestal. Cámara size 6, seguimiento de Alma y anticipación horizontal 1.25m; muro detrás del inicio. Se retiraron las columnas decorativas y los bloques del fondo para despejar el santuario. El arte definitivo sigue pendiente.
 
 ### Validación de la implementación
 

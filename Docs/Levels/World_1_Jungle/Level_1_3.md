@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 1-3: "Las Zarzas Profundas"
 > **Mundo 1: Jungla Esmeralda** | **Función Pedagógica:** Complicar (Suelo Cero, Hojas Quebradizas y Compromiso de Salto)
 
@@ -61,22 +63,12 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Thornbound Shadows" (Sombras entre las Zarzas).
-  - *Estilo:* Percusión apagada y tensa (golpes de conga sorda, maderas huecas) combinada con trémolos de chelo en registro grave y un oboe solitario que dibuja una melodía llena de incertidumbre.
-  - *Tempo:* 88 BPM. Pulso constante y apremiante que induce al jugador a mantener el movimiento.
-- **Efectos de Sonido (SFX):**
-  - Ruido de fondo: Crujido constante de espinas y viento sordo que sopla a través de los matorrales.
-  - Hojas Quebradizas: Crujido agudo de fibras vegetales desgarrándose (*¡CRACK!*), seguido por el silbido de la hoja al desprenderse hacia el fondo.
-  - Zarzas al contacto: Sonido desgarrador punzante antes de activar el respawn.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Tileset:** Muros de espinas con púas afiladas (tiles superiores, inferiores y laterales), rocas musgosas oscuras.
 - [ ] **Sprites Ambientales:** Hojas marchitas en estado entero, agrietado y fragmentado; lianas espinosas colgantes verticales.
 - [ ] **VFX:** Polvillo de astillas vegetales y hojas marchitas al romperse la plataforma; niebla de partículas flotante sobre el foso de zarzas.
-- [ ] **Audio:** Pista "Thornbound Shadows", SFX de crujido y rotura de hoja, SFX ambiental de viento entre zarzas.

@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 2-3: "El Filo Resonante"
 > **Mundo 2: Cuevas de Cristal** | **Función Pedagógica:** Complicar (Bichos Acorazados, Volteo Sísmico & Murciélagos)
 
@@ -43,24 +45,14 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Chitin and Crystal" (Quitina y Cristal).
-  - *Estilo:* Melodía tensa y percusiva con crótalos metálicos, contrabajo en staccato y arpegios rápidos de clavicémbalo/arpa que transmiten peligro inminente y reflejos afilados.
-  - *Tempo:* 105 BPM.
-- **Efectos de Sonido (SFX):**
-  - Pisotón y Onda de Choque: Golpe de baja frecuencia con temblor de pantalla y resonancia de diapasón.
-  - Escarabajo Volteándose: Tintineo de cristales rodando (*¡clink-clink-klink!*) y pataleo cómico indefenso.
-  - Chillido de Murciélago: Sonido ultrasónico sutil al despertar.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Sprites Enemigos:** Escarabajo de cristal (caminata, reacción al sismo, patas arriba pataleando, derrota), Murciélago de cueva (colgado, vuelo en arco).
 - [ ] **VFX:** Destello reflectante en el caparazón del escarabajo; onda expansiva sísmica azul en el suelo de piedra.
-- [ ] **Audio:** Pista "Chitin and Crystal", SFX de tintineo de cristal al voltear, chirrido de murciélago.
 
 
 ## 6. Implementación jugable actual
@@ -75,4 +67,4 @@
 - **Salida:** portal en `(97, 9)` hacia `Level_2_4`. La escena 2-4 ya está construida y se carga tras completar el nivel.
 - **Reintentos:** morir restaura losa, patrullas y murciélagos y conserva las habilidades. Estalagmitas protegen el fondo del puzle y del ascenso; límite de caída Y=-10.
 - **Arquitectura:** módulo `AlmaDino.Features.Enemies` sin referencias internas a Player. La onda y el peligro condicional usan interfaces de Core; parámetros de enemigos en `CrystalEnemyConfig.asset` y radio sísmico en el perfil de física de Alma.
-- **Estado de producción:** iluminación turquesa, caparazón perla, vientre naranja y cuerpos provisionales. Refracción, sprites definitivos, VFX y audio siguen pendientes según el checklist.
+- **Estado de producción:** iluminación turquesa, caparazón perla, vientre naranja y cuerpos provisionales. Refracción, sprites definitivos, VFX siguen pendientes según el checklist.

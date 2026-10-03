@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 4-1: "Los Ríos de Ceniza"
 > **Mundo 4: Cima Volcánica** | **Función Pedagógica:** Introducir (Despertar del Rugido de Choque & Rocas Ígneas)
 
@@ -49,18 +51,9 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Rivers of Ash and Embers" (Ríos de Ceniza y Brasas).
-  - *Estilo:* Percusión brutal con tambores de guerra pesados, metales graves orquestales (cornos franceses, tubas) y un coro masculino gutural que transmite épica y peligro colosal.
-  - *Tempo:* 110 BPM. Pulso pesado y marcial.
-- **Efectos de Sonido (SFX):**
-  - Rugido de Choque: Bramido maternal demoledor (*¡ROOOOAAAR!*) acompañado de una onda de choque sónica con eco de baja frecuencia.
-  - Desplazamiento de Roca: Rodar pesado y áspero de piedra contra basalto (*rumble-scrape*).
-  - Magma: Burbujeo denso y abrasador constante.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
@@ -68,14 +61,13 @@
 - [ ] **Props:** Rocas esféricas de basalto empujables, fumarolas volcánicas humeantes.
 - [ ] **Sprites Alma:** Animación de rugido con apertura mandibular, pecho hinchado y emisión de ondas sónicas.
 - [ ] **VFX:** Ondas de choque sónicas translúcidas en arco; lluvia de partículas de ceniza y ascuas flotantes.
-- [ ] **Audio:** Pista "Rivers of Ash and Embers", SFX del rugido de Alma, SFX de roca rodando en basalto.
 
 
 ## 6. Implementación jugable
 
 - Escena `Assets/Scenes/World_4_Volcano/Level_4_1.unity`, registrada después de `Boss_3`. La salida del Pterodáctilo ya lleva al nivel.
 - Alma entra con Doble Salto, Pisotón y Dash. El Rugido se desbloquea al tocar la fumarola de X=6; se guarda y permanece después de morir. Teclas **E/F**, botón de mando **Y/△** o botón móvil **ROAR**.
-- La onda es un cono frontal de **3m** y **45° de semiancho**, dura **0.25s** y muestra un arco dorado con sonido y sacudida provisionales. No afecta objetivos detrás de Alma ni fuera del alcance.
+- La onda es un cono frontal de **3m** y **45° de semiancho**, dura **0.25s** y muestra un arco dorado con sacudida visual. No afecta objetivos detrás de Alma ni fuera del alcance.
 - Las tres rocas son cinemáticas: caminar, Dash y Pisotón no las desplazan. Las gargantas de basalto impiden trepar sobre ellas para omitir el Rugido.
 - Rugir frente a la roca la desplaza **5m en 0.8s**. Al caer en lava forma una superficie plana de **4.2m** de ancho, con suelo a **Y=0.2**, indicada por el cambio de color.
 
@@ -99,4 +91,4 @@
 
 Pruebas EditMode cubren el cono del Rugido, movimiento y reinicio de rocas, ciclo del vapor y baseline de entrada. **10 pruebas PlayMode** validan entrada segura, bloqueo de las rocas ante caminar/Dash/saltos, alcance y dirección del Rugido, apoyo seguro sobre lava, imposibilidad de cruzar sin puente, reinicio por checkpoint y persistencia del Rugido, daño real de vapor/lava y recorrido completo con entradas reales sin muertes.
 
-Arte, música, partículas y sonidos finales siguen pendientes; la escena utiliza formas y sonido de prototipo.
+Arte y partículas finales pendientes.

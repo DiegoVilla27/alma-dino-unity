@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 3-3: "El Vuelo de las Esporas"
 > **Mundo 3: Pantano de Viento y Niebla** | **Función Pedagógica:** Complicar (Globos de Esporas Recargables & Sapos Venenosos)
 
@@ -42,24 +44,15 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Dance of the Spores" (La Danza de las Esporas).
-  - *Estilo:* Fusión de percusión orgánica ligera con sintetizadores arpegiados rápidos que suben de tono con cada rebote/recarga aérea, creando una sensación de ingravidez y dinamismo.
-  - *Tempo:* 128 BPM. Pacing de acrobacia aérea continua.
-- **Efectos de Sonido (SFX):**
-  - Estallido de Espora: Campanilleo cristalino agudo (*¡CHIME-POP!*) con eco estéreo que confirma la recarga de habilidades.
-  - Disparo de Sapo: Glu-glu gutural seguido por el silbido del proyectil tóxico.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Sprites Props:** Globo de esporas flotante (reposo, pulso, explosión de partículas, regeneración).
 - [ ] **Sprites Enemigos:** Sapo venenoso (respiración hinchada, disparo parabólico).
 - [ ] **VFX:** Explosión circular de esporas verdes al atravesar el globo; destello brillante en las plumas de Alma al recargar el Dash.
-- [ ] **Audio:** Pista "Dance of the Spores", SFX de recarga de espora, SFX de disparo del sapo.
 
 ---
 
@@ -83,7 +76,7 @@
 - Morir restaura esporas y suelo agrietado, limpia proyectiles y reinicia los sapos. La barrera de Dash queda abierta una vez rota.
 - Los avisos de Pisotón y cañas aparecen al llegar a cada obstáculo.
 - Se reutilizan `BreakableGround2D`, `BreakableGroundRespawnReset2D` y `DashBreakableBarrier2D`; no cambia el movimiento del jugador.
-- Arte geométrico y parallax provisionales; sprites, partículas y audio definitivos pendientes.
+- Arte geométrico y parallax provisionales; sprites y partículas definitivos pendientes.
 
 ### Validación
 

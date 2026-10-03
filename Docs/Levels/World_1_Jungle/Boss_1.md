@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 👑 Jefe 1: "El Rey de la Copa — Mono Ladrón Gigante"
 > **Mundo 1: Jungla Esmeralda** | **Arena de Combate y Cierre del Mundo 1**
 
@@ -58,18 +60,9 @@ Siguiendo la filosofía del GDD, el jefe es un **puzle de habilidad y timing**, 
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Wrath of the Canopy King" (La Ira del Rey de la Copa).
-  - *Estilo:* Percusión tribal intensa y frenética (taikos, djembes y congas aceleradas) con metales de corte prehistórico y coros graves que marcan la tensión del combate.
-  - *Tempo:* 135 BPM. Pacing de urgencia y acción rítmica.
-- **Efectos de Sonido (SFX):**
-  - Impacto sobre la cabeza del jefe: Golpe sordo con eco y temblor de pantalla (*hit stop* de 0.08s).
-  - Chillido de dolor del simio y aullido de retirada.
-  - Rodar de frutos: Tronar pesado sobre la corteza de la plataforma.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
@@ -77,4 +70,4 @@ Siguiendo la filosofía del GDD, el jefe es un **puzle de habilidad y timing**, 
 - [x] **Sprites & Prefab Proyectil:** `RollingFruitProjectile2D` con giro continuo y peligro letal `IHazard2D`.
 - [x] **Hurtbox de Cabeza:** `BossHeadHurtbox2D` para rebote satisfactorio de Alma (`ApplyBounce`) al pisar la cabeza vulnerable.
 - [x] **VFX & Cámara:** Screen Shake mediante `CameraShakeEventChannelSO`, encuadre cinemático de arena y atardecer crepuscular en luz 2D.
-- [ ] **Sprites Finales & Audio:** Sprite sheet detallado con animaciones y pistas de audio orquestal/SFX definitivas.
+- [ ] **Sprites finales:** animaciones legibles de cada fase.

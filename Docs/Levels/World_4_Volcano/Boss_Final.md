@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 👑 Jefe Final & Epílogo: "El Rey Ladrón — Tirano Ancestral"
 > **Mundo 4: Cima Volcánica** | **El Ojo del Volcán (El Caldero de Magma) & Final del Juego**
 
@@ -67,19 +69,9 @@ El combate final es un examen maestro donde Alma debe sincronizar las **4 habili
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título de la Pista:* "Alma: The Mother's Symphony" (Sinfonía del Rugido Materno).
-  - *Estilo:* Tema orquestal monumental: percusión taiko ensordecedora, metales pesados de batalla, coros apocalípticos en la fase 3, y una transición fluida al terminar hacia un emotivo solo de flauta de viento y chelo en el epílogo.
-  - *Tempo:* 160 BPM en el combate, desacelerando a 75 BPM durante la cinemática de nacimiento de las crías.
-- **Efectos de Sonido (SFX):**
-  - Rugido del T-Rex: Gruñido gutural procesado con subgraves de 20 Hz que sacuden el subwoofer.
-  - Desvío del Meteorito por Rugido: Onda expansiva con sonido de ruptura de barrera sónica (*¡BOOOM-SCHWIIING!*).
-  - Impacto de la Estalactita: Desmoronamiento masivo de roca y choque sísmico colosal.
-  - Cascarones abriéndose (Epílogo): Sonido sutil y nítido de cáscara fracturándose (*crack... crack...*), piadas tiernas de velociraptors recién nacidos (*chirp! chirp!*).
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
@@ -87,11 +79,10 @@ El combate final es un examen maestro donde Alma debe sincronizar las **4 habili
 - [ ] **Sprites Entorno:** Plataformas de basalto flotante, columnas colapsables, estalactita colosal rompible, nido con Huevo Rojo.
 - [ ] **Sprites Epílogo:** Cuatro crías de dinosaurio bebé (Verde, Azul, Púrpura, Rojo) animadas saliendo de sus respectivos cascarones; Alma en pose pacífica recostada en la hierba.
 - [ ] **VFX:** Chispas volcánicas, lava ascendente procedural, distorsión de calor en pantalla, onda de choque sónica para el rugido devuelto, pantalla en blanco suave para la transición al epílogo.
-- [ ] **Audio:** Pistas musicales "Alma: The Mother's Symphony" (fases de combate y versión suave de epílogo), rugidos del T-Rex, piadas de las crías.
 
 ## 6. Implementación jugable
 
-`Assets/Scenes/World_4_Volcano/Boss_Final.unity`, disponible desde **Alma → 📂 Cargar Jefe Final**, continúa el portal del 4-4. Mantiene cámara ortográfica 6, seguimiento vertical y anticipación horizontal 1.25m. El juego permanece completamente silencioso: las propuestas de audio de las secciones anteriores no se implementan por petición expresa del usuario.
+`Assets/Scenes/World_4_Volcano/Boss_Final.unity`, disponible desde **Alma → 📂 Cargar Jefe Final**, continúa el portal del 4-4. Mantiene cámara ortográfica 6, seguimiento vertical y anticipación horizontal 1.25m. El encuentro se comunica visualmente.
 
 - **Carga:** mandíbula baja precedida por aviso. Doble salto y Dash aéreo contra el sello de calor X=8 exponen la placa dorsal X=12 durante 4 segundos. Solo un Pisotón desde arriba confirma el impacto; caminar, aterrizar normalmente o rugir no dañan la coraza.
 - **Meteoros:** un peñasco se acerca desde la derecha. El Rugido frontal lo devuelve a las fauces y abre otra ventana de 4 segundos para el Pisotón. La lluvia secundaria marca primero su punto de caída en amarillo y no persigue después a Alma.

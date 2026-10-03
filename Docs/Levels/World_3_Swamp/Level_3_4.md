@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 3-4: "El Sauce Ancestral"
 > **Mundo 3: Pantano de Viento y Niebla** | **Función Pedagógica:** Evaluar + Tercer Rescate (La Subida del Gas & Huevo Morado)
 
@@ -51,25 +53,14 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "The Rising Spores" (Las Esporas Ascendentes).
-  - *Estilo:* Batería electrónica combinada con percusión acústica acelerada, sintetizadores analógicos tensos y violines en staccato agudo que transmiten una urgencia de contrarreloj implacable.
-  - *Tempo:* 144 BPM. Pacing de escape frenético.
-  - *Tema de Rescate ("Lullaby for the Purple Shell"):* Piano solo tierno y esperanzador a 62 BPM con armónicos de arpa.
-- **Efectos de Sonido (SFX):**
-  - Gas Ascendente: Siseo continuo de vapor cáustico amenazante (*sssshhhh*).
-  - Canto del Huevo: Chirrido agudo musical de cría desde el interior de la cáscara.
-  - Chillido del Pterodáctilo: Graznido prehistórico colosal rasgando el aire.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Sprites Props:** Ramas colgantes de sauce llorón, nido de musgo morado, Huevo Morado bioluminiscente.
 - [ ] **VFX:** Capa de gas tóxico verde animada con partículas de humo y burbujas ascendentes.
-- [ ] **Audio:** Pista de escape "The Rising Spores", tema de rescate del Huevo Morado, graznido del Pterodáctilo Alfa.
 
 
 ---
@@ -101,7 +92,7 @@
 - El gas hace daño por contacto, incluido durante Dash. Morir restablece la sección del checkpoint, las esporas y ambos balancines.
 - Rescate mediante contacto real con el Huevo Morado: persiste, abre el portal, detiene el gas y revela la silueta del Pterodáctilo Alfa. No completa Mundo 3 hasta derrotar al jefe.
 - El tercer huevo usa `EggType.PurpleEgg = 3`; se conserva lectura de partidas antiguas que lo llamaban `YellowEgg`.
-- `Boss_3` ya es jugable: el portal carga la arena del Pterodáctilo Alfa. Arte, VFX y audio son provisionales.
+- `Boss_3` ya es jugable: el portal carga la arena del Pterodáctilo Alfa. Arte y VFX siguen pendientes.
 
 
 ### Validación

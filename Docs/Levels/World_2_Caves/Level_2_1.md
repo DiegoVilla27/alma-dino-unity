@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 2-1: "Descenso a la Penumbra"
 > **Mundo 2: Cuevas de Cristal** | **Función Pedagógica:** Introducir (Despertar del Pisotón Sísmico & Suelos Agrietados)
 
@@ -53,20 +55,9 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Echoes in the Geode" (Ecos en la Geoda).
-  - *Estilo:* Ambient subterráneo con sintetizadores fríos, ecos de gotas de agua rítmicas y un vibráfono cristalino que genera tensión y soledad.
-  - *Tempo:* 65 BPM. Espacioso, atmosférico e inmersivo.
-- **Efectos de Sonido (SFX):**
-  - Pisotón Sísmico:
-    - *Wind-up (0.1s):* Silbido de compresión de aire.
-    - *Caída en picada:* Ráfaga rápida descendente.
-    - *Impacto:* Golpe demoledor grave (*¡CRASH-BOOM!*) que sacude la pantalla y hace crujir las piedras.
-  - Rompimiento de Bloques: Estallido de rocas quebrándose y cascotes cayendo al suelo.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
@@ -74,7 +65,6 @@
 - [ ] **Props:** Geodas de cristal con luz 2D, charcos de agua reflectante.
 - [ ] **Sprites Alma:** Animación de Ground Pound (preparación en el aire, caída con cola erguida, pose de aterrizaje de impacto).
 - [ ] **VFX:** Polvillo de roca y fragmentos de piedra al destruir un bloque agrietado; onda de choque sísmica circular al tocar tierra.
-- [ ] **Audio:** Pista "Echoes in the Geode", SFX de impacto sísmico, SFX de cristales rompiéndose.
 
 
 ## 6. Implementación jugable actual
@@ -86,6 +76,6 @@
 - **Práctica:** segunda losa de 4m y descenso de 5.5m; una pared obliga a abrir el paso inferior.
 - **Combinación:** salto de 3m hacia una cornisa 0.8m más alta, dos losas encadenadas atravesables con un solo Pisotón y salto final de 4m hacia una cornisa 1m más alta. Ambos saltos admiten Doble Salto.
 - **Checkpoints:** altar `(1.5, 5.2)`, primer descenso `(14, -1.8)` y galería profunda `(28, -7.3)`. Límite de muerte por caída: `y = -27`.
-- **Atmósfera:** luz global 0.20, luz de Alma de radio 3.5m, geodas cian/amatista y fondos con parallax. Geometría y decoración provisionales; tileset, animación específica, partículas y audio siguen pendientes según el checklist.
+- **Atmósfera:** luz global 0.20, luz de Alma de radio 3.5m, geodas cian/amatista y fondos con parallax. Geometría y decoración provisionales; tileset, animación específica, partículas siguen pendientes según el checklist.
 - **Salida:** portal a `Level_2_2`. La escena 2-2 ya está disponible y se carga después de la finalización.
 - **Validación automatizada:** entrada sin habilidades futuras, caída normal sobre losa intacta, desbloqueo y primera rotura, descenso encadenado con restauración al morir, y recorrido completo mediante entradas de movimiento/salto/Pisotón.

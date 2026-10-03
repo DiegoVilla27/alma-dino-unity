@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 2-2: "La Galería de Ecos"
 > **Mundo 2: Cuevas de Cristal** | **Función Pedagógica:** Practicar (Balancines de Piedra, Catapultas & Pisotón Sísmico)
 
@@ -5,7 +7,7 @@
 
 ## 1. 📖 Sinopsis Narrativa & Contexto Emocional
 
-- **Momento Narrativo:** Alma se adentra en una inmensa cámara subterránea donde los techos alcanzan alturas vertiginosas. Los ecos de sus pisadas retumban en la distancia, pero entre ellos distingue un sonido sutil: un crujido de cristal que revela que los ladrones estuvieron aquí activando antiguos mecanismos de roca.
+- **Momento Narrativo:** Alma se adentra en una inmensa cámara subterránea donde los techos alcanzan alturas vertiginosas. Las huellas y los cristales fracturados revelan que los ladrones activaron antiguos mecanismos de roca.
 - **Estado Emocional de Alma:** Curiosidad analítica y cálculo. La fuerza bruta no basta; debe aplicar su peso con precisión quirúrgica en el momento y lugar indicados.
 - **Pistas Narrativas en el Entorno:** Marcas circulares en el suelo donde los ladrones han rodado objetos pesados, cristales partidos recientemente y gotas de savia de la jungla que gotean desde fisuras del techo.
 
@@ -47,24 +49,14 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Resonance of Stone" (Resonancia de Piedra).
-  - *Estilo:* Percusión con piedras talladas (litófonos) y campanas tibetanas con reverberación masiva, entrelazadas con un violonchelo melancólico que marca un compás constante de puzle.
-  - *Tempo:* 78 BPM. Ritmo pausado y contemplativo.
-- **Efectos de Sonido (SFX):**
-  - Balancín: Chirrido pesado de piedra caliza basculando sobre piedra (*grrrk-clunk*).
-  - Catapulta de Bloque: Lanzamiento con chasquido de aire y golpe en seco contra el interruptor superior.
-  - Compuerta: Retumbar de engranajes rústicos de piedra abriéndose.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Sprites Props:** Balancín de basalto con pivote central, bloque cúbico de piedra contrapeso, interruptor de techo, compuerta rúnica deslizante.
 - [ ] **VFX:** Polvo de tiza y astillas de piedra despedidas al bascular con violencia; brillo rúnico al activar el interruptor.
-- [ ] **Audio:** Pista "Resonance of Stone", SFX de basculación de roca, SFX de lanzamiento por catapulta.
 
 
 ## 6. Implementación jugable actual
@@ -79,5 +71,5 @@
 - **Salida:** hueco de 4m con estalagmitas entre X=96 y X=100; admite Doble Salto. Portal en X=109 hacia `Level_2_3`; la escena 2-3 ya está disponible y se carga después de completar la galería.
 - **Reintentos:** cada contrapeso vuelve a su posición a los 4.7s. Morir restaura tablas, pesos, runas y compuertas y conserva las habilidades.
 - **Física:** tablas cinemáticas con rotación en `FixedUpdate`, inclinación limitada a ±18° y retorno gradual; contrapesos dinámicos de masa 4, gravedad 1.8 y velocidad inicial de 14 m/s. La asistencia de catapulta usa una velocidad acotada para ofrecer resultados predecibles. Ajustes editables en `EchoSeesawConfig.asset`.
-- **Visuales:** runas ámbar/esmeralda, señales de Pisotón y carrera, iluminación local y cuatro capas de profundidad. Tileset, VFX y audio definitivos siguen pendientes según el checklist.
+- **Visuales:** runas ámbar/esmeralda, señales de Pisotón y carrera, iluminación local y cuatro capas de profundidad. Tileset, VFX definitivos siguen pendientes según el checklist.
 - **Pruebas:** entrada y UI, inclinación por aterrizaje normal, Pisotón desde UI, temporización y repetición, cornisa alta, ambas runas, reinicio al morir, cierre seguro y recorrido completo sin teletransportes.

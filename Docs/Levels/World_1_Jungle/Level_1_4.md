@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 🗺️ Nivel 1-4: "La Copa del Gran Árbol"
 > **Mundo 1: Jungla Esmeralda** | **Función Pedagógica:** Evaluar + Primer Rescate (Ascenso Maestro & Huevo Verde)
 
@@ -9,7 +11,7 @@
 - **Estado Emocional de Alma:** Una mezcla arrolladora de alivio, adrenalina y ferocidad protectora. Su primer hijo está al alcance de sus manos; nada en la jungla la detendrá ahora.
 - **El Momento del Rescate (Cinemática Diegética en Gameplay):**
   - Al final del nivel, Alma alcanza una cuna de plumas gigantes.
-  - Al tocar el **Huevo Verde**, la música tensa de plataformas cesa abruptamente. Se hace un silencio sagrado, roto únicamente por una melodía suave de piano solo (el tema de la "Nana Maternal"):
+  - Al tocar el **Huevo Verde**, la tensión visual cede; una luz cálida destaca el reencuentro:
   - *Texto del Rescate (Huevo Verde):*
     > *"Aún estás tibio...*  
     > *Mamá llegó a tiempo. Ya estás a salvo.*  
@@ -54,23 +56,12 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Above the Canopy, Beneath the Sun" (Sobre el Dosel, Bajo el Sol).
-  - *Estilo:* Orquestación triunfal y emotiva: cuerdas completas en crescendo, percusión animada y una flauta alegre que denota la cercanía de la meta.
-  - *Tempo:* 112 BPM. Ritmo inspirador y enérgico.
-  - *Momento del Rescate ("Lullaby for the Green Shell"):* La orquesta se apaga por completo; un solo de piano interpreta una melodía de cuna íntima a 60 BPM mientras late el huevo.
-- **Efectos de Sonido (SFX):**
-  - Latido del Huevo: Sonido diegético de latido cardíaco amortiguado (*thump-thump*) que aumenta de volumen en estéreo según la cercanía de Alma.
-  - Rescate: Chispa mágica cristalina y suspiro aliviado de Alma.
-  - Rugido del Jefe: Al concluir el rescate, un rugido simiesco colosal que sacude la pantalla (Screen Shake) anunciando la arena del Jefe 1.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [x] **Sprites Props:** Cuna de ramas de la copa, Huevo Verde con textura de cáscara y máscara de iluminación (Sprite + Light 2D bioluminiscente con GreenEggRescue2D).
 - [ ] **Sprites Fondo:** Capas de nubes panorámicas para tileado horizontal infinito.
 - [x] **VFX & Iluminación:** Halo bioluminiscente palpitante 2D Light sobre el nido del huevo verde; luz global cenital cálida 1.1.
-- [ ] **Audio:** Pista "Above the Canopy", tema de rescate en piano "Lullaby for the Green Shell", SFX de latido cardíaco diegético, rugido de transición a Jefe.

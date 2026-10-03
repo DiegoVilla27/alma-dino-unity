@@ -1,3 +1,5 @@
+> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+
 # 👑 Jefe 2: "El Acorazado Subterráneo — Armadillo Prehistórico"
 > **Mundo 2: Cuevas de Cristal** | **Arena de Combate y Cierre del Mundo 2**
 
@@ -50,29 +52,19 @@
 
 ---
 
-## 4. 🎵 Dirección de Sonido & Música (Audio Design)
+## 4. Comunicación visual
 
-- **Banda Sonora (BGM):**
-  - *Título sugerido:* "Heavy Metal and Crushed Stone" (Metal Pesado y Piedra Triturada).
-  - *Estilo:* Fusión de percusión industrial con metales graves de orquesta (trombones, tubas) y un bajo distorsionado que acompaña el rodar demoledor del jefe.
-  - *Tempo:* 140 BPM. Pacing de persecución cerrada y claustrofobia.
-- **Efectos de Sonido (SFX):**
-  - Rodar del Armadillo: Retumbar sordo y continuo como un tren de mercancías subterráneo.
-  - Choque contra el Pilar: Estallido masivo de vidrio y roca (*¡KRAAASH!*).
-  - Pisotón sobre el Punto Débil: Impacto de campana profunda y quejido gutural de la bestia.
-
----
+El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidades y cambios de estado mediante animación, formas, luces y texto breve cuando haga falta.
 
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [ ] **Sprites Jefe:** Armadillo Prehistórico (pose de reto, animación de enrollarse en bola giratoria, animación de aturdimiento con pajaritos/estrellas de cristal, animación de derrota).
 - [ ] **Sprites Arena:** Pilares de cristal reforzados (con estados de agrietamiento tras los impactos).
 - [ ] **VFX:** Chispas saliendo del caparazón al rozar el suelo; estalactitas cayendo con estela de polvo; destello de rotura de cristal al acertar el Pisotón.
-- [ ] **Audio:** Pista "Heavy Metal and Crushed Stone", SFX de rodar pesado, SFX de choque masivo contra cristal.
 
 ## Estado de implementación
 
-Arena jugable en `Assets/Scenes/World_2_Caves/Boss_2.unity`, enlazada desde 2-4 e incluida en Build Settings. Configuración editable en `ArmadilloBossConfig.asset`. Tres impactos contra pilares exponen la coronilla durante 4.5 segundos; solo un Pisotón directo inflige daño. Los saltos normales y ondas cercanas no dañan al jefe. Morir reinicia el ciclo actual y elimina las estalactitas, conservando los impactos acertados. El segundo ciclo incorpora cristales con aviso amarillo en el suelo y el tercero un salto rodante. La victoria registra el Mundo 2 y habilita la salida prevista hacia `Level_3_1`, aún pendiente de construcción. Visuales geométricos provisionales; sprites y audio finales pendientes.
+Arena jugable en `Assets/Scenes/World_2_Caves/Boss_2.unity`, enlazada desde 2-4 e incluida en Build Settings. Configuración editable en `ArmadilloBossConfig.asset`. Tres impactos contra pilares exponen la coronilla durante 4.5 segundos; solo un Pisotón directo inflige daño. Los saltos normales y ondas cercanas no dañan al jefe. Morir reinicia el ciclo actual y elimina las estalactitas, conservando los impactos acertados. El segundo ciclo incorpora cristales con aviso amarillo en el suelo y el tercero un salto rodante. La victoria registra el Mundo 2 y habilita la salida prevista hacia `Level_3_1`, aún pendiente de construcción. Visuales geométricos provisionales; sprites finales pendientes.
 
 Validación: 42 pruebas EditMode y 2 pruebas PlayMode del Boss 2 superadas. Las pruebas físicas comprueban el daño por Pisotón directo, rechazo de caída normal y reinicio por muerte.
 
