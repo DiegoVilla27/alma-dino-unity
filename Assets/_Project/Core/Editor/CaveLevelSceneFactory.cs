@@ -88,7 +88,7 @@ namespace AlmaDino.Core.Editor
 
         public void Altar(Vector2 position)
         {
-            const string path = "Assets/_Project/Prefabs/Universal/Ability_Relic_Altar.prefab";
+            const string path = "Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_DoubleJump.prefab";
             var go = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(path));
             go.name = "Altar_Seismic_Geode";
             go.transform.SetParent(_root);

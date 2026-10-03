@@ -56,7 +56,7 @@ namespace AlmaDino.Core.Editor
             line.startWidth = .08f; line.endWidth = .08f; line.sortingOrder = 8;
             CaveLevelSceneFactory.Set(wave, "_playerSource", player); CaveLevelSceneFactory.Set(wave, "_radius", player.Config.RoarRadius);
             CaveLevelSceneFactory.Set(wave, "_duration", player.Config.RoarDuration); CaveLevelSceneFactory.Set(wave, "_halfAngle", player.Config.RoarHalfAngle);
-            var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
+            var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
             portal.name = "Portal_Exit_To_4_4"; portal.transform.SetParent(root.transform, false); portal.transform.position = new Vector2(110f, 5.3f);
             CaveLevelSceneFactory.Set(portal.GetComponent<LevelExit2D>(), "_nextSceneName", "Level_4_4");
             CaveLevelSceneFactory.Set(portal.GetComponent<LevelExit2D>(), "_levelTitle", "LA GRAN FRACTURA COMPLETADA");
@@ -150,7 +150,7 @@ namespace AlmaDino.Core.Editor
             Ledge(f,root,player,"Lower_Stone_2",61f,64f,-.6f);
             foreach(float x in new[]{47f,57.5f})
             {
-                var go=(GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/World_4_Volcano/LavaGeyser_Volcano.prefab"));
+                var go=(GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Traps/Trap_FireGeyser_Volcano.prefab"));
                 go.name="Branch_Steam_"+x; go.transform.SetParent(root,false);go.transform.position=new Vector2(x,.2f);
                 go.GetComponent<BoxCollider2D>().size=new Vector2(1.2f,1.6f);
                 go.transform.Find("Hot_Steam").localScale=new Vector3(1.2f,1.6f,1f);
@@ -202,7 +202,7 @@ namespace AlmaDino.Core.Editor
             var visual = f.Visual("Fireball", go.transform, Vector2.zero, Vector2.one * .4f, Magma, true);
             visual.GetComponent<SpriteRenderer>().sprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Circle.png");
             go.AddComponent<PoisonBubble2D>(); go.SetActive(false);
-            var prefab = PrefabUtility.SaveAsPrefabAsset(go, "Assets/_Project/Prefabs/World_4_Volcano/Magma_Fireball.prefab");
+            var prefab = PrefabUtility.SaveAsPrefabAsset(go, "Assets/_Project/Prefabs/Projectiles/Projectile_MagmaFireball_Volcano.prefab");
             Object.DestroyImmediate(go); return prefab.GetComponent<PoisonBubble2D>();
         }
         internal static void Salamander(CaveLevelSceneFactory f, Transform root, PlayerController player, MagmaSalamanderConfigSO config, PoisonBubble2D fireball, int index, float x, float floorTop = 0f, float patrolWidth = 3f, bool climbingWall = true)

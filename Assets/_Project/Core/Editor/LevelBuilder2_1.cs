@@ -104,7 +104,7 @@ namespace AlmaDino.Core.Editor
             f.Platform("Cave_Right_Boundary", new Vector2(62f, -9f), new Vector2(1f, 14f));
             f.Hazard("Deep_Fall_Death_Zone", new Vector2(30f, -28f), new Vector2(90f, 2f));
             var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(
-                "Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
+                "Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
             portal.name = "Portal_Exit_To_2_2";
             portal.transform.SetParent(f.Platform("Exit_Portal_Pedestal", new Vector2(58f, -13.3f), new Vector2(2f, 0.4f)).transform, true);
             portal.transform.position = new Vector2(58f, -12f);

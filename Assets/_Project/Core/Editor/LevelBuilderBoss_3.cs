@@ -52,7 +52,7 @@ namespace AlmaDino.Core.Editor
                 ridge.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
                 ridge.GetComponent<SpriteRenderer>().sortingOrder = -20;
             }
-            var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
+            var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
             portal.name = "Portal_Victory_To_World_4";
             portal.transform.SetParent(root.transform, false);
             portal.transform.position = new Vector2(0f, 1.4f);

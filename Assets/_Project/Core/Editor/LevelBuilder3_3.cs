@@ -167,7 +167,7 @@ namespace AlmaDino.Core.Editor
         private static DashRefillPickup2D Spore(CaveLevelSceneFactory factory, Transform root, Vector2 position)
         {
             var go = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(
-                "Assets/_Project/Prefabs/World_3_Swamp/DashRefillSpore_Swamp.prefab"));
+                "Assets/_Project/Prefabs/Resources/Resource_DashRefillSpore_Swamp.prefab"));
             go.name = "Refill_Spore_" + position.x;
             go.transform.SetParent(root);
             go.transform.position = position;
@@ -193,7 +193,7 @@ namespace AlmaDino.Core.Editor
 
         private static PoisonBubble2D BubblePrefab(CaveLevelSceneFactory factory, Transform root)
         {
-            const string path = "Assets/_Project/Prefabs/World_3_Swamp/Poison_Bubble.prefab";
+            const string path = "Assets/_Project/Prefabs/Projectiles/Projectile_PoisonBubble_Swamp.prefab";
             var existing = AssetDatabase.LoadAssetAtPath<GameObject>(path);
             if (existing != null) return existing.GetComponent<PoisonBubble2D>();
             var go = factory.Visual("Poison_Bubble", root, Vector2.zero, new Vector2(0.4f, 0.4f),
@@ -246,7 +246,7 @@ namespace AlmaDino.Core.Editor
         private static void Portal(Transform root)
         {
             var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(
-                "Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
+                "Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
             portal.name = "Portal_Exit_To_3_4";
             portal.transform.SetParent(root);
             portal.transform.position = new Vector2(122f, 1.5f);
