@@ -24,9 +24,9 @@ namespace AlmaDino.Core.Editor
     public static class LevelBuilderBoss_1
     {
         private const string SCENE_PATH = "Assets/Scenes/World_1_Jungle/Boss_1.unity";
-        private const string PREFAB_CHECKPOINT = "Assets/_Project/Prefabs/Universal/Checkpoint_Nest.prefab";
-        private const string PREFAB_PORTAL = "Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab";
-        private const string PREFAB_FRUIT = "Assets/_Project/Prefabs/World_1_Jungle/RollingFruit_Boss1.prefab";
+        private const string PREFAB_CHECKPOINT = "Assets/_Project/Prefabs/Resources/Resource_CheckpointNest_Universal.prefab";
+        private const string PREFAB_PORTAL = "Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab";
+        private const string PREFAB_FRUIT = "Assets/_Project/Prefabs/Projectiles/Projectile_RollingFruit_Jungle.prefab";
         private const string SHAKE_CHANNEL_PATH = "Assets/_Project/Core/Events/CameraShakeChannel.asset";
 
         private const string SPRITE_SQUARE = "Assets/Sprites/Square.png";
@@ -95,8 +95,8 @@ namespace AlmaDino.Core.Editor
             // GEOMETRÍA DE LA ARENA DE COMBATE
             // ==========================================
             // Plataforma Central Ancha (20m x 2m)
-            CreateGround("Platform_Center_Teak", levelRoot.transform, new Vector3(0f, 0f, 0f), new Vector2(20.0f, 2.0f), darkTeak, square, unlitMat);
-            CreateGround("Platform_Center_Moss", levelRoot.transform, new Vector3(0f, 1.05f, 0f), new Vector2(20.0f, 0.15f), emeraldMoss, square, unlitMat);
+            WorldOnePrefabFactory.CreateGround("Platform_Center_Teak", levelRoot.transform, new Vector3(0f, 0f, 0f), new Vector2(20.0f, 2.0f), darkTeak, square, unlitMat);
+            WorldOnePrefabFactory.CreateGround("Platform_Center_Moss", levelRoot.transform, new Vector3(0f, 1.05f, 0f), new Vector2(20.0f, 0.15f), emeraldMoss, square, unlitMat);
 
             // Ramas Elevadas Laterales (Refugios accesibles con salto simple o doble: Y = 2.3m, altura relativa +1.45m)
             // Cuentan con PlatformEffector2D para permitir saltar a través de ellas desde abajo sin golpearse la cabeza.
@@ -112,8 +112,8 @@ namespace AlmaDino.Core.Editor
             CreateVisualDecoration("Vine_Hanging_Right", levelRoot.transform, new Vector3(4.5f, 8.5f, 0f), new Vector2(0.35f, 6.0f), vineGreen, square, unlitMat);
 
             // Muros Delimitadores de la Arena (Evitan que el jugador se salga del encuadre)
-            CreateGround("Wall_Left_Boundary", levelRoot.transform, new Vector3(-11.5f, 6.0f, 0f), new Vector2(1.2f, 14.0f), darkTeak, square, unlitMat);
-            CreateGround("Wall_Right_Boundary", levelRoot.transform, new Vector3(11.5f, 6.0f, 0f), new Vector2(1.2f, 14.0f), darkTeak, square, unlitMat);
+            WorldOnePrefabFactory.CreateGround("Wall_Left_Boundary", levelRoot.transform, new Vector3(-11.5f, 6.0f, 0f), new Vector2(1.2f, 14.0f), darkTeak, square, unlitMat);
+            WorldOnePrefabFactory.CreateGround("Wall_Right_Boundary", levelRoot.transform, new Vector3(11.5f, 6.0f, 0f), new Vector2(1.2f, 14.0f), darkTeak, square, unlitMat);
 
             // DeadZone KillFloor en el abismo inferior
             CreateDeadZone(levelRoot.transform, new Vector3(0f, -7.0f, 0f), new Vector2(60f, 2.0f));
@@ -250,6 +250,7 @@ namespace AlmaDino.Core.Editor
 
             // Guardar la escena
             EditorSceneManager.MarkSceneDirty(scene);
+            LevelPrefabLibrary.ConvertLevel(scene);
             EditorSceneManager.SaveScene(scene);
 
             Debug.Log("<color=#FF9800><b>[AlmaDino]</b> ¡Arena del Jefe 1 ('Rey de la Copa — Mono Ladrón Gigante' v3) construida con éxito!</color>");
@@ -259,7 +260,7 @@ namespace AlmaDino.Core.Editor
         {
             if (File.Exists(PREFAB_FRUIT))
             {
-                AssetDatabase.DeleteAsset(PREFAB_FRUIT);
+                return AssetDatabase.LoadAssetAtPath<GameObject>(PREFAB_FRUIT);
             }
 
             var go = new GameObject("RollingFruit_Boss1");
@@ -308,6 +309,7 @@ namespace AlmaDino.Core.Editor
                 spineSr.color = new Color(0.46f, 1.0f, 0.01f); // Verde lima venenoso
             }
 
+            PrefabStructure.AddSpriteSlots(go);
             var prefab = PrefabUtility.SaveAsPrefabAsset(go, PREFAB_FRUIT);
             Object.DestroyImmediate(go);
             return prefab;
@@ -443,21 +445,7 @@ namespace AlmaDino.Core.Editor
             sr.color = new Color(0.24f, 0.15f, 0.14f);
         }
 
-        private static void CreateGround(string name, Transform parent, Vector3 position, Vector2 size, Color color, Sprite sprite, Material material)
-        {
-            var go = new GameObject(name);
-            go.transform.SetParent(parent);
-            go.transform.position = position;
-            go.transform.localScale = new Vector3(size.x, size.y, 1f);
 
-            var sr = go.AddComponent<SpriteRenderer>();
-            sr.sprite = sprite;
-            sr.sharedMaterial = material;
-            sr.color = color;
-
-            var col = go.AddComponent<BoxCollider2D>();
-            col.size = Vector2.one;
-        }
 
         private static void CreateOneWayPlatform(string name, Transform parent, Vector3 position, Vector2 size, Color color, Sprite sprite, Material material)
         {

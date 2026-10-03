@@ -177,7 +177,7 @@ namespace AlmaDino.Core.Editor
         private static void Portal(Transform root)
         {
             var portal = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(
-                "Assets/_Project/Prefabs/Universal/Level_Exit_Portal.prefab"));
+                "Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"));
             portal.name = "Portal_Exit_To_3_3";
             portal.transform.SetParent(root);
             portal.transform.position = new Vector2(90f, 1.5f);

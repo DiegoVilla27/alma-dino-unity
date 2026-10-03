@@ -1,0 +1,204 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8964319204741607036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6357668581113176196}
+  m_Layer: 0
+  m_Name: Boss_2_LevelExit2D_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6357668581113176196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8964319204741607036}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6921267209116884089}
+  - {fileID: 2533265965181982874}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1382679911737861650
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6357668581113176196}
+    m_Modifications:
+    - target: {fileID: 1010185323050858387, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: _levelTitle
+      value: CUEVAS DE CRISTAL COMPLETADAS
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010185323050858387, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: _nextSceneName
+      value: Level_3_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010185323050858387, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: _victoryMessage
+      value: El Armadillo cede el paso. El Pantano de Viento te espera.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295168861051427753, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_Name
+      value: Portal_Victory_To_World_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295168861051427753, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+--- !u!1 &930652922247003579 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2295168861051427753, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+  m_PrefabInstance: {fileID: 1382679911737861650}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6921267209116884089 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+  m_PrefabInstance: {fileID: 1382679911737861650}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7392502759177932979
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6357668581113176196}
+    m_Modifications:
+    - target: {fileID: 569878339584494099, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_Name
+      value: Armor_Band__Part0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420434729650600141, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_Name
+      value: Armor_Band__Part3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078641122606545043, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_Name
+      value: Armor_Band__Part2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4235075507784464500, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_Name
+      value: Armor_Band__Part1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021660844344674345, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021660844344674345, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021660844344674345, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021660844344674345, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021660844344674345, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021660844344674345, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021660844344674345, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021660844344674345, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021660844344674345, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021660844344674345, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5606853976010410525, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_Name
+      value: Boss_Prehistoric_Armadillo
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923370432669729277, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: m_Name
+      value: Armor_Band__Part4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146102176601357609, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+      propertyPath: _exit
+      value: 
+      objectReference: {fileID: 930652922247003579}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+--- !u!4 &2533265965181982874 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5021660844344674345, guid: f4fa62557bb224bdb994465eb916e6f1, type: 3}
+  m_PrefabInstance: {fileID: 7392502759177932979}
+  m_PrefabAsset: {fileID: 0}

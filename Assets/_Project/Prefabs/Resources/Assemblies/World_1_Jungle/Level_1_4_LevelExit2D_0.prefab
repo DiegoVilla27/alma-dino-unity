@@ -1,0 +1,186 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8407637585311245525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5929763810745217895}
+  m_Layer: 0
+  m_Name: Level_1_4_LevelExit2D_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5929763810745217895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8407637585311245525}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 860995177897412998}
+  - {fileID: 1127970974609418404}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6096976032012979791
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5929763810745217895}
+    m_Modifications:
+    - target: {fileID: 6574011658845284075, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 103.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574011658845284075, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 22.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574011658845284075, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574011658845284075, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574011658845284075, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574011658845284075, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574011658845284075, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574011658845284075, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574011658845284075, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574011658845284075, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7736188226000572896, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+      propertyPath: m_Name
+      value: Green_Egg_Sanctuary_Altar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154775013020455225, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+      propertyPath: _linkedPortal
+      value: 
+      objectReference: {fileID: 8560000840682210430}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+--- !u!4 &1127970974609418404 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6574011658845284075, guid: a0a88f42b3d1c444facd3c3fd9455e97, type: 3}
+  m_PrefabInstance: {fileID: 6096976032012979791}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8705419990060954605
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5929763810745217895}
+    m_Modifications:
+    - target: {fileID: 1010185323050858387, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: _levelTitle
+      value: "\xA1EL PRIMER HIJO EST\xC1 A SALVO!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010185323050858387, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: _nextSceneName
+      value: Boss_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010185323050858387, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: _victoryMessage
+      value: "Has rescatado el Huevo Verde de las alturas de la copa.\nPero el gran simio bloquea el camino:\n\xA1Prep\xE1rate para la batalla contra el Mono Ladr\xF3n Gigante!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295168861051427753, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_Name
+      value: Portal_Exit_To_Boss_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 109
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 23.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+--- !u!4 &860995177897412998 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+  m_PrefabInstance: {fileID: 8705419990060954605}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8560000840682210430 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1010185323050858387, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+  m_PrefabInstance: {fileID: 8705419990060954605}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4000000000000000000000000000008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AlmaDino.Features.Environment::AlmaDino.Features.Environment.LevelExit2D

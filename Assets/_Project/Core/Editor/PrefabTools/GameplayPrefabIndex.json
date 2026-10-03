@@ -1,0 +1,332 @@
+{
+  "Items": [
+    {
+      "Name": "Plant_Carnivorous_Jungle",
+      "Path": "Assets/_Project/Prefabs/Enemies/Plant_Carnivorous_Jungle.prefab"
+    },
+    {
+      "Name": "Enemy_CrystalBeetle_Caves",
+      "Path": "Assets/_Project/Prefabs/Enemies/Enemy_CrystalBeetle_Caves.prefab"
+    },
+    {
+      "Name": "Enemy_CaveBat_Caves",
+      "Path": "Assets/_Project/Prefabs/Enemies/Enemy_CaveBat_Caves.prefab"
+    },
+    {
+      "Name": "Enemy_PoisonToad_Swamp",
+      "Path": "Assets/_Project/Prefabs/Enemies/Enemy_PoisonToad_Swamp.prefab"
+    },
+    {
+      "Name": "Enemy_MagmaSalamander_Volcano",
+      "Path": "Assets/_Project/Prefabs/Enemies/Enemy_MagmaSalamander_Volcano.prefab"
+    },
+    {
+      "Name": "Trap_Spikes_Jungle",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_Spikes_Jungle.prefab"
+    },
+    {
+      "Name": "Trap_Briers_Swamp",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_Briers_Swamp.prefab"
+    },
+    {
+      "Name": "Trap_SpikedPillar_Jungle",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_SpikedPillar_Jungle.prefab"
+    },
+    {
+      "Name": "Trap_CrystalSpikes_Caves",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_CrystalSpikes_Caves.prefab"
+    },
+    {
+      "Name": "Trap_BurningSpikes_Volcano",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_BurningSpikes_Volcano.prefab"
+    },
+    {
+      "Name": "Trap_ToxicMud_Swamp",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_ToxicMud_Swamp.prefab"
+    },
+    {
+      "Name": "Trap_ToxicLake_Swamp",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_ToxicLake_Swamp.prefab"
+    },
+    {
+      "Name": "Trap_RisingToxicGas_Swamp",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_RisingToxicGas_Swamp.prefab"
+    },
+    {
+      "Name": "Trap_LavaPool_Volcano",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_LavaPool_Volcano.prefab"
+    },
+    {
+      "Name": "Trap_RisingLavaEruption_Volcano",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_RisingLavaEruption_Volcano.prefab"
+    },
+    {
+      "Name": "Trap_RisingMagma_FinalBoss",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_RisingMagma_FinalBoss.prefab"
+    },
+    {
+      "Name": "Trap_CrushingCeiling_Caves",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_CrushingCeiling_Caves.prefab"
+    },
+    {
+      "Name": "Trap_FireGeyser_Volcano",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_FireGeyser_Volcano.prefab"
+    },
+    {
+      "Name": "Trap_LandingFlameJet_Volcano",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_LandingFlameJet_Volcano.prefab"
+    },
+    {
+      "Name": "Trap_BellFlameDoor_Volcano",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_BellFlameDoor_Volcano.prefab"
+    },
+    {
+      "Name": "Trap_DeathZone_Universal",
+      "Path": "Assets/_Project/Prefabs/Traps/Trap_DeathZone_Universal.prefab"
+    },
+    {
+      "Name": "Projectile_RollingFruit_Jungle",
+      "Path": "Assets/_Project/Prefabs/Projectiles/Projectile_RollingFruit_Jungle.prefab"
+    },
+    {
+      "Name": "Projectile_FallingCrystal_Caves",
+      "Path": "Assets/_Project/Prefabs/Projectiles/Projectile_FallingCrystal_Caves.prefab"
+    },
+    {
+      "Name": "Projectile_PoisonBubble_Swamp",
+      "Path": "Assets/_Project/Prefabs/Projectiles/Projectile_PoisonBubble_Swamp.prefab"
+    },
+    {
+      "Name": "Projectile_MagmaFireball_Volcano",
+      "Path": "Assets/_Project/Prefabs/Projectiles/Projectile_MagmaFireball_Volcano.prefab"
+    },
+    {
+      "Name": "Projectile_ReflectableMeteor_Volcano",
+      "Path": "Assets/_Project/Prefabs/Projectiles/Projectile_ReflectableMeteor_Volcano.prefab"
+    },
+    {
+      "Name": "Projectile_CounterMeteor_FinalBoss",
+      "Path": "Assets/_Project/Prefabs/Projectiles/Projectile_CounterMeteor_FinalBoss.prefab"
+    },
+    {
+      "Name": "Projectile_MeteorRainRock_FinalBoss",
+      "Path": "Assets/_Project/Prefabs/Projectiles/Projectile_MeteorRainRock_FinalBoss.prefab"
+    },
+    {
+      "Name": "Boss_GiantMonkey_Jungle",
+      "Path": "Assets/_Project/Prefabs/Bosses/Boss_GiantMonkey_Jungle.prefab"
+    },
+    {
+      "Name": "Boss_PrehistoricArmadillo_Caves",
+      "Path": "Assets/_Project/Prefabs/Bosses/Boss_PrehistoricArmadillo_Caves.prefab"
+    },
+    {
+      "Name": "Boss_AlphaPterodactyl_Swamp",
+      "Path": "Assets/_Project/Prefabs/Bosses/Boss_AlphaPterodactyl_Swamp.prefab"
+    },
+    {
+      "Name": "Boss_ThiefKing_Volcano",
+      "Path": "Assets/_Project/Prefabs/Bosses/Boss_ThiefKing_Volcano.prefab"
+    },
+    {
+      "Name": "Platform_Solid_Universal",
+      "Path": "Assets/_Project/Prefabs/Resources/Platform_Solid_Universal.prefab"
+    },
+    {
+      "Name": "Platform_OneWay_Universal",
+      "Path": "Assets/_Project/Prefabs/Resources/Platform_OneWay_Universal.prefab"
+    },
+    {
+      "Name": "Resource_BouncyMushroom_Jungle",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_BouncyMushroom_Jungle.prefab"
+    },
+    {
+      "Name": "Resource_BouncyCrystal_Caves",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_BouncyCrystal_Caves.prefab"
+    },
+    {
+      "Name": "Resource_SteamVent_Volcano",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_SteamVent_Volcano.prefab"
+    },
+    {
+      "Name": "Platform_CrumblingLeaf_Jungle",
+      "Path": "Assets/_Project/Prefabs/Resources/Platform_CrumblingLeaf_Jungle.prefab"
+    },
+    {
+      "Name": "Platform_CrumblingLilypad_Swamp",
+      "Path": "Assets/_Project/Prefabs/Resources/Platform_CrumblingLilypad_Swamp.prefab"
+    },
+    {
+      "Name": "Platform_CrumblingLedge_Volcano",
+      "Path": "Assets/_Project/Prefabs/Resources/Platform_CrumblingLedge_Volcano.prefab"
+    },
+    {
+      "Name": "Platform_SinkingBasalt_Volcano",
+      "Path": "Assets/_Project/Prefabs/Resources/Platform_SinkingBasalt_Volcano.prefab"
+    },
+    {
+      "Name": "Resource_PoundBreakableFloor_Universal",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_PoundBreakableFloor_Universal.prefab"
+    },
+    {
+      "Name": "Resource_SeismicPillar_Volcano",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_SeismicPillar_Volcano.prefab"
+    },
+    {
+      "Name": "Resource_EruptionSeal_Volcano",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_EruptionSeal_Volcano.prefab"
+    },
+    {
+      "Name": "Resource_DashReedBarrier_Swamp",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_DashReedBarrier_Swamp.prefab"
+    },
+    {
+      "Name": "Resource_DashTrialGrid_Volcano",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_DashTrialGrid_Volcano.prefab"
+    },
+    {
+      "Name": "Resource_SeesawCatapult_Caves",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_SeesawCatapult_Caves.prefab"
+    },
+    {
+      "Name": "Resource_RootCatapult_Swamp",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_RootCatapult_Swamp.prefab"
+    },
+    {
+      "Name": "Resource_CatapultCounterweight_Caves",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_CatapultCounterweight_Caves.prefab"
+    },
+    {
+      "Name": "Resource_WindCurrent_Universal",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_WindCurrent_Universal.prefab"
+    },
+    {
+      "Name": "Resource_DashRefillSpore_Swamp",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_DashRefillSpore_Swamp.prefab"
+    },
+    {
+      "Name": "Resource_RoarBoulder_Volcano",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_RoarBoulder_Volcano.prefab"
+    },
+    {
+      "Name": "Resource_RuneSwitch_Caves",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_RuneSwitch_Caves.prefab"
+    },
+    {
+      "Name": "Resource_TimedRuneGate_Caves",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_TimedRuneGate_Caves.prefab"
+    },
+    {
+      "Name": "Resource_ResonanceBell_Volcano",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_ResonanceBell_Volcano.prefab"
+    },
+    {
+      "Name": "Resource_MeteorImpactGate_Volcano",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_MeteorImpactGate_Volcano.prefab"
+    },
+    {
+      "Name": "Resource_TempleTrialGate_Volcano",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_TempleTrialGate_Volcano.prefab"
+    },
+    {
+      "Name": "Resource_DashHeatSeal_FinalBoss",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_DashHeatSeal_FinalBoss.prefab"
+    },
+    {
+      "Name": "Resource_WeakDorsalPlate_FinalBoss",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_WeakDorsalPlate_FinalBoss.prefab"
+    },
+    {
+      "Name": "Resource_SteamSeal_FinalBoss",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_SteamSeal_FinalBoss.prefab"
+    },
+    {
+      "Name": "Resource_StalactiteAnchor_FinalBoss",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_StalactiteAnchor_FinalBoss.prefab"
+    },
+    {
+      "Name": "Resource_ColossalStalactite_FinalBoss",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_ColossalStalactite_FinalBoss.prefab"
+    },
+    {
+      "Name": "Resource_AbilityAltar_DoubleJump",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_DoubleJump.prefab"
+    },
+    {
+      "Name": "Resource_AbilityAltar_GroundPound",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_GroundPound.prefab"
+    },
+    {
+      "Name": "Resource_AbilityAltar_AirDash",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_AirDash.prefab"
+    },
+    {
+      "Name": "Resource_AbilityAltar_Roar",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_Roar.prefab"
+    },
+    {
+      "Name": "Resource_CheckpointNest_Universal",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_CheckpointNest_Universal.prefab"
+    },
+    {
+      "Name": "Resource_RescueEgg_Green",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Green.prefab"
+    },
+    {
+      "Name": "Resource_RescueEgg_Blue",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Blue.prefab"
+    },
+    {
+      "Name": "Resource_RescueEgg_Purple",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Purple.prefab"
+    },
+    {
+      "Name": "Resource_RescueEgg_Red",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Red.prefab"
+    },
+    {
+      "Name": "Resource_EggSanctuary_Universal",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_EggSanctuary_Universal.prefab"
+    },
+    {
+      "Name": "Resource_LevelExitPortal_Universal",
+      "Path": "Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab"
+    },
+    {
+      "Name": "NPC_ThiefMonkeyTeaser_Jungle",
+      "Path": "Assets/_Project/Prefabs/Narrative/NPC_ThiefMonkeyTeaser_Jungle.prefab"
+    },
+    {
+      "Name": "Narrative_GuardianTeaser_Armadillo",
+      "Path": "Assets/_Project/Prefabs/Narrative/Narrative_GuardianTeaser_Armadillo.prefab"
+    },
+    {
+      "Name": "Narrative_GuardianTeaser_Pterodactyl",
+      "Path": "Assets/_Project/Prefabs/Narrative/Narrative_GuardianTeaser_Pterodactyl.prefab"
+    },
+    {
+      "Name": "Narrative_GuardianTeaser_Thief_King",
+      "Path": "Assets/_Project/Prefabs/Narrative/Narrative_GuardianTeaser_Thief_King.prefab"
+    },
+    {
+      "Name": "Narrative_PrologueTrigger_Universal",
+      "Path": "Assets/_Project/Prefabs/Narrative/Narrative_PrologueTrigger_Universal.prefab"
+    },
+    {
+      "Name": "VFX_RoarWave_Universal",
+      "Path": "Assets/_Project/Prefabs/Narrative/VFX_RoarWave_Universal.prefab"
+    },
+    {
+      "Name": "Scenery_ParallaxLayer_Universal",
+      "Path": "Assets/_Project/Prefabs/Narrative/Scenery_ParallaxLayer_Universal.prefab"
+    },
+    {
+      "Name": "Scenery_Decoration_Universal",
+      "Path": "Assets/_Project/Prefabs/Narrative/Scenery_Decoration_Universal.prefab"
+    },
+    {
+      "Name": "Player_Alma",
+      "Path": "Assets/_Project/Prefabs/Player/Alma/Player_Alma.prefab"
+    }
+  ]
+}

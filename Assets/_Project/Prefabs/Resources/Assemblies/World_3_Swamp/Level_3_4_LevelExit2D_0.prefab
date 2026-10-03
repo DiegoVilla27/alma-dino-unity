@@ -1,0 +1,432 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1188535692044078095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3579025128344272497}
+  m_Layer: 0
+  m_Name: Level_3_4_LevelExit2D_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3579025128344272497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188535692044078095}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1560432582837275991}
+  - {fileID: 1125527227543824252}
+  - {fileID: 8185258517851506098}
+  - {fileID: 53120016750523477}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &7051692349565278367
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3579025128344272497}
+    m_Modifications:
+    - target: {fileID: 1174108637172997421, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174108637172997421, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -29
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174108637172997421, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174108637172997421, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174108637172997421, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174108637172997421, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174108637172997421, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174108637172997421, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174108637172997421, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174108637172997421, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855843377981036988, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: m_Name
+      value: Rising_Toxic_Gas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2375905841304699809, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: _egg
+      value: 
+      objectReference: {fileID: 8094188033596428214}
+    - target: {fileID: 2375905841304699809, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+      propertyPath: _warningLabel
+      value: 
+      objectReference: {fileID: 4411427477865446389}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+--- !u!4 &8185258517851506098 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1174108637172997421, guid: 93829caafd5bf452291ce5c4d170f9bb, type: 3}
+  m_PrefabInstance: {fileID: 7051692349565278367}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7393440524993738556
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3579025128344272497}
+    m_Modifications:
+    - target: {fileID: 1010185323050858387, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: _levelTitle
+      value: "EL HUEVO MORADO EST\xC1 A SALVO"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010185323050858387, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: _nextSceneName
+      value: Boss_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010185323050858387, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: _victoryMessage
+      value: "Tres de cuatro. Solo nos falta uno.\nEl Pterod\xE1ctilo Alfa desciende sobre el sauce..."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295168861051427753, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_Name
+      value: Portal_Exit_To_Boss_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295168861051427753, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 123
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+--- !u!4 &1560432582837275991 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8303797509420792427, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+  m_PrefabInstance: {fileID: 7393440524993738556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7538498898520228015 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1010185323050858387, guid: ab82969b6190b4339b5ad9ba1fa26d85, type: 3}
+  m_PrefabInstance: {fileID: 7393440524993738556}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4000000000000000000000000000008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AlmaDino.Features.Environment::AlmaDino.Features.Environment.LevelExit2D
+--- !u!1001 &8294190651164866683
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3579025128344272497}
+    m_Modifications:
+    - target: {fileID: 1959208431081760636, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_SortingOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5630180788983890830, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_Text
+      value: "\xA1EL GAS VA A SUBIR!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5630180788983890830, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_Color.rgba
+      value: 4278512639
+      objectReference: {fileID: 0}
+    - target: {fileID: 5630180788983890830, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_CharacterSize
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333447306979085358, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333447306979085358, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333447306979085358, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333447306979085358, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333447306979085358, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333447306979085358, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333447306979085358, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333447306979085358, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333447306979085358, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333447306979085358, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8387741919775419839, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+      propertyPath: m_Name
+      value: Gas_Warning
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+--- !u!4 &53120016750523477 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8333447306979085358, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+  m_PrefabInstance: {fileID: 8294190651164866683}
+  m_PrefabAsset: {fileID: 0}
+--- !u!102 &4411427477865446389 stripped
+TextMesh:
+  m_CorrespondingSourceObject: {fileID: 5630180788983890830, guid: 7206c45f156bb42aea0876cbf8e40438, type: 3}
+  m_PrefabInstance: {fileID: 8294190651164866683}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8299746231585300953
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3579025128344272497}
+    m_Modifications:
+    - target: {fileID: 88540204144127261, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_Color.b
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 88540204144127261, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_Color.g
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 88540204144127261, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_Color.r
+      value: 0.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 250734937798143599, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: _eggType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 250734937798143599, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: _rescueText
+      value: "El cascar\xF3n tiembla...\nFalta muy poco para que rompas a cantar.\nSolo nos falta uno.\n(3 de 4 rescatados)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 250734937798143599, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: _glowColor.b
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 250734937798143599, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: _glowColor.g
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 250734937798143599, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: _glowColor.r
+      value: 0.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 250734937798143599, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: _rescueTitle
+      value: "\xA1TERCER RESCATE: EL HUEVO MORADO!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 250734937798143599, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: _linkedPortal
+      value: 
+      objectReference: {fileID: 7538498898520228015}
+    - target: {fileID: 6739985256999580107, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_Name
+      value: Purple_Egg
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 118
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9029781745597082992, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_Color.b
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 9029781745597082992, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_Color.g
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 9029781745597082992, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_Color.r
+      value: 0.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 9029781745597082992, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: m_SelectionSources
+      value: 1679730568572960768
+      objectReference: {fileID: 0}
+    - target: {fileID: 9029781745597082992, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: 'managedReferences[1679730568572960768]'
+      value: Unity.RenderPipelines.Universal.2D.Runtime UnityEngine.Rendering.Universal.Light2DProviderSources
+      objectReference: {fileID: 0}
+    - target: {fileID: 9029781745597082992, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: managedReferences[1679730568572960768].m_SelectedSource
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9029781745597082992, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: managedReferences[1679730568572960768].m_Provider2DCache
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9029781745597082992, guid: a3540948cc5a44d81af473329b114885, type: 3}
+      propertyPath: managedReferences[1679730568572960768].m_SelectedHashCode
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a3540948cc5a44d81af473329b114885, type: 3}
+--- !u!4 &1125527227543824252 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8984736462322845349, guid: a3540948cc5a44d81af473329b114885, type: 3}
+  m_PrefabInstance: {fileID: 8299746231585300953}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8094188033596428214 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 250734937798143599, guid: a3540948cc5a44d81af473329b114885, type: 3}
+  m_PrefabInstance: {fileID: 8299746231585300953}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f72cbf2a64ba344079e32ec6840e52e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AlmaDino.Features.Environment::AlmaDino.Features.Environment.GreenEggRescue2D
