@@ -1,4 +1,4 @@
-> **Estado:** documento rector de diseño para reconstruir el juego. No hay proyecto Unity implementado en esta rama. Las notas de fases y tiempos son planificación, no estado de producción.
+> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama solo está implementada Alma (movimiento, doble salto, Pisotón, Dash y Rugido) en la escena de práctica `Level_1_1`; su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md). Las notas de fases y tiempos son planificación, no estado de producción.
 
 ---
 
@@ -328,7 +328,7 @@ Ambos tienen herramientas nativas para plataformas 2D, tilemaps, luces 2D y anim
 
 ### 9.4. Controles
 
-- **Teclado:** WASD o flechas + Espacio (salto) + Shift (dash) + Abajo (pisotón) + E (rugido).
+- **Teclado:** WASD o flechas + Espacio (salto) + Shift (dash) + Abajo/S o C (pisotón) + E o F (rugido).
 - **Mando:** Stick izquierdo + A (salto) + B (dash) + Abajo (pisotón) + X (rugido).
 - **Remapeable** desde el menú de opciones.
 

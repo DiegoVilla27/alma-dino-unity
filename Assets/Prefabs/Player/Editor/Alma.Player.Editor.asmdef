@@ -1,5 +1,0 @@
-{
-    "name": "Alma.Player.Editor",
-    "references": ["Alma.Player"],
-    "includePlatforms": ["Editor"]
-}

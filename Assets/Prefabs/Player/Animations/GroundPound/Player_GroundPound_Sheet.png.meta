@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cdb2e417ce9dd4e35b4fe48c68e9ffbc
+guid: 8b82faaef82ef42d78afba63ae428dff
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5439297271692602280
-    second: Player_Idle_Sheet_v2_0
+      213: -8018876671027689676
+    second: Player_GroundPound_Sheet_v2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -141,7 +141,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_0
+      name: Player_GroundPound_Sheet_v2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -156,14 +156,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 854d20533fbb384b0800000000000000
-      internalID: -5439297271692602280
+      spriteID: 4374abd472a37b090800000000000000
+      internalID: -8018876671027689676
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_1
+      name: Player_GroundPound_Sheet_v2_1
       rect:
         serializedVersion: 2
         x: 256
@@ -178,14 +178,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b42635b08b5e44fd39fa6930c9dcaee4
-      internalID: -1584769756
+      spriteID: 2c91f2c4f586b4630bf1a92ce371b0f6
+      internalID: -699791741
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_2
+      name: Player_GroundPound_Sheet_v2_2
       rect:
         serializedVersion: 2
         x: 512
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b8e1296f28b2f43a7a3eda45c31374fe
-      internalID: 2081007626
+      spriteID: e987de68329424d0a8e03e4063770f3e
+      internalID: -1263385511
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_3
+      name: Player_GroundPound_Sheet_v2_3
       rect:
         serializedVersion: 2
         x: 768
@@ -222,14 +222,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: afd3bac78ae9940569e92f6fc12c4692
-      internalID: 2056526312
+      spriteID: 12898fb01ffa94d32800ba8b83f2dcf9
+      internalID: 1641999854
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_4
+      name: Player_GroundPound_Sheet_v2_4
       rect:
         serializedVersion: 2
         x: 0
@@ -244,14 +244,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a553c8cbeb13e4be981972e1afd3fde4
-      internalID: -1071294133
+      spriteID: e78f86b1f8de54c3bb17d6158f87e0d7
+      internalID: -1143916562
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_5
+      name: Player_GroundPound_Sheet_v2_5
       rect:
         serializedVersion: 2
         x: 256
@@ -266,14 +266,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db63f52544f56483fb3fb46a9532d86e
-      internalID: 344478103
+      spriteID: 77338dbc4b6e341efa238e601fedbd93
+      internalID: -581647971
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_6
+      name: Player_GroundPound_Sheet_v2_6
       rect:
         serializedVersion: 2
         x: 512
@@ -288,14 +288,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 130a054273e5e48c598677f9c88a3753
-      internalID: 198299623
+      spriteID: b69c0863c101748be9d4593867b9f37a
+      internalID: 196962115
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_7
+      name: Player_GroundPound_Sheet_v2_7
       rect:
         serializedVersion: 2
         x: 768
@@ -310,8 +310,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1629196efbf9f44db956348c8d97e103
-      internalID: -2074862299
+      spriteID: ae1cd3faf0c004246aab04bdc1545621
+      internalID: -1351071233
       vertices: []
       indices: 
       edges: []
@@ -320,7 +320,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e691b31d1d0234f8392e4a4a409dd219
+    spriteID: 1263103c0f18c4082831f34bd971acc9
     internalID: 0
     vertices: []
     indices: 
@@ -332,14 +332,14 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":2.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Player_Idle_Sheet_v2_0: -5439297271692602280
-      Player_Idle_Sheet_v2_1: -1584769756
-      Player_Idle_Sheet_v2_2: 2081007626
-      Player_Idle_Sheet_v2_3: 2056526312
-      Player_Idle_Sheet_v2_4: -1071294133
-      Player_Idle_Sheet_v2_5: 344478103
-      Player_Idle_Sheet_v2_6: 198299623
-      Player_Idle_Sheet_v2_7: -2074862299
+      Player_GroundPound_Sheet_v2_0: -8018876671027689676
+      Player_GroundPound_Sheet_v2_1: -699791741
+      Player_GroundPound_Sheet_v2_2: -1263385511
+      Player_GroundPound_Sheet_v2_3: 1641999854
+      Player_GroundPound_Sheet_v2_4: -1143916562
+      Player_GroundPound_Sheet_v2_5: -581647971
+      Player_GroundPound_Sheet_v2_6: 196962115
+      Player_GroundPound_Sheet_v2_7: -1351071233
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

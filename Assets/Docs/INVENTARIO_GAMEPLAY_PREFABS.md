@@ -2,9 +2,9 @@
 
 Fecha de revisión: 4 de octubre de 2026.
 
-Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. Actualmente no existen escenas, prefabs ni scripts en esta rama. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
+Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`) y la escena de práctica `Level_1_1`. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
 
-**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma); 0 prefabs implementados en esta rama. Las carpetas y los nombres indicados son rutas propuestas.
+**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma); 1 prefab implementado en esta rama: Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`); ver [Alma](Player/Alma.md). Las carpetas y los nombres indicados son rutas propuestas.
 
 ## Reglas de daño y funcionamiento
 

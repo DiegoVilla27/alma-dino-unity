@@ -30,6 +30,7 @@ public sealed class AlmaMovementTests
         _motor = player.GetComponent<AlmaMotor2D>();
         _body = player.GetComponent<Rigidbody2D>();
         _animator = player.GetComponent<Animator>();
+        _motor.DoubleJumpUnlocked = false; // Base movement tests; the double jump is unlocked per test.
         for (int i = 0; i < 15; i++) yield return _fixed;
         Assert.That(_motor.IsGrounded, Is.True, "Fixture should settle on floor.");
     }
@@ -132,6 +133,25 @@ public sealed class AlmaMovementTests
         yield return _fixed;
         yield return _fixed;
         Assert.That(_body.linearVelocity.y, Is.LessThan(before), "Base movement must not grant an extra air jump.");
+    }
+
+    [UnityTest]
+    public IEnumerator DoubleJumpGivesOneAirImpulseUntilLanding()
+    {
+        _motor.DoubleJumpUnlocked = true;
+        _motor.SetInput(0f, true, true);
+        for (int i = 0; i < 20; i++) yield return _fixed;
+        Assert.That(_body.linearVelocity.y, Is.LessThan(7.6f));
+        _motor.SetInput(0f, true, true);
+        yield return _fixed;
+        yield return _fixed;
+        Assert.That(_body.linearVelocity.y, Is.GreaterThan(6f), "Second press in the air should double jump.");
+        for (int i = 0; i < 10; i++) yield return _fixed;
+        float before = _body.linearVelocity.y;
+        _motor.SetInput(0f, true, true);
+        yield return _fixed;
+        yield return _fixed;
+        Assert.That(_body.linearVelocity.y, Is.LessThan(before), "Only one double jump per air time.");
     }
 
     [UnityTest]

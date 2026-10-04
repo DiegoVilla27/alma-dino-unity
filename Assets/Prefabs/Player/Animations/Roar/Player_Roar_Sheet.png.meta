@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cdb2e417ce9dd4e35b4fe48c68e9ffbc
+guid: d2384ff8b342f4438a929f7d4e5ba84f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5439297271692602280
-    second: Player_Idle_Sheet_v2_0
+      213: 8928530033688084775
+    second: Player_Roar_Sheet_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -141,7 +141,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_0
+      name: Player_Roar_Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -156,14 +156,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 854d20533fbb384b0800000000000000
-      internalID: -5439297271692602280
+      spriteID: 7218260a2c288eb70800000000000000
+      internalID: 8928530033688084775
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_1
+      name: Player_Roar_Sheet_1
       rect:
         serializedVersion: 2
         x: 256
@@ -178,14 +178,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b42635b08b5e44fd39fa6930c9dcaee4
-      internalID: -1584769756
+      spriteID: 8fbc8b906ce6f4a19a5046893e21a54e
+      internalID: 1329248704
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_2
+      name: Player_Roar_Sheet_2
       rect:
         serializedVersion: 2
         x: 512
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b8e1296f28b2f43a7a3eda45c31374fe
-      internalID: 2081007626
+      spriteID: 1da132780335547f8a81f178058a13df
+      internalID: -335514563
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_3
+      name: Player_Roar_Sheet_3
       rect:
         serializedVersion: 2
         x: 768
@@ -222,14 +222,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: afd3bac78ae9940569e92f6fc12c4692
-      internalID: 2056526312
+      spriteID: 307ed4372853c4d02bd3daf8e308ba11
+      internalID: 43750665
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_4
+      name: Player_Roar_Sheet_4
       rect:
         serializedVersion: 2
         x: 0
@@ -244,14 +244,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a553c8cbeb13e4be981972e1afd3fde4
-      internalID: -1071294133
+      spriteID: e199b7596de4b48488c974692e511877
+      internalID: 1208972634
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_5
+      name: Player_Roar_Sheet_5
       rect:
         serializedVersion: 2
         x: 256
@@ -266,14 +266,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db63f52544f56483fb3fb46a9532d86e
-      internalID: 344478103
+      spriteID: c06f8b52a33e04b518c0d9cbf2d6763e
+      internalID: -2031101044
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_6
+      name: Player_Roar_Sheet_6
       rect:
         serializedVersion: 2
         x: 512
@@ -288,14 +288,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 130a054273e5e48c598677f9c88a3753
-      internalID: 198299623
+      spriteID: 997187c8c7ce84064971f539c9cc1e9b
+      internalID: 406775841
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_Sheet_v2_7
+      name: Player_Roar_Sheet_7
       rect:
         serializedVersion: 2
         x: 768
@@ -310,8 +310,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1629196efbf9f44db956348c8d97e103
-      internalID: -2074862299
+      spriteID: 418bff26d38924a6a9c6446d7a55a2fe
+      internalID: 1967776724
       vertices: []
       indices: 
       edges: []
@@ -320,7 +320,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e691b31d1d0234f8392e4a4a409dd219
+    spriteID: c7152ce3a94784c8fa38b7afde1ab268
     internalID: 0
     vertices: []
     indices: 
@@ -332,14 +332,14 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":2.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Player_Idle_Sheet_v2_0: -5439297271692602280
-      Player_Idle_Sheet_v2_1: -1584769756
-      Player_Idle_Sheet_v2_2: 2081007626
-      Player_Idle_Sheet_v2_3: 2056526312
-      Player_Idle_Sheet_v2_4: -1071294133
-      Player_Idle_Sheet_v2_5: 344478103
-      Player_Idle_Sheet_v2_6: 198299623
-      Player_Idle_Sheet_v2_7: -2074862299
+      Player_Roar_Sheet_0: 8928530033688084775
+      Player_Roar_Sheet_1: 1329248704
+      Player_Roar_Sheet_2: -335514563
+      Player_Roar_Sheet_3: 43750665
+      Player_Roar_Sheet_4: 1208972634
+      Player_Roar_Sheet_5: -2031101044
+      Player_Roar_Sheet_6: 406775841
+      Player_Roar_Sheet_7: 1967776724
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

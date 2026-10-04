@@ -1,44 +1,124 @@
 # Alma — diseño del personaje jugable
 
-**Estado:** locomoción base implementada en Unity 6000.6.0f1. El prefab existente y las hojas Idle, Run y Jump ya tienen movimiento, salto simple y transiciones físicas. Las habilidades avanzadas de este documento siguen siendo especificación para las siguientes fases.
+**Estado (4 de octubre de 2026):** Alma está implementada en Unity 6000.6.0f1 con locomoción, salto variable, doble salto, Pisotón, Dash aéreo y Rugido. Las seis hojas de animación (Idle, Run, Jump, GroundPound, Dash y Roar) están conectadas en un único Animator. Faltan el desbloqueo por altares, las esporas, los receptores del Rugido, mando, controles táctiles, Dead/Respawn y el clip propio de doble salto (ver [Pendiente](#pendiente)).
 
 ## Implementación actual y prueba
 
-Abre `Assets/Scenes/World_01/Level_1_1.unity`, pulsa Play y enfoca la pestaña Game. Usa **A/D o flechas** para correr y **Espacio** para saltar. Mantener Espacio aumenta la altura; soltarlo corta el ascenso. La entrada conserva los ejes `Horizontal` y `Jump` del Input Manager existente.
+Abre `Assets/Scenes/World_01/Level_1_1.unity`, pulsa Play y enfoca la pestaña Game.
+
+| Acción | Teclado implementado | Dónde se lee |
+| --- | --- | --- |
+| Moverse | A/D o flechas | Eje `Horizontal` del Input Manager. |
+| Salto / doble salto | Espacio (en el suelo / en el aire) | Botón `Jump` del Input Manager. |
+| Pisotón | S, flecha abajo o C, en el aire | Eje `Vertical` < -0,5 (solo al pulsar) o `KeyCode.C`. |
+| Dash aéreo | Shift izquierdo o derecho, en el aire | `KeyCode.LeftShift` / `RightShift`. |
+| Rugido | E o F | `KeyCode.E` / `KeyCode.F`. |
 
 El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de funcionamiento están en la misma carpeta de personaje:
 
 | Carpeta / archivo | Responsabilidad |
 | --- | --- |
-| `Scripts/AlmaInput.cs` | Captura entradas y las entrega al motor. |
-| `Scripts/AlmaMotor2D.cs` | Aceleración, frenado, control aéreo, salto variable, detección de suelo y reaparición. |
-| `Scripts/AlmaAnimation.cs` | Orientación del sprite y parámetros del Animator según el movimiento real. |
+| `Scripts/AlmaInput.cs` | Captura entradas y las entrega al motor (`SetInput`, `RequestGroundPound`, `RequestDash`, `RequestRoar`). |
+| `Scripts/AlmaMotor2D.cs` | Aceleración, frenado, control aéreo, salto variable, doble salto, Pisotón, Dash, Rugido, detección de suelo y reaparición. |
+| `Scripts/AlmaAnimation.cs` | Orientación del sprite y parámetros del Animator según el estado real del motor. |
+| `Scripts/IRoarTarget.cs` | Contrato para objetos que reaccionan al Rugido (`ResonatesWithRoar`, `ReceiveRoar(origin, direction)`). |
+| `Scripts/AlmaMovementSettings.cs` | ScriptableObject con todos los valores de movimiento y habilidades. |
 | `Scripts/AlmaCameraFollow.cs` | Seguimiento suave, tamaño 6 y anticipación horizontal según velocidad. |
-| `Configuration/AlmaMovement.asset` | Valores editables de movimiento y salto. |
+| `Configuration/AlmaMovement.asset` | Instancia de `AlmaMovementSettings` usada por el prefab. Los valores se editan aquí, no en el script. |
 | `Configuration/AlmaFrictionless.physicsMaterial2D` | Evita adherirse a paredes. |
-| `Animations/` | Sprites originales, clips y controlador de estados. |
-| `Tests/PlayMode/` | Siete pruebas de movimiento, salto, animación, paredes y reaparición. |
+| `Animations/` | Hojas de sprites, clips y el controlador `Idle/Player_Idle_Sheet_0.controller`. |
+| `Tests/PlayMode/` | Ocho pruebas de movimiento, salto, doble salto, animación, paredes y reaparición. |
 
-El cuerpo usa Rigidbody2D con interpolación, colisión continua, rotación bloqueada y una cápsula estable alrededor del cuerpo. La cola no engancha los bordes. El salto admite 0,14 s después de abandonar un borde y recuerda una pulsación durante 0,12 s antes de aterrizar. Mantener el botón no provoca saltos repetidos ni permite un segundo salto aéreo.
+No hay scripts de editor que regeneren el prefab o el Animator: toda la configuración se mantiene a mano en los assets.
 
-Idle reproduce ocho frames a 8 fps; Run reproduce ocho a 12 fps con ritmo ajustado a la velocidad. Jump utiliza las poses de ascenso de la hoja original y Fall su pose de descenso; cambia según la velocidad vertical. Las transiciones responden de inmediato al movimiento y al contacto con suelo, sin esperar a que termine un clip. Los PNG originales y el clip completo de salto se conservan.
+El cuerpo usa Rigidbody2D con interpolación, colisión continua, rotación bloqueada y una cápsula estable alrededor del cuerpo. La cola no engancha los bordes. El salto admite 0,14 s después de abandonar un borde y recuerda una pulsación durante 0,12 s antes de aterrizar. Mantener el botón no provoca saltos repetidos. Las pulsaciones de habilidades se guardan hasta el siguiente paso de física y se consumen una sola vez; si no se cumplen las condiciones en ese paso, se descartan.
 
-La escena incluye un suelo y tres plataformas de práctica con desniveles alcanzables. Si Alma cae por debajo de Y = -12, reaparece en su posición inicial. Checkpoints, peligros, doble salto, Dash, Pisotón, Rugido y botones táctiles se incorporarán en sus siguientes fases.
+### Comportamiento implementado de cada habilidad
 
-Las siete pruebas se pueden ejecutar en Test Runner → PlayMode → `AlmaMovementTests`. Cubren carrera/frenado/orientación, estados animados, salto largo y corto, buffer al aterrizar, coyote time sin doble salto, paredes y reaparición. El menú **Alma → Configure player and practice scene** reconstruye la configuración base del prefab y del Animator; sobrescribe sus clips/configuración de estados, por lo que se reserva para restaurar esta base.
+- **Doble salto.** Pulsar salto en el aire con la carga disponible fija la velocidad vertical en `max(actual, 7,6 m/s)`, de modo que nunca debilita un rebote más fuerte. Hay una carga por estancia en el aire y se recupera al tocar suelo o al reaparecer. Funciona también al caer de un borde sin haber saltado. No se puede usar durante el Dash ni el Pisotón. Mantener o soltar salto controla la altura igual que en el salto normal. Si se pulsa justo antes de aterrizar con la carga disponible, se gasta el doble salto en lugar de guardar un salto para el suelo. Está bloqueado por `DoubleJumpUnlocked` (campo `_doubleJumpUnlocked` del motor, activado por defecto hasta que exista el altar).
+- **Pisotón.** Solo se inicia en el aire y fuera de un Dash. Durante 0,1 s de preparación Alma queda inmóvil (gravedad 0). Después cae en vertical a 22 m/s constantes, con el movimiento horizontal bloqueado e ignorando el límite normal de 20 m/s. Termina cuando la detección de suelo existente confirma el impacto; en ese paso se restaura la gravedad normal. Invalida el coyote time para que no se consuma un salto a mitad de caída.
+- **Dash aéreo.** Solo en el aire, con carga y fuera de un Pisotón. Recorre 6 m en 0,2 s (30 m/s) en la orientación de Alma al comenzar, sin gravedad y con velocidad vertical 0. La orientación queda fijada durante el impulso. Al terminar, la velocidad horizontal se limita a 7 m/s para que no recorra distancia extra. Hay una carga aérea, recuperada al tocar suelo, y 0,4 s de espera tras cada Dash. No concede inmunidad.
+- **Rugido.** Se puede usar en suelo y en el aire, fuera del Dash y del Pisotón. No bloquea el movimiento. Durante 0,25 s fija la orientación y no permite otro Rugido. Al iniciarse lanza un único `Physics2D.OverlapCircle` (incluye triggers) desde el centro del cuerpo. Cada objeto con `IRoarTarget` cuyo punto más cercano esté dentro del cono frontal (45° de semiancho) recibe `ReceiveRoar` una sola vez por Rugido. El alcance es de 3 m, o de 8 m si el objeto declara `ResonatesWithRoar` (campanas). No tiene cooldown aparte de su duración.
+
+Todas las acciones se cancelan al reaparecer o al desactivar el componente.
+
+### Valores en `AlmaMovement.asset`
+
+Los valores por defecto del script solo se aplican a assets nuevos o a campos que el asset todavía no ha guardado. Para ajustar el juego, editar `Configuration/AlmaMovement.asset` en el Inspector.
+
+| Campo | Valor | Uso |
+| --- | ---: | --- |
+| `MoveSpeed` | 7 | Velocidad horizontal máxima (m/s). |
+| `AccelerationTime` / `BrakingTime` | 0,10 / 0,08 | Tiempo para alcanzar o perder la velocidad en suelo (s). |
+| `AirAccelerationTime` | 0,13 | Control aéreo (s). |
+| `JumpSpeed` / `DoubleJumpSpeed` | 8,2 / 7,6 | Impulso vertical (m/s). |
+| `GravityScale` | 2,2 | Multiplicador de la gravedad de Unity (9,81). |
+| `FallGravityMultiplier` / `ReleasedJumpGravityMultiplier` | 1,8 / 2,4 | Gravedad al caer / al soltar salto. |
+| `MaxFallSpeed` | 20 | Velocidad máxima de caída normal (m/s). |
+| `CoyoteTime` / `JumpBufferTime` | 0,14 / 0,12 | Ventanas de salto (s). |
+| `GroundPoundWindupTime` / `GroundPoundSpeed` | 0,1 / 22 | Preparación (s) y descenso (m/s). |
+| `DashDistance` / `DashDuration` / `DashCooldown` | 6 / 0,2 / 0,4 | Metros, segundos y espera tras el Dash. |
+| `RoarDuration` | 0,25 | Duración lógica del Rugido (s). |
+| `RoarRange` / `RoarResonanceRange` / `RoarHalfAngle` | 3 / 8 / 45 | Alcance normal, alcance de resonancia (m) y semiancho del cono (°). |
+| `GroundLayers` / `GroundProbeDistance` / `MinimumGroundNormal` | Todo / 0,04 / 0,65 | Detección de suelo. |
+
+En el motor, `_fallRespawnY = -12` define la altura bajo la cual Alma reaparece.
+
+### Animator
+
+El prefab usa `Animations/Idle/Player_Idle_Sheet_0.controller`. Todas las transiciones salen de **Any State**, son inmediatas (sin Exit Time, duración 0) y no pueden volver al mismo estado. `AlmaAnimation` actualiza los parámetros en cada frame a partir del motor.
+
+| Parámetro | Tipo | Origen |
+| --- | --- | --- |
+| `Speed` | Float | `|velocidad.x|` |
+| `VerticalSpeed` | Float | `velocidad.y` |
+| `RunRate` | Float | `Speed / MoveSpeed`, limitado a 0,5–1,2 |
+| `Grounded` | Bool | `IsGrounded` |
+| `GroundPound` | Bool | `IsGroundPounding`, o el clip todavía terminando tras el impacto mientras Alma sigue en el suelo |
+| `Dash` | Bool | `IsDashing` |
+| `Roar` | Bool | `IsRoaring`, o el clip todavía terminando (si no hay Dash ni Pisotón) |
+
+| Prioridad | Estado | Clip | Condiciones de entrada |
+| ---: | --- | --- | --- |
+| 1 | Dash | `Player_Dash_Animation` (velocidad ×3,33) | `Dash` |
+| 2 | GroundPound | `Player_GrounPound_Animation` | `GroundPound` |
+| 3 | Roar | `Player_Roar_Animation` (sin bucle) | `Roar`, sin `Dash` ni `GroundPound` |
+| 4 | Idle (por defecto) | `Player_Idle_Animation` | sin habilidades, `Grounded`, `Speed` < 0,2 |
+| 5 | Run | `Player_Run_Animation` (velocidad por `RunRate`) | sin habilidades, `Grounded`, `Speed` > 0,2 |
+| 6 | Jump | `Player_Jump_Animation` | sin habilidades, no `Grounded`, `VerticalSpeed` > 0 |
+| 7 | Fall | `Player_Jump_Animation` (desde la mitad del clip) | sin habilidades, no `Grounded`, `VerticalSpeed` < 0,001 |
+
+«Sin habilidades» significa `Roar`, `Dash` y `GroundPound` en false. Todos los clips tienen 8 frames a 12 fps (0,67 s). El Dash se acelera ×3,33 para que el clip completo quepa en sus 0,2 s. El Pisotón y el Rugido terminan en la lógica antes que su clip; `AlmaAnimation` mantiene su estado visual hasta completar una reproducción, sin retrasar el control. En un Pisotón de más de 0,67 s el clip se repite en la caída y al aterrizar se corta donde esté. El doble salto reutiliza el estado Jump: si ocurre durante Fall, Jump empieza desde su primer frame; si Alma aún sube, la animación continúa.
+
+### Pruebas y escena
+
+La escena incluye un suelo y tres plataformas de práctica con desniveles alcanzables. Si Alma cae por debajo de Y = -12, reaparece en su posición inicial.
+
+Las ocho pruebas se ejecutan en Test Runner → PlayMode → `AlmaMovementTests`. Cubren carrera/frenado/orientación, estados animados, salto largo y corto, buffer al aterrizar, coyote time, doble salto (una sola vez por estancia en el aire), paredes y reaparición. Las pruebas de movimiento base desactivan el doble salto en su preparación. Pisotón, Dash y Rugido todavía no tienen pruebas automáticas.
+
+### Pendiente
+
+- Desbloqueo de habilidades por altares. Hoy solo el doble salto tiene interruptor (`DoubleJumpUnlocked`); Pisotón, Dash y Rugido están siempre disponibles.
+- Recarga del Dash y del doble salto con esporas u otros recursos.
+- Inmunidad del Dash al viento (todavía no hay viento).
+- Receptores del Rugido (rocas, campanas, interruptores, enemigos) implementando `IRoarTarget`, onda visual `VFX_RoarWave_Universal` y temblor de pantalla del Pisotón y el Rugido.
+- Rotura de suelos y activación de mecanismos con el Pisotón.
+- Mando y controles táctiles.
+- Clips propios de DoubleJump, Jump/Fall separados y Dead/Respawn. Indicador diegético de Dash disponible.
+- Checkpoints y peligros.
 
 Alma es una madre dinosaurio ágil. Su control debe permitir saltos precisos y encadenar habilidades sin retrasos artificiales. No tiene puntos de vida: al tocar un peligro activo reaparece en el último checkpoint. El juego no usa música ni efectos de sonido; cada acción necesita señales visuales claras.
 
 ## Controles y habilidades
 
-| Acción | Teclado de referencia | Regla |
-| --- | --- | --- |
-| Moverse | A/D o flechas | Aceleración y frenado breves, con control aéreo. |
-| Salto | Espacio | Altura variable al mantener o soltar; coyote time y buffer de entrada. |
-| Doble salto | Espacio en el aire | Un segundo impulso, recuperado al aterrizar o tocar un recurso que lo recargue. |
-| Pisotón | S, abajo o C en el aire | Breve preparación y descenso vertical rápido; rompe suelos y activa mecanismos. |
-| Dash aéreo | Shift en el aire | Impulso horizontal en la dirección fijada al comenzar; una carga aérea y recarga al aterrizar o tocar una espora. |
-| Rugido | E o F | Cono frontal que empuja objetos y activa objetivos compatibles. |
+| Acción | Teclado de referencia | Regla | Estado |
+| --- | --- | --- | --- |
+| Moverse | A/D o flechas | Aceleración y frenado breves, con control aéreo. | Implementado |
+| Salto | Espacio | Altura variable al mantener o soltar; coyote time y buffer de entrada. | Implementado |
+| Doble salto | Espacio en el aire | Un segundo impulso, recuperado al aterrizar o tocar un recurso que lo recargue. | Implementado; falta recarga por recursos |
+| Pisotón | S, abajo o C en el aire | Breve preparación y descenso vertical rápido; rompe suelos y activa mecanismos. | Movimiento implementado; faltan efectos sobre el entorno |
+| Dash aéreo | Shift en el aire | Impulso horizontal en la dirección fijada al comenzar; una carga aérea y recarga al aterrizar o tocar una espora. | Implementado; faltan esporas y viento |
+| Rugido | E o F | Cono frontal que empuja objetos y activa objetivos compatibles. | Detección implementada; faltan receptores |
 
 El mando y los controles táctiles deben ofrecer las mismas acciones con iconos y estados visibles. El Dash no concede inmunidad a enemigos, pinchos, veneno ni lava; durante el impulso ignora el viento. Ninguna habilidad debe sustituir el botón de otra.
 
@@ -47,6 +127,8 @@ Las habilidades se incorporan de forma acumulativa: Doble Salto en el mundo 1, P
 ## Física de referencia
 
 Una unidad de juego equivale aproximadamente a un metro. Mantener la misma física en los cuatro mundos y ajustar el diseño de plataformas a ella.
+
+Todos estos valores están aplicados en `AlmaMovement.asset` (ver [Valores](#valores-en-almamovementasset)).
 
 | Parámetro | Objetivo inicial |
 | --- | ---: |
@@ -60,7 +142,7 @@ Una unidad de juego equivale aproximadamente a un metro. Mantener la misma físi
 | Coyote time / buffer de salto | 0,14 / 0,12 s |
 | Dash | 6 m en 0,2 s; recarga de 0,4 s |
 | Pisotón | 0,1 s de preparación; 22 m/s de descenso |
-| Rugido | 0,25 s; cono frontal de 3 m y 45° de semiancho |
+| Rugido | 0,25 s de acción (la animación dura 0,67 s y no retrasa el control); cono frontal de 3 m y 45° de semiancho |
 | Resonancia de campanas | Hasta 8 m dentro del cono frontal |
 
 El doble salto debe elevar la velocidad vertical al menos a 7,6 m/s sin anular un rebote que ya sea más fuerte. Las pulsaciones se capturan entre pasos de física y se consumen una sola vez. El hongo saltarín del inventario parte de 17 m/s; mantener salto permite un rebote de ×1,18. Estos valores requieren pruebas jugables, especialmente junto a superficies móviles y plataformas altas.
@@ -69,13 +151,13 @@ El doble salto debe elevar la velocidad vertical al menos a 7,6 m/s sin anular u
 
 ## Estados y prioridad de acciones
 
-Estados previstos: Idle, Run, Jump, DoubleJump, Fall, GroundPound, Dash, Roar y Dead/Respawn. Walk puede ser una variación visual de locomoción, sin necesitar otro estado de control. Las transiciones se resuelven por entradas y condiciones físicas; la animación responde al estado, nunca retrasa el movimiento.
+Estados previstos: Idle, Run, Jump, DoubleJump, Fall, GroundPound, Dash, Roar y Dead/Respawn. Implementados en el Animator: Idle, Run, Jump, Fall, GroundPound, Dash y Roar (el doble salto usa Jump). Walk puede ser una variación visual de locomoción, sin necesitar otro estado de control. Las transiciones se resuelven por entradas y condiciones físicas; la animación responde al estado, nunca retrasa el movimiento.
 
-El Dash mantiene su dirección durante todo el impulso. El Pisotón requiere estar en el aire y debe terminar al impactar. El Rugido toma la orientación actual de Alma. Al aterrizar se recuperan salto y Dash; las esporas pueden recargarlos en el aire. Los checkpoints deben restablecer un estado seguro y no permitir reaparecer dentro de un peligro activo.
+El Dash mantiene su dirección durante todo el impulso. El Pisotón requiere estar en el aire y debe terminar al impactar. El Rugido toma la orientación actual de Alma. En la implementación, Dash y Pisotón son excluyentes entre sí, y el Rugido no puede iniciarse durante ninguno de los dos. Al aterrizar se recuperan salto y Dash; las esporas pueden recargarlos en el aire. Los checkpoints deben restablecer un estado seguro y no permitir reaparecer dentro de un peligro activo.
 
 ## Animaciones y arte
 
-Las [láminas de diseño y poses](../../Art/Player/) son referencias conceptuales. La implementación actual usa las nuevas hojas Idle, Run y Jump de ocho frames cada una, situadas en `Assets/Prefabs/Player/Animations/`. Las animaciones de habilidades avanzadas todavía están pendientes.
+Las [láminas de diseño y poses](../../Art/Player/) son referencias conceptuales. La implementación actual usa seis hojas de 1024×512 con ocho frames de 256×256 y 80 píxeles por unidad, en `Assets/Prefabs/Player/Animations/`: Idle, Run, Jump, GroundPound, Dash y Roar. Siguen pendientes DoubleJump, Fall separado de Jump, Dead/Respawn y Rescue. Las hojas nuevas deben mantener ese mismo formato.
 
 | Acción visual | Requisito para la nueva producción |
 | --- | --- |
