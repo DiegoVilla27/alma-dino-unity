@@ -1,0 +1,5 @@
+{
+    "name": "Alma.Player.PlayModeTests",
+    "references": ["Alma.Player"],
+    "optionalUnityReferences": ["TestAssemblies"]
+}
