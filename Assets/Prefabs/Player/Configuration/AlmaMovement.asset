@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d26ffef3f69c4677af9a8eadea0e0a8, type: 3}
+  m_Name: AlmaMovement
+  m_EditorClassIdentifier: Alma.Player::AlmaGame.Player.AlmaMovementSettings
+  MoveSpeed: 7
+  AccelerationTime: 0.1
+  BrakingTime: 0.08
+  AirAccelerationTime: 0.13
+  JumpSpeed: 8.2
+  GravityScale: 2.2
+  FallGravityMultiplier: 1.8
+  ReleasedJumpGravityMultiplier: 2.4
+  MaxFallSpeed: 20
+  CoyoteTime: 0.14
+  JumpBufferTime: 0.12
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  GroundProbeDistance: 0.04
+  MinimumGroundNormal: 0.65
