@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 6722914698481413509}
   - component: {fileID: 5211092451648536435}
   - component: {fileID: 4274277330396160359}
+  - component: {fileID: 7576835418102728210}
   m_Layer: 0
   m_Name: Alma
   m_TagString: Untagged
@@ -331,3 +332,23 @@ MonoBehaviour:
   _ringTime: 0.35
   _shakeAmplitude: 0.15
   _shakeDuration: 0.2
+--- !u!114 &7576835418102728210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6017265908048156795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e319ebac02334f9da10af4c6482e36c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Alma.Player::AlmaGame.Player.AlmaDoubleJumpFx
+  _ringDuration: 0.25
+  _ringWidth: 1.8
+  _ringFlatten: 0.35
+  _ringColor: {r: 0.85, g: 0.95, b: 1, a: 0.85}
+  _puffs: 5
+  _puffColor: {r: 0.92, g: 0.97, b: 1, a: 0.75}
+  _stretch: {x: 0.9, y: 1.1}
+  _stretchTime: 0.12

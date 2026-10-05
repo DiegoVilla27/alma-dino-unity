@@ -26,6 +26,7 @@ El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de fu
 | `Scripts/AlmaDashFx.cs` | Efectos del Dash: siluetas fantasma y líneas de viento. |
 | `Scripts/AlmaRoarFx.cs` | Efectos del Rugido: ondas de sonido en arco, polvo empujado y temblor de cámara. |
 | `Scripts/AlmaDeathFx.cs` | Secuencia de muerte y reaparición (golpe, «puf», luz que viaja al punto de reaparición y reaparición con rebote). |
+| `Scripts/AlmaDoubleJumpFx.cs` | Efectos del doble salto: anillo de aire, bocanadas y estirón del sprite. |
 | `Scripts/IRoarTarget.cs` | Contrato para objetos que reaccionan al Rugido (`ResonatesWithRoar`, `ReceiveRoar(origin, direction)`). |
 | `Scripts/AlmaMovementSettings.cs` | ScriptableObject con todos los valores de movimiento y habilidades. |
 | `Scripts/AlmaCameraFollow.cs` | Seguimiento suave, anticipación horizontal según velocidad y `Shake(amplitud, duración)` para temblores breves. |
@@ -50,6 +51,14 @@ Todas las acciones se cancelan al reaparecer o al desactivar el componente.
 - **Muerte.** `Die()` es el punto de entrada para peligros y caídas (hoy solo la caída por debajo de Y = −12). Activa `IsDead`, cancela habilidades, desactiva la física del cuerpo (`Rigidbody2D.simulated = false`) e ignora la entrada, y lanza el evento `Died`. El control vuelve con `Respawn()`, que reactiva la física y coloca a Alma en `RespawnPosition` (hoy la posición inicial; con checkpoints será el último). Si nadie escucha `Died`, reaparece al instante.
 
 **Polvo al correr.** `AlmaRunDust` emite 2,5 partículas por metro recorrido mientras Alma está en el suelo y supera el 50 % de `MoveSpeed`. Las partículas (0,35–0,6 unidades) salen a la altura de los pies, 0,35 unidades por detrás del centro de Alma, derivan hacia atrás y un poco hacia arriba, crecen y se desvanecen en 0,4–0,6 s. Color beige (0,9; 0,84; 0,72) con 75 % de opacidad, dibujadas detrás de Alma. Se ajusta en el Inspector del componente (`Min Speed Ratio`, `Puffs Per Meter`, `Size Range`, `Color`, `Back Offset`). Al dejar de correr se dejan de emitir partículas y las existentes terminan solas.
+
+**Doble salto.** El motor lanza `DoubleJumped` en el paso de física del impulso y `AlmaDoubleJumpFx` responde con:
+
+- **Anillo de aire:** el anillo compartido del Pisotón, más pequeño (de 0,4 a 1,8 unidades), aplanado al 35 %, blanco-azulado al 85 %, que se abre en 0,25 s bajo los pies y queda fijo en el aire.
+- **Bocanadas:** 5 partículas que salen hacia abajo y a los lados (semicírculo inferior) a 1–2 m/s, de 0,2–0,35 unidades, y se desvanecen en 0,25–0,4 s.
+- **Estirón:** Alma pasa a 90 % de ancho × 110 % de alto y vuelve a su tamaño en 0,12 s. Escala el objeto completo, colisionador incluido; por ser tan breve y pequeño no afecta al juego. Se cancela si Alma muere.
+
+Sin temblor de cámara. Coste: un sprite y un sistema de partículas (máx. 8). Todo se ajusta en el Inspector del componente. Esto distingue visualmente el doble salto mientras no haya un clip propio.
 
 **Impacto del Pisotón.** El motor lanza el evento `GroundPoundLanded` en el paso de física en que confirma el impacto. `AlmaGroundPoundFx` responde con:
 

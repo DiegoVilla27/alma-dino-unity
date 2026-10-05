@@ -48,6 +48,8 @@ namespace AlmaGame.Player
         public Vector2 RespawnPosition => _spawnPosition;
         // Raised when Alma dies; a listener (AlmaDeathFx) plays the sequence and then calls Respawn().
         public event System.Action Died;
+        // Raised on the physics step the double jump impulse is applied.
+        public event System.Action DoubleJumped;
         public bool DoubleJumpUnlocked { get => _doubleJumpUnlocked; set => _doubleJumpUnlocked = value; }
 
         private void Awake()
@@ -123,6 +125,7 @@ namespace AlmaGame.Player
                 velocity.y = Mathf.Max(velocity.y, _settings.DoubleJumpSpeed);
                 _jumpQueued = false;
                 _airJumpAvailable = false;
+                DoubleJumped?.Invoke();
             }
 
             float gravityMultiplier = velocity.y < -0.01f ? _settings.FallGravityMultiplier
