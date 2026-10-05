@@ -29,7 +29,7 @@ MonoBehaviour:
   DashDistance: 6
   DashDuration: 0.3
   DashCooldown: 0.4
-  RoarDuration: 0.25
+  RoarDuration: 0.6666667
   RoarRange: 3
   RoarHalfAngle: 45
   RoarResonanceRange: 8

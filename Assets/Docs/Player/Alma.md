@@ -24,6 +24,7 @@ El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de fu
 | `Scripts/AlmaRunDust.cs` | Polvo en los pies al correr: un `ParticleSystem` creado en tiempo de ejecución (máx. 20 partículas, una llamada de dibujo, textura generada por código). |
 | `Scripts/AlmaGroundPoundFx.cs` | Efectos del impacto del Pisotón: onda en el suelo, ráfaga de polvo y temblor de cámara. |
 | `Scripts/AlmaDashFx.cs` | Efectos del Dash: siluetas fantasma y líneas de viento. |
+| `Scripts/AlmaRoarFx.cs` | Efectos del Rugido: ondas de sonido en arco, polvo empujado y temblor de cámara. |
 | `Scripts/IRoarTarget.cs` | Contrato para objetos que reaccionan al Rugido (`ResonatesWithRoar`, `ReceiveRoar(origin, direction)`). |
 | `Scripts/AlmaMovementSettings.cs` | ScriptableObject con todos los valores de movimiento y habilidades. |
 | `Scripts/AlmaCameraFollow.cs` | Seguimiento suave, anticipación horizontal según velocidad y `Shake(amplitud, duración)` para temblores breves. |
@@ -41,7 +42,7 @@ El cuerpo usa Rigidbody2D con interpolación, colisión continua, rotación bloq
 - **Doble salto.** Pulsar salto en el aire con la carga disponible fija la velocidad vertical en `max(actual, 7,6 m/s)`, de modo que nunca debilita un rebote más fuerte. Hay una carga por estancia en el aire y se recupera al tocar suelo o al reaparecer. Funciona también al caer de un borde sin haber saltado. No se puede usar durante el Dash ni el Pisotón. Mantener o soltar salto controla la altura igual que en el salto normal. Si se pulsa justo antes de aterrizar con la carga disponible, se gasta el doble salto en lugar de guardar un salto para el suelo. Está bloqueado por `DoubleJumpUnlocked` (campo `_doubleJumpUnlocked` del motor, activado por defecto hasta que exista el altar).
 - **Pisotón.** Solo se inicia en el aire y fuera de un Dash. Durante 0,1 s de preparación Alma queda inmóvil (gravedad 0). Después cae en vertical a 22 m/s constantes, con el movimiento horizontal bloqueado e ignorando el límite normal de 20 m/s. Termina cuando la detección de suelo existente confirma el impacto; en ese paso se restaura la gravedad normal. Invalida el coyote time para que no se consuma un salto a mitad de caída.
 - **Dash aéreo.** Solo en el aire, con carga y fuera de un Pisotón. Recorre 6 m en 0,45 s (≈13,3 m/s) en la orientación de Alma al comenzar, sin gravedad y con velocidad vertical 0. La orientación queda fijada durante el impulso. Al terminar, la velocidad horizontal se limita a 7 m/s para que no recorra distancia extra. Hay una carga aérea, recuperada al tocar suelo, y 0,4 s de espera tras cada Dash. No concede inmunidad.
-- **Rugido.** Se puede usar en suelo y en el aire, fuera del Dash y del Pisotón. No bloquea el movimiento. Durante 0,25 s fija la orientación y no permite otro Rugido. Al iniciarse lanza un único `Physics2D.OverlapCircle` (incluye triggers) desde el centro del cuerpo. Cada objeto con `IRoarTarget` cuyo punto más cercano esté dentro del cono frontal (45° de semiancho) recibe `ReceiveRoar` una sola vez por Rugido. El alcance es de 3 m, o de 8 m si el objeto declara `ResonatesWithRoar` (campanas). No tiene cooldown aparte de su duración.
+- **Rugido.** Se puede usar en suelo y en el aire, fuera del Dash y del Pisotón. Dura 0,67 s, lo mismo que su animación. Durante ese tiempo fija la orientación y no permite otro Rugido. En el suelo Alma se frena y no puede caminar hasta que termina; en el aire conserva el control horizontal (Rugido aéreo). Saltar sí está permitido. Al iniciarse lanza un único `Physics2D.OverlapCircle` (incluye triggers) desde el centro del cuerpo. Cada objeto con `IRoarTarget` cuyo punto más cercano esté dentro del cono frontal (45° de semiancho) recibe `ReceiveRoar` una sola vez por Rugido. El alcance es de 3 m, o de 8 m si el objeto declara `ResonatesWithRoar` (campanas). No tiene cooldown aparte de su duración.
 
 Todas las acciones se cancelan al reaparecer o al desactivar el componente.
 
@@ -62,6 +63,14 @@ Todo se ajusta en el Inspector del componente. Coste: un sprite y un sistema de 
 
 Todo se ajusta en el Inspector del componente. Coste: hasta 5 sprites y un sistema de partículas (máx. 8), sin dibujar nada fuera del Dash.
 
+**Efecto del Rugido.** `AlmaRoarFx` se activa al empezar cada Rugido:
+
+- **Ondas en arco:** tres arcos, separados 0,07 s, salen de la boca (0,9; 0,4 unidades desde el centro, invertido según la orientación) y se abren desde 0,2 m hasta `RoarRange` (3 m) en 0,35 s, con salida suavizada y desvaneciéndose. Su apertura usa `RoarHalfAngle` (45°), así que muestran el alcance real del cono. Color blanco cálido al 80 %, delante de Alma, y quedan fijos donde salieron.
+- **Polvo empujado (solo en el suelo):** 8 partículas delante de los pies que salen hacia delante a 2–4 m/s y algo hacia arriba, y se desvanecen en 0,4–0,6 s.
+- **Temblor de cámara:** hasta 0,07 unidades durante 0,2 s, más suave que el del Pisotón.
+
+Todo se ajusta en el Inspector del componente. Coste: 3 sprites y un sistema de partículas (máx. 10), sin dibujar nada entre rugidos. La resonancia de 8 m todavía no tiene efecto visual propio; se añadirá con los receptores.
+
 ### Valores en `AlmaMovement.asset`
 
 Todos los campos están guardados explícitamente en el asset. Los valores por defecto del script solo se aplican a assets nuevos. Para ajustar el juego, editar `Configuration/AlmaMovement.asset` en el Inspector.
@@ -78,7 +87,7 @@ Todos los campos están guardados explícitamente en el asset. Los valores por d
 | `CoyoteTime` / `JumpBufferTime` | 0,14 / 0,12 | Ventanas de salto (s). |
 | `GroundPoundWindupTime` / `GroundPoundSpeed` | 0,1 / 22 | Preparación (s) y descenso (m/s). |
 | `DashDistance` / `DashDuration` / `DashCooldown` | 6 / 0,45 / 0,4 | Metros, segundos y espera tras el Dash. |
-| `RoarDuration` | 0,25 | Duración lógica del Rugido (s). |
+| `RoarDuration` | 0,6667 | Duración del Rugido (s): bloquea caminar en el suelo, la orientación y otro Rugido. Igual a la del clip. |
 | `RoarRange` / `RoarResonanceRange` / `RoarHalfAngle` | 3 / 8 / 45 | Alcance normal, alcance de resonancia (m) y semiancho del cono (°). |
 | `GroundLayers` / `GroundProbeDistance` / `MinimumGroundNormal` | Todo / 0,04 / 0,65 | Detección de suelo. |
 
@@ -121,7 +130,7 @@ Las ocho pruebas se ejecutan en Test Runner → PlayMode → `AlmaMovementTests`
 - Desbloqueo de habilidades por altares. Hoy solo el doble salto tiene interruptor (`DoubleJumpUnlocked`); Pisotón, Dash y Rugido están siempre disponibles.
 - Recarga del Dash y del doble salto con esporas u otros recursos.
 - Inmunidad del Dash al viento (todavía no hay viento).
-- Receptores del Rugido (rocas, campanas, interruptores, enemigos) implementando `IRoarTarget`, onda visual `VFX_RoarWave_Universal` y temblor de pantalla del Rugido.
+- Receptores del Rugido (rocas, campanas, interruptores, enemigos) implementando `IRoarTarget`, efecto visual de la resonancia (8 m) al alcanzar una campana.
 - Rotura de suelos y activación de mecanismos con el Pisotón (pueden suscribirse a `GroundPoundLanded`).
 - Mando y controles táctiles.
 - Clips propios de DoubleJump, Jump/Fall separados y Dead/Respawn. Indicador diegético de Dash disponible (plumas del lomo, requiere arte).
@@ -162,7 +171,7 @@ Todos estos valores están aplicados en `AlmaMovement.asset` (ver [Valores](#val
 | Coyote time / buffer de salto | 0,14 / 0,12 s |
 | Dash | 6 m en 0,45 s (el diseño original indicaba 0,2 s; se alargó el 5/10/2026 porque a 30 m/s ni la animación ni el desplazamiento se apreciaban); recarga de 0,4 s |
 | Pisotón | 0,1 s de preparación; 22 m/s de descenso |
-| Rugido | 0,25 s de acción (la animación dura 0,67 s y no retrasa el control); cono frontal de 3 m y 45° de semiancho |
+| Rugido | 0,67 s, igual que su animación (el diseño original indicaba 0,25 s; se alargó el 5/10/2026 porque caminar durante la animación se veía raro); cono frontal de 3 m y 45° de semiancho |
 | Resonancia de campanas | Hasta 8 m dentro del cono frontal |
 
 El doble salto debe elevar la velocidad vertical al menos a 7,6 m/s sin anular un rebote que ya sea más fuerte. Las pulsaciones se capturan entre pasos de física y se consumen una sola vez. El hongo saltarín del inventario parte de 17 m/s; mantener salto permite un rebote de ×1,18. Estos valores requieren pruebas jugables, especialmente junto a superficies móviles y plataformas altas.

@@ -31,7 +31,8 @@ namespace AlmaGame.Player
         [Min(0f)] public float DashCooldown = 0.4f;
 
         [Header("Roar")]
-        [Min(0.01f)] public float RoarDuration = 0.25f;
+        // Matches Player_Roar_Animation (8 frames at 12 fps): Alma can't walk until the roar ends.
+        [Min(0.01f)] public float RoarDuration = 0.6666667f;
         [Min(0.1f)] public float RoarRange = 3f;
         [Range(0f, 90f)] public float RoarHalfAngle = 45f;
         [Min(0.1f)] public float RoarResonanceRange = 8f;

@@ -89,9 +89,11 @@ namespace AlmaGame.Player
             RefreshGrounded();
             if (IsGrounded) _airJumpAvailable = true;
             Vector2 velocity = _body.linearVelocity;
+            // Alma stands still while roaring on the ground; air control is kept for aerial roars.
+            float move = IsRoaring && IsGrounded ? 0f : _moveInput;
             float moveTime = !IsGrounded ? _settings.AirAccelerationTime
-                : Mathf.Abs(_moveInput) < 0.01f ? _settings.BrakingTime : _settings.AccelerationTime;
-            velocity.x = Mathf.MoveTowards(velocity.x, _moveInput * _settings.MoveSpeed,
+                : Mathf.Abs(move) < 0.01f ? _settings.BrakingTime : _settings.AccelerationTime;
+            velocity.x = Mathf.MoveTowards(velocity.x, move * _settings.MoveSpeed,
                 _settings.MoveSpeed / moveTime * Time.fixedDeltaTime);
 
             if (_jumpQueued && Time.time - _jumpPressedAt > _settings.JumpBufferTime)

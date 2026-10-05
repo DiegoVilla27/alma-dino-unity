@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 8248663586849963818}
   - component: {fileID: 2718326775505385464}
   - component: {fileID: 6722914698481413509}
+  - component: {fileID: 5211092451648536435}
   m_Layer: 0
   m_Name: Alma
   m_TagString: Untagged
@@ -282,3 +283,23 @@ MonoBehaviour:
   _lineLength: {x: 0.8, y: 1.5}
   _lineColor: {r: 0.92, g: 0.97, b: 1, a: 0.7}
   _lineBackOffset: 0.6
+--- !u!114 &5211092451648536435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6017265908048156795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4313143a852241b4ae7228513a7dc731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Alma.Player::AlmaGame.Player.AlmaRoarFx
+  _mouthOffset: {x: 0.9, y: 0.4}
+  _arcInterval: 0.07
+  _arcDuration: 0.35
+  _arcColor: {r: 1, g: 0.95, b: 0.8, a: 0.8}
+  _dustPuffs: 8
+  _dustColor: {r: 0.9, g: 0.84, b: 0.72, a: 0.7}
+  _shakeAmplitude: 0.07
+  _shakeDuration: 0.2
