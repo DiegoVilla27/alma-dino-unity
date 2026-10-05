@@ -46,6 +46,7 @@ Ciclo completo: unos 2,15 s si Alma sigue dentro de la zona.
 - **Cabeza letal:** durante el mordisco, desde el cierre de la boca, un rectángulo en la cabeza mata a Alma al tocarla.
 - **Onda de impacto:** al cerrar la boca, su frente avanza por el suelo desde 1,1 unidades del centro hasta 3,3 (2,2 de recorrido) en 0,2 s, frenando al final. Mata en una franja de 1,2 unidades de alto desde el suelo. Entre pasos de física se comprueba todo el tramo recorrido, así que un frente rápido no puede «saltarse» a Alma.
 - **Muerte:** al detectar a Alma en una zona letal se llama a `AlmaMotor2D.Die()` (se ignora si ya está muerta). La secuencia de muerte y la reaparición las gestiona Alma.
+- **Reinicio al morir Alma:** al reaparecer ella (evento `Respawned`), la planta vuelve a reposo (con su tiempo de descanso normal), sin onda ni tinte de aviso.
 
 ## Feedback visual (sin sonido)
 

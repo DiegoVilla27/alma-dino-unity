@@ -207,5 +207,5 @@ Por trampa: un SpriteRenderer, uno o dos `BoxCollider2D` estáticos y, al jugar,
 - Colocarlas en niveles y probarlas.
 - **Fuera de alcance (decisión del 5/10/2026):** erupción de lava ascendente, magma ascendente del jefe final, chorro de fuego de aterrizaje y puerta de llamas no se harán. El juego usa las doce trampas de esta ficha.
 - Gas: la regla del diseño de «quedar 4 u por debajo del checkpoint» al reaparecer no está implementada; hoy vuelve a su altura inicial.
-- Géiser y techo no se reinician al reaparecer Alma (siguen su ciclo).
+- Al reaparecer Alma (evento `Respawned`): el gas vuelve a su altura inicial, el géiser apaga la bola y reinicia su ciclo, y el techo vuelve arriba entero y listo (6/10/2026).
 - El inventario prevé `Assets/_Project/Prefabs/Traps/`; están en `Assets/Prefabs/Level/Hazards/`.

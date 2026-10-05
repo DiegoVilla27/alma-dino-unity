@@ -80,7 +80,25 @@ namespace AlmaGame.Enemies
             }
         }
 
-        private void Start() => _player = FindAnyObjectByType<AlmaMotor2D>();
+        private void OnEnable()
+        {
+            if (_player == null) _player = FindAnyObjectByType<AlmaMotor2D>();
+            if (_player != null) _player.Respawned += ResetToStart;
+        }
+
+        private void OnDisable()
+        {
+            if (_player != null) _player.Respawned -= ResetToStart;
+        }
+
+        // Alma reappeared: back to rest (with its normal rest time), no wave, no warning tint.
+        private void ResetToStart()
+        {
+            _waveStarted = false;
+            _waveVisible = false;
+            foreach (var arc in _arcs) arc.enabled = false;
+            EndCycle();
+        }
 
         private void Update()
         {

@@ -98,13 +98,34 @@ namespace AlmaGame.Enemies
 
         private void OnEnable()
         {
-            if (_player != null) _player.GroundPoundLanded += OnGroundPound;
+            if (_player == null) return;
+            _player.GroundPoundLanded += OnGroundPound;
+            _player.Respawned += ResetToStart;
         }
 
         private void OnDisable()
         {
-            if (_player != null) _player.GroundPoundLanded -= OnGroundPound;
+            if (_player != null)
+            {
+                _player.GroundPoundLanded -= OnGroundPound;
+                _player.Respawned -= ResetToStart;
+            }
             CancelCharge();
+        }
+
+        // Alma reappeared: back to its start position, upright and walking; shards in flight vanish.
+        private void ResetToStart()
+        {
+            CancelCharge();
+            CrystalShard2D.DestroyAll();
+            transform.SetPositionAndRotation(new Vector3(_startX, _groundY, transform.position.z), Quaternion.identity);
+            transform.localScale = _baseScale;
+            _platform.enabled = false;
+            _renderer.color = Color.white;
+            _facing = 1;
+            _renderer.flipX = false;
+            _animator.speed = 1f;
+            Enter(State.Walking);
         }
 
         private void OnDestroy()

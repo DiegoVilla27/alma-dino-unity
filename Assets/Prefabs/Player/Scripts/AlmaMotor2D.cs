@@ -8,8 +8,12 @@ namespace AlmaGame.Player
     {
         [SerializeField] private AlmaMovementSettings _settings;
         [SerializeField] private float _fallRespawnY = -12f;
-        // Unlocked by its altar in world 1; enabled by default until altars exist.
-        [SerializeField] private bool _doubleJumpUnlocked = true;
+        // Abilities are unlocked by altars (and restored from the save by GameProgress). They default
+        // to unlocked so the prefab can be tested in any scene without the progression system.
+        [SerializeField] private bool _doubleJumpUnlocked = false;
+        [SerializeField] private bool _groundPoundUnlocked = false;
+        [SerializeField] private bool _dashUnlocked = false;
+        [SerializeField] private bool _roarUnlocked = false;
 
         private readonly RaycastHit2D[] _groundHits = new RaycastHit2D[8];
         private readonly Collider2D[] _roarHits = new Collider2D[16];
@@ -58,6 +62,29 @@ namespace AlmaGame.Player
         public event System.Action DoubleJumped;
         public bool DoubleJumpUnlocked { get => _doubleJumpUnlocked; set => _doubleJumpUnlocked = value; }
 
+        public bool IsUnlocked(AlmaAbility ability) => ability switch
+        {
+            AlmaAbility.DoubleJump => _doubleJumpUnlocked,
+            AlmaAbility.GroundPound => _groundPoundUnlocked,
+            AlmaAbility.Dash => _dashUnlocked,
+            AlmaAbility.Roar => _roarUnlocked,
+            _ => false,
+        };
+
+        public void SetUnlocked(AlmaAbility ability, bool unlocked)
+        {
+            switch (ability)
+            {
+                case AlmaAbility.DoubleJump: _doubleJumpUnlocked = unlocked; break;
+                case AlmaAbility.GroundPound: _groundPoundUnlocked = unlocked; break;
+                case AlmaAbility.Dash: _dashUnlocked = unlocked; break;
+                case AlmaAbility.Roar: _roarUnlocked = unlocked; break;
+            }
+        }
+
+        // Checkpoints move where Alma reappears; Respawn() places her there.
+        public void SetRespawnPosition(Vector2 position) => _spawnPosition = position;
+
         private void Awake()
         {
             _body = GetComponent<Rigidbody2D>();
@@ -105,7 +132,7 @@ namespace AlmaGame.Player
         public bool RefillAirAbilities(bool dash, bool doubleJump)
         {
             bool refilled = false;
-            if (dash && (!_dashAvailable || Time.time < _dashReadyAt))
+            if (dash && _dashUnlocked && (!_dashAvailable || Time.time < _dashReadyAt))
             {
                 _dashAvailable = true;
                 _dashReadyAt = 0f;
@@ -219,7 +246,7 @@ namespace AlmaGame.Player
         // Wind-up holds Alma still, then she drops straight down until the ground check reports impact.
         private void UpdateGroundPound()
         {
-            if (_groundPoundQueued && !IsGroundPounding && !IsDashing && !IsGrounded)
+            if (_groundPoundQueued && _groundPoundUnlocked && !IsGroundPounding && !IsDashing && !IsGrounded)
             {
                 IsGroundPounding = true;
                 _groundPoundStartedAt = Time.time;
@@ -243,7 +270,7 @@ namespace AlmaGame.Player
         private void UpdateDash()
         {
             if (IsGrounded) _dashAvailable = true;
-            if (_dashQueued && !IsDashing && !IsGroundPounding && !IsGrounded
+            if (_dashQueued && _dashUnlocked && !IsDashing && !IsGroundPounding && !IsGrounded
                 && _dashAvailable && Time.time >= _dashReadyAt)
             {
                 IsDashing = true;
@@ -272,7 +299,7 @@ namespace AlmaGame.Player
 
         private void UpdateRoar()
         {
-            if (_roarQueued && !IsRoaring && !IsDashing && !IsGroundPounding)
+            if (_roarQueued && _roarUnlocked && !IsRoaring && !IsDashing && !IsGroundPounding)
             {
                 IsRoaring = true;
                 _roarStartedAt = Time.time;

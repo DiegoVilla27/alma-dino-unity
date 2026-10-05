@@ -32,6 +32,7 @@ namespace AlmaGame.Level
 
         private readonly Collider2D[] _hits = new Collider2D[4];
         private SpriteRenderer _vent;
+        private AlmaMotor2D _player;
         private Color _ventColor;
         private Transform _fireball;
         private SpriteRenderer _core;
@@ -109,6 +110,27 @@ namespace AlmaGame.Level
 
             if (_showLabel)
                 HazardZone2D.CreatePlaceholderLabel(transform, _label, new Vector3(0f, _ventSize.y * 0.5f + 0.3f, 0f), _vent);
+            _stateStartedAt = Time.time - _restTime + _startDelay;
+            _player = FindAnyObjectByType<AlmaMotor2D>();
+        }
+
+        private void OnEnable()
+        {
+            if (_player != null) _player.Respawned += ResetToStart;
+        }
+
+        private void OnDisable()
+        {
+            if (_player != null) _player.Respawned -= ResetToStart;
+        }
+
+        // Alma reappeared: no fireball in the air; the cycle restarts as on level start.
+        private void ResetToStart()
+        {
+            _fireball.gameObject.SetActive(false);
+            _vent.color = _ventColor;
+            SetSmoke(0f);
+            Enter(State.Rest);
             _stateStartedAt = Time.time - _restTime + _startDelay;
         }
 

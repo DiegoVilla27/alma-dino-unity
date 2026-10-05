@@ -43,6 +43,7 @@ Al terminar el descanso vuelve a patrullar; si Alma sigue en la zona, ataca de n
 - **Muerte por contacto:** en todos los estados, un rectángulo sobre el cuerpo y la cabeza (no sobre las alas) llama a `AlmaMotor2D.Die()`. El rectángulo gira con la inclinación del picado.
 - **Sin interacción con las habilidades:** el Pisotón y el Rugido no le afectan.
 - **Animación:** el aleteo se reproduce siempre; el script solo refleja e inclina el sprite. No toca el Animator.
+- **Reinicio al morir Alma:** al reaparecer ella (evento `Respawned`), vuelve a su posición inicial y a patrullar.
 
 ## Feedback visual (sin sonido)
 

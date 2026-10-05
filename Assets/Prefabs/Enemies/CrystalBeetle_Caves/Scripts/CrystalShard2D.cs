@@ -21,6 +21,13 @@ namespace AlmaGame.Enemies
         private float _dieAt;
         private bool _launched;
 
+        // Clears every shard in flight (e.g. when Alma respawns).
+        public static void DestroyAll()
+        {
+            if (s_container == null) return;
+            for (int i = s_container.childCount - 1; i >= 0; i--) Destroy(s_container.GetChild(i).gameObject);
+        }
+
         public static CrystalShard2D Create(Color color, Material material, int sortingLayerId, int sortingOrder)
         {
             if (s_container == null) s_container = new GameObject("Enemy Projectiles").transform;

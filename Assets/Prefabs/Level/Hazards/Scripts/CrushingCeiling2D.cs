@@ -115,6 +115,29 @@ namespace AlmaGame.Level
             _detectDepth = FloorDistance();
         }
 
+        private void OnEnable()
+        {
+            if (_player != null) _player.Respawned += ResetToStart;
+        }
+
+        private void OnDisable()
+        {
+            if (_player != null) _player.Respawned -= ResetToStart;
+        }
+
+        // Alma reappeared: block back at the top, whole, solid and ready.
+        private void ResetToStart()
+        {
+            SetWarningDust(false);
+            transform.position = _topPosition;
+            transform.localScale = Vector3.one;
+            _renderer.enabled = true;
+            _renderer.color = _baseColor;
+            _zone.IsActive = false;
+            _zone.SolidEnabled = true;
+            Enter(State.Ready);
+        }
+
         // Distance from the block's bottom to the first solid collider below (not Alma), so the
         // detection zone stops at the floor and doesn't reach rooms underneath.
         private float FloorDistance()

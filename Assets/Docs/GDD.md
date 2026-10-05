@@ -1,4 +1,4 @@
-> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama están implementadas Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales), en la escena de práctica `Level_1_1`, y como prefabs la planta carnívora (Mundo 1), el escarabajo de cristal y el murciélago de cueva (Mundo 2), doce trampas y siete piezas de nivel (plataformas, hongo saltarín, piso rompible y espora del Dash), todas con marcador provisional. Su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md), [`Enemies/Plant_Carnivorous_Jungle.md`](Enemies/Plant_Carnivorous_Jungle.md), [`Enemies/CrystalBeetle_Caves.md`](Enemies/CrystalBeetle_Caves.md), [`Enemies/CaveBat_Caves.md`](Enemies/CaveBat_Caves.md), [`LevelPieces/Hazards.md`](LevelPieces/Hazards.md) y [`LevelPieces/Pieces.md`](LevelPieces/Pieces.md); cada elemento nuevo tendrá su propia ficha. Las notas de fases y tiempos son planificación, no estado de producción.
+> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama están implementadas Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales), en la escena de práctica `Level_1_1`, y como prefabs la planta carnívora (Mundo 1), el escarabajo de cristal y el murciélago de cueva (Mundo 2), doce trampas, siete piezas de nivel (plataformas, hongo saltarín, piso rompible y espora del Dash), el nido de checkpoint y los cuatro altares de habilidad, todos con marcador provisional, además del guardado JSON y el reinicio de enemigos y trampas al reaparecer. Su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md), [`Enemies/Plant_Carnivorous_Jungle.md`](Enemies/Plant_Carnivorous_Jungle.md), [`Enemies/CrystalBeetle_Caves.md`](Enemies/CrystalBeetle_Caves.md), [`Enemies/CaveBat_Caves.md`](Enemies/CaveBat_Caves.md), [`LevelPieces/Hazards.md`](LevelPieces/Hazards.md), [`LevelPieces/Pieces.md`](LevelPieces/Pieces.md), [`LevelPieces/Progression.md`](LevelPieces/Progression.md) y [`Systems/SaveAndProgress.md`](Systems/SaveAndProgress.md); cada elemento nuevo tendrá su propia ficha. Las notas de fases y tiempos son planificación, no estado de producción.
 
 ---
 
@@ -298,6 +298,7 @@ HUD minimalista y diegético.
 
 - Nidos abandonados con brasas. Al pasar por encima, las brasas se encienden con una llama dorada y guardan la posición.
 - Sin texto de "Checkpoint guardado". El feedback es visual.
+- **Implementado (6/10/2026):** brasas tenues que se encienden con una ráfaga y una llama dorada; solo arde el último nido tocado. Ver [Progresión](LevelPieces/Progression.md).
 
 ### 8.4. Juice (feedback adicional)
 
@@ -331,6 +332,7 @@ Ambos tienen herramientas nativas para plataformas 2D, tilemaps, luces 2D y anim
 - **Autoguardado** al pasar un checkpoint.
 - **Datos guardados:** nivel actual, checkpoint, huevos rescatados, habilidades desbloqueadas, tiempo jugado.
 - **Formato:** JSON local (sin servidor, sin cuenta).
+- **Implementado (6/10/2026):** `alma_save.json` en `persistentDataPath`, con autoguardado en nidos y altares; detalle en [Guardado y progreso](Systems/SaveAndProgress.md).
 
 ### 9.4. Controles
 

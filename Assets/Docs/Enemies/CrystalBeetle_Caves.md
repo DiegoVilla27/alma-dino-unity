@@ -55,6 +55,7 @@ Requisitos: una sola Alma en la escena (la busca en `Awake` con `FindAnyObjectBy
 - **El cristal:** mata a Alma al tocarla y se rompe al chocar con cualquier colisionador sólido (suelo, paredes, Alma) o a los 3 s, soltando 6 trocitos de cristal. El movimiento se comprueba con un barrido circular (radio 0,15 u) para que no atraviese nada.
 - **Se cancela** si Alma sale del rango durante el aviso o si un Pisotón lo voltea; el fragmento a medio cargar desaparece. Volteado o recuperándose no dispara.
 - **Desactivable** por instancia con `Can Shoot` (por ejemplo, en pasillos de techo bajo donde solo deba patrullar).
+- **Reinicio al morir Alma:** al reaparecer ella (evento `Respawned`), vuelve a su posición inicial, de pie, mirando a la derecha y caminando; se cancela el cristal que estuviera cargando y desaparecen todos los cristales en vuelo.
 
 ## Feedback visual (sin sonido)
 
@@ -138,7 +139,6 @@ Un SpriteRenderer, un Animator y un `BoxCollider2D` (creado en `Awake`, activo s
 - **No sigue el terreno:** se mueve en línea recta a la altura inicial. Colocar A–B sobre suelo plano; no detecta bordes ni paredes («camina cuando tiene apoyo» del diseño original no está implementado).
 - Indicador del tiempo restante patas arriba (el diseño mencionaba una barra; hoy solo hay aviso en los últimos 0,8 s).
 - Efectos: destello en el caparazón, onda sísmica azul al voltearse.
-- Restaurar su estado cuando Alma muere o reaparece (hoy sigue con su ciclo).
 - Busca a Alma una sola vez en `Awake`: si Alma se crea más tarde, no escuchará su Pisotón ni la detectará para disparar.
 - El disparo no comprueba la línea de visión: dispara aunque haya una pared entre ambos (el cristal se romperá contra ella).
 - Equilibrar disparo y niveles: en pasillos estrechos de techo bajo (Level 2-3) puede ser excesivo; usar `Can Shoot` donde haga falta.

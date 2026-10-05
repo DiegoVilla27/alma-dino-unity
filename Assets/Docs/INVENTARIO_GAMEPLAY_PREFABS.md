@@ -4,7 +4,7 @@ Fecha de revisión: 4 de octubre de 2026.
 
 Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`), la planta carnívora (`Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/`), el escarabajo de cristal (`Assets/Prefabs/Enemies/CrystalBeetle_Caves/`), el murciélago de cueva (`Assets/Prefabs/Enemies/CaveBat_Caves/`), doce trampas (`Assets/Prefabs/Level/Hazards/`) y la escena de práctica `Level_1_1`. Cada elemento implementado tiene su propia ficha en `Docs/` con valores y configuración reales. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
 
-**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma), de las que 4 trampas están descartadas; 23 prefabs implementados en esta rama (más los prefabs base de trampas y de plataformas que se desmoronan): Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md); y el escarabajo de cristal, en `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab`, ver [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md); y el murciélago de cueva, en `Assets/Prefabs/Enemies/CaveBat_Caves/CaveBat_Caves.prefab`, ver [Murciélago de cueva](Enemies/CaveBat_Caves.md); y doce trampas (nueve estáticas, gas tóxico ascendente, géiser y techo aplastante) en `Assets/Prefabs/Level/Hazards/`, con marcador provisional, ver [Zonas de peligro](LevelPieces/Hazards.md); y siete piezas de nivel (plataforma atravesable, tres plataformas que se desmoronan, hongo saltarín, piso rompible y espora del Dash) en `Assets/Prefabs/Level/Pieces/`, ver [Piezas de nivel](LevelPieces/Pieces.md). Las carpetas y los nombres indicados son rutas propuestas.
+**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma), de las que 4 trampas están descartadas; 28 prefabs implementados en esta rama (más los prefabs base de trampas, plataformas que se desmoronan y altares, y `System_GameProgress`): Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md); y el escarabajo de cristal, en `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab`, ver [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md); y el murciélago de cueva, en `Assets/Prefabs/Enemies/CaveBat_Caves/CaveBat_Caves.prefab`, ver [Murciélago de cueva](Enemies/CaveBat_Caves.md); y doce trampas (nueve estáticas, gas tóxico ascendente, géiser y techo aplastante) en `Assets/Prefabs/Level/Hazards/`, con marcador provisional, ver [Zonas de peligro](LevelPieces/Hazards.md); y siete piezas de nivel (plataforma atravesable, tres plataformas que se desmoronan, hongo saltarín, piso rompible y espora del Dash) en `Assets/Prefabs/Level/Pieces/`, ver [Piezas de nivel](LevelPieces/Pieces.md); y el nido de checkpoint y los cuatro altares de habilidad en `Assets/Prefabs/Level/Progression/`, ver [Progresión](LevelPieces/Progression.md). El guardado y el gestor de progreso están en `Assets/Systems/`, ver [Guardado y progreso](Systems/SaveAndProgress.md). Las carpetas y los nombres indicados son rutas propuestas.
 
 ## Reglas de daño y funcionamiento
 
@@ -900,6 +900,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 31. Altar de Doble Salto
 
+- **Estado:** implementado con marcador provisional (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_DoubleJump.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_AbilityAltar_DoubleJump.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_DoubleJump.prefab`.
 - **Implementación:** `AbilityRelic2D`.
@@ -912,6 +913,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 32. Altar de Pisotón
 
+- **Estado:** implementado con marcador provisional (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_GroundPound.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_AbilityAltar_GroundPound.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_GroundPound.prefab`.
 - **Implementación:** `AbilityRelic2D`.
@@ -924,6 +926,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 33. Altar de Dash
 
+- **Estado:** implementado con marcador provisional (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_AirDash.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_AbilityAltar_AirDash.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_AirDash.prefab`.
 - **Implementación:** `AbilityRelic2D`.
@@ -936,6 +939,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 34. Altar de Rugido
 
+- **Estado:** implementado con marcador provisional (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_Roar.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_AbilityAltar_Roar.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_Roar.prefab`.
 - **Implementación:** `AbilityRelic2D`.
@@ -948,6 +952,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 35. Nido / checkpoint
 
+- **Estado:** implementado con marcador provisional (script `CheckpointNest2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_CheckpointNest_Universal.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_CheckpointNest_Universal.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_CheckpointNest_Universal.prefab`.
 - **Implementación:** `Checkpoint2D`.

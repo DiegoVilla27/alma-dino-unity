@@ -63,6 +63,25 @@ namespace AlmaGame.Enemies
             _player = FindAnyObjectByType<AlmaMotor2D>();
         }
 
+        private void OnEnable()
+        {
+            if (_player != null) _player.Respawned += ResetToStart;
+        }
+
+        private void OnDisable()
+        {
+            if (_player != null) _player.Respawned -= ResetToStart;
+        }
+
+        // Alma reappeared: back to its start position, patrolling.
+        private void ResetToStart()
+        {
+            transform.SetPositionAndRotation(new Vector3(_startX, _patrolY, transform.position.z), Quaternion.identity);
+            _renderer.color = Color.white;
+            SetFacing(1);
+            Enter(State.Patrol);
+        }
+
         private void Update()
         {
             float elapsed = Time.time - _stateStartedAt;
