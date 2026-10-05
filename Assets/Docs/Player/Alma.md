@@ -27,6 +27,7 @@ El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de fu
 | `Scripts/AlmaRoarFx.cs` | Efectos del Rugido: ondas de sonido en arco, polvo empujado y temblor de cámara. |
 | `Scripts/AlmaDeathFx.cs` | Secuencia de muerte y reaparición (golpe, «puf», luz que viaja al punto de reaparición y reaparición con rebote). |
 | `Scripts/AlmaDoubleJumpFx.cs` | Efectos del doble salto: anillo de aire, bocanadas y estirón del sprite. |
+| `Scripts/AlmaFxRoot.cs` | Agrupa en un único objeto de escena, «Alma FX», los efectos que deben quedarse fijos en el mundo (ondas, anillos, fantasmas, arcos y ráfagas). Se crea en tiempo de ejecución y se destruye con Alma. |
 | `Scripts/IRoarTarget.cs` | Contrato para objetos que reaccionan al Rugido (`ResonatesWithRoar`, `ReceiveRoar(origin, direction)`). |
 | `Scripts/AlmaMovementSettings.cs` | ScriptableObject con todos los valores de movimiento y habilidades. |
 | `Scripts/AlmaCameraFollow.cs` | Seguimiento suave, anticipación horizontal según velocidad y `Shake(amplitud, duración)` para temblores breves. |

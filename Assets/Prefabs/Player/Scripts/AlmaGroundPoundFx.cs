@@ -42,6 +42,7 @@ namespace AlmaGame.Player
 
             // The ring lives in world space so it stays where Alma landed if she runs off.
             var waveObject = new GameObject("GroundPoundWave");
+            waveObject.transform.SetParent(AlmaFxRoot.For(gameObject), false);
             _wave = waveObject.AddComponent<SpriteRenderer>();
             _wave.sprite = RingSprite();
             _wave.sortingLayerID = sprite.sortingLayerID;

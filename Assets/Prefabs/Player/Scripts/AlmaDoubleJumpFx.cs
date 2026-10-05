@@ -43,6 +43,7 @@ namespace AlmaGame.Player
 
             // The ring stays in the air where the jump happened.
             _ring = new GameObject("DoubleJumpRing").AddComponent<SpriteRenderer>();
+            _ring.transform.SetParent(AlmaFxRoot.For(gameObject), false);
             _ring.sprite = AlmaGroundPoundFx.RingSprite();
             _ring.sortingLayerID = sprite.sortingLayerID;
             _ring.sortingOrder = sprite.sortingOrder + 1;

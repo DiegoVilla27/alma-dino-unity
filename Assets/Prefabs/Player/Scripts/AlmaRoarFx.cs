@@ -49,9 +49,11 @@ namespace AlmaGame.Player
 
             // Arcs live in world space: each stays where it left Alma's mouth.
             Sprite arcSprite = ArcSprite(_motor.Settings.RoarHalfAngle);
+            Transform fxRoot = AlmaFxRoot.For(gameObject);
             for (int i = 0; i < ArcCount; i++)
             {
                 var arc = new GameObject("RoarArc").AddComponent<SpriteRenderer>();
+                arc.transform.SetParent(fxRoot, false);
                 arc.sprite = arcSprite;
                 arc.sharedMaterial = sprite.sharedMaterial;
                 arc.sortingLayerID = sprite.sortingLayerID;

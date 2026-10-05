@@ -81,13 +81,15 @@ namespace AlmaGame.Player
             _orbTrail.Play();
 
             // Bursts and the ring live in world space so they stay where they happened.
-            _dustBurst = CreateParticles("DeathDust", null, _materials[0], _dustColor,
+            Transform fxRoot = AlmaFxRoot.For(gameObject);
+            _dustBurst = CreateParticles("DeathDust", fxRoot, _materials[0], _dustColor,
                 new Vector2(0.4f, 0.6f), new Vector2(1f, 2.5f), new Vector2(0.4f, 0.7f), 1.5f, -0.1f, 16, layer, order + 1);
             _materials[1] = new Material(spriteMaterial) { mainTexture = StarTexture() };
-            _starBurst = CreateParticles("DeathStars", null, _materials[1], _starColor,
+            _starBurst = CreateParticles("DeathStars", fxRoot, _materials[1], _starColor,
                 new Vector2(0.45f, 0.7f), new Vector2(2f, 3.5f), new Vector2(0.25f, 0.4f), 0f, 0.4f, 12, layer, order + 2);
 
             _ring = new GameObject("RespawnRing").AddComponent<SpriteRenderer>();
+            _ring.transform.SetParent(fxRoot, false);
             _ring.sprite = AlmaGroundPoundFx.RingSprite();
             _ring.sortingLayerID = layer;
             _ring.sortingOrder = order + 1;

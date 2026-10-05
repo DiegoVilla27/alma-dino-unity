@@ -38,11 +38,13 @@ namespace AlmaGame.Player
             _sprite = GetComponent<SpriteRenderer>();
 
             // Afterimages live in world space so they stay where Alma left them.
+            Transform fxRoot = AlmaFxRoot.For(gameObject);
             _ghosts = new SpriteRenderer[_ghostCount];
             _ghostStartedAt = new float[_ghostCount];
             for (int i = 0; i < _ghostCount; i++)
             {
                 var ghost = new GameObject("DashGhost").AddComponent<SpriteRenderer>();
+                ghost.transform.SetParent(fxRoot, false);
                 ghost.sharedMaterial = _sprite.sharedMaterial;
                 ghost.sortingLayerID = _sprite.sortingLayerID;
                 ghost.sortingOrder = _sprite.sortingOrder - 1;
