@@ -1,6 +1,6 @@
 # Alma — diseño del personaje jugable
 
-**Estado (4 de octubre de 2026):** Alma está implementada en Unity 6000.6.0f1 con locomoción, salto variable, doble salto, Pisotón, Dash aéreo y Rugido. Las seis hojas de animación (Idle, Run, Jump, GroundPound, Dash y Roar) están conectadas en un único Animator. Faltan el desbloqueo por altares, las esporas, los receptores del Rugido, mando, controles táctiles, Dead/Respawn y el clip propio de doble salto (ver [Pendiente](#pendiente)).
+**Estado (5 de octubre de 2026):** Alma está implementada en Unity 6000.6.0f1 con locomoción, salto variable, doble salto, Pisotón, Dash aéreo y Rugido. Las seis hojas de animación (Idle, Run, Jump, GroundPound, Dash y Roar) están conectadas en un único Animator. Correr, Pisotón, Dash, Rugido y muerte/reaparición tienen efectos visuales generados por código. Faltan el desbloqueo por altares, las esporas, los receptores del Rugido, mando, controles táctiles, checkpoints, peligros y el clip propio de doble salto (ver [Pendiente](#pendiente)).
 
 ## Implementación actual y prueba
 
@@ -25,6 +25,7 @@ El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de fu
 | `Scripts/AlmaGroundPoundFx.cs` | Efectos del impacto del Pisotón: onda en el suelo, ráfaga de polvo y temblor de cámara. |
 | `Scripts/AlmaDashFx.cs` | Efectos del Dash: siluetas fantasma y líneas de viento. |
 | `Scripts/AlmaRoarFx.cs` | Efectos del Rugido: ondas de sonido en arco, polvo empujado y temblor de cámara. |
+| `Scripts/AlmaDeathFx.cs` | Secuencia de muerte y reaparición (golpe, «puf», luz que viaja al punto de reaparición y reaparición con rebote). |
 | `Scripts/IRoarTarget.cs` | Contrato para objetos que reaccionan al Rugido (`ResonatesWithRoar`, `ReceiveRoar(origin, direction)`). |
 | `Scripts/AlmaMovementSettings.cs` | ScriptableObject con todos los valores de movimiento y habilidades. |
 | `Scripts/AlmaCameraFollow.cs` | Seguimiento suave, anticipación horizontal según velocidad y `Shake(amplitud, duración)` para temblores breves. |
@@ -45,6 +46,8 @@ El cuerpo usa Rigidbody2D con interpolación, colisión continua, rotación bloq
 - **Rugido.** Se puede usar en suelo y en el aire, fuera del Dash y del Pisotón. Dura 0,67 s, lo mismo que su animación. Durante ese tiempo fija la orientación y no permite otro Rugido. En el suelo Alma se frena y no puede caminar hasta que termina; en el aire conserva el control horizontal (Rugido aéreo). Saltar sí está permitido. Al iniciarse lanza un único `Physics2D.OverlapCircle` (incluye triggers) desde el centro del cuerpo. Cada objeto con `IRoarTarget` cuyo punto más cercano esté dentro del cono frontal (45° de semiancho) recibe `ReceiveRoar` una sola vez por Rugido. El alcance es de 3 m, o de 8 m si el objeto declara `ResonatesWithRoar` (campanas). No tiene cooldown aparte de su duración.
 
 Todas las acciones se cancelan al reaparecer o al desactivar el componente.
+
+- **Muerte.** `Die()` es el punto de entrada para peligros y caídas (hoy solo la caída por debajo de Y = −12). Activa `IsDead`, cancela habilidades, desactiva la física del cuerpo (`Rigidbody2D.simulated = false`) e ignora la entrada, y lanza el evento `Died`. El control vuelve con `Respawn()`, que reactiva la física y coloca a Alma en `RespawnPosition` (hoy la posición inicial; con checkpoints será el último). Si nadie escucha `Died`, reaparece al instante.
 
 **Polvo al correr.** `AlmaRunDust` emite 2,5 partículas por metro recorrido mientras Alma está en el suelo y supera el 50 % de `MoveSpeed`. Las partículas (0,35–0,6 unidades) salen a la altura de los pies, 0,35 unidades por detrás del centro de Alma, derivan hacia atrás y un poco hacia arriba, crecen y se desvanecen en 0,4–0,6 s. Color beige (0,9; 0,84; 0,72) con 75 % de opacidad, dibujadas detrás de Alma. Se ajusta en el Inspector del componente (`Min Speed Ratio`, `Puffs Per Meter`, `Size Range`, `Color`, `Back Offset`). Al dejar de correr se dejan de emitir partículas y las existentes terminan solas.
 
@@ -69,7 +72,17 @@ Todo se ajusta en el Inspector del componente. Coste: hasta 5 sprites y un siste
 - **Polvo empujado (solo en el suelo):** 8 partículas delante de los pies que salen hacia delante a 2–4 m/s y algo hacia arriba, y se desvanecen en 0,4–0,6 s.
 - **Temblor de cámara:** hasta 0,07 unidades durante 0,2 s, más suave que el del Pisotón.
 
-Todo se ajusta en el Inspector del componente. Coste: 3 sprites y un sistema de partículas (máx. 10), sin dibujar nada entre rugidos. La resonancia de 8 m todavía no tiene efecto visual propio; se añadirá con los receptores.
+Todo se ajusta en el Inspector del componente. Coste: 3 sprites y un sistema de partículas (máx. 10), sin dibujar nada entre rugidos.
+
+**Muerte y reaparición.** `AlmaDeathFx` escucha `Died` y reproduce, sin sprites nuevos (≈1,1–1,6 s según la distancia):
+
+1. **Congelación (0,08 s):** el Animator se detiene y la cámara tiembla (0,15 unidades, 0,2 s).
+2. **Golpe (0,15 s):** Alma se tinta de rojo claro (1; 0,55; 0,55) y se aplasta a 120 % × 75 %.
+3. **«Puf» (0,12 s):** se estrecha hasta desaparecer y estallan 12 nubes de polvo y 5 estrellitas doradas.
+4. **Luz (0,45–1 s):** una bolita de luz cálida con estela vuela en curva hasta `RespawnPosition` a ~14 m/s. Mueve el transform de Alma, así que la cámara la sigue. Si Alma cayó por un hueco, la luz sale desde el borde inferior de la pantalla.
+5. **Reaparición (0,22 s):** anillo de luz, 3 estrellitas y Alma crece de 0 a 115 % y vuelve a 100 %. Al terminar se llama a `Respawn()`.
+
+Las texturas (estrella, luz, polvo y anillo) se generan por código y se comparten con los otros efectos. Coste: 3 sprites y 3 sistemas de partículas pequeños, visibles solo durante la secuencia. Todo se ajusta en el Inspector del componente. La resonancia de 8 m todavía no tiene efecto visual propio; se añadirá con los receptores.
 
 ### Valores en `AlmaMovement.asset`
 
@@ -121,7 +134,7 @@ El prefab usa `Animations/Idle/Player_Idle_Sheet_0.controller`. Todas las transi
 
 ### Pruebas y escena
 
-La escena incluye un suelo y tres plataformas de práctica con desniveles alcanzables. Si Alma cae por debajo de Y = -12, reaparece en su posición inicial.
+La escena incluye un suelo y tres plataformas de práctica con desniveles alcanzables. Si Alma cae por debajo de Y = -12, muere y reaparece en su posición inicial tras la secuencia de muerte.
 
 Las ocho pruebas se ejecutan en Test Runner → PlayMode → `AlmaMovementTests`. Cubren carrera/frenado/orientación, estados animados, salto largo y corto, buffer al aterrizar, coyote time, doble salto (una sola vez por estancia en el aire), paredes y reaparición. Las pruebas de movimiento base desactivan el doble salto en su preparación. Pisotón, Dash y Rugido todavía no tienen pruebas automáticas.
 
@@ -133,8 +146,8 @@ Las ocho pruebas se ejecutan en Test Runner → PlayMode → `AlmaMovementTests`
 - Receptores del Rugido (rocas, campanas, interruptores, enemigos) implementando `IRoarTarget`, efecto visual de la resonancia (8 m) al alcanzar una campana.
 - Rotura de suelos y activación de mecanismos con el Pisotón (pueden suscribirse a `GroundPoundLanded`).
 - Mando y controles táctiles.
-- Clips propios de DoubleJump, Jump/Fall separados y Dead/Respawn. Indicador diegético de Dash disponible (plumas del lomo, requiere arte).
-- Checkpoints y peligros.
+- Clips propios de DoubleJump y Jump/Fall separados (Dead/Respawn se resolvió por código). Indicador diegético de Dash disponible (plumas del lomo, requiere arte).
+- Checkpoints (deben actualizar `RespawnPosition`) y peligros (deben llamar a `Die()`). Un destello blanco puro al morir necesitaría un shader propio; hoy se usa un tinte rojo claro.
 
 Alma es una madre dinosaurio ágil. Su control debe permitir saltos precisos y encadenar habilidades sin retrasos artificiales. No tiene puntos de vida: al tocar un peligro activo reaparece en el último checkpoint. El juego no usa música ni efectos de sonido; cada acción necesita señales visuales claras.
 
@@ -186,7 +199,7 @@ El Dash mantiene su dirección durante todo el impulso. El Pisotón requiere est
 
 ## Animaciones y arte
 
-Las [láminas de diseño y poses](../../Art/Player/) son referencias conceptuales. La implementación actual usa seis hojas de 1024×512 con ocho frames de 256×256 y 80 píxeles por unidad, en `Assets/Prefabs/Player/Animations/`: Idle, Run, Jump, GroundPound, Dash y Roar. Siguen pendientes DoubleJump, Fall separado de Jump, Dead/Respawn y Rescue. Las hojas nuevas deben mantener ese mismo formato.
+Las [láminas de diseño y poses](../../Art/Player/) son referencias conceptuales. La implementación actual usa seis hojas de 1024×512 con ocho frames de 256×256 y 80 píxeles por unidad, en `Assets/Prefabs/Player/Animations/`: Idle, Run, Jump, GroundPound, Dash y Roar. Siguen pendientes DoubleJump, Fall separado de Jump y Rescue; Dead/Respawn se hace por código con el sprite existente (`AlmaDeathFx`). Las hojas nuevas deben mantener ese mismo formato.
 
 | Acción visual | Requisito para la nueva producción |
 | --- | --- |

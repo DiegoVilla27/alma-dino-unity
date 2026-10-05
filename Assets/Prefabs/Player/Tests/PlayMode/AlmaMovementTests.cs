@@ -180,6 +180,11 @@ public sealed class AlmaMovementTests
         _body.linearVelocity = new Vector2(4f, -19f);
         yield return _fixed;
         yield return _fixed;
+        Assert.That(_motor.IsDead, Is.True, "Falling out of the level should start the death sequence.");
+        float timeout = Time.time + 3f;
+        while (_motor.IsDead && Time.time < timeout) yield return null;
+        Assert.That(_motor.IsDead, Is.False, "The death sequence should end in a respawn.");
+        yield return _fixed;
         Assert.That(_body.position.x, Is.EqualTo(1000f).Within(0.05f));
         Assert.That(_body.position.y, Is.GreaterThan(1f));
         Assert.That(Mathf.Abs(_body.linearVelocity.x), Is.LessThan(0.05f));

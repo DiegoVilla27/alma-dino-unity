@@ -140,8 +140,8 @@ namespace AlmaGame.Player
             if (_dustMaterial != null) Destroy(_dustMaterial);
         }
 
-        // Soft ring, one world unit wide, generated once and shared by every instance.
-        private static Sprite RingSprite()
+        // Soft ring, one world unit wide, generated once and shared by every instance (also used on respawn).
+        internal static Sprite RingSprite()
         {
             if (s_ringSprite != null) return s_ringSprite;
             const int size = 64;

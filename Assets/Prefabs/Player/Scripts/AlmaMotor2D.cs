@@ -44,6 +44,10 @@ namespace AlmaGame.Player
         public event System.Action GroundPoundLanded;
         public bool IsDashing { get; private set; }
         public bool IsRoaring { get; private set; }
+        public bool IsDead { get; private set; }
+        public Vector2 RespawnPosition => _spawnPosition;
+        // Raised when Alma dies; a listener (AlmaDeathFx) plays the sequence and then calls Respawn().
+        public event System.Action Died;
         public bool DoubleJumpUnlocked { get => _doubleJumpUnlocked; set => _doubleJumpUnlocked = value; }
 
         private void Awake()
@@ -64,6 +68,7 @@ namespace AlmaGame.Player
         // A quick press/release between physics steps still produces one jump.
         public void SetInput(float move, bool jumpPressed, bool jumpHeld)
         {
+            if (IsDead) return;
             _moveInput = Mathf.Clamp(move, -1f, 1f);
             _jumpHeld = jumpHeld;
             if (jumpPressed)
@@ -86,6 +91,7 @@ namespace AlmaGame.Player
 
         private void FixedUpdate()
         {
+            if (IsDead) return;
             RefreshGrounded();
             if (IsGrounded) _airJumpAvailable = true;
             Vector2 velocity = _body.linearVelocity;
@@ -133,7 +139,7 @@ namespace AlmaGame.Player
             UpdateDash();
             UpdateRoar();
 
-            if (_body.position.y < _fallRespawnY) Respawn();
+            if (_body.position.y < _fallRespawnY) Die();
         }
 
         private void RefreshGrounded()
@@ -245,8 +251,31 @@ namespace AlmaGame.Player
             }
         }
 
+        // Lethal hazards and falling out of the level call this. Physics and control stop until
+        // Respawn(); with no Died listener on the prefab, Alma respawns immediately.
+        public void Die()
+        {
+            if (IsDead) return;
+            if (Died == null)
+            {
+                Respawn();
+                return;
+            }
+            IsDead = true;
+            _body.linearVelocity = Vector2.zero;
+            _body.simulated = false;
+            _moveInput = 0f;
+            _jumpHeld = _jumpQueued = false;
+            _groundPoundQueued = IsGroundPounding = false;
+            _dashQueued = IsDashing = false;
+            _roarQueued = IsRoaring = false;
+            Died.Invoke();
+        }
+
         public void Respawn()
         {
+            IsDead = false;
+            _body.simulated = true;
             _body.position = _spawnPosition;
             _body.linearVelocity = Vector2.zero;
             _body.angularVelocity = 0f;
