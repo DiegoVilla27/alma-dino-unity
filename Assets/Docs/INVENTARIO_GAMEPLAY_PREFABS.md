@@ -2,9 +2,9 @@
 
 Fecha de revisión: 4 de octubre de 2026.
 
-Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`), la planta carnívora (`Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/`) y la escena de práctica `Level_1_1`. Cada elemento implementado tiene su propia ficha en `Docs/` con valores y configuración reales. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
+Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`), la planta carnívora (`Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/`), el escarabajo de cristal (`Assets/Prefabs/Enemies/CrystalBeetle_Caves/`) y la escena de práctica `Level_1_1`. Cada elemento implementado tiene su propia ficha en `Docs/` con valores y configuración reales. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
 
-**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma); 2 prefabs implementados en esta rama: Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous_Jungle.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md). Las carpetas y los nombres indicados son rutas propuestas.
+**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma); 3 prefabs implementados en esta rama: Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous_Jungle.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md); y el escarabajo de cristal, en `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab`, ver [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md). Las carpetas y los nombres indicados son rutas propuestas.
 
 ## Reglas de daño y funcionamiento
 
@@ -141,14 +141,15 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 2. Escarabajo de cristal
 
+- **Estado:** implementado. Ficha con valores reales: [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md).
 - **Archivo definitivo:** `Enemy_CrystalBeetle_Caves.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Enemies/Enemy_CrystalBeetle_Caves.prefab`.
+- **Ruta real:** `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab` (nombre y ruta propuestos: `Assets/_Project/Prefabs/Enemies/Enemy_CrystalBeetle_Caves.prefab`).
 - **Implementación:** `CrystalBeetle2D`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Enemigo terrestre que patrulla entre límites.
-- **Cómo funciona:** Camina cuando tiene apoyo; la onda del Pisotón lo voltea y suspende su peligro durante un tiempo.
+- **Cómo funciona:** Patrulla entre dos puntos reflejándose en cada extremo; tocarlo (también saltarle encima) mata a Alma. Un Pisotón a 2 m o menos lo voltea con un salto y media vuelta; patas arriba es inofensivo, su vientre es plataforma y su caminata se pausa. Tras 3,5 s tiembla, se da la vuelta y sigue patrullando. Si Alma está a 5 u o menos, se detiene, se gira hacia ella y le lanza un cristal en arco cada 2,5 s (con 0,5 s de aviso). El Rugido no le afecta.
 - **Daño a Alma:** Letal cuando el peligro está activo: muerte y reaparición en el último checkpoint. No resta una cantidad de HP.
-- **Valores y propiedades:** CrystalEnemyConfig.asset: velocidad 0.7 unidades/s; volteado 3.5 s; impulso al voltearse 1.5 unidades/s. Límites de patrulla en la instancia.
+- **Valores y propiedades:** Implementado (en el componente, sin asset de configuración): velocidad 2 u/s; disparo cada 2.5 s en un radio de 5 u; volteado 3.5 s; radio del Pisotón 2 m; salto de volteo de 0.6 u en 0.4 s; patrulla A–B en cada instancia. Prototipo: CrystalEnemyConfig.asset con impulso al voltearse de 1.5 u/s.
 - **Conexiones, variantes o límites:** IsDangerous es falso mientras está volteado. El Pisotón lo neutraliza temporalmente; no utiliza barra de vida.
 
 ### 3. Murciélago de cueva

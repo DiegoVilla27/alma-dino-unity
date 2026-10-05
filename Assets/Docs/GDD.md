@@ -1,4 +1,4 @@
-> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama están implementadas Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales), en la escena de práctica `Level_1_1`, y la planta carnívora del Mundo 1 como prefab. Su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md) y [`Enemies/Plant_Carnivorous_Jungle.md`](Enemies/Plant_Carnivorous_Jungle.md); cada elemento nuevo tendrá su propia ficha. Las notas de fases y tiempos son planificación, no estado de producción.
+> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama están implementadas Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales), en la escena de práctica `Level_1_1`, y como prefabs la planta carnívora (Mundo 1) y el escarabajo de cristal (Mundo 2). Su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md), [`Enemies/Plant_Carnivorous_Jungle.md`](Enemies/Plant_Carnivorous_Jungle.md) y [`Enemies/CrystalBeetle_Caves.md`](Enemies/CrystalBeetle_Caves.md); cada elemento nuevo tendrá su propia ficha. Las notas de fases y tiempos son planificación, no estado de producción.
 
 ---
 
@@ -164,7 +164,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 |---|---|---|
 | **5** | Introducir | Alma cae en un pozo sin salida. Un suelo de estalagmitas agrietadas solo cede ante un impacto vertical. Desbloquea el Pisotón. |
 | **6** | Practicar | Balancines de piedra. Al caer con fuerza en un extremo, el otro catapulta un bloque que abre una compuerta. |
-| **7** | Complicar | Bichos de cristal con caparazón reflectante. Saltar sobre ellos hace daño; solo el Pisotón los voltea. |
+| **7** | Complicar | Bichos de cristal con caparazón reflectante. Saltar sobre ellos hace daño; solo el Pisotón los voltea (implementado: [escarabajo de cristal](Enemies/CrystalBeetle_Caves.md), que además lanza cristales en arco a corta distancia). |
 | **8** | Evaluar + Rescate | Laberinto resonante con techo móvil de estalactitas. **Huevo 2 (Azul)**. |
 
 **Jefe 2 — Armadillo Prehistórico**

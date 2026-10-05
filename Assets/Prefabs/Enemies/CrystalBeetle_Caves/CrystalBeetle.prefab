@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7251265468432712737}
   - component: {fileID: 8063786286863063515}
   - component: {fileID: 2033359160616301257}
+  - component: {fileID: 493810620815659246}
   m_Layer: 0
   m_Name: CrystalBeetle
   m_TagString: Untagged
@@ -115,3 +116,42 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &493810620815659246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2491483516419422022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d1a9882dd8414788ecdbdf71458706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Enemies.CrystalBeetle2D
+  _pointA: -2
+  _pointB: 2
+  _walkSpeed: 2
+  _turnPause: 0.3
+  _bodyOffset: {x: 0.05, y: -0.2}
+  _bodySize: {x: 2.4, y: 2}
+  _flipRadius: 2
+  _flipMaxHeight: 1.5
+  _flippedTime: 3.5
+  _flipDuration: 0.4
+  _flipHopHeight: 0.6
+  _flipKnockback: 0.4
+  _flippedYOffset: -0.1
+  _warningTime: 0.8
+  _warningTint: {r: 1, g: 0.7, b: 0.7, a: 1}
+  _canShoot: 1
+  _shootRange: 5
+  _shootMinHeight: -1
+  _shotInterval: 2.5
+  _chargeTime: 0.5
+  _shardOrigin: {x: 0.1, y: 1.1}
+  _shardSpeed: 7
+  _shardGravity: 15
+  _shardLifetime: 3
+  _shardColor: {r: 0.6, g: 0.95, b: 1, a: 1}
+  _platformOffset: {x: 0.03, y: -0.36}
+  _platformSize: {x: 2.5, y: 1.6}
