@@ -90,6 +90,18 @@ namespace AlmaGame.Level
             return system;
         }
 
+        // Unity forbids resizing sprites/colliders inside OnValidate (SendMessage warning), so editor
+        // layout updates run on the next editor tick instead. Runtime layout is applied in Awake.
+        public static void DeferInEditor(Object owner, System.Action action)
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.delayCall += () =>
+            {
+                if (owner != null) action();
+            };
+#endif
+        }
+
         public static void SetSizeOverLifetime(ParticleSystem system, float start, float end)
         {
             var size = system.sizeOverLifetime;

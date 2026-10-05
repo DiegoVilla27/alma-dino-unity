@@ -41,7 +41,7 @@ Todo está en `Assets/Prefabs/Level/Hazards/`:
 | `Scripts/FireGeyser2D.cs` | Lógica del géiser volcánico. |
 | `Scripts/CrushingCeiling2D.cs` | Lógica del techo aplastante. |
 | `Trap_RisingToxicGas_Swamp.prefab`, `Trap_FireGeyser_Volcano.prefab`, `Trap_CrushingCeiling_Caves.prefab` | Trampas dinámicas: prefabs independientes (no variantes) con su script propio; el gas y el techo usan además `HazardZone2D`. |
-| `Sprites/Hazard_Placeholder.png` | Cuadrado blanco de 4×4 px (1 × 1 unidad, malla *Full Rect*) que se tiñe con el color de cada trampa. |
+| `../Shared/Sprites/Level_Placeholder.png` | Cuadrado blanco de 4×4 px (1 × 1 unidad, malla *Full Rect*) que se tiñe con el color de cada trampa. Compartido con las [piezas de nivel](Pieces.md). |
 
 Al cambiar algo en `Hazard_Base` se aplica a las nueve variantes; lo que una variante sobrescribe (color, tamaño…) se mantiene.
 

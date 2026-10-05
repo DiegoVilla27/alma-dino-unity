@@ -68,14 +68,12 @@ namespace AlmaGame.Enemies
             Vector2 step = _velocity * Time.fixedDeltaTime;
             var filter = new ContactFilter2D { useTriggers = false };
             int count = Physics2D.CircleCast(position, Radius, step.normalized, filter, _hits, step.magnitude);
-            for (int i = 0; i < count; i++)
+            if (count > 0)
             {
-                RaycastHit2D hit = _hits[i];
+                // Results are sorted by distance: the first hit is what the shard reaches first.
+                RaycastHit2D hit = _hits[0];
                 Rigidbody2D body = hit.rigidbody;
-                if (body != null && body.TryGetComponent(out AlmaMotor2D alma))
-                {
-                    if (!alma.IsDead) alma.Die();
-                }
+                if (body != null && body.TryGetComponent(out AlmaMotor2D alma) && !alma.IsDead) alma.Die();
                 Shatter(hit.centroid);
                 return;
             }

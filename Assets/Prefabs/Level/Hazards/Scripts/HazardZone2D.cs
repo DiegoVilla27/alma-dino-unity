@@ -79,7 +79,7 @@ namespace AlmaGame.Level
                 _labelText = CreatePlaceholderLabel(transform, _label, new Vector3(0f, _size.y * 0.5f + 0.3f, 0f), _renderer);
         }
 
-        private void OnValidate() => ApplyLayout();
+        private void OnValidate() => HazardFx.DeferInEditor(this, ApplyLayout);
 
         // Keeps sprite, lethal trigger and solid collider in sync with the serialized sizes.
         private void ApplyLayout()

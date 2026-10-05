@@ -206,13 +206,13 @@ namespace AlmaGame.Level
             return renderer;
         }
 
-        private void OnValidate()
+        private void OnValidate() => HazardFx.DeferInEditor(this, () =>
         {
             var vent = GetComponent<SpriteRenderer>();
             if (vent == null) return;
             vent.drawMode = SpriteDrawMode.Tiled;
             vent.size = _ventSize;
-        }
+        });
 
         private void OnDrawGizmosSelected()
         {

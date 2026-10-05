@@ -34,6 +34,10 @@ namespace AlmaGame.Player
         private bool _roarQueued;
         private float _roarStartedAt;
         private bool _airJumpAvailable;
+        private bool _bounceQueued;
+        private float _bounceSpeed;
+        private float _bounceHeldMultiplier;
+        private bool _bounceRising;
 
         public AlmaMovementSettings Settings => _settings;
         public Vector2 Velocity => _body != null ? _body.linearVelocity : Vector2.zero;
@@ -87,6 +91,34 @@ namespace AlmaGame.Player
         // Consumed on the next physics step; ignored unless Alma is airborne.
         public void RequestGroundPound() => _groundPoundQueued = true;
 
+        // Springs (bouncy mushroom): launches Alma up on the next physics step. Holding jump multiplies
+        // the speed, and releasing jump doesn't cut the rise short. Optionally restores air abilities.
+        public void Bounce(float speed, float heldMultiplier, bool refillAirAbilities)
+        {
+            _bounceQueued = true;
+            _bounceSpeed = speed;
+            _bounceHeldMultiplier = heldMultiplier;
+            if (refillAirAbilities) RefillAirAbilities(true, true);
+        }
+
+        // Pickups (Dash refill spore): returns true only if something was actually restored.
+        public bool RefillAirAbilities(bool dash, bool doubleJump)
+        {
+            bool refilled = false;
+            if (dash && (!_dashAvailable || Time.time < _dashReadyAt))
+            {
+                _dashAvailable = true;
+                _dashReadyAt = 0f;
+                refilled = true;
+            }
+            if (doubleJump && _doubleJumpUnlocked && !_airJumpAvailable)
+            {
+                _airJumpAvailable = true;
+                refilled = true;
+            }
+            return refilled;
+        }
+
         // Consumed on the next physics step; needs an air charge and the cooldown to be over.
         public void RequestDash() => _dashQueued = true;
 
@@ -108,6 +140,24 @@ namespace AlmaGame.Player
 
             if (_jumpQueued && Time.time - _jumpPressedAt > _settings.JumpBufferTime)
                 _jumpQueued = false;
+
+            // Bounce from a spring: replaces landing and ends a Pisotón that hit it.
+            if (_bounceQueued)
+            {
+                _bounceQueued = false;
+                if (!IsDashing)
+                {
+                    velocity.y = Mathf.Max(velocity.y, _bounceSpeed * (_jumpHeld ? _bounceHeldMultiplier : 1f));
+                    IsGroundPounding = false;
+                    IsGrounded = false;
+                    _jumpQueued = false;
+                    _jumpConsumed = true;
+                    _lastGroundedAt = float.NegativeInfinity;
+                    _ignoreGroundUntil = Time.time + 0.1f;
+                    _bounceRising = true;
+                }
+            }
+            if (velocity.y <= 0f || IsGrounded) _bounceRising = false;
 
             if (_jumpQueued && !_jumpConsumed
                 && (IsGrounded || Time.time - _lastGroundedAt <= _settings.CoyoteTime))
@@ -131,7 +181,7 @@ namespace AlmaGame.Player
             }
 
             float gravityMultiplier = velocity.y < -0.01f ? _settings.FallGravityMultiplier
-                : velocity.y > 0.01f && !_jumpHeld ? _settings.ReleasedJumpGravityMultiplier : 1f;
+                : velocity.y > 0.01f && !_jumpHeld && !_bounceRising ? _settings.ReleasedJumpGravityMultiplier : 1f;
             float gravity = _settings.GravityScale * gravityMultiplier;
             // Limit this step's gravity as well, so terminal speed is actually respected.
             float remainingFallSpeed = Mathf.Max(0f, velocity.y + _settings.MaxFallSpeed);
@@ -208,7 +258,8 @@ namespace AlmaGame.Player
             {
                 // Leave at run speed so the dash doesn't carry extra distance.
                 IsDashing = false;
-                _dashReadyAt = Time.time + _settings.DashCooldown;
+                // A refill picked up mid-dash (spore) lets the next Dash go right away.
+                _dashReadyAt = _dashAvailable ? Time.time : Time.time + _settings.DashCooldown;
                 Vector2 exit = _body.linearVelocity;
                 exit.x = Mathf.Clamp(exit.x, -_settings.MoveSpeed, _settings.MoveSpeed);
                 _body.linearVelocity = exit;
@@ -293,6 +344,7 @@ namespace AlmaGame.Player
             _dashReadyAt = 0f;
             _roarQueued = IsRoaring = false;
             _airJumpAvailable = false;
+            _bounceQueued = _bounceRising = false;
             _lastGroundedAt = float.NegativeInfinity;
             _ignoreGroundUntil = Time.time + 0.08f;
             IsGrounded = false;
