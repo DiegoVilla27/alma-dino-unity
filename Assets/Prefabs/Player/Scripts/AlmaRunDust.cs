@@ -106,8 +106,8 @@ namespace AlmaGame.Player
             if (_material != null) Destroy(_material);
         }
 
-        // Soft white circle generated once and shared by every instance.
-        private static Texture2D PuffTexture()
+        // Soft white circle generated once and shared by every instance (also used by the Pisotón dust).
+        internal static Texture2D PuffTexture()
         {
             if (s_puffTexture != null) return s_puffTexture;
             const int size = 32;

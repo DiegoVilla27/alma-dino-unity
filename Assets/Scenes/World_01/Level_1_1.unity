@@ -826,6 +826,22 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2718326775505385464, guid: 6375e15c15f6143f68202d646bfafbd7, type: 3}
+      propertyPath: _waveWidth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2718326775505385464, guid: 6375e15c15f6143f68202d646bfafbd7, type: 3}
+      propertyPath: _waveDuration
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2718326775505385464, guid: 6375e15c15f6143f68202d646bfafbd7, type: 3}
+      propertyPath: _shakeDuration
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2718326775505385464, guid: 6375e15c15f6143f68202d646bfafbd7, type: 3}
+      propertyPath: _shakeAmplitude
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 3372943466447386816, guid: 6375e15c15f6143f68202d646bfafbd7, type: 3}
       propertyPath: m_Controller
       value: 

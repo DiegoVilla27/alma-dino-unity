@@ -22,9 +22,10 @@ El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de fu
 | `Scripts/AlmaMotor2D.cs` | Aceleración, frenado, control aéreo, salto variable, doble salto, Pisotón, Dash, Rugido, detección de suelo y reaparición. |
 | `Scripts/AlmaAnimation.cs` | Orientación del sprite y parámetros del Animator según el estado real del motor. |
 | `Scripts/AlmaRunDust.cs` | Polvo en los pies al correr: un `ParticleSystem` creado en tiempo de ejecución (máx. 20 partículas, una llamada de dibujo, textura generada por código). |
+| `Scripts/AlmaGroundPoundFx.cs` | Efectos del impacto del Pisotón: onda en el suelo, ráfaga de polvo y temblor de cámara. |
 | `Scripts/IRoarTarget.cs` | Contrato para objetos que reaccionan al Rugido (`ResonatesWithRoar`, `ReceiveRoar(origin, direction)`). |
 | `Scripts/AlmaMovementSettings.cs` | ScriptableObject con todos los valores de movimiento y habilidades. |
-| `Scripts/AlmaCameraFollow.cs` | Seguimiento suave, tamaño 6 y anticipación horizontal según velocidad. |
+| `Scripts/AlmaCameraFollow.cs` | Seguimiento suave, anticipación horizontal según velocidad y `Shake(amplitud, duración)` para temblores breves. |
 | `Configuration/AlmaMovement.asset` | Instancia de `AlmaMovementSettings` usada por el prefab. Los valores se editan aquí, no en el script. |
 | `Configuration/AlmaFrictionless.physicsMaterial2D` | Evita adherirse a paredes. |
 | `Animations/` | Hojas de sprites, clips y el controlador `Idle/Player_Idle_Sheet_0.controller`. |
@@ -44,6 +45,14 @@ El cuerpo usa Rigidbody2D con interpolación, colisión continua, rotación bloq
 Todas las acciones se cancelan al reaparecer o al desactivar el componente.
 
 **Polvo al correr.** `AlmaRunDust` emite 2,5 partículas por metro recorrido mientras Alma está en el suelo y supera el 50 % de `MoveSpeed`. Las partículas (0,35–0,6 unidades) salen a la altura de los pies, 0,35 unidades por detrás del centro de Alma, derivan hacia atrás y un poco hacia arriba, crecen y se desvanecen en 0,4–0,6 s. Color beige (0,9; 0,84; 0,72) con 75 % de opacidad, dibujadas detrás de Alma. Se ajusta en el Inspector del componente (`Min Speed Ratio`, `Puffs Per Meter`, `Size Range`, `Color`, `Back Offset`). Al dejar de correr se dejan de emitir partículas y las existentes terminan solas.
+
+**Impacto del Pisotón.** El motor lanza el evento `GroundPoundLanded` en el paso de física en que confirma el impacto. `AlmaGroundPoundFx` responde con:
+
+- **Onda:** anillo suave generado por código que se expande desde los pies, de 0,6 a 4 unidades de ancho, aplanado al 30 % de alto, en 0,35 s, con salida suavizada y desvaneciéndose. Queda fija donde Alma aterrizó y se dibuja delante de ella.
+- **Polvo:** 10 partículas en abanico hacia los lados y arriba (semicírculo superior), a 1,5–3 m/s, de 0,3–0,55 unidades, con algo de gravedad; duran 0,35–0,5 s.
+- **Temblor de cámara:** desplazamiento aleatorio de hasta 0,12 unidades que se reduce linealmente a cero en 0,18 s. No altera el seguimiento suave de la cámara.
+
+Todo se ajusta en el Inspector del componente. Coste: un sprite y un sistema de partículas (máx. 16), visibles solo durante el efecto.
 
 ### Valores en `AlmaMovement.asset`
 
@@ -104,8 +113,8 @@ Las ocho pruebas se ejecutan en Test Runner → PlayMode → `AlmaMovementTests`
 - Desbloqueo de habilidades por altares. Hoy solo el doble salto tiene interruptor (`DoubleJumpUnlocked`); Pisotón, Dash y Rugido están siempre disponibles.
 - Recarga del Dash y del doble salto con esporas u otros recursos.
 - Inmunidad del Dash al viento (todavía no hay viento).
-- Receptores del Rugido (rocas, campanas, interruptores, enemigos) implementando `IRoarTarget`, onda visual `VFX_RoarWave_Universal` y temblor de pantalla del Pisotón y el Rugido.
-- Rotura de suelos y activación de mecanismos con el Pisotón.
+- Receptores del Rugido (rocas, campanas, interruptores, enemigos) implementando `IRoarTarget`, onda visual `VFX_RoarWave_Universal` y temblor de pantalla del Rugido.
+- Rotura de suelos y activación de mecanismos con el Pisotón (pueden suscribirse a `GroundPoundLanded`).
 - Mando y controles táctiles.
 - Clips propios de DoubleJump, Jump/Fall separados y Dead/Respawn. Indicador diegético de Dash disponible.
 - Checkpoints y peligros.

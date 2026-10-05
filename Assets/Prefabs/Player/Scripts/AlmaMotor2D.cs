@@ -40,6 +40,8 @@ namespace AlmaGame.Player
         public bool IsGrounded { get; private set; }
         public int FacingDirection { get; private set; } = 1;
         public bool IsGroundPounding { get; private set; }
+        // Raised on the physics step the ground check confirms a Pisotón impact.
+        public event System.Action GroundPoundLanded;
         public bool IsDashing { get; private set; }
         public bool IsRoaring { get; private set; }
         public bool DoubleJumpUnlocked { get => _doubleJumpUnlocked; set => _doubleJumpUnlocked = value; }
@@ -165,6 +167,7 @@ namespace AlmaGame.Player
             if (IsGrounded)
             {
                 IsGroundPounding = false;
+                GroundPoundLanded?.Invoke();
                 return;
             }
 

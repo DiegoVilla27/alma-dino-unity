@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 255467435817830339}
   - component: {fileID: 3205442400229026263}
   - component: {fileID: 8248663586849963818}
+  - component: {fileID: 2718326775505385464}
   m_Layer: 0
   m_Name: Alma
   m_TagString: Untagged
@@ -240,3 +241,23 @@ MonoBehaviour:
   _sizeRange: {x: 0.35, y: 0.6}
   _color: {r: 0.9, g: 0.84, b: 0.72, a: 0.75}
   _backOffset: 0.35
+--- !u!114 &2718326775505385464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6017265908048156795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e5aa4ee89234e13a90a11a1dcfcd6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Alma.Player::AlmaGame.Player.AlmaGroundPoundFx
+  _waveDuration: 0.35
+  _waveWidth: 4
+  _waveFlatten: 0.3
+  _waveColor: {r: 1, g: 0.96, b: 0.85, a: 0.85}
+  _dustPuffs: 10
+  _dustColor: {r: 0.9, g: 0.84, b: 0.72, a: 0.8}
+  _shakeAmplitude: 0.12
+  _shakeDuration: 0.18
