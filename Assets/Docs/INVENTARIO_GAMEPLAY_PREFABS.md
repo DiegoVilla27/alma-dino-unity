@@ -2,9 +2,9 @@
 
 Fecha de revisión: 4 de octubre de 2026.
 
-Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`) y la escena de práctica `Level_1_1`. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
+Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`), la planta carnívora (`Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/`) y la escena de práctica `Level_1_1`. Cada elemento implementado tiene su propia ficha en `Docs/` con valores y configuración reales. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
 
-**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma); 1 prefab implementado en esta rama: Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`); ver [Alma](Player/Alma.md). Las carpetas y los nombres indicados son rutas propuestas.
+**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma); 2 prefabs implementados en esta rama: Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous_Jungle.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md). Las carpetas y los nombres indicados son rutas propuestas.
 
 ## Reglas de daño y funcionamiento
 
@@ -128,14 +128,15 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 1. Planta carnívora
 
+- **Estado:** implementada. Ficha con valores reales: [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md).
 - **Archivo definitivo:** `Plant_Carnivorous_Jungle.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Enemies/Plant_Carnivorous_Jungle.prefab`.
+- **Ruta real:** `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous_Jungle.prefab` (la ruta propuesta era `Assets/_Project/Prefabs/Enemies/`).
 - **Implementación:** `CarnivorousPlant2D`.
 - **Mundo/contexto:** 1.
 - **Qué es / para qué sirve:** Enemigo vegetal fijo que muerde por ciclos.
-- **Cómo funciona:** Reposo con collider desactivado → temblor de aviso → mordisco con collider letal → reapertura.
+- **Cómo funciona:** Reposo seguro → aviso (gira hacia el lado de Alma y parpadea en rojo) → mordisco a izquierda o derecha con cabeza letal y una onda de impacto por el suelo que mata al pasar → reapertura.
 - **Daño a Alma:** Letal cuando el peligro está activo: muerte y reaparición en el último checkpoint. No resta una cantidad de HP.
-- **Valores y propiedades:** Prefab base: reposo 2 s; aviso 0.5 s; mordisco 1.2 s; transición de reapertura 0.2 s. Colores y referencias visuales ajustables.
+- **Valores y propiedades:** Implementado: detección 3.3 u a cada lado; reposo 1 s; aviso 0.25 s; mordisco 0.7 s; reapertura 0.2 s; onda de 2.2 u en 0.2 s y 1.2 u de alto. Valores originales del prototipo: reposo 2 s; aviso 0.5 s; mordisco 1.2 s; reapertura 0.2 s.
 - **Conexiones, variantes o límites:** Durante el reposo es segura. Su posición fija no la convierte en pinchos: tiene comportamiento propio de ataque.
 
 ### 2. Escarabajo de cristal

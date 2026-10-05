@@ -1,4 +1,4 @@
-> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama solo está implementada Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales) en la escena de práctica `Level_1_1`; su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md). Las notas de fases y tiempos son planificación, no estado de producción.
+> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama están implementadas Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales), en la escena de práctica `Level_1_1`, y la planta carnívora del Mundo 1 como prefab. Su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md) y [`Enemies/Plant_Carnivorous_Jungle.md`](Enemies/Plant_Carnivorous_Jungle.md); cada elemento nuevo tendrá su propia ficha. Las notas de fases y tiempos son planificación, no estado de producción.
 
 ---
 
@@ -137,7 +137,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 - **Atmósfera:** Verde, frondosa, luz filtrada por árboles, movimiento de aves y hojas.
 - **Mecánica foco:** Doble Salto / Aleteo.
 - **Obstáculos:** Ramas altas, espinas en el suelo, plataformas que se desmoronan.
-- **Enemigos:** Mono Ladrón (huye de Alma), Plantas carnívoras estáticas.
+- **Enemigos:** Mono Ladrón (huye de Alma), Plantas carnívoras estáticas (implementada: muerde hacia el lado de Alma y lanza una onda de impacto por el suelo; ver [ficha](Enemies/Plant_Carnivorous_Jungle.md)).
 
 | Nivel | Función pedagógica | Descripción |
 |---|---|---|
