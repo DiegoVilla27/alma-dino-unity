@@ -48,6 +48,8 @@ namespace AlmaGame.Player
         public Vector2 RespawnPosition => _spawnPosition;
         // Raised when Alma dies; a listener (AlmaDeathFx) plays the sequence and then calls Respawn().
         public event System.Action Died;
+        // Raised after Alma is placed back at RespawnPosition; level pieces use it to reset themselves.
+        public event System.Action Respawned;
         // Raised on the physics step the double jump impulse is applied.
         public event System.Action DoubleJumped;
         public bool DoubleJumpUnlocked { get => _doubleJumpUnlocked; set => _doubleJumpUnlocked = value; }
@@ -294,6 +296,7 @@ namespace AlmaGame.Player
             _lastGroundedAt = float.NegativeInfinity;
             _ignoreGroundUntil = Time.time + 0.08f;
             IsGrounded = false;
+            Respawned?.Invoke();
         }
 
         private void OnDisable()

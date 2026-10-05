@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6823776577658550078
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2987060719447504068, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Name
+      value: Trap_Briers_Swamp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Size.x
+      value: 2.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Size.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Size.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Color.b
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Color.g
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Color.r
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240128712795507209, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: _label
+      value: Zarzas pantano
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240128712795507209, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: _size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240128712795507209, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: _size.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662996727564650443, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e430d065906f4f168404c79292039118, type: 3}

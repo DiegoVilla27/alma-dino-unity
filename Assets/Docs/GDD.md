@@ -1,4 +1,4 @@
-> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama están implementadas Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales), en la escena de práctica `Level_1_1`, y como prefabs la planta carnívora (Mundo 1), el escarabajo de cristal y el murciélago de cueva (Mundo 2). Su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md), [`Enemies/Plant_Carnivorous_Jungle.md`](Enemies/Plant_Carnivorous_Jungle.md), [`Enemies/CrystalBeetle_Caves.md`](Enemies/CrystalBeetle_Caves.md) y [`Enemies/CaveBat_Caves.md`](Enemies/CaveBat_Caves.md); cada elemento nuevo tendrá su propia ficha. Las notas de fases y tiempos son planificación, no estado de producción.
+> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama están implementadas Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales), en la escena de práctica `Level_1_1`, y como prefabs la planta carnívora (Mundo 1), el escarabajo de cristal y el murciélago de cueva (Mundo 2), y doce trampas con marcador provisional (nueve estáticas, gas tóxico ascendente, géiser y techo aplastante). Su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md), [`Enemies/Plant_Carnivorous_Jungle.md`](Enemies/Plant_Carnivorous_Jungle.md), [`Enemies/CrystalBeetle_Caves.md`](Enemies/CrystalBeetle_Caves.md), [`Enemies/CaveBat_Caves.md`](Enemies/CaveBat_Caves.md) y [`LevelPieces/Hazards.md`](LevelPieces/Hazards.md); cada elemento nuevo tendrá su propia ficha. Las notas de fases y tiempos son planificación, no estado de producción.
 
 ---
 
@@ -53,6 +53,7 @@ El juego combina:
 - Diálogos con árboles de decisión.
 - Sistema de crafteo o economía.
 - Modo New Game+ (en la versión 1.0).
+- Trampas descartadas el 5/10/2026: erupción de lava ascendente, magma ascendente del jefe final, chorro de fuego de aterrizaje y puerta de llamas. El juego usa las doce trampas implementadas ([ficha](LevelPieces/Hazards.md)); los niveles y jefes que las mencionan deben rediseñar esos tramos con ellas.
 
 ### 2.3. Supuestos y restricciones
 
@@ -202,6 +203,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 - **Mecánica foco:** Rugido de Choque + Combinación Total.
 - **Obstáculos:** Rocas gigantes que se empujan con el rugido, chorros de lava, interruptores lejanos, puzles de timing.
 - **Enemigos:** Salamandras de fuego, Elementales de lava.
+- **Alcance (5/10/2026):** la puerta de llamas de las campanas (4-2), la erupción de lava ascendente (4-3), la corriente de fuego (4-4) y el magma ascendente de la fase 3 del jefe final se descartaron como trampas. Esos tramos se rediseñarán con las trampas disponibles (géiser, foso de lava, gas ascendente, techo aplastante…).
 
 | Nivel | Función pedagógica | Descripción |
 |---|---|---|

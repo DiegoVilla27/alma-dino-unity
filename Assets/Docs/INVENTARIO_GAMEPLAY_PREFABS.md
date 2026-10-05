@@ -2,9 +2,9 @@
 
 Fecha de revisión: 4 de octubre de 2026.
 
-Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`), la planta carnívora (`Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/`), el escarabajo de cristal (`Assets/Prefabs/Enemies/CrystalBeetle_Caves/`), el murciélago de cueva (`Assets/Prefabs/Enemies/CaveBat_Caves/`) y la escena de práctica `Level_1_1`. Cada elemento implementado tiene su propia ficha en `Docs/` con valores y configuración reales. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
+Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`), la planta carnívora (`Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/`), el escarabajo de cristal (`Assets/Prefabs/Enemies/CrystalBeetle_Caves/`), el murciélago de cueva (`Assets/Prefabs/Enemies/CaveBat_Caves/`), doce trampas (`Assets/Prefabs/Level/Hazards/`) y la escena de práctica `Level_1_1`. Cada elemento implementado tiene su propia ficha en `Docs/` con valores y configuración reales. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
 
-**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma); 4 prefabs implementados en esta rama: Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md); y el escarabajo de cristal, en `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab`, ver [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md); y el murciélago de cueva, en `Assets/Prefabs/Enemies/CaveBat_Caves/CaveBat_Caves.prefab`, ver [Murciélago de cueva](Enemies/CaveBat_Caves.md). Las carpetas y los nombres indicados son rutas propuestas.
+**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma), de las que 4 trampas están descartadas; 16 prefabs implementados en esta rama (más el prefab base de trampas): Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md); y el escarabajo de cristal, en `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab`, ver [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md); y el murciélago de cueva, en `Assets/Prefabs/Enemies/CaveBat_Caves/CaveBat_Caves.prefab`, ver [Murciélago de cueva](Enemies/CaveBat_Caves.md); y doce trampas (nueve estáticas, gas tóxico ascendente, géiser y techo aplastante) en `Assets/Prefabs/Level/Hazards/`, con marcador provisional, ver [Zonas de peligro](LevelPieces/Hazards.md). Las carpetas y los nombres indicados son rutas propuestas.
 
 ## Reglas de daño y funcionamiento
 
@@ -194,6 +194,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 1. Pinchos de jungla
 
+- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_Spikes_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_Spikes_Jungle.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_Spikes_Jungle.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -205,6 +206,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 2. Zarzas del pantano
 
+- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_Briers_Swamp.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_Briers_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_Briers_Swamp.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -217,6 +219,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 3. Pilar con espinas
 
+- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_SpikedPillar_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_SpikedPillar_Jungle.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_SpikedPillar_Jungle.prefab`.
 - **Implementación:** `HazardTrigger2D + colliders de estructura`.
@@ -229,6 +232,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 4. Cristales punzantes y estalagmitas
 
+- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_CrystalSpikes_Caves.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_CrystalSpikes_Caves.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_CrystalSpikes_Caves.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -240,6 +244,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 5. Pinchos ardientes
 
+- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_BurningSpikes_Volcano.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_BurningSpikes_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_BurningSpikes_Volcano.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -252,6 +257,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 6. Lodo tóxico
 
+- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_ToxicMud_Swamp.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_ToxicMud_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_ToxicMud_Swamp.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -264,6 +270,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 7. Lago tóxico
 
+- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_ToxicLake_Swamp.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_ToxicLake_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_ToxicLake_Swamp.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -276,6 +283,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 8. Gas tóxico ascendente
 
+- **Estado:** implementado con marcador provisional y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_RisingToxicGas_Swamp.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
 - **Archivo definitivo:** `Trap_RisingToxicGas_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_RisingToxicGas_Swamp.prefab`.
 - **Implementación:** `RisingHazardFloor2D`.
@@ -287,6 +295,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 9. Río o foso de lava
 
+- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_LavaPool_Volcano.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_LavaPool_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_LavaPool_Volcano.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -299,6 +308,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 10. Erupción de lava ascendente
 
+- **Estado:** descartada (5/10/2026). No se implementará; los tramos que la usaban se rediseñarán con las trampas implementadas ([Zonas de peligro](LevelPieces/Hazards.md)).
 - **Archivo definitivo:** `Trap_RisingLavaEruption_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_RisingLavaEruption_Volcano.prefab`.
 - **Implementación:** `FractureEruption2D`.
@@ -311,6 +321,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 11. Magma ascendente del jefe final
 
+- **Estado:** descartada (5/10/2026). No se implementará; los tramos que la usaban se rediseñarán con las trampas implementadas ([Zonas de peligro](LevelPieces/Hazards.md)).
 - **Archivo definitivo:** `Trap_RisingMagma_FinalBoss.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_RisingMagma_FinalBoss.prefab`.
 - **Implementación:** `Controlado por ThiefKingBoss2D`.
@@ -323,6 +334,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 12. Techo aplastante
 
+- **Estado:** implementado con marcador provisional y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_CrushingCeiling_Caves.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
 - **Archivo definitivo:** `Trap_CrushingCeiling_Caves.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_CrushingCeiling_Caves.prefab`.
 - **Implementación:** `CrushingCeiling2D`.
@@ -335,6 +347,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 13. Géiser volcánico peligroso
 
+- **Estado:** implementado con marcador provisional y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_FireGeyser_Volcano.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
 - **Archivo definitivo:** `Trap_FireGeyser_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_FireGeyser_Volcano.prefab`.
 - **Implementación:** `LavaGeyser2D`.
@@ -347,6 +360,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 14. Chorro de fuego de aterrizaje
 
+- **Estado:** descartada (5/10/2026). No se implementará; los tramos que la usaban se rediseñarán con las trampas implementadas ([Zonas de peligro](LevelPieces/Hazards.md)).
 - **Archivo definitivo:** `Trap_LandingFlameJet_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_LandingFlameJet_Volcano.prefab`.
 - **Implementación:** `FractureFlameJet2D`.
@@ -358,6 +372,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 15. Puerta de llamas
 
+- **Estado:** descartada (5/10/2026). No se implementará; los tramos que la usaban se rediseñarán con las trampas implementadas ([Zonas de peligro](LevelPieces/Hazards.md)).
 - **Archivo definitivo:** `Trap_BellFlameDoor_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_BellFlameDoor_Volcano.prefab`.
 - **Implementación:** `BellFlameDoor2D`.
@@ -370,6 +385,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 16. Zona de caída mortal
 
+- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_DeathZone_Universal.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_DeathZone_Universal.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_DeathZone_Universal.prefab`.
 - **Implementación:** `HazardTrigger2D`.
