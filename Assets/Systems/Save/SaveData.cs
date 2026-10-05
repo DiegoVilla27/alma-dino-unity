@@ -16,6 +16,7 @@ namespace AlmaGame.Systems
         public float CheckpointX;
         public float CheckpointY;
         public List<string> RescuedEggs = new List<string>();
+        public List<string> CompletedLevels = new List<string>();
         public bool DoubleJump;
         public bool GroundPound;
         public bool Dash;

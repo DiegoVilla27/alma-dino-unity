@@ -27,12 +27,13 @@ Namespace `AlmaGame.Systems`, ensamblado `Assembly-CSharp`.
 | `Version` | int | Versión del formato (hoy 1). |
 | `Level` | string | Nombre de la escena del nivel actual. |
 | `HasCheckpoint`, `CheckpointX`, `CheckpointY` | bool, float | Último checkpoint de ese nivel (punto de reaparición). |
-| `RescuedEggs` | lista de string | Huevos rescatados (preparado; aún no hay huevos). |
+| `RescuedEggs` | lista de string | Huevos rescatados (`Green`, `Blue`, `Purple`, `Red`), añadidos por los [huevos](../LevelPieces/Progression.md#huevos-a-rescatar-resource_rescueegg_). |
+| `CompletedLevels` | lista de string | Niveles terminados por el [portal de salida](../LevelPieces/Progression.md#portal-de-salida-resource_levelexitportal_universal). |
 | `DoubleJump`, `GroundPound`, `Dash`, `Roar` | bool | Habilidades desbloqueadas. |
 | `PlayTimeSeconds` | float | Tiempo jugado (tiempo real). |
 | `SavedAtUtc` | string | Fecha y hora del último guardado (ISO 8601, UTC). |
 
-**Cuándo se guarda:** al pasar por un nido, al desbloquear una habilidad (y al rescatar un huevo, cuando existan) y al cerrar el juego (para el tiempo jugado).
+**Cuándo se guarda:** al pasar por un nido, al desbloquear una habilidad, al rescatar un huevo, al terminar un nivel por el portal y al cerrar el juego (para el tiempo jugado).
 
 ## Gestor de progreso (`GameProgress`)
 
@@ -44,7 +45,7 @@ Al empezar el nivel:
 4. Aplica a Alma qué habilidades tiene (las demás quedan **bloqueadas**).
 5. Si la partida tiene checkpoint de este nivel y `Resume At Saved Checkpoint` está activo, Alma aparece en él y ese nido se enciende.
 
-Después recibe los avisos de los nidos (`CheckpointReached`) y de los altares (`UnlockAbility`) y guarda. `RescueEgg(id)` queda preparado para los huevos.
+Después recibe los avisos de los nidos (`CheckpointReached`), los altares (`UnlockAbility`), los huevos (`RescueEgg`, con `IsEggRescued` para consultarlo) y el portal (`CompleteLevel(siguiente)`: añade el nivel actual a `CompletedLevels`, pone `Level` en el siguiente y borra el checkpoint; `IsLevelCompleted` para consultarlo) y guarda.
 
 | Campo | Valor | Uso |
 | --- | ---: | --- |
@@ -72,10 +73,10 @@ Al reaparecer Alma (evento `AlmaMotor2D.Respawned`) cada elemento vuelve a su es
 | Gas tóxico ascendente, géiser, techo aplastante ([trampas](../LevelPieces/Hazards.md)) | Gas a su altura inicial; géiser sin bola y con el ciclo reiniciado; techo arriba, entero y listo. |
 | Plataformas que se desmoronan, piso rompible, espora ([piezas](../LevelPieces/Pieces.md)) | Vuelven a estar enteras y disponibles. |
 
-Los nidos y los altares **no** se reinician: un checkpoint encendido y una habilidad desbloqueada se conservan.
+Los nidos, los altares y los huevos **no** se reinician: un checkpoint encendido, una habilidad desbloqueada y un huevo rescatado se conservan.
 
 ## Pendiente
 
-- Huevos, portal de salida e indicador de huevos (usarán `RescueEgg`).
-- Paso entre niveles (hoy el guardado recuerda el nivel, pero no hay menú ni carga del último nivel).
+- Indicador de huevos en pantalla.
+- Menú de inicio que cargue el nivel guardado en `Level` (el portal ya pasa de un nivel al siguiente).
 - Varias ranuras de partida, si se quieren.

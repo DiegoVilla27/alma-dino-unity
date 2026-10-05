@@ -117,6 +117,24 @@ namespace AlmaGame.Systems
             SaveSystem.Save(_data);
         }
 
+        public bool IsLevelCompleted(string level) => !string.IsNullOrEmpty(level) && _data.CompletedLevels.Contains(level);
+
+        // Exit portal: marks this level as completed and moves the save on to the next level
+        // (without a checkpoint, so the next level starts from its beginning), then saves.
+        public void CompleteLevel(string nextLevel)
+        {
+            string current = SceneManager.GetActiveScene().name;
+            if (!_data.CompletedLevels.Contains(current)) _data.CompletedLevels.Add(current);
+            if (!string.IsNullOrEmpty(nextLevel))
+            {
+                _data.Level = nextLevel;
+                _data.HasCheckpoint = false;
+            }
+            SaveSystem.Save(_data);
+        }
+
+        public bool IsEggRescued(string eggId) => !string.IsNullOrEmpty(eggId) && _data.RescuedEggs.Contains(eggId);
+
         public void RescueEgg(string eggId)
         {
             if (string.IsNullOrEmpty(eggId) || _data.RescuedEggs.Contains(eggId)) return;

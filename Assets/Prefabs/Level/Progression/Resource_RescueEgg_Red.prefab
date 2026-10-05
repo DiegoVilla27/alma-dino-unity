@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5839359624620613718
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3709038624332272929, guid: b70430e97e4d4862b590f9f6a0ca35b7, type: 3}
+      propertyPath: m_Color.b
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709038624332272929, guid: b70430e97e4d4862b590f9f6a0ca35b7, type: 3}
+      propertyPath: m_Color.g
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709038624332272929, guid: b70430e97e4d4862b590f9f6a0ca35b7, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743336114562172476, guid: b70430e97e4d4862b590f9f6a0ca35b7, type: 3}
+      propertyPath: m_Name
+      value: Resource_RescueEgg_Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 8680402178407701861, guid: b70430e97e4d4862b590f9f6a0ca35b7, type: 3}
+      propertyPath: _eggId
+      value: Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 8680402178407701861, guid: b70430e97e4d4862b590f9f6a0ca35b7, type: 3}
+      propertyPath: _label
+      value: Huevo rojo
+      objectReference: {fileID: 0}
+    - target: {fileID: 8680402178407701861, guid: b70430e97e4d4862b590f9f6a0ca35b7, type: 3}
+      propertyPath: _eggColor.b
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8680402178407701861, guid: b70430e97e4d4862b590f9f6a0ca35b7, type: 3}
+      propertyPath: _eggColor.g
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8680402178407701861, guid: b70430e97e4d4862b590f9f6a0ca35b7, type: 3}
+      propertyPath: _eggColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8680402178407701861, guid: b70430e97e4d4862b590f9f6a0ca35b7, type: 3}
+      propertyPath: _rescueText
+      value: "Los cuatro est\xE1n aqu\xED.\nMi nido vuelve a estar completo."
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b70430e97e4d4862b590f9f6a0ca35b7, type: 3}

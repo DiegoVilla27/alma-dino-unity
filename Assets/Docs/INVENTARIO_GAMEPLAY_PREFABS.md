@@ -4,7 +4,7 @@ Fecha de revisión: 4 de octubre de 2026.
 
 Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`), la planta carnívora (`Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/`), el escarabajo de cristal (`Assets/Prefabs/Enemies/CrystalBeetle_Caves/`), el murciélago de cueva (`Assets/Prefabs/Enemies/CaveBat_Caves/`), doce trampas (`Assets/Prefabs/Level/Hazards/`) y la escena de práctica `Level_1_1`. Cada elemento implementado tiene su propia ficha en `Docs/` con valores y configuración reales. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
 
-**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma), de las que 4 trampas están descartadas; 28 prefabs implementados en esta rama (más los prefabs base de trampas, plataformas que se desmoronan y altares, y `System_GameProgress`): Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md); y el escarabajo de cristal, en `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab`, ver [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md); y el murciélago de cueva, en `Assets/Prefabs/Enemies/CaveBat_Caves/CaveBat_Caves.prefab`, ver [Murciélago de cueva](Enemies/CaveBat_Caves.md); y doce trampas (nueve estáticas, gas tóxico ascendente, géiser y techo aplastante) en `Assets/Prefabs/Level/Hazards/`, con marcador provisional, ver [Zonas de peligro](LevelPieces/Hazards.md); y siete piezas de nivel (plataforma atravesable, tres plataformas que se desmoronan, hongo saltarín, piso rompible y espora del Dash) en `Assets/Prefabs/Level/Pieces/`, ver [Piezas de nivel](LevelPieces/Pieces.md); y el nido de checkpoint y los cuatro altares de habilidad en `Assets/Prefabs/Level/Progression/`, ver [Progresión](LevelPieces/Progression.md). El guardado y el gestor de progreso están en `Assets/Systems/`, ver [Guardado y progreso](Systems/SaveAndProgress.md). Las carpetas y los nombres indicados son rutas propuestas.
+**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma), de las que 4 trampas están descartadas; 33 prefabs implementados en esta rama (más los prefabs base de trampas, plataformas que se desmoronan, altares y huevos, y `System_GameProgress`): Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md); y el escarabajo de cristal, en `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab`, ver [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md); y el murciélago de cueva, en `Assets/Prefabs/Enemies/CaveBat_Caves/CaveBat_Caves.prefab`, ver [Murciélago de cueva](Enemies/CaveBat_Caves.md); y doce trampas (nueve estáticas, gas tóxico ascendente, géiser y techo aplastante) en `Assets/Prefabs/Level/Hazards/`, con marcador provisional, ver [Zonas de peligro](LevelPieces/Hazards.md); y siete piezas de nivel (plataforma atravesable, tres plataformas que se desmoronan, hongo saltarín, piso rompible y espora del Dash) en `Assets/Prefabs/Level/Pieces/`, ver [Piezas de nivel](LevelPieces/Pieces.md); y el nido de checkpoint, los cuatro altares de habilidad, los cuatro huevos y el portal de salida en `Assets/Prefabs/Level/Progression/`, ver [Progresión](LevelPieces/Progression.md). El guardado y el gestor de progreso están en `Assets/Systems/`, ver [Guardado y progreso](Systems/SaveAndProgress.md). Las carpetas y los nombres indicados son rutas propuestas.
 
 ## Reglas de daño y funcionamiento
 
@@ -965,6 +965,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 36. Huevo verde
 
+- **Estado:** implementado con marcador provisional (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Green.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_RescueEgg_Green.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Green.prefab`.
 - **Implementación:** `GreenEggRescue2D (tipo de huevo) + lógica de santuario cuando corresponda`.
@@ -977,6 +978,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 37. Huevo azul
 
+- **Estado:** implementado con marcador provisional (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Blue.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_RescueEgg_Blue.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Blue.prefab`.
 - **Implementación:** `GreenEggRescue2D (tipo de huevo) + lógica de santuario cuando corresponda`.
@@ -989,6 +991,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 38. Huevo morado
 
+- **Estado:** implementado con marcador provisional (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Purple.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_RescueEgg_Purple.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Purple.prefab`.
 - **Implementación:** `GreenEggRescue2D (tipo de huevo) + lógica de santuario cuando corresponda`.
@@ -1001,6 +1004,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 39. Huevo rojo
 
+- **Estado:** implementado con marcador provisional (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Red.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_RescueEgg_Red.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Red.prefab`.
 - **Implementación:** `GreenEggRescue2D (tipo de huevo) + lógica de santuario cuando corresponda`.
@@ -1025,6 +1029,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 41. Portal de salida
 
+- **Estado:** implementado con marcador provisional (script `LevelExitPortal2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_LevelExitPortal_Universal.prefab`. Va en todos los niveles, sin condición de apertura: al entrar Alma guarda el nivel como completado y carga `Next Scene`. Ficha: [Progresión](LevelPieces/Progression.md#portal-de-salida-resource_levelexitportal_universal).
 - **Archivo definitivo:** `Resource_LevelExitPortal_Universal.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab`.
 - **Implementación:** `LevelExit2D`.
