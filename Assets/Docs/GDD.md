@@ -1,4 +1,4 @@
-> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama solo está implementada Alma (movimiento, doble salto, Pisotón, Dash y Rugido) en la escena de práctica `Level_1_1`; su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md). Las notas de fases y tiempos son planificación, no estado de producción.
+> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama solo está implementada Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales) en la escena de práctica `Level_1_1`; su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md). Las notas de fases y tiempos son planificación, no estado de producción.
 
 ---
 
@@ -88,7 +88,7 @@ Las habilidades se desbloquean al inicio de cada mundo y son **acumulativas**: n
 
 ### 3.4. Física del personaje (Game Feel)
 
-Perfil objetivo para todos los mundos. Los detalles y criterios de prueba viven en [la ficha de Alma](Docs/Player/Alma.md):
+Perfil objetivo para todos los mundos. Los detalles y criterios de prueba viven en [la ficha de Alma](Player/Alma.md):
 
 | Parámetro | Valor sugerido | Propósito |
 |---|---|---|
@@ -101,6 +101,7 @@ Perfil objetivo para todos los mundos. Los detalles y criterios de prueba viven 
 | Velocidad terminal normal | 20 m/s | El pisotón usa su límite propio de 22 m/s. |
 | Dash Distance / Time | 6 m en 0.45 s | Impulso rápido; congela la gravedad en Y durante el dash. |
 | Ground Pound Speed | 22.0 m/s hacia abajo | Caída seca con *wind-up* de 0.1 s antes de caer. |
+| Roar | 0.67 s; cono de 3 m y 45° (8 m para resonancia) | Alma no camina mientras ruge en el suelo; dura lo mismo que su animación. |
 | Coyote Time | 0.14 s | Permite saltar tras abandonar el borde. |
 | Jump Buffer | 0.12 s | Registra el salto pulsado justo antes de aterrizar. |
 
@@ -267,6 +268,7 @@ Uso intenso de luz dinámica 2D (Unity URP 2D Renderer o Godot CanvasModulate + 
 
 Alma necesita, como mínimo:
 - Idle, Run, Jump, Fall, Double Jump, Ground Pound, Air Dash, Roar, Hurt, Rescate.
+- **Estado:** Idle, Run, Jump/Fall (mismo clip), Ground Pound, Air Dash y Roar tienen hoja de sprites. Double Jump y Hurt/muerte se resuelven por código con efectos sobre el sprite existente; Rescate sigue pendiente.
 - Animaciones cortas (4-8 frames) para pixel art, con *smear frames* en acciones rápidas (Dash, Pisotón).
 
 ---
@@ -301,6 +303,8 @@ HUD minimalista y diegético.
 - **Hit stop** de 0.05 s al golpear jefes.
 - **Partículas:** polvo al aterrizar, chispas de cristal, hojas al correr, humo de lava.
 - **Vignette** sutil en momentos de tensión narrativa (no hay barra de vida).
+
+**Implementado (Alma):** polvo al correr (en lugar de hojas, por ahora); onda, polvo y screen shake en el Pisotón; siluetas fantasma y líneas de viento en el Dash; ondas en arco, polvo y screen shake suave en el Rugido; anillo de aire, bocanadas y estirón en el doble salto; secuencia de muerte con congelación de 0.08 s, «puf» de polvo y estrellas y una luz que vuela al punto de reaparición. Pendientes: polvo al aterrizar, hit stop en jefes y vignette. Detalle y valores en [`Player/Alma.md`](Player/Alma.md).
 
 ---
 

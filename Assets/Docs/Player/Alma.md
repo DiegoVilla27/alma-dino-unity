@@ -113,7 +113,7 @@ Todos los campos están guardados explícitamente en el asset. Los valores por d
 | `RoarRange` / `RoarResonanceRange` / `RoarHalfAngle` | 3 / 8 / 45 | Alcance normal, alcance de resonancia (m) y semiancho del cono (°). |
 | `GroundLayers` / `GroundProbeDistance` / `MinimumGroundNormal` | Todo / 0,04 / 0,65 | Detección de suelo. |
 
-En el motor, `_fallRespawnY = -12` define la altura bajo la cual Alma reaparece.
+En el motor, `_fallRespawnY = -12` define la altura bajo la cual Alma muere (y reaparece tras la secuencia de muerte).
 
 ### Animator
 
@@ -139,7 +139,7 @@ El prefab usa `Animations/Idle/Player_Idle_Sheet_0.controller`. Todas las transi
 | 6 | Jump | `Player_Jump_Animation` | sin habilidades, no `Grounded`, `VerticalSpeed` > 0 |
 | 7 | Fall | `Player_Jump_Animation` (desde la mitad del clip) | sin habilidades, no `Grounded`, `VerticalSpeed` < 0,001 |
 
-«Sin habilidades» significa `Roar`, `Dash` y `GroundPound` en false. Todos los clips tienen 8 frames a 12 fps (0,67 s). El Dash se reproduce a ×1,48 para que el clip dure exactamente sus 0,45 s; si se cambia `DashDuration`, ajustar esta velocidad a 0,667 / `DashDuration`. El Pisotón y el Rugido terminan en la lógica antes que su clip; `AlmaAnimation` mantiene su estado visual hasta completar una reproducción, sin retrasar el control. En un Pisotón de más de 0,67 s el clip se repite en la caída y al aterrizar se corta donde esté. El doble salto reutiliza el estado Jump: si ocurre durante Fall, Jump empieza desde su primer frame; si Alma aún sube, la animación continúa.
+«Sin habilidades» significa `Roar`, `Dash` y `GroundPound` en false. Todos los clips tienen 8 frames a 12 fps (0,67 s). El Dash se reproduce a ×1,48 para que el clip dure exactamente sus 0,45 s; si se cambia `DashDuration`, ajustar esta velocidad a 0,667 / `DashDuration`. El Pisotón termina en la lógica antes que su clip; `AlmaAnimation` mantiene su estado visual hasta completar una reproducción, sin retrasar el control. El Rugido ya dura lo mismo que su clip (`RoarDuration` = 0,667), así que esa retención solo actúa como red de seguridad si se acorta `RoarDuration`. En un Pisotón de más de 0,67 s el clip se repite en la caída y al aterrizar se corta donde esté. El doble salto reutiliza el estado Jump: si ocurre durante Fall, Jump empieza desde su primer frame; si Alma aún sube, la animación continúa.
 
 ### Pruebas y escena
 
@@ -156,6 +156,7 @@ Las ocho pruebas se ejecutan en Test Runner → PlayMode → `AlmaMovementTests`
 - Rotura de suelos y activación de mecanismos con el Pisotón (pueden suscribirse a `GroundPoundLanded`).
 - Mando y controles táctiles.
 - Clips propios de DoubleJump y Jump/Fall separados (Dead/Respawn se resolvió por código). Indicador diegético de Dash disponible (plumas del lomo, requiere arte).
+- Tamaño de cámara: el código usa 8 y el diseño 6 (ver [Cámara](#cámara-daño-y-feedback)).
 - Checkpoints (deben actualizar `RespawnPosition`) y peligros (deben llamar a `Die()`). Un destello blanco puro al morir necesitaría un shader propio; hoy se usa un tinte rojo claro.
 
 Alma es una madre dinosaurio ágil. Su control debe permitir saltos precisos y encadenar habilidades sin retrasos artificiales. No tiene puntos de vida: al tocar un peligro activo reaparece en el último checkpoint. El juego no usa música ni efectos de sonido; cada acción necesita señales visuales claras.
@@ -223,6 +224,8 @@ Las [láminas de diseño y poses](../../Art/Player/) son referencias conceptuale
 Conservar tamaño de lienzo, pivote, escala y línea de apoyo coherentes entre frames. Separar anticipación, acción y recuperación. El sprite de Alma y sus animaciones quedan editables en su carpeta de personaje; los dibujos conceptuales permanecen en `Assets/Art/Player/`.
 
 ## Cámara, daño y feedback
+
+> **Discrepancia pendiente:** `AlmaCameraFollow.Awake` fuerza hoy `orthographicSize = 8`, aunque el diseño y la escena indican 6. Decidir el valor y alinear código y documento.
 
 La cámara de **todos los niveles y jefes** tendrá tamaño ortográfico 6, seguirá a Alma con suavizado y mostrará aproximadamente 1,25 unidades adicionales hacia la dirección de desplazamiento. Al detenerse, el encuadre vuelve al centro. Cada nivel puede limitar el recorrido de cámara para evitar enseñar zonas fuera del mapa, sin cambiar el zoom.
 
