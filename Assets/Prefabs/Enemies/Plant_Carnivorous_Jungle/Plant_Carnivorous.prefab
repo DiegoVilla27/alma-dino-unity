@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5319261330703659443}
   - component: {fileID: 1449769916128672396}
   m_Layer: 0
-  m_Name: Plant_Carnivorous_Jungle
+  m_Name: Plant_Carnivorous
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
