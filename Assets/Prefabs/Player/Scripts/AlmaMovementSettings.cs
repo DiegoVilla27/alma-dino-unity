@@ -27,7 +27,7 @@ namespace AlmaGame.Player
 
         [Header("Dash")]
         [Min(0.1f)] public float DashDistance = 6f;
-        [Min(0.01f)] public float DashDuration = 0.2f;
+        [Min(0.01f)] public float DashDuration = 0.3f;
         [Min(0f)] public float DashCooldown = 0.4f;
 
         [Header("Roar")]

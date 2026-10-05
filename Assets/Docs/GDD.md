@@ -99,7 +99,7 @@ Perfil objetivo para todos los mundos. Los detalles y criterios de prueba viven 
 | Double Jump Force | 7.6 m/s | Restablece al menos esa velocidad; no suma impulsos ilimitados. |
 | Gravedad de caída / salto soltado | ×1.8 / ×2.4 | Caída con peso y salto de altura variable. |
 | Velocidad terminal normal | 20 m/s | El pisotón usa su límite propio de 22 m/s. |
-| Dash Distance / Time | 6 m en 0.2 s | Impulso rápido; congela la gravedad en Y durante el dash. |
+| Dash Distance / Time | 6 m en 0.45 s | Impulso rápido; congela la gravedad en Y durante el dash. |
 | Ground Pound Speed | 22.0 m/s hacia abajo | Caída seca con *wind-up* de 0.1 s antes de caer. |
 | Coyote Time | 0.14 s | Permite saltar tras abandonar el borde. |
 | Jump Buffer | 0.12 s | Registra el salto pulsado justo antes de aterrizar. |

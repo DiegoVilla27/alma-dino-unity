@@ -17,12 +17,22 @@ MonoBehaviour:
   BrakingTime: 0.08
   AirAccelerationTime: 0.13
   JumpSpeed: 8.2
+  DoubleJumpSpeed: 7.6
   GravityScale: 2.2
   FallGravityMultiplier: 1.8
   ReleasedJumpGravityMultiplier: 2.4
   MaxFallSpeed: 20
   CoyoteTime: 0.14
   JumpBufferTime: 0.12
+  GroundPoundWindupTime: 0.1
+  GroundPoundSpeed: 22
+  DashDistance: 6
+  DashDuration: 0.3
+  DashCooldown: 0.4
+  RoarDuration: 0.25
+  RoarRange: 3
+  RoarHalfAngle: 45
+  RoarResonanceRange: 8
   GroundLayers:
     serializedVersion: 2
     m_Bits: 4294967295
