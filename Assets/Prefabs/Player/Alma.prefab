@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7446985706106602780}
   - component: {fileID: 255467435817830339}
   - component: {fileID: 3205442400229026263}
+  - component: {fileID: 8248663586849963818}
   m_Layer: 0
   m_Name: Alma
   m_TagString: Untagged
@@ -222,3 +223,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15fe64acb524d4eed87e9accdc6225b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Alma.Player::AlmaGame.Player.AlmaAnimation
+--- !u!114 &8248663586849963818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6017265908048156795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8b07f8530914bce84085996cebf76c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Alma.Player::AlmaGame.Player.AlmaRunDust
+  _minSpeedRatio: 0.5
+  _puffsPerMeter: 2.5
+  _sizeRange: {x: 0.35, y: 0.6}
+  _color: {r: 0.9, g: 0.84, b: 0.72, a: 0.75}
+  _backOffset: 0.35

@@ -21,6 +21,7 @@ El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de fu
 | `Scripts/AlmaInput.cs` | Captura entradas y las entrega al motor (`SetInput`, `RequestGroundPound`, `RequestDash`, `RequestRoar`). |
 | `Scripts/AlmaMotor2D.cs` | Aceleración, frenado, control aéreo, salto variable, doble salto, Pisotón, Dash, Rugido, detección de suelo y reaparición. |
 | `Scripts/AlmaAnimation.cs` | Orientación del sprite y parámetros del Animator según el estado real del motor. |
+| `Scripts/AlmaRunDust.cs` | Polvo en los pies al correr: un `ParticleSystem` creado en tiempo de ejecución (máx. 20 partículas, una llamada de dibujo, textura generada por código). |
 | `Scripts/IRoarTarget.cs` | Contrato para objetos que reaccionan al Rugido (`ResonatesWithRoar`, `ReceiveRoar(origin, direction)`). |
 | `Scripts/AlmaMovementSettings.cs` | ScriptableObject con todos los valores de movimiento y habilidades. |
 | `Scripts/AlmaCameraFollow.cs` | Seguimiento suave, tamaño 6 y anticipación horizontal según velocidad. |
@@ -41,6 +42,8 @@ El cuerpo usa Rigidbody2D con interpolación, colisión continua, rotación bloq
 - **Rugido.** Se puede usar en suelo y en el aire, fuera del Dash y del Pisotón. No bloquea el movimiento. Durante 0,25 s fija la orientación y no permite otro Rugido. Al iniciarse lanza un único `Physics2D.OverlapCircle` (incluye triggers) desde el centro del cuerpo. Cada objeto con `IRoarTarget` cuyo punto más cercano esté dentro del cono frontal (45° de semiancho) recibe `ReceiveRoar` una sola vez por Rugido. El alcance es de 3 m, o de 8 m si el objeto declara `ResonatesWithRoar` (campanas). No tiene cooldown aparte de su duración.
 
 Todas las acciones se cancelan al reaparecer o al desactivar el componente.
+
+**Polvo al correr.** `AlmaRunDust` emite 2,5 partículas por metro recorrido mientras Alma está en el suelo y supera el 50 % de `MoveSpeed`. Las partículas (0,35–0,6 unidades) salen a la altura de los pies, 0,35 unidades por detrás del centro de Alma, derivan hacia atrás y un poco hacia arriba, crecen y se desvanecen en 0,4–0,6 s. Color beige (0,9; 0,84; 0,72) con 75 % de opacidad, dibujadas detrás de Alma. Se ajusta en el Inspector del componente (`Min Speed Ratio`, `Puffs Per Meter`, `Size Range`, `Color`, `Back Offset`). Al dejar de correr se dejan de emitir partículas y las existentes terminan solas.
 
 ### Valores en `AlmaMovement.asset`
 
