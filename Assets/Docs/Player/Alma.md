@@ -1,6 +1,6 @@
 # Alma — diseño del personaje jugable
 
-**Estado (5 de octubre de 2026):** Alma está implementada en Unity 6000.6.0f1 con locomoción, salto variable, doble salto, Pisotón, Dash aéreo y Rugido. Las seis hojas de animación (Idle, Run, Jump, GroundPound, Dash y Roar) están conectadas en un único Animator. Correr, Pisotón, Dash, Rugido y muerte/reaparición tienen efectos visuales generados por código. Faltan el desbloqueo por altares, los receptores del Rugido, mando, controles táctiles, checkpoints y el clip propio de doble salto (ver [Pendiente](#pendiente)).
+**Estado (6 de octubre de 2026):** Alma está implementada en Unity 6000.6.0f1 con locomoción, salto variable, doble salto, Pisotón, Dash aéreo y Rugido. Las siete hojas de animación (Idle, Run, Jump, Fall, GroundPound, Dash y Roar) están conectadas en un único Animator. Correr, Pisotón, Dash, Rugido y muerte/reaparición tienen efectos visuales generados por código. Faltan el desbloqueo por altares, los receptores del Rugido, mando, controles táctiles, checkpoints y el clip propio de doble salto (ver [Pendiente](#pendiente)).
 
 ## Implementación actual y prueba
 
@@ -138,10 +138,12 @@ El prefab usa `Animations/Idle/Player_Idle_Sheet_0.controller`. Todas las transi
 | 3 | Roar | `Player_Roar_Animation` (sin bucle) | `Roar`, sin `Dash` ni `GroundPound` |
 | 4 | Idle (por defecto) | `Player_Idle_Animation` | sin habilidades, `Grounded`, `Speed` < 0,2 |
 | 5 | Run | `Player_Run_Animation` (velocidad por `RunRate`) | sin habilidades, `Grounded`, `Speed` > 0,2 |
-| 6 | Jump | `Player_Jump_Animation` | sin habilidades, no `Grounded`, `VerticalSpeed` > 0 |
-| 7 | Fall | `Player_Jump_Animation` (desde la mitad del clip) | sin habilidades, no `Grounded`, `VerticalSpeed` < 0,001 |
+| 6 | Jump | `Animations/Jump/Player_Jump_Animation` (4 frames, 0,33 s, sin bucle) | sin habilidades, no `Grounded`, `VerticalSpeed` > 0 |
+| 7 | Fall | `Animations/Fall/Player_Fall_Animation` (2 frames, 0,17 s, sin bucle) | sin habilidades, no `Grounded`, `VerticalSpeed` < 0,001 |
 
-«Sin habilidades» significa `Roar`, `Dash` y `GroundPound` en false. Todos los clips tienen 8 frames a 12 fps (0,67 s). Jump y Fall comparten el ciclo completo de salto en bucle; en vuelos largos (por ejemplo, el rebote del hongo) el ciclo se repite y se ven frames de agacharse o aterrizar en el aire (ver [Pendiente](#pendiente)). El Dash se reproduce a ×1,48 para que el clip dure exactamente sus 0,45 s; si se cambia `DashDuration`, ajustar esta velocidad a 0,667 / `DashDuration`. El Pisotón termina en la lógica antes que su clip; `AlmaAnimation` mantiene su estado visual hasta completar una reproducción, sin retrasar el control. El Rugido ya dura lo mismo que su clip (`RoarDuration` = 0,667), así que esa retención solo actúa como red de seguridad si se acorta `RoarDuration`. En un Pisotón de más de 0,67 s el clip se repite en la caída y al aterrizar se corta donde esté. El doble salto reutiliza el estado Jump: si ocurre durante Fall, Jump empieza desde su primer frame; si Alma aún sube, la animación continúa.
+«Sin habilidades» significa `Roar`, `Dash` y `GroundPound` en false. Idle, Run, GroundPound, Dash y Roar tienen 8 frames a 12 fps (0,67 s). Jump y Fall tienen clips propios a 12 fps, sin bucle: cada uno se reproduce una vez al entrar en su estado y se queda en su último frame mientras dura la subida o la caída. Secuencia comprobada en un salto normal (prueba PlayMode del 6/10/2026 en `Level_1_1`): Jump 1→4 entre 0 y 0,29 s, se queda en el 4 hasta el punto más alto (~0,37 s); Fall 1→2 desde ~0,41 s, se queda en el 2 hasta tocar el suelo (~0,65 s); Idle al aterrizar. El Dash se reproduce a ×1,48 para que el clip dure exactamente sus 0,45 s; si se cambia `DashDuration`, ajustar esta velocidad a 0,667 / `DashDuration`. El Pisotón termina en la lógica antes que su clip; `AlmaAnimation` mantiene su estado visual hasta completar una reproducción, sin retrasar el control. El Rugido ya dura lo mismo que su clip (`RoarDuration` = 0,667), así que esa retención solo actúa como red de seguridad si se acorta `RoarDuration`. En un Pisotón de más de 0,67 s el clip se repite en la caída y al aterrizar se corta donde esté. El doble salto reutiliza el estado Jump: si ocurre durante Fall, Jump empieza desde su primer frame; si Alma aún sube, la animación continúa.
+
+**Si un estado se ve congelado** (por ejemplo, Alma salta con la pose de Idle o del Dash): ese estado no tiene clip asignado. Con el editor abierto, Unity puede volver a guardar el controlador desde una copia vieja en memoria; el 5/10/2026 guardó Jump y Fall con *Motion: None*. Solución: cerrar la ventana del Animator, seleccionar el estado en `Player_Idle_Sheet_0.controller` y comprobar su **Motion** en el Inspector (Jump → `Player_Jump_Animation`, Fall → `Player_Fall_Animation`); si sale *None*, arrastrar el clip y guardar.
 
 ### Pruebas y escena
 
@@ -156,7 +158,7 @@ Las ocho pruebas se ejecutan en Test Runner → PlayMode → `AlmaMovementTests`
 - Receptores del Rugido (rocas, campanas, interruptores, enemigos) implementando `IRoarTarget`, efecto visual de la resonancia (8 m) al alcanzar una campana.
 - Rotura de suelos y activación de mecanismos con el Pisotón (pueden suscribirse a `GroundPoundLanded`, como ya hace el [escarabajo de cristal](../Enemies/CrystalBeetle_Caves.md) para voltearse).
 - Mando y controles táctiles.
-- Clips propios de DoubleJump y de subida y caída separados, en bucle, para que los vuelos largos (rebote del hongo) no repitan el ciclo de salto. Un intento de crearlos a mano desde la hoja actual no se reprodujo en Unity y se revirtió (5/10/2026). Dead/Respawn se resolvió por código. Indicador diegético de Dash disponible (plumas del lomo, requiere arte).
+- Clip propio de DoubleJump (Dead/Respawn se resolvió por código). Indicador diegético de Dash disponible (plumas del lomo, requiere arte).
 - Tamaño de cámara: el código usa 8 y el diseño 6 (ver [Cámara](#cámara-daño-y-feedback)).
 - Checkpoints (deben actualizar `RespawnPosition`) y el resto de peligros (deben llamar a `Die()`, como ya hacen los enemigos y las zonas de peligro estáticas). Un destello blanco puro al morir necesitaría un shader propio; hoy se usa un tinte rojo claro.
 
@@ -210,7 +212,7 @@ El Dash mantiene su dirección durante todo el impulso. El Pisotón requiere est
 
 ## Animaciones y arte
 
-Las [láminas de diseño y poses](../../Art/Player/) son referencias conceptuales. La implementación actual usa seis hojas de 1024×512 con ocho frames de 256×256 y 80 píxeles por unidad, en `Assets/Prefabs/Player/Animations/`: Idle, Run, Jump, GroundPound, Dash y Roar. Siguen pendientes DoubleJump, Fall separado de Jump y Rescue; Dead/Respawn se hace por código con el sprite existente (`AlmaDeathFx`). Las hojas nuevas deben mantener ese mismo formato.
+Las [láminas de diseño y poses](../../Art/Player/) son referencias conceptuales. La implementación actual usa siete hojas de 1024×512 con frames de 256×256 y 80 píxeles por unidad, en `Assets/Prefabs/Player/Animations/`: Idle, Run, GroundPound, Dash y Roar (8 frames), Jump (4) y Fall (2). Jump (`Animations/Jump/Player_Jump_Sheet.png`, 4 frames: agachada, erguida y dos en el aire con las patas recogidas) y Fall (`Animations/Fall/Player_Fall_Sheet.png`, 2 frames bajando con las patas estiradas) son hojas separadas desde el 5/10/2026; sus sprites se llaman `Player_Jump_Sheet_v2_0`–`_3` y `Player_Jump_Sheet_v2_4`–`_5`. Siguen pendientes DoubleJump y Rescue; Dead/Respawn se hace por código con el sprite existente (`AlmaDeathFx`). Las hojas nuevas deben mantener ese mismo formato.
 
 | Acción visual | Requisito para la nueva producción |
 | --- | --- |

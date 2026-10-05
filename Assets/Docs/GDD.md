@@ -270,7 +270,7 @@ Uso intenso de luz dinámica 2D (Unity URP 2D Renderer o Godot CanvasModulate + 
 
 Alma necesita, como mínimo:
 - Idle, Run, Jump, Fall, Double Jump, Ground Pound, Air Dash, Roar, Hurt, Rescate.
-- **Estado:** Idle, Run, Jump/Fall (mismo clip), Ground Pound, Air Dash y Roar tienen hoja de sprites. Double Jump y Hurt/muerte se resuelven por código con efectos sobre el sprite existente; Rescate sigue pendiente.
+- **Estado:** Idle, Run, Jump, Fall, Ground Pound, Air Dash y Roar tienen hoja de sprites (Jump de 4 frames y Fall de 2, separadas). Double Jump y Hurt/muerte se resuelven por código con efectos sobre el sprite existente; Rescate sigue pendiente.
 - Animaciones cortas (4-8 frames) para pixel art, con *smear frames* en acciones rápidas (Dash, Pisotón).
 
 ---

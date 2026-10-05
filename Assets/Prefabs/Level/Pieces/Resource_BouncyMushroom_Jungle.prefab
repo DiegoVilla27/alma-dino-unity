@@ -133,9 +133,9 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 1.6, y: 0.8}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1.6, y: 0.8}
@@ -159,5 +159,5 @@ MonoBehaviour:
   _cooldown: 0.15
   _squashTime: 0.25
   _sporeColor: {r: 1, g: 0.85, b: 0.95, a: 0.85}
-  _label: "Hongo saltar\u00EDn"
+  _label: "Hongo saltar\xEDn"
   _showLabel: 1

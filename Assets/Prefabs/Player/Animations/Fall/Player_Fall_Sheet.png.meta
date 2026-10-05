@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c75aa79da999d4584bf2eb29dc9a41f4
+guid: 7bb0dc2da624c4919bb5cc4097badf25
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -141,11 +141,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Jump_Sheet_v2_0
+      name: Player_Jump_Sheet_v2_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 0
         width: 256
         height: 256
       alignment: 0
@@ -154,20 +154,20 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: aa78d39fadf497880800000000000000
-      internalID: -8612765010466338902
+      spriteID: 0d58bacbfd8794775968746371fdc109
+      internalID: 1091570185
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Jump_Sheet_v2_1
+      name: Player_Jump_Sheet_v2_5
       rect:
         serializedVersion: 2
         x: 256
-        y: 256
+        y: 0
         width: 256
         height: 256
       alignment: 0
@@ -178,52 +178,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 500a8f900b341498b9c50cb0a92f0444
-      internalID: 55535348
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Jump_Sheet_v2_2
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 256
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3216e586d5cbc436d9e257578d42a261
-      internalID: 1387853531
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Jump_Sheet_v2_3
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 256
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7be617e3d444141458c26e15999b5d73
-      internalID: -64173610
+      spriteID: bcb863c58beae4fe9bdfa1fc9eb065aa
+      internalID: -920614813
       vertices: []
       indices: 
       edges: []
