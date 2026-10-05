@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3205442400229026263}
   - component: {fileID: 8248663586849963818}
   - component: {fileID: 2718326775505385464}
+  - component: {fileID: 6722914698481413509}
   m_Layer: 0
   m_Name: Alma
   m_TagString: Untagged
@@ -261,3 +262,23 @@ MonoBehaviour:
   _dustColor: {r: 0.9, g: 0.84, b: 0.72, a: 0.8}
   _shakeAmplitude: 0.12
   _shakeDuration: 0.18
+--- !u!114 &6722914698481413509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6017265908048156795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6933fc7dc2b94db1b0880fb34da5373e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Alma.Player::AlmaGame.Player.AlmaDashFx
+  _ghostCount: 5
+  _ghostInterval: 0.09
+  _ghostFade: 0.25
+  _ghostColor: {r: 0.75, g: 0.9, b: 1, a: 0.55}
+  _linesPerSecond: 16
+  _lineLength: {x: 0.8, y: 1.5}
+  _lineColor: {r: 0.92, g: 0.97, b: 1, a: 0.7}
+  _lineBackOffset: 0.6

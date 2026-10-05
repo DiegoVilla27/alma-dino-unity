@@ -23,6 +23,7 @@ El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de fu
 | `Scripts/AlmaAnimation.cs` | Orientación del sprite y parámetros del Animator según el estado real del motor. |
 | `Scripts/AlmaRunDust.cs` | Polvo en los pies al correr: un `ParticleSystem` creado en tiempo de ejecución (máx. 20 partículas, una llamada de dibujo, textura generada por código). |
 | `Scripts/AlmaGroundPoundFx.cs` | Efectos del impacto del Pisotón: onda en el suelo, ráfaga de polvo y temblor de cámara. |
+| `Scripts/AlmaDashFx.cs` | Efectos del Dash: siluetas fantasma y líneas de viento. |
 | `Scripts/IRoarTarget.cs` | Contrato para objetos que reaccionan al Rugido (`ResonatesWithRoar`, `ReceiveRoar(origin, direction)`). |
 | `Scripts/AlmaMovementSettings.cs` | ScriptableObject con todos los valores de movimiento y habilidades. |
 | `Scripts/AlmaCameraFollow.cs` | Seguimiento suave, anticipación horizontal según velocidad y `Shake(amplitud, duración)` para temblores breves. |
@@ -53,6 +54,13 @@ Todas las acciones se cancelan al reaparecer o al desactivar el componente.
 - **Temblor de cámara:** desplazamiento aleatorio de hasta 0,12 unidades que se reduce linealmente a cero en 0,18 s. No altera el seguimiento suave de la cámara.
 
 Todo se ajusta en el Inspector del componente. Coste: un sprite y un sistema de partículas (máx. 16), visibles solo durante el efecto.
+
+**Estela del Dash.** `AlmaDashFx` actúa mientras `IsDashing` es verdadero:
+
+- **Siluetas fantasma:** al empezar el Dash y cada 0,09 s se deja una copia del frame actual de Alma, quieta donde estaba, tintada de azul claro (0,75; 0,9; 1) al 55 % de opacidad, que se desvanece en 0,25 s. Se reutilizan 5 sprites (en un Dash de 0,45 s salen unas 5) y se dibujan detrás de Alma.
+- **Líneas de viento:** 16 trazos por segundo (máx. 8 a la vez), finos (0,04–0,08) y alargados (0,8–1,5 unidades), blanco-azulados al 70 %, que aparecen a lo largo de la altura del cuerpo, 0,6 unidades por detrás de Alma, se quedan atrás a 1,5 m/s y se desvanecen en 0,18–0,28 s.
+
+Todo se ajusta en el Inspector del componente. Coste: hasta 5 sprites y un sistema de partículas (máx. 8), sin dibujar nada fuera del Dash.
 
 ### Valores en `AlmaMovement.asset`
 
@@ -116,7 +124,7 @@ Las ocho pruebas se ejecutan en Test Runner → PlayMode → `AlmaMovementTests`
 - Receptores del Rugido (rocas, campanas, interruptores, enemigos) implementando `IRoarTarget`, onda visual `VFX_RoarWave_Universal` y temblor de pantalla del Rugido.
 - Rotura de suelos y activación de mecanismos con el Pisotón (pueden suscribirse a `GroundPoundLanded`).
 - Mando y controles táctiles.
-- Clips propios de DoubleJump, Jump/Fall separados y Dead/Respawn. Indicador diegético de Dash disponible.
+- Clips propios de DoubleJump, Jump/Fall separados y Dead/Respawn. Indicador diegético de Dash disponible (plumas del lomo, requiere arte).
 - Checkpoints y peligros.
 
 Alma es una madre dinosaurio ágil. Su control debe permitir saltos precisos y encadenar habilidades sin retrasos artificiales. No tiene puntos de vida: al tocar un peligro activo reaparece en el último checkpoint. El juego no usa música ni efectos de sonido; cada acción necesita señales visuales claras.
