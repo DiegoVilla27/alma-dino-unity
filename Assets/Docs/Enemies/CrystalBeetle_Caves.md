@@ -115,6 +115,12 @@ Cada frame mide 3,2 × 3,2 unidades. Medido sobre el dibujo: el cuerpo ocupa ~�
 
 No hay hojas de volteo ni de patas arriba: se resuelve girando el sprite de la caminata 180°. Si se dibujan después (reacción al sismo, patas arriba pataleando), se conectarían como estados nuevos del Animator.
 
+## Instancias en escenas
+
+| Escena | Objeto | Posición | Valores cambiados respecto al prefab |
+| --- | --- | --- | --- |
+| `Scenes/World_01/Level_1_1.unity` | `CrystalBeetle` | (−1,6; −0,08) | Ninguno (instancia de prueba: es un enemigo del Mundo 2) |
+
 ## Gizmos
 
 - **Azul:** recorrido de la patrulla (A–B) con sus dos extremos.

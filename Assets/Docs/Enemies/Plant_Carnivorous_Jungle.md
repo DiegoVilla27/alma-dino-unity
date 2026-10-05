@@ -1,6 +1,6 @@
 # Planta carnívora — enemigo del Mundo 1
 
-**Estado (5 de octubre de 2026):** implementada en Unity 6000.6.0f1 como prefab reutilizable, con animaciones Idle y Bite, detección de Alma, mordisco a izquierda o derecha y onda de impacto letal. Todavía no está colocada en ninguna escena ni probada en juego (ver [Pendiente](#pendiente)).
+**Estado (5 de octubre de 2026):** implementada en Unity 6000.6.0f1 como prefab reutilizable, con animaciones Idle y Bite, detección de Alma, mordisco a izquierda o derecha y onda de impacto letal. Hay una instancia de prueba en `Level_1_1` (ver [Instancias en escenas](#instancias-en-escenas)), pero todavía no está probada a fondo (ver [Pendiente](#pendiente)).
 
 Ficha de diseño original: [inventario, enemigo 1](../INVENTARIO_GAMEPLAY_PREFABS.md#1-planta-carnívora). Jugador: [Alma](../Player/Alma.md).
 
@@ -14,13 +14,12 @@ Todo está en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/`:
 
 | Carpeta / archivo | Responsabilidad |
 | --- | --- |
-| `Plant_Carnivorous_Jungle.prefab` | Prefab reutilizable: SpriteRenderer, Animator y `CarnivorousPlant2D`. Sin colisionador propio. |
+| `Plant_Carnivorous.prefab` | Prefab reutilizable: SpriteRenderer, Animator y `CarnivorousPlant2D`. Sin colisionador propio. |
 | `Scripts/CarnivorousPlant2D.cs` | Detección, ciclo de ataque, animación frame a frame, zonas letales, onda y aviso. Namespace `AlmaGame.Enemies` (ensamblado `Assembly-CSharp`). |
 | `Animations/Idle/Plant_Carnivorous_Jungle_Idle_Sheet_0.controller` | Animator del prefab, con los estados `Idle` (por defecto) y `Bite`. |
 | `Animations/Idle/Plant_Carnivorous_Jungle_Idle_Animation.anim` + `_Sheet.png` | Reposo: 8 frames a 12 fps, en bucle. |
 | `Animations/Bite/Plant_Carnivorous_Jungle_Bite_Animation.anim` + `_Sheet.png` | Mordisco hacia la derecha: 8 frames. El script elige cada frame. |
 | `Animations/Bite/Plant_Carnivorous_Jungle_Bite_Sheet_0.controller` | Generado por Unity al crear el clip; el prefab no lo usa. |
-| `Sprites/Plant_Carnivorous_Jungle_Idle_Base.png` | Imagen de referencia (256×256, 100 px/unidad). |
 
 ## Cómo probarla
 
@@ -61,7 +60,7 @@ Se editan en el Inspector del componente; cada instancia de la escena puede sobr
 | Campo | Valor | Uso |
 | --- | ---: | --- |
 | **Detección** | | |
-| `Detect Range` | 3,3 | Distancia horizontal máxima, a cada lado, para empezar a morder. |
+| `Detect Range` | 3,3 | Distancia horizontal máxima, a cada lado, para empezar a morder. El valor por defecto del script es 4,4, pero el prefab guarda 3,3 y es el que se usa (ver [Pendiente](#pendiente)). |
 | `Detect Height` | −1,5 / 2,5 | Rango vertical respecto al centro de la planta en el que se detecta a Alma. |
 | **Tiempos (s)** | | |
 | `Windup Time` | 0,25 | Aviso. |
@@ -103,6 +102,12 @@ Cada frame mide 3,2 × 3,2 unidades. Medido sobre el dibujo: la base de hojas ll
 
 Las nuevas hojas deben mantener el mismo formato (base centrada y en la misma posición en todos los frames, 80 px/unidad) para que el reflejo y las zonas letales sigan alineados.
 
+## Instancias en escenas
+
+| Escena | Objeto | Posición | Valores cambiados respecto al prefab |
+| --- | --- | --- | --- |
+| `Scenes/World_01/Level_1_1.unity` | `Plant_Carnivorous` | (−6,55; 0,85) | Ninguno |
+
 ## Gizmos
 
 Al seleccionar la planta en la vista Scene:
@@ -117,7 +122,8 @@ Un SpriteRenderer y un Animator por planta, más tres sprites de arco (hijos de 
 
 ## Pendiente
 
-- Colocarla en `Level_1_1` u otra escena y probarla; ajustar `Ground Offset Y` y la zona de la cabeza a ojo.
+- Probarla en `Level_1_1`; ajustar `Ground Offset Y` y la zona de la cabeza a ojo.
+- **Alcance de detección sin decidir:** el script tiene 4,4 por defecto y el prefab 3,3. Con 4,4 la planta empezaría a morder antes de que la onda (que llega a 3,3) pueda alcanzar a Alma. Decidir el valor y cambiarlo en el Inspector del prefab.
 - **La onda atraviesa paredes y huecos:** no comprueba si hay suelo o un muro delante. Colocar la planta en tramos de suelo plano de al menos 3,3 unidades a cada lado, o añadir esa comprobación.
 - La planta no tiene colisionador: Alma la atraviesa en reposo. Si debe bloquear el paso o poder pisarse, hay que añadirlo.
 - Pedir una hoja Bite con frames más anchos (512×256) donde el tallo se estire de verdad, para que el alcance visual de la cabeza acompañe a la onda.

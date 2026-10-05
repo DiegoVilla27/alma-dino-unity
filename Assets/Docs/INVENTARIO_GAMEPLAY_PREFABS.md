@@ -4,7 +4,7 @@ Fecha de revisión: 4 de octubre de 2026.
 
 Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`), la planta carnívora (`Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/`), el escarabajo de cristal (`Assets/Prefabs/Enemies/CrystalBeetle_Caves/`) y la escena de práctica `Level_1_1`. Cada elemento implementado tiene su propia ficha en `Docs/` con valores y configuración reales. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
 
-**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma); 3 prefabs implementados en esta rama: Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous_Jungle.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md); y el escarabajo de cristal, en `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab`, ver [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md). Las carpetas y los nombres indicados son rutas propuestas.
+**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma); 3 prefabs implementados en esta rama: Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md); y el escarabajo de cristal, en `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab`, ver [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md). Las carpetas y los nombres indicados son rutas propuestas.
 
 ## Reglas de daño y funcionamiento
 
@@ -130,7 +130,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementada. Ficha con valores reales: [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md).
 - **Archivo definitivo:** `Plant_Carnivorous_Jungle.prefab`.
-- **Ruta real:** `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous_Jungle.prefab` (la ruta propuesta era `Assets/_Project/Prefabs/Enemies/`).
+- **Ruta real:** `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous.prefab` (nombre y ruta propuestos: `Assets/_Project/Prefabs/Enemies/Plant_Carnivorous_Jungle.prefab`).
 - **Implementación:** `CarnivorousPlant2D`.
 - **Mundo/contexto:** 1.
 - **Qué es / para qué sirve:** Enemigo vegetal fijo que muerde por ciclos.
