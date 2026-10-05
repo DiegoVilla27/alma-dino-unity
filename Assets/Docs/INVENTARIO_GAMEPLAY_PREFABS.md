@@ -2,9 +2,9 @@
 
 Fecha de revisión: 4 de octubre de 2026.
 
-Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`), la planta carnívora (`Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/`), el escarabajo de cristal (`Assets/Prefabs/Enemies/CrystalBeetle_Caves/`) y la escena de práctica `Level_1_1`. Cada elemento implementado tiene su propia ficha en `Docs/` con valores y configuración reales. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
+Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`), la planta carnívora (`Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/`), el escarabajo de cristal (`Assets/Prefabs/Enemies/CrystalBeetle_Caves/`), el murciélago de cueva (`Assets/Prefabs/Enemies/CaveBat_Caves/`) y la escena de práctica `Level_1_1`. Cada elemento implementado tiene su propia ficha en `Docs/` con valores y configuración reales. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
 
-**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma); 3 prefabs implementados en esta rama: Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md); y el escarabajo de cristal, en `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab`, ver [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md). Las carpetas y los nombres indicados son rutas propuestas.
+**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma); 4 prefabs implementados en esta rama: Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md); y el escarabajo de cristal, en `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab`, ver [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md); y el murciélago de cueva, en `Assets/Prefabs/Enemies/CaveBat_Caves/CaveBat_Caves.prefab`, ver [Murciélago de cueva](Enemies/CaveBat_Caves.md). Las carpetas y los nombres indicados son rutas propuestas.
 
 ## Reglas de daño y funcionamiento
 
@@ -154,15 +154,16 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 3. Murciélago de cueva
 
+- **Estado:** implementado. Ficha con valores reales: [Murciélago de cueva](Enemies/CaveBat_Caves.md).
 - **Archivo definitivo:** `Enemy_CaveBat_Caves.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Enemies/Enemy_CaveBat_Caves.prefab`.
+- **Ruta real:** `Assets/Prefabs/Enemies/CaveBat_Caves/CaveBat_Caves.prefab` (nombre y ruta propuestos: `Assets/_Project/Prefabs/Enemies/Enemy_CaveBat_Caves.prefab`).
 - **Implementación:** `CaveBat2D`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Enemigo aéreo con ataques de ida y vuelta.
-- **Cómo funciona:** Detecta a Alma debajo de su dormidero, muestra aviso, vuela en arco y vuelve a descansar.
+- **Cómo funciona:** Implementado: patrulla en el aire entre dos puntos; si Alma pasa por debajo a 4 u o menos, se detiene, tiembla y parpadea en rojo 0,65 s, y se lanza en un picado en U de 1,6 s a través de donde estaba ella; luego revolotea 2 s y sigue patrullando. Diseño original: dormía colgado del techo y despertaba al pasar Alma.
 - **Daño a Alma:** Letal cuando el peligro está activo: muerte y reaparición en el último checkpoint. No resta una cantidad de HP.
 - **Valores y propiedades:** CrystalEnemyConfig.asset: detección horizontal 4 unidades; aviso 0.65 s; vuelo 1.6 s; descanso 2 s; ancho del arco 2.2 unidades. Profundidad de picado configurable en el componente.
-- **Conexiones, variantes o límites:** Solo es peligroso durante Flying; dormir, avisar y descansar son estados seguros.
+- **Conexiones, variantes o límites:** Implementado: tocar su cuerpo mata siempre (no las alas). Diseño original: solo era peligroso durante el vuelo de ataque.
 
 ### 4. Sapo venenoso
 

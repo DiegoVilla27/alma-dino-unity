@@ -1,4 +1,4 @@
-> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama están implementadas Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales), en la escena de práctica `Level_1_1`, y como prefabs la planta carnívora (Mundo 1) y el escarabajo de cristal (Mundo 2). Su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md), [`Enemies/Plant_Carnivorous_Jungle.md`](Enemies/Plant_Carnivorous_Jungle.md) y [`Enemies/CrystalBeetle_Caves.md`](Enemies/CrystalBeetle_Caves.md); cada elemento nuevo tendrá su propia ficha. Las notas de fases y tiempos son planificación, no estado de producción.
+> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama están implementadas Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales), en la escena de práctica `Level_1_1`, y como prefabs la planta carnívora (Mundo 1), el escarabajo de cristal y el murciélago de cueva (Mundo 2). Su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md), [`Enemies/Plant_Carnivorous_Jungle.md`](Enemies/Plant_Carnivorous_Jungle.md), [`Enemies/CrystalBeetle_Caves.md`](Enemies/CrystalBeetle_Caves.md) y [`Enemies/CaveBat_Caves.md`](Enemies/CaveBat_Caves.md); cada elemento nuevo tendrá su propia ficha. Las notas de fases y tiempos son planificación, no estado de producción.
 
 ---
 
@@ -158,7 +158,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 - **Atmósfera:** Oscura, fría, cristales que emiten luz de color, ecos.
 - **Mecánica foco:** Pisotón Sísmico.
 - **Obstáculos:** Bloques agrietados, placas de presión pesadas, interruptores cronometrados.
-- **Enemigos:** Murciélagos (patrón aéreo), Armadillos (inmunes sin aturdir).
+- **Enemigos:** Murciélagos (patrón aéreo; implementado: patrulla en el aire y picado en U hacia Alma, ver [ficha](Enemies/CaveBat_Caves.md)), Armadillos (inmunes sin aturdir).
 
 | Nivel | Función pedagógica | Descripción |
 |---|---|---|

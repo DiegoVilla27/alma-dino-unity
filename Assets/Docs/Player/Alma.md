@@ -49,7 +49,7 @@ El cuerpo usa Rigidbody2D con interpolación, colisión continua, rotación bloq
 
 Todas las acciones se cancelan al reaparecer o al desactivar el componente.
 
-- **Muerte.** `Die()` es el punto de entrada para peligros y caídas (hoy la caída por debajo de Y = −12, la [planta carnívora](../Enemies/Plant_Carnivorous_Jungle.md) y el [escarabajo de cristal](../Enemies/CrystalBeetle_Caves.md)). Activa `IsDead`, cancela habilidades, desactiva la física del cuerpo (`Rigidbody2D.simulated = false`) e ignora la entrada, y lanza el evento `Died`. El control vuelve con `Respawn()`, que reactiva la física y coloca a Alma en `RespawnPosition` (hoy la posición inicial; con checkpoints será el último). Si nadie escucha `Died`, reaparece al instante.
+- **Muerte.** `Die()` es el punto de entrada para peligros y caídas (hoy la caída por debajo de Y = −12, la [planta carnívora](../Enemies/Plant_Carnivorous_Jungle.md) el [escarabajo de cristal](../Enemies/CrystalBeetle_Caves.md) y el [murciélago de cueva](../Enemies/CaveBat_Caves.md)). Activa `IsDead`, cancela habilidades, desactiva la física del cuerpo (`Rigidbody2D.simulated = false`) e ignora la entrada, y lanza el evento `Died`. El control vuelve con `Respawn()`, que reactiva la física y coloca a Alma en `RespawnPosition` (hoy la posición inicial; con checkpoints será el último). Si nadie escucha `Died`, reaparece al instante.
 
 **Polvo al correr.** `AlmaRunDust` emite 2,5 partículas por metro recorrido mientras Alma está en el suelo y supera el 50 % de `MoveSpeed`. Las partículas (0,35–0,6 unidades) salen a la altura de los pies, 0,35 unidades por detrás del centro de Alma, derivan hacia atrás y un poco hacia arriba, crecen y se desvanecen en 0,4–0,6 s. Color beige (0,9; 0,84; 0,72) con 75 % de opacidad, dibujadas detrás de Alma. Se ajusta en el Inspector del componente (`Min Speed Ratio`, `Puffs Per Meter`, `Size Range`, `Color`, `Back Offset`). Al dejar de correr se dejan de emitir partículas y las existentes terminan solas.
 
@@ -158,7 +158,7 @@ Las ocho pruebas se ejecutan en Test Runner → PlayMode → `AlmaMovementTests`
 - Mando y controles táctiles.
 - Clips propios de DoubleJump y Jump/Fall separados (Dead/Respawn se resolvió por código). Indicador diegético de Dash disponible (plumas del lomo, requiere arte).
 - Tamaño de cámara: el código usa 8 y el diseño 6 (ver [Cámara](#cámara-daño-y-feedback)).
-- Checkpoints (deben actualizar `RespawnPosition`) y el resto de peligros (deben llamar a `Die()`, como ya hacen la planta carnívora y el escarabajo de cristal). Un destello blanco puro al morir necesitaría un shader propio; hoy se usa un tinte rojo claro.
+- Checkpoints (deben actualizar `RespawnPosition`) y el resto de peligros (deben llamar a `Die()`, como ya hacen la planta carnívora, el escarabajo de cristal y el murciélago). Un destello blanco puro al morir necesitaría un shader propio; hoy se usa un tinte rojo claro.
 
 Alma es una madre dinosaurio ágil. Su control debe permitir saltos precisos y encadenar habilidades sin retrasos artificiales. No tiene puntos de vida: al tocar un peligro activo reaparece en el último checkpoint. El juego no usa música ni efectos de sonido; cada acción necesita señales visuales claras.
 
