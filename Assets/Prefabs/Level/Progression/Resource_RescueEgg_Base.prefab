@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3709038624332272929}
   - component: {fileID: 4608273625774805095}
   - component: {fileID: 8680402178407701861}
+  - component: {fileID: 29941120088934482}
   m_Layer: 0
   m_Name: Resource_RescueEgg_Base
   m_TagString: Untagged
@@ -133,9 +134,9 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 0.6, y: 0.8}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1.2, y: 1.6}
@@ -154,10 +155,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.RescueEgg2D
   _eggId: Green
   _eggColor: {r: 0.45, g: 0.85, b: 0.35, a: 1}
-  _rescueText: "A\u00FAn est\u00E1s tibio...\nMam\u00E1 lleg\u00F3 a tiempo. Ya est\u00E1s a salvo."
+  _rescueText: "A\xFAn est\xE1s tibio...\nMam\xE1 lleg\xF3 a tiempo. Ya est\xE1s a salvo."
   _size: {x: 0.6, y: 0.8}
   _triggerSize: {x: 1.2, y: 1.6}
   _collectTime: 0.5
   _textTime: 4.5
   _label: Huevo verde
   _showLabel: 1
+--- !u!114 &29941120088934482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743336114562172476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689e3ccc32dc4792859b50fb844b8cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.PieceArt2D
+  _margin: {x: 0, y: 0}

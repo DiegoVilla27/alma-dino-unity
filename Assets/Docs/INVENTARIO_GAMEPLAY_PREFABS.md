@@ -912,7 +912,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 31. Altar de Doble Salto
 
-- **Estado:** implementado con marcador provisional (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_DoubleJump.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
+- **Estado:** implementado con arte final (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_DoubleJump.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_AbilityAltar_DoubleJump.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_DoubleJump.prefab`.
 - **Implementación:** `AbilityRelic2D`.
@@ -925,7 +925,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 32. Altar de Pisotón
 
-- **Estado:** implementado con marcador provisional (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_GroundPound.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
+- **Estado:** implementado con arte final (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_GroundPound.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_AbilityAltar_GroundPound.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_GroundPound.prefab`.
 - **Implementación:** `AbilityRelic2D`.
@@ -938,7 +938,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 33. Altar de Dash
 
-- **Estado:** implementado con marcador provisional (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_AirDash.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
+- **Estado:** implementado con arte final (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_AirDash.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_AbilityAltar_AirDash.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_AirDash.prefab`.
 - **Implementación:** `AbilityRelic2D`.
@@ -951,7 +951,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 34. Altar de Rugido
 
-- **Estado:** implementado con marcador provisional (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_Roar.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
+- **Estado:** implementado con arte final (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_Roar.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_AbilityAltar_Roar.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_Roar.prefab`.
 - **Implementación:** `AbilityRelic2D`.
@@ -964,7 +964,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 35. Nido / checkpoint
 
-- **Estado:** implementado con marcador provisional (script `CheckpointNest2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_CheckpointNest_Universal.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
+- **Estado:** implementado con arte final (script `CheckpointNest2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_CheckpointNest_Universal.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_CheckpointNest_Universal.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_CheckpointNest_Universal.prefab`.
 - **Implementación:** `Checkpoint2D`.
@@ -977,7 +977,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 36. Huevo verde
 
-- **Estado:** implementado con marcador provisional (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Green.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
+- **Estado:** implementado con arte final (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Green.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_RescueEgg_Green.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Green.prefab`.
 - **Implementación:** `GreenEggRescue2D (tipo de huevo) + lógica de santuario cuando corresponda`.
@@ -990,7 +990,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 37. Huevo azul
 
-- **Estado:** implementado con marcador provisional (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Blue.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
+- **Estado:** implementado con arte final (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Blue.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_RescueEgg_Blue.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Blue.prefab`.
 - **Implementación:** `GreenEggRescue2D (tipo de huevo) + lógica de santuario cuando corresponda`.
@@ -1003,7 +1003,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 38. Huevo morado
 
-- **Estado:** implementado con marcador provisional (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Purple.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
+- **Estado:** implementado con arte final (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Purple.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_RescueEgg_Purple.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Purple.prefab`.
 - **Implementación:** `GreenEggRescue2D (tipo de huevo) + lógica de santuario cuando corresponda`.
@@ -1016,7 +1016,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 39. Huevo rojo
 
-- **Estado:** implementado con marcador provisional (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Red.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
+- **Estado:** implementado con arte final (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Red.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_RescueEgg_Red.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Red.prefab`.
 - **Implementación:** `GreenEggRescue2D (tipo de huevo) + lógica de santuario cuando corresponda`.
@@ -1041,7 +1041,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 41. Portal de salida
 
-- **Estado:** implementado con marcador provisional (script `LevelExitPortal2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_LevelExitPortal_Universal.prefab`. Va en todos los niveles, sin condición de apertura: al entrar Alma guarda el nivel como completado y carga `Next Scene`. Ficha: [Progresión](LevelPieces/Progression.md#portal-de-salida-resource_levelexitportal_universal).
+- **Estado:** implementado con arte final (script `LevelExitPortal2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_LevelExitPortal_Universal.prefab`. Va en todos los niveles, sin condición de apertura: al entrar Alma guarda el nivel como completado y carga `Next Scene`. Ficha: [Progresión](LevelPieces/Progression.md#portal-de-salida-resource_levelexitportal_universal).
 - **Archivo definitivo:** `Resource_LevelExitPortal_Universal.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab`.
 - **Implementación:** `LevelExit2D`.

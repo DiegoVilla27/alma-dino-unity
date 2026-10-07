@@ -8,29 +8,101 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8242961574074916230, guid: cfff810086044d239a5b40ff36608aec, type: 3}
-      propertyPath: m_Name
-      value: Resource_AbilityAltar_AirDash
+    - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_Size.x
+      value: 1.602
       objectReference: {fileID: 0}
-    - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
-      propertyPath: _ability
-      value: 2
+    - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_Size.y
+      value: 1.395
+      objectReference: {fileID: 0}
+    - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c0c18f9c386d4a13b686b128dd244ff1, type: 3}
+    - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_DrawMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _title
       value: Dash
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
-      propertyPath: _orbColor.r
-      value: 0.6
+      propertyPath: _size.x
+      value: 1.602
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
-      propertyPath: _orbColor.g
-      value: 1
+      propertyPath: _size.y
+      value: 1.395
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: _ability
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: _runeLift
+      value: 0.935
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: _showLabel
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _orbColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: _orbColor.g
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: _orbColor.r
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: _runeSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 81a568390e0c4255b00ee27fa952468b, type: 3}
+    - target: {fileID: 8242961574074916230, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_Name
+      value: Resource_AbilityAltar_AirDash
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.7025
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_SpriteTilingProperty.drawMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 1.602
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 1.395
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.6015625
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.3945312
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

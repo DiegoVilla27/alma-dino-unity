@@ -20,6 +20,12 @@ namespace AlmaGame.Level
         [SerializeField, Min(0.2f)] private float _titleTime = 2f;
         [SerializeField] private bool _showLabel = true;
 
+        [Header("Art")]
+        [Tooltip("Floating rune shard shown instead of the plain light orb; it levitates and flies to Alma.")]
+        [SerializeField] private Sprite _runeSprite;
+        [Tooltip("Height of the rune's centre above the pedestal's centre (units).")]
+        [SerializeField, Min(0f)] private float _runeLift = 1.2f;
+
         private enum State { Waiting, Collecting, Spent }
 
         private SpriteRenderer _renderer;
@@ -32,6 +38,8 @@ namespace AlmaGame.Level
         private State _state = State.Waiting;
         private float _stateStartedAt;
         private Vector3 _orbHome;
+        private SpriteRenderer _rune;
+        private SpriteRenderer _glow;
         private Color _baseColor;
 
         public AlmaAbility Ability => _ability;
@@ -46,12 +54,26 @@ namespace AlmaGame.Level
             int order = _renderer.sortingOrder;
             Material material = _renderer.sharedMaterial;
 
-            _orbHome = new Vector3(0f, _size.y * 0.5f + 0.7f, 0f);
+            _orbHome = new Vector3(0f, _runeSprite != null ? _runeLift : _size.y * 0.5f + 0.7f, 0f);
             _orb = new GameObject("Orb").transform;
             _orb.SetParent(transform, false);
             _orb.localPosition = _orbHome;
-            AddGlow(_orb, "Glow", _orbColor * new Color(1f, 1f, 1f, 0.6f), 1.1f, layer, order + 2);
-            AddGlow(_orb, "Core", Color.Lerp(_orbColor, Color.white, 0.6f), 0.45f, layer, order + 3);
+            if (_runeSprite != null)
+            {
+                // Rune shard with a soft halo of its colour behind it.
+                float runeHeight = _runeSprite.bounds.size.y;
+                _glow = AddGlow(_orb, "Glow", _orbColor * new Color(1f, 1f, 1f, 0.55f), runeHeight * 1.7f, layer, order + 2);
+                _rune = new GameObject("Rune").AddComponent<SpriteRenderer>();
+                _rune.transform.SetParent(_orb, false);
+                _rune.sprite = _runeSprite;
+                _rune.sortingLayerID = layer;
+                _rune.sortingOrder = order + 3;
+            }
+            else
+            {
+                AddGlow(_orb, "Glow", _orbColor * new Color(1f, 1f, 1f, 0.6f), 1.1f, layer, order + 2);
+                AddGlow(_orb, "Core", Color.Lerp(_orbColor, Color.white, 0.6f), 0.45f, layer, order + 3);
+            }
 
             _sparkle = HazardFx.CreateParticles("Sparkle", _orb, material, HazardFx.Puff(), 10, layer, order + 1);
             var sparkleMain = _sparkle.main;
@@ -105,11 +127,8 @@ namespace AlmaGame.Level
         {
             var renderer = GetComponent<SpriteRenderer>();
             var trigger = GetComponent<BoxCollider2D>();
-            if (renderer != null)
-            {
-                renderer.drawMode = SpriteDrawMode.Tiled;
-                renderer.size = _size;
-            }
+            // Keeps the prefab's draw mode (Sliced art scales as one picture) and any PieceArt2D margin.
+            LevelPieceUtility.ApplySize(renderer, null, _size);
             if (trigger != null)
             {
                 trigger.isTrigger = true;
@@ -138,9 +157,19 @@ namespace AlmaGame.Level
             switch (_state)
             {
                 case State.Waiting:
-                    // Float and pulse.
+                    // Float and pulse; a rune also sways gently and its halo breathes.
                     _orb.localPosition = _orbHome + Vector3.up * (Mathf.Sin(Time.time * 2.5f) * 0.12f);
-                    _orb.localScale = Vector3.one * (1f + 0.08f * Mathf.Sin(Time.time * 5f));
+                    if (_rune != null)
+                    {
+                        _orb.localScale = Vector3.one;
+                        _orb.localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(Time.time * 1.6f) * 5f);
+                        float runeHeight = _runeSprite.bounds.size.y;
+                        _glow.transform.localScale = Vector3.one * runeHeight * (1.6f + 0.2f * Mathf.Sin(Time.time * 3f));
+                    }
+                    else
+                    {
+                        _orb.localScale = Vector3.one * (1f + 0.08f * Mathf.Sin(Time.time * 5f));
+                    }
                     break;
 
                 case State.Collecting:

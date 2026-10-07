@@ -15,6 +15,8 @@ namespace AlmaGame.Level
     {
         [SerializeField] private string _nextScene = string.Empty;
         [SerializeField] private Vector2 _size = new Vector2(1.2f, 2.4f);
+        [Tooltip("Size of the glowing opening inside the art, as a fraction of Size: the core light and the swirl fill it.")]
+        [SerializeField] private Vector2 _openingScale = new Vector2(0.8f, 0.7f);
         [SerializeField] private Color _swirlColorA = new Color(0.6f, 0.8f, 1f, 0.9f);
         [SerializeField] private Color _swirlColorB = new Color(0.8f, 0.55f, 1f, 0.9f);
         [SerializeField, Min(0.1f)] private float _fadeTime = 0.8f;
@@ -58,9 +60,10 @@ namespace AlmaGame.Level
             main.startColor = new ParticleSystem.MinMaxGradient(_swirlColorA, _swirlColorB);
             var shape = _swirl.shape;
             shape.shapeType = ParticleSystemShapeType.Circle;
-            shape.radius = _size.x * 0.5f;
+            Vector2 opening = Vector2.Scale(_size, _openingScale);
+            shape.radius = opening.x * 0.5f;
             shape.radiusThickness = 0f;
-            shape.scale = new Vector3(1f, _size.y / _size.x, 1f);
+            shape.scale = new Vector3(1f, opening.y / opening.x, 1f);
             var velocity = _swirl.velocityOverLifetime;
             velocity.enabled = true;
             velocity.space = ParticleSystemSimulationSpace.Local;
@@ -100,11 +103,8 @@ namespace AlmaGame.Level
         {
             var renderer = GetComponent<SpriteRenderer>();
             var trigger = GetComponent<BoxCollider2D>();
-            if (renderer != null)
-            {
-                renderer.drawMode = SpriteDrawMode.Tiled;
-                renderer.size = _size;
-            }
+            // Keeps the prefab's draw mode (Sliced art scales as one picture) and any PieceArt2D margin.
+            LevelPieceUtility.ApplySize(renderer, null, _size);
             if (trigger != null)
             {
                 trigger.isTrigger = true;
@@ -116,7 +116,7 @@ namespace AlmaGame.Level
         private void Update()
         {
             float pulse = 1f + 0.12f * Mathf.Sin(Time.time * 4f);
-            _core.transform.localScale = new Vector3(_size.x * 0.8f * pulse, _size.y * 0.7f * pulse, 1f);
+            _core.transform.localScale = new Vector3(_size.x * _openingScale.x * pulse, _size.y * _openingScale.y * pulse, 1f);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

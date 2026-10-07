@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3183840386264150628}
   - component: {fileID: 5528370919768800140}
   - component: {fileID: 3118794913175980543}
+  - component: {fileID: 3615917982679064966}
   m_Layer: 0
   m_Name: Resource_LevelExitPortal_Universal
   m_TagString: Untagged
@@ -83,12 +84,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1387dde0d2434013881fcc5b66e5b1ed, type: 3}
-  m_Color: {r: 0.45, g: 0.35, b: 0.8, a: 0.6}
+  m_Sprite: {fileID: 21300000, guid: 3c96e9e1020449789832cc2abf4a2b16, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
-  m_Size: {x: 1.2, y: 2.4}
+  m_DrawMode: 1
+  m_Size: {x: 2.188, y: 2.801}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -132,13 +133,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1.2, y: 2.4}
+    oldSize: {x: 2.1875, y: 2.8007812}
+    newSize: {x: 2.188, y: 2.801}
     adaptiveTilingThreshold: 0.5
-    drawMode: 2
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.2, y: 2.4}
+  m_Size: {x: 2.188, y: 2.801}
   m_EdgeRadius: 0
 --- !u!114 &3118794913175980543
 MonoBehaviour:
@@ -153,9 +154,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.LevelExitPortal2D
   _nextScene: 
-  _size: {x: 1.2, y: 2.4}
+  _size: {x: 2.188, y: 2.801}
+  _openingScale: {x: 0.39, y: 0.73}
   _swirlColorA: {r: 0.6, g: 0.8, b: 1, a: 0.9}
   _swirlColorB: {r: 0.8, g: 0.55, b: 1, a: 0.9}
   _fadeTime: 0.8
   _label: Portal de salida
-  _showLabel: 1
+  _showLabel: 0
+--- !u!114 &3615917982679064966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898710237123537208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689e3ccc32dc4792859b50fb844b8cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.PieceArt2D
+  _margin: {x: 0, y: 0}

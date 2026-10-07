@@ -104,11 +104,8 @@ namespace AlmaGame.Level
         {
             var renderer = GetComponent<SpriteRenderer>();
             var trigger = GetComponent<BoxCollider2D>();
-            if (renderer != null)
-            {
-                renderer.drawMode = SpriteDrawMode.Tiled;
-                renderer.size = _size;
-            }
+            // Keeps the prefab's draw mode (Sliced art scales as one picture) and any PieceArt2D margin.
+            LevelPieceUtility.ApplySize(renderer, null, _size);
             if (trigger != null)
             {
                 // Tall trigger standing on the nest, so passing over it (even mid-jump) counts.
