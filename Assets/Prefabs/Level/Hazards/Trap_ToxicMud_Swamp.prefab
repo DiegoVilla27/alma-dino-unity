@@ -12,21 +12,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trap_ToxicMud_Swamp
       objectReference: {fileID: 0}
-    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
-      propertyPath: m_Color.r
-      value: 0.45
+    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Size.x
+      value: 3.9
       objectReference: {fileID: 0}
-    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
-      propertyPath: m_Color.g
+    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Size.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
-      propertyPath: m_Color.b
-      value: 0.15
+    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.drawMode
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
-      propertyPath: m_Color.a
-      value: 1
+    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3.4133334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 3.4133334
       objectReference: {fileID: 0}
     - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_Size.x
@@ -35,6 +47,34 @@ PrefabInstance:
     - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_Size.y
       value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 983dfcf9d531845a78d3759c8dd9577c, type: 3}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240128712795507209, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: _label
+      value: "Lodo t\xF3xico"
       objectReference: {fileID: 0}
     - target: {fileID: 6240128712795507209, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: _size.x
@@ -45,16 +85,36 @@ PrefabInstance:
       value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 6240128712795507209, guid: e430d065906f4f168404c79292039118, type: 3}
-      propertyPath: _label
-      value: "Lodo t\u00F3xico"
+      propertyPath: _showLabel
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
-      propertyPath: m_Size.x
-      value: 3.9
+    - target: {fileID: 6662996727564650443, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.drawMode
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
-      propertyPath: m_Size.y
-      value: 0.5
+    - target: {fileID: 6662996727564650443, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662996727564650443, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662996727564650443, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3.4133334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662996727564650443, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 3.4133334
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107461757166497120, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107461757166497120, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

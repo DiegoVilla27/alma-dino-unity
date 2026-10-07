@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,11 +82,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1387dde0d2434013881fcc5b66e5b1ed, type: 3}
-  m_Color: {r: 0.35, g: 0.2, b: 0.15, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ca16ba801188549aaa9b2e395362bcb4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 0
   m_Size: {x: 1.2, y: 0.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -115,5 +115,5 @@ MonoBehaviour:
   _coreColor: {r: 1, g: 0.9, b: 0.4, a: 1}
   _ventSize: {x: 1.2, y: 0.4}
   _warningGlow: {r: 1, g: 0.55, b: 0.2, a: 1}
-  _label: "G\u00E9iser"
-  _showLabel: 1
+  _label: "G\xE9iser"
+  _showLabel: 0

@@ -49,7 +49,6 @@ namespace AlmaGame.Level
         private void Awake()
         {
             _vent = GetComponent<SpriteRenderer>();
-            _vent.drawMode = SpriteDrawMode.Tiled;
             _vent.size = _ventSize;
             _ventColor = _vent.color;
             int layer = _vent.sortingLayerID;
@@ -231,9 +230,7 @@ namespace AlmaGame.Level
         private void OnValidate() => HazardFx.DeferInEditor(this, () =>
         {
             var vent = GetComponent<SpriteRenderer>();
-            if (vent == null) return;
-            vent.drawMode = SpriteDrawMode.Tiled;
-            vent.size = _ventSize;
+            if (vent != null) vent.size = _ventSize;
         });
 
         private void OnDrawGizmosSelected()
