@@ -74,6 +74,8 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 - Dos sapos al nivel del camino, peligrosos por contacto. Eligen el lado de disparo según la posición actual de Alma, también si cruza durante el aviso. Aviso `!` de 0.6s antes de cada disparo, cadencia de 2s y detección de 18m. Burbujas a 8m/s, impulso vertical 3m/s y gravedad 0.6; Dash no protege del veneno.
 - Ocho esporas alineadas a Y=2.7 restauran Dash y Doble Salto, anulan el cooldown y reaparecen a los 2.5s.
 - Morir restaura esporas y suelo agrietado, limpia proyectiles y reinicia los sapos. La barrera de Dash queda abierta una vez rota.
+
+> **Implementado** ([ficha](../../Enemies/PoisonToad_Swamp.md)): a diferencia de este plan, el sapo **fija** el lado al empezar el aviso (no cambia si Alma cruza durante él), el aviso es un parpadeo rojo con la papada hinchada (no un `!`) y la detección es de 8 m, no 18. Gravedad del glob: 6 u/s².
 - Los avisos de Pisotón y cañas aparecen al llegar a cada obstáculo.
 - Se reutilizan `BreakableGround2D`, `BreakableGroundRespawnReset2D` y `DashBreakableBarrier2D`; no cambia el movimiento del jugador.
 - Arte geométrico y parallax provisionales; sprites y partículas definitivos pendientes.

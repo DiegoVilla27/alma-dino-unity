@@ -37,6 +37,8 @@
     4. *Desvío Sónico:* Al tocar tierra tras romper el suelo, un meteorito en llamas cae de frente: Alma debe ejecutar inmediatamente el **Rugido de Choque** para desviar el meteorito hacia una compuerta que abre la siguiente cámara.
 - **Enemigos Activos:**
   - *Salamandras de Magma (`MagmaSalamander2D`):* Enemigos rápidos que trepan paredes y escupen fuego. El rugido las aturde y las empuja al vacío.
+
+> **Implementado** ([ficha](../../Enemies/MagmaSalamander_Volcano.md)): la salamandra patrulla en el suelo entre dos puntos (no trepa paredes), se detiene a escupir bolas de fuego rectas hacia Alma cuando está a 8 m por cualquier lado y sigue caminando cuando se va. Todavía no reacciona al Rugido ni al Pisotón.
 - **Puntos de Control:**
   - *Checkpoint 1 (`X = 32.0`):* Refugio de roca sólida tras la primera cadena acrobática.
   - *Checkpoint 2 (`X = 68.0`):* Antes del gran cruce de la fractura colapsante.

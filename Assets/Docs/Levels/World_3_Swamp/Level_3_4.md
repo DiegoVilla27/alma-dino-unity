@@ -84,6 +84,8 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 - Se pueden saltar sus cuerpos al cambiar de rama. Una raíz en X=14.4 protege el balancín inicial de los disparos del primer sapo; se supera con Doble Salto o con el lanzamiento del balancín. Antes del nido, una raíz en X=110.5 intercepta burbujas mientras preparas el salto final. Doble Salto + Dash permiten pasar sobre raíz y sapo hacia el huevo. Los checkpoints conservan su seguridad.
 - Morir limpia los proyectiles y reinicia los ciclos de aviso.
 
+> **Implementado** ([ficha](../../Enemies/PoisonToad_Swamp.md)): a diferencia de este plan, el sapo **fija** el lado al empezar el aviso (no cambia si Alma cruza durante él), el aviso es un parpadeo rojo con la papada hinchada (no un `!`) y la detección es de 8 m, no 18. Gravedad del glob: 6 u/s².
+
 ### Gas y rescate
 
 - `RisingHazardFloor2D` mueve un volumen de gas con física cinemática; `RisingGasCycle` controla aviso, subida y reinicio. Datos en `RisingGasConfig.asset`.

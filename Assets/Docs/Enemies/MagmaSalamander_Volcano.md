@@ -2,7 +2,7 @@
 
 **Estado (7 de octubre de 2026):** implementada en Unity 6000.6.0f1 como prefab reutilizable, con animaciones Walk y Attack, patrulla entre dos puntos, detección de Alma a izquierda o derecha, bolas de fuego dirigidas con partículas y cuerpo letal. Comprobada con una prueba PlayMode (fuera del repositorio): patrulla y se gira, se detiene, se gira hacia Alma, dispara, la mata y vuelve a caminar cuando Alma se va. Todavía no hay instancia del prefab en ninguna escena (ver [Pendiente](#pendiente)).
 
-Ficha de diseño original: [inventario, enemigo 5](../INVENTARIO_GAMEPLAY_PREFABS.md#5-salamandra-de-magma). Uso previsto en el [Mundo 4](../GDD.md). Jugador: [Alma](../Player/Alma.md). Comparte el patrón del [escarabajo de cristal](CrystalBeetle_Caves.md) (patrulla y ataque a distancia) y del [sapo venenoso](PoisonToad_Swamp.md) (ataque frame a frame con aviso).
+Ficha de diseño original: [inventario, enemigo 5](../INVENTARIO_GAMEPLAY_PREFABS.md#5-salamandra-de-magma). Uso previsto en [Level 4-3](../Levels/World_4_Volcano/Level_4_3.md) y [Level 4-4](../Levels/World_4_Volcano/Level_4_4.md). Jugador: [Alma](../Player/Alma.md). Comparte el patrón del [escarabajo de cristal](CrystalBeetle_Caves.md) (patrulla y ataque a distancia) y del [sapo venenoso](PoisonToad_Swamp.md) (ataque frame a frame con aviso).
 
 ## Qué es
 

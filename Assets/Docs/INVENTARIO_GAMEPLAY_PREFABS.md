@@ -427,6 +427,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 3. Burbuja venenosa
 
+- **Estado:** implementada sin prefab como `PoisonSpit2D` (glob de veneno creado por código por el sapo, sin pool). Valores reales en la ficha del [Sapo venenoso](Enemies/PoisonToad_Swamp.md#el-glob-de-veneno): 8 / 3 u/s, gravedad 6 u/s², 3 s, partículas de goteo y salpicadura.
 - **Archivo definitivo:** `Projectile_PoisonBubble_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Projectiles/Projectile_PoisonBubble_Swamp.prefab`.
 - **Implementación:** `PoisonBubble2D`.
@@ -439,6 +440,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 4. Bola de fuego
 
+- **Estado:** implementada sin prefab como `MagmaFireball2D` (script propio, no reutiliza el del veneno; creada por código por la salamandra, sin pool). Valores reales en la ficha de la [Salamandra de magma](Enemies/MagmaSalamander_Volcano.md#la-bola-de-fuego): recta a 7 u/s hacia Alma (máx. ±40°), 2 s, estela de llamas y chispas.
 - **Archivo definitivo:** `Projectile_MagmaFireball_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Projectiles/Projectile_MagmaFireball_Volcano.prefab`.
 - **Implementación:** `PoisonBubble2D reutilizado con aspecto de fuego`.

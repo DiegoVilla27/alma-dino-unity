@@ -2,7 +2,7 @@
 
 **Estado (7 de octubre de 2026):** implementado en Unity 6000.6.0f1 como prefab reutilizable, con animaciones Idle y Attack, detección de Alma a izquierda o derecha, escupitajo de veneno en arco con partículas y cuerpo letal. Comprobado con una prueba PlayMode (fuera del repositorio) en la que escupe hacia Alma y la mata; todavía no hay instancia en ninguna escena (ver [Pendiente](#pendiente)).
 
-Ficha de diseño original: [inventario, enemigo 4](../INVENTARIO_GAMEPLAY_PREFABS.md#4-sapo-venenoso). Uso previsto en el nivel 11 del [Mundo 3](../GDD.md). Jugador: [Alma](../Player/Alma.md).
+Ficha de diseño original: [inventario, enemigo 4](../INVENTARIO_GAMEPLAY_PREFABS.md#4-sapo-venenoso). Uso previsto en [Level 3-3](../Levels/World_3_Swamp/Level_3_3.md) y [Level 3-4](../Levels/World_3_Swamp/Level_3_4.md). Jugador: [Alma](../Player/Alma.md).
 
 ## Qué es
 
