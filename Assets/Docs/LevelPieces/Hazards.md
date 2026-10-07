@@ -57,7 +57,7 @@ Al cambiar algo en `Hazard_Base` se aplica a las nueve variantes; lo que una var
 | `Trap_CrystalSpikes_Caves` | Cristales punzantes | 3 × 0,6 | Cian (0,4; 0,8; 1) | — |
 | `Trap_BurningSpikes_Volcano` | Pinchos ardientes | 3 × 0,5 | Naranja (1; 0,5; 0,1) | — |
 | `Trap_ToxicMud_Swamp` | Lodo tóxico | 4 × 0,6 | Oliva (0,45; 0,5; 0,15) | — |
-| `Trap_ToxicLake_Swamp` | Lago tóxico | 6 × 1,5 | Verde (0,3; 0,75; 0,25) | — |
+| `Trap_ToxicLake_Swamp` | Lago tóxico | 6 × 1,5 | Arte final (sin tinte) | Sprite redimensionable: se adapta a cualquier `Size`. Ver [Líquidos redimensionables](#líquidos-redimensionables). |
 | `Trap_LavaPool_Volcano` | Foso de lava | 5 × 1,2 | Arte final (sin tinte) | Sprite redimensionable: se adapta a cualquier `Size`. Ver [Líquidos redimensionables](#líquidos-redimensionables). |
 | `Trap_SpikedPillar_Jungle` | Pilar con espinas | 1,6 × 4 | Marrón (0,55; 0,3; 0,2) | Tronco **sólido** de 1 × 4 (se puede pisar su parte superior). Zona letal personalizada de 1,6 × 3,4, desplazada 0,3 hacia abajo: mata al tocar sus lados, pero no al estar de pie encima. |
 | `Trap_DeathZone_Universal` | Zona de muerte | 10 × 2 | Magenta translúcido (1; 0; 1; 0,35) | **Invisible en juego** (sin sprite ni etiqueta); solo se ve en el editor. Zona letal del tamaño completo (sin margen). Se coloca bajo los abismos. |
@@ -71,12 +71,13 @@ Los líquidos pueden tener cualquier tamaño, así que no usan un dibujo fijo es
 | Líquido | Sprite | Tamaño | PPU | Border | Particularidad |
 | --- | --- | --- | --- | --- | --- |
 | Lava | `Sprites/Trap_LavaPool_Volcano_Tile.png` | 512 × 420 px (2 × 1,64 u) | 256 | Abajo 134 px (superficie, 0,52 u) | Imagen guardada **boca abajo** y renderer con **Flip Y**. |
+| Lago tóxico | `Sprites/Trap_ToxicLake_Swamp_Tile.png` | 512 × 460 px (2 × 1,8 u) | 256 | Abajo 231 px (superficie + paso de verde a morado, 0,9 u) | Igual: boca abajo y **Flip Y**. El cuerpo repetible es solo la zona morada. |
 
 - **Superficie** (border, 134 px): la ola con borde brillante y las costras. Se repite solo en horizontal y mantiene su alto.
 - **Cuerpo** (centro, 286 px): se repite en horizontal y en vertical sin juntas.
 - **Por qué boca abajo:** Unity repite el centro empezando por el lado opuesto al border, así que el último tile queda recortado junto a él. Con la imagen invertida y `Flip Y`, el tile completo queda pegado a la superficie (la unión es continua porque ambas partes salen de filas contiguas del dibujo original) y el recorte cae en el fondo, donde no se nota.
-- **Alto mínimo:** `Size.y` debe ser al menos 0,52 u (el alto de la superficie); por debajo Unity aplasta el borde.
-- **Origen del arte:** generado con IA a partir de `Trap_LavaPool_Volcano.png` como referencia de estilo, y luego procesado: fondo eliminado por encima del contorno de la superficie, juntas cortadas por el camino de menor diferencia (*image quilting*) y reducido a 512 px de ancho.
+- **Alto mínimo:** `Size.y` debe ser al menos el alto del border (lava 0,52 u, lago tóxico 0,9 u); por debajo Unity aplasta el borde.
+- **Origen del arte:** generado con IA (una generación cada uno) con el sprite original del prefab como referencia de estilo, y luego procesado: fondo eliminado por encima de la superficie, juntas cortadas por el camino de menor diferencia (*image quilting*) y reducido a 512 px de ancho.
 
 #### Vida de la lava (tranquila y amenazante)
 
@@ -106,6 +107,25 @@ La ondulación necesita la textura en **Wrap Mode U = Repeat** (ya configurado e
 | Tope | 24 partículas por sistema | En la práctica, un lago de 10 u tiene unas 10–12 partículas vivas. |
 
 Las burbujas y brasas dejan de emitir cuando la lava sale de pantalla (`OnBecameInvisible`).
+
+#### Vida del lago tóxico
+
+Mismo shader y mismo `LiquidFx2D`, con valores propios. Material `Materials/Liquid_Toxic.mat`:
+
+| Propiedad | Valor |
+| --- | --- |
+| `Glow Color` | Lima (0,75; 1; 0,3) — laten los reflejos de la superficie y las burbujas |
+| `Bright Threshold` | 0,55 |
+| `Pulse Strength` / `Pulse Speed` | 0,45 / 0,5 (más lento que la lava) |
+| `Sway Amount` / `Sway Speed` | 0,006 / 0,6 |
+
+`LiquidFx2D` en `Trap_ToxicLake_Swamp`:
+
+| Efecto | Valor |
+| --- | --- |
+| Burbujas | 0,8 por u y segundo, lima (0,8; 1; 0,35), 0,15–0,3 u, 0,12 u bajo la superficie |
+| Vapor tóxico (el sistema de "brasas") | 0,3 por u y segundo, manchas verdes translúcidas (0,55; 0,85; 0,25; 55 %) de 0,12–0,24 u que suben despacio (0,2–0,45 u/s) |
+| Salpicadura | 14 gotas lima (0,7; 1; 0,3) |
 
 ## Trampas dinámicas
 

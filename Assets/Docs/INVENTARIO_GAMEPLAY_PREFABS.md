@@ -272,7 +272,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 7. Lago tóxico
 
-- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_ToxicLake_Swamp.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final redimensionable (tile 9-slice repetido, se adapta a cualquier tamaño) y efectos de burbujas y vapor. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_ToxicLake_Swamp.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_ToxicLake_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_ToxicLake_Swamp.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -297,7 +297,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 9. Río o foso de lava
 
-- **Estado:** implementado con arte final redimensionable (tile 9-slice repetido, se adapta a cualquier tamaño). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_LavaPool_Volcano.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final redimensionable (tile 9-slice repetido, se adapta a cualquier tamaño) y efectos de burbujas y brasas. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_LavaPool_Volcano.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_LavaPool_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_LavaPool_Volcano.prefab`.
 - **Implementación:** `HazardTrigger2D`.
