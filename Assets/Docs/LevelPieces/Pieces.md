@@ -28,7 +28,7 @@ Todas están en `Assets/Prefabs/Level/Pieces/`, a escala 1 × 1, y **no hacen da
 | Carpeta / archivo | Responsabilidad |
 | --- | --- |
 | `Pieces/Scripts/LevelPieceUtility.cs` | Utilidades comunes: `ApplySize` (colisionador = `Size`; sprite = `Size` + margen de `PieceArt2D`; un sprite *Simple* pasa a *Tiled*, *Tiled* y *Sliced* se respetan), reconocer a Alma y comprobar si está de pie encima. |
-| `Pieces/Scripts/PieceArt2D.cs` | Margen de arte alrededor de la caja de juego y sincronización del tamaño con la herramienta Rect. Está en todas las piezas. |
+| `Pieces/Scripts/PieceArt2D.cs` | Margen de arte alrededor de la caja de juego y sincronización del tamaño con la herramienta Rect. Está en todas las piezas, y también en los prefabs de [progresión](Progression.md) y [puzles](Puzzles.md), que usan `LevelPieceUtility.ApplySize`. |
 | `Pieces/Scripts/OneWayPlatform2D.cs` | Plataforma atravesable. |
 | `Pieces/Scripts/CrumblingPlatform2D.cs` | Plataforma que se desmorona. |
 | `Pieces/Scripts/BouncyMushroom2D.cs` | Hongo saltarín. |

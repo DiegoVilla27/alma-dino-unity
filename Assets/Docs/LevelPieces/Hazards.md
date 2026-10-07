@@ -32,7 +32,7 @@ Todo está en `Assets/Prefabs/Level/Hazards/`:
 | Carpeta / archivo | Responsabilidad |
 | --- | --- |
 | `Scripts/HazardZone2D.cs` | Lógica común: zona letal, tamaño, parte sólida opcional, activar/desactivar, visibilidad, etiqueta, evento `Killed` y sincronización del tamaño en el editor. Namespace `AlmaGame.Level` (ensamblado `Assembly-CSharp`). |
-| `Scripts/HazardFx.cs` | Utilidades visuales compartidas: texturas generadas por código (nube suave, trozo de roca, raya, **burbuja con aro**, brillo) y sistemas de partículas pequeños. |
+| `Scripts/HazardFx.cs` | Utilidades visuales compartidas (también para piezas, puzles y progresión): texturas y sprites generados por código (nube suave, trozo de roca, raya, **burbuja con aro**, brillo, **bola de fuego cartoon** del géiser y **píxel** blanco para barras) y sistemas de partículas pequeños. |
 | `Scripts/RisingGas2D.cs` | Gas tóxico ascendente. |
 | `Scripts/FireGeyser2D.cs` | Géiser volcánico. |
 | `Scripts/CrushingCeiling2D.cs` | Techo aplastante. |

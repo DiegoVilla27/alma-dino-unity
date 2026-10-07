@@ -1,4 +1,4 @@
-> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama están implementadas Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales), en la escena de práctica `Level_1_1`, y como prefabs la planta carnívora (Mundo 1), el escarabajo de cristal y el murciélago de cueva (Mundo 2), el sapo venenoso (Mundo 3), la salamandra de magma (Mundo 4), doce trampas, diez piezas de nivel (plataformas, hongo saltarín, piso rompible, espora del Dash, barreras rompibles con Dash y corriente de viento), los puzles de la roca de basalto movible y del balancín (con contrapeso, runa y compuerta rúnica), el nido de checkpoint, los cuatro altares de habilidad, los cuatro huevos y el portal de salida, todos con marcador provisional, además del guardado JSON y el reinicio de enemigos y trampas al reaparecer. Su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md), [`Enemies/Plant_Carnivorous_Jungle.md`](Enemies/Plant_Carnivorous_Jungle.md), [`Enemies/CrystalBeetle_Caves.md`](Enemies/CrystalBeetle_Caves.md), [`Enemies/CaveBat_Caves.md`](Enemies/CaveBat_Caves.md), [`Enemies/PoisonToad_Swamp.md`](Enemies/PoisonToad_Swamp.md), [`Enemies/MagmaSalamander_Volcano.md`](Enemies/MagmaSalamander_Volcano.md), [`LevelPieces/Hazards.md`](LevelPieces/Hazards.md), [`LevelPieces/Pieces.md`](LevelPieces/Pieces.md), [`LevelPieces/Puzzles.md`](LevelPieces/Puzzles.md), [`LevelPieces/Progression.md`](LevelPieces/Progression.md) y [`Systems/SaveAndProgress.md`](Systems/SaveAndProgress.md); cada elemento nuevo tendrá su propia ficha. Las notas de fases y tiempos son planificación, no estado de producción.
+> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama están implementadas Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales), en la escena de práctica `Level_1_1`, y como prefabs la planta carnívora (Mundo 1), el escarabajo de cristal y el murciélago de cueva (Mundo 2), el sapo venenoso (Mundo 3), la salamandra de magma (Mundo 4), doce trampas, diez piezas de nivel (plataformas, hongo saltarín, piso rompible, espora del Dash, barreras rompibles con Dash y corriente de viento), los puzles de la roca de basalto movible y del balancín (con contrapeso, runa y compuerta rúnica), el nido de checkpoint, los cuatro altares de habilidad, los cuatro huevos y el portal de salida; los enemigos con su arte y, desde el 7/10/2026, las trampas, piezas, puzles y elementos de progresión también con **arte final** (ver 6.1), además del guardado JSON y el reinicio de enemigos y trampas al reaparecer. Su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md), [`Enemies/Plant_Carnivorous_Jungle.md`](Enemies/Plant_Carnivorous_Jungle.md), [`Enemies/CrystalBeetle_Caves.md`](Enemies/CrystalBeetle_Caves.md), [`Enemies/CaveBat_Caves.md`](Enemies/CaveBat_Caves.md), [`Enemies/PoisonToad_Swamp.md`](Enemies/PoisonToad_Swamp.md), [`Enemies/MagmaSalamander_Volcano.md`](Enemies/MagmaSalamander_Volcano.md), [`LevelPieces/Hazards.md`](LevelPieces/Hazards.md), [`LevelPieces/Pieces.md`](LevelPieces/Pieces.md), [`LevelPieces/Puzzles.md`](LevelPieces/Puzzles.md), [`LevelPieces/Progression.md`](LevelPieces/Progression.md) y [`Systems/SaveAndProgress.md`](Systems/SaveAndProgress.md); cada elemento nuevo tendrá su propia ficha. Las notas de fases y tiempos son planificación, no estado de producción.
 
 ---
 
@@ -260,6 +260,7 @@ Alma llega a un valle seguro al atardecer. Los cuatro huevos se quiebran suaveme
   - Cuevas: azules fríos, cristales con emisión de color.
   - Pantano: grises y verdes apagados, niebla con capas de parallax.
   - Volcán: rojos, naranjas, negros, ceniza en partículas.
+- **Estado (7/10/2026):** se sigue la vía **2D dibujado a mano** (cartoon con contorno oscuro y sombreado pintado) de las hojas de concepto `Assets/Art/Resources/Resources_ConceptSheet_01–04_v1.png`. Trampas, piezas de nivel, puzles y progresión tienen arte final generado con IA a partir de esas viñetas (una generación por pieza) y procesado para Unity a 256 PPU: piezas que se alargan con extremos fijos y centro repetido (*Tiled* Adaptive), objetos únicos en *Sliced*, líquidos y gas como tiles repetibles con vida (shader `AlmaGame/LiquidSprite` + partículas) y margen de arte (`PieceArt2D`) para que la decoración no cambie dónde se apoya Alma. Detalle y valores en [Zonas de peligro](LevelPieces/Hazards.md), [Piezas](LevelPieces/Pieces.md), [Puzles](LevelPieces/Puzzles.md) y [Progresión](LevelPieces/Progression.md).
 
 ### 6.2. Iluminación
 
@@ -267,6 +268,7 @@ Uso intenso de luz dinámica 2D (Unity URP 2D Renderer o Godot CanvasModulate + 
 - Diferenciar biomas.
 - Destacar huevos y checkpoints.
 - Crear siluetas en momentos clave.
+- **Estado (7/10/2026):** el proyecto usa el pipeline integrado (sin URP 2D ni luces 2D). Los brillos se resuelven con sprites de halo y partículas (altares, huevos, runas, portal, líquidos) y con el latido del shader de los líquidos.
 
 ### 6.3. Animación
 
@@ -300,7 +302,7 @@ HUD minimalista y diegético.
 
 - Nidos abandonados con brasas. Al pasar por encima, las brasas se encienden con una llama dorada y guardan la posición.
 - Sin texto de "Checkpoint guardado". El feedback es visual.
-- **Implementado (6/10/2026):** brasas tenues que se encienden con una ráfaga y una llama dorada; solo arde el último nido tocado. Ver [Progresión](LevelPieces/Progression.md).
+- **Implementado (6/10/2026):** brasas tenues que se encienden con una ráfaga y una llama dorada; solo arde el último nido tocado. Desde el 7/10/2026 el nido tiene arte final (nido de ramas sobre anillo de piedra con farolillo cian). Ver [Progresión](LevelPieces/Progression.md).
 
 ### 8.4. Juice (feedback adicional)
 
