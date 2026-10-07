@@ -2,9 +2,9 @@
 
 Fecha de revisión: 7 de octubre de 2026.
 
-Este documento conserva las 82 fichas del inventario original y sus nombres de referencia. La reconstrucción actual ya tiene **43 elementos jugables implementados**, además de prefabs base y el parallax de la escena de práctica `Level_1_1`. Las rutas reales de los elementos implementados aparecen abajo; `Ruta prevista` identifica únicamente los que siguen sin prefab. Las descripciones y cifras históricas son objetivos de diseño: los valores efectivos están en los componentes y en las fichas de implementación de `Assets/Docs/`.
+Este documento conserva las 82 fichas del inventario original y sus nombres de referencia. La reconstrucción actual ya tiene **44 elementos jugables implementados**, además de prefabs base y los fondos parallax de los niveles 1-1 a 1-4. Las rutas reales de los elementos implementados aparecen abajo; `Ruta prevista` identifica únicamente los que siguen sin prefab. Las descripciones y cifras históricas son objetivos de diseño: los valores efectivos están en los componentes y en las fichas de implementación de `Assets/Docs/`.
 
-**Estado:** 82 fichas (81 elementos del entorno y Alma), de las que 4 trampas se descartaron. Los 43 elementos implementados se reparten en Alma (1), enemigos (5), trampas (12), piezas de nivel (10), puzles (5) y progresión (10). Las variantes visibles tienen sprites integrados; la zona de muerte es invisible y la corriente de viento se dibuja con partículas. El [guardado y gestor de progreso](Systems/SaveAndProgress.md) está en `Assets/Systems/`; el [parallax de jungla](../Prefabs/Level/Backgrounds/World_1/Parallax_Level_1_1.prefab) es un prefab adicional de ambientación. Los jefes y la mayoría de elementos narrativos aún son diseño.
+**Estado:** 82 fichas (81 elementos del entorno y Alma), de las que 4 trampas se descartaron. Los 44 elementos implementados se reparten en Alma (1), enemigos (5), trampas (12), piezas de nivel (10), terreno (1: kit del Mundo 1, 8 prefabs), puzles (5) y progresión (10). Las variantes visibles tienen sprites integrados; la zona de muerte es invisible y la corriente de viento se dibuja con partículas. El [guardado y gestor de progreso](Systems/SaveAndProgress.md) está en `Assets/Systems/`; el [parallax de jungla](../Prefabs/Level/Backgrounds/World_1/Parallax_Level_1_1.prefab) es un prefab adicional de ambientación. Los jefes y la mayoría de elementos narrativos aún son diseño.
 
 ## Reglas de daño y funcionamiento
 
@@ -33,7 +33,7 @@ La estructura actual agrupa los enemigos y a Alma por personaje; las trampas y r
 | Trampas | `Assets/Prefabs/Level/Hazards/` (12 implementadas, 4 descartadas) | 16 |
 | Proyectiles | Integrados en scripts de enemigos cuando existen; sin prefabs independientes | 7 |
 | Jefes | Prefabs pendientes | 4 |
-| Recursos | `Assets/Prefabs/Level/Pieces/`, `Puzzles/` y `Progression/` | 41 |
+| Recursos | `Assets/Prefabs/Level/Pieces/`, `Terrain/`, `Puzzles/` y `Progression/` | 41 |
 | Narrativa y apoyo | Parallax de 1-1 a 1-4 en `Assets/Prefabs/Level/Backgrounds/`; resto pendiente | 8 |
 | Jugador | `Assets/Prefabs/Player/` | 1 |
 
@@ -74,7 +74,7 @@ La estructura actual agrupa los enemigos y a Alma por personaje; las trampas y r
 | Acorazado Subterráneo — Armadillo Prehistórico | Jefes | `Boss_PrehistoricArmadillo_Caves.prefab` |
 | Señor de las Ráfagas — Pterodáctilo Alfa | Jefes | `Boss_AlphaPterodactyl_Swamp.prefab` |
 | Rey Ladrón — Tirano Ancestral | Jefes | `Boss_ThiefKing_Volcano.prefab` |
-| Plataforma sólida | Recursos | `Platform_Solid_Universal.prefab` |
+| Plataforma sólida | Recursos | `Terrain/World_1/Platform_Ground_*_Jungle.prefab` y `Platform_Floating_*_Jungle.prefab` |
 | Plataforma atravesable desde abajo | Recursos | `Platform_OneWay_Universal.prefab` |
 | Hongo saltarín | Recursos | `Resource_BouncyMushroom_Jungle.prefab` |
 | Cristal de rebote | Recursos | `Resource_BouncyCrystal_Caves.prefab` |
@@ -539,14 +539,13 @@ La estructura actual agrupa los enemigos y a Alma por personaje; las trampas y r
 
 ### 1. Plataforma sólida
 
-- **Archivo definitivo:** `Platform_Solid_Universal.prefab`.
-- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Platform_Solid_Universal.prefab`.
-- **Implementación:** `BoxCollider2D + SpriteRenderer`.
-- **Mundo/contexto:** 1–4.
+- **Estado:** implementado por mundo como kit de terreno. Mundo 1: `Assets/Prefabs/Level/Terrain/World_1/Platform_Ground_<Diseño>_Jungle.prefab` y `Platform_Floating_<Diseño>_Jungle.prefab`, en cuatro diseños (piedra, madera, raíces y zarzas oscuras), redimensionables. Ficha: [Terreno](LevelPieces/Terrain.md). El nombre `Platform_Solid_Universal.prefab` queda como referencia histórica.
+- **Implementación:** `SolidPlatform2D` + `BoxCollider2D` + `SpriteRenderer` (*Tiled* Adaptive) + `PieceArt2D`.
+- **Mundo/contexto:** 1–4 (Mundo 1 implementado; mundos 2–4 pendientes).
 - **Qué es / para qué sirve:** Superficie estable para caminar, saltar o refugiarse.
 - **Cómo funciona:** Su collider sólido sostiene y bloquea a Alma.
 - **Daño a Alma:** 0 daño directo. El peligro de una caída depende del entorno donde se coloque.
-- **Valores y propiedades:** Posición, escala, tamaño del collider, material y sprite. Variantes visuales: roca, madera, ramas, basalto, suelo.
+- **Valores y propiedades:** `Size` (la colisión) por instancia; bloque de suelo 8 × ~2,65 y flotante 4 × ~0,44 por defecto. Valores reales en la [ficha](LevelPieces/Terrain.md).
 - **Conexiones, variantes o límites:** Las paredes sólidas usan esta misma familia con otra orientación/dimensión; no hacen falta scripts duplicados para cada muro.
 
 ### 2. Plataforma atravesable desde abajo
