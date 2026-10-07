@@ -40,6 +40,9 @@ Todo está en `Assets/Prefabs/Level/Hazards/`:
 | `Scripts/RisingGas2D.cs` | Lógica del gas tóxico ascendente. |
 | `Scripts/FireGeyser2D.cs` | Lógica del géiser volcánico. |
 | `Scripts/CrushingCeiling2D.cs` | Lógica del techo aplastante. |
+| `Scripts/LiquidFx2D.cs` | Burbujas, brasas y salpicadura de los líquidos redimensionables. |
+| `Shaders/LiquidSprite.shader` | Shader de sprite para líquidos: latido de brillo y ondulación. |
+| `Materials/Liquid_Lava.mat` | Material de la lava con ese shader. |
 | `Trap_RisingToxicGas_Swamp.prefab`, `Trap_FireGeyser_Volcano.prefab`, `Trap_CrushingCeiling_Caves.prefab` | Trampas dinámicas: prefabs independientes (no variantes) con su script propio; el gas y el techo usan además `HazardZone2D`. |
 | `../Shared/Sprites/Level_Placeholder.png` | Cuadrado blanco de 4×4 px (1 × 1 unidad, malla *Full Rect*) que se tiñe con el color de cada trampa. Compartido con las [piezas de nivel](Pieces.md). |
 
@@ -55,11 +58,54 @@ Al cambiar algo en `Hazard_Base` se aplica a las nueve variantes; lo que una var
 | `Trap_BurningSpikes_Volcano` | Pinchos ardientes | 3 × 0,5 | Naranja (1; 0,5; 0,1) | — |
 | `Trap_ToxicMud_Swamp` | Lodo tóxico | 4 × 0,6 | Oliva (0,45; 0,5; 0,15) | — |
 | `Trap_ToxicLake_Swamp` | Lago tóxico | 6 × 1,5 | Verde (0,3; 0,75; 0,25) | — |
-| `Trap_LavaPool_Volcano` | Foso de lava | 5 × 1,2 | Rojo anaranjado (1; 0,3; 0) | — |
+| `Trap_LavaPool_Volcano` | Foso de lava | 5 × 1,2 | Arte final (sin tinte) | Sprite redimensionable: se adapta a cualquier `Size`. Ver [Líquidos redimensionables](#líquidos-redimensionables). |
 | `Trap_SpikedPillar_Jungle` | Pilar con espinas | 1,6 × 4 | Marrón (0,55; 0,3; 0,2) | Tronco **sólido** de 1 × 4 (se puede pisar su parte superior). Zona letal personalizada de 1,6 × 3,4, desplazada 0,3 hacia abajo: mata al tocar sus lados, pero no al estar de pie encima. |
 | `Trap_DeathZone_Universal` | Zona de muerte | 10 × 2 | Magenta translúcido (1; 0; 1; 0,35) | **Invisible en juego** (sin sprite ni etiqueta); solo se ve en el editor. Zona letal del tamaño completo (sin margen). Se coloca bajo los abismos. |
 
 Los tamaños son orientativos: cada instancia del nivel ajusta `Size` a lo que necesite.
+
+### Líquidos redimensionables
+
+Los líquidos pueden tener cualquier tamaño, así que no usan un dibujo fijo escalado: usan un **tile 9-slice** que el `SpriteRenderer` repite (`Draw Mode = Tiled`) hasta llenar `Size`. La escala del objeto se queda en **1 × 1**; así el sprite y la zona letal miden siempre lo mismo.
+
+| Líquido | Sprite | Tamaño | PPU | Border | Particularidad |
+| --- | --- | --- | --- | --- | --- |
+| Lava | `Sprites/Trap_LavaPool_Volcano_Tile.png` | 512 × 420 px (2 × 1,64 u) | 256 | Abajo 134 px (superficie, 0,52 u) | Imagen guardada **boca abajo** y renderer con **Flip Y**. |
+
+- **Superficie** (border, 134 px): la ola con borde brillante y las costras. Se repite solo en horizontal y mantiene su alto.
+- **Cuerpo** (centro, 286 px): se repite en horizontal y en vertical sin juntas.
+- **Por qué boca abajo:** Unity repite el centro empezando por el lado opuesto al border, así que el último tile queda recortado junto a él. Con la imagen invertida y `Flip Y`, el tile completo queda pegado a la superficie (la unión es continua porque ambas partes salen de filas contiguas del dibujo original) y el recorte cae en el fondo, donde no se nota.
+- **Alto mínimo:** `Size.y` debe ser al menos 0,52 u (el alto de la superficie); por debajo Unity aplasta el borde.
+- **Origen del arte:** generado con IA a partir de `Trap_LavaPool_Volcano.png` como referencia de estilo, y luego procesado: fondo eliminado por encima del contorno de la superficie, juntas cortadas por el camino de menor diferencia (*image quilting*) y reducido a 512 px de ancho.
+
+#### Vida de la lava (tranquila y amenazante)
+
+Pensado para gastar poco: un shader de una sola muestra de textura y tres sistemas de partículas pequeños con tope.
+
+**Shader `AlmaGame/LiquidSprite`** (`Shaders/LiquidSprite.shader`, material `Materials/Liquid_Lava.mat`). Pipeline integrado; respeta Tiled, Flip X/Y y el color del renderer.
+
+| Propiedad | Valor | Efecto |
+| --- | --- | --- |
+| `Glow Color` | (1; 0,75; 0,25) | Color que se suma a las vetas al latir. |
+| `Bright Threshold` | 0,5 | Solo laten los píxeles más claros que esto; las costras oscuras no cambian. |
+| `Pulse Strength` | 0,6 | Intensidad máxima del latido. |
+| `Pulse Speed` | 0,8 | Lento: un ciclo irregular de varios segundos. |
+| `Pulse Wave Scale` | 0,45 / u | El latido recorre la lava como una onda en lugar de encenderse toda a la vez. |
+| `Sway Amount` | 0,007 (UV) | Ondulación horizontal de unos 3–4 px: espesa, no agua. |
+| `Sway Speed` / `Sway Wave Scale` | 0,8 / 2,2 por u | Velocidad y tamaño de la ondulación. |
+
+La ondulación necesita la textura en **Wrap Mode U = Repeat** (ya configurado en `Trap_LavaPool_Volcano_Tile.png`); si no, aparecen bordes estirados entre tiles.
+
+**Partículas `LiquidFx2D`** (`Scripts/LiquidFx2D.cs`, en el prefab de la lava). Las cantidades escalan con el ancho (`Size.x`):
+
+| Efecto | Valor | Detalle |
+| --- | --- | --- |
+| Burbujas | 0,6 por u y segundo | Manchas amarillo claro (1; 0,92; 0,6) de 0,2–0,36 u que se hinchan 0,14 u bajo la superficie y se desvanecen en 0,7–1,1 s. |
+| Brasas | 0,4 por u y segundo | Puntos de 0,06–0,11 u que suben a 0,4–0,9 u/s durante 1,2–2,2 s. |
+| Salpicadura | 14 gotas | Solo cuando la lava mata a Alma, en su posición sobre la superficie (evento `HazardZone2D.Killed`). |
+| Tope | 24 partículas por sistema | En la práctica, un lago de 10 u tiene unas 10–12 partículas vivas. |
+
+Las burbujas y brasas dejan de emitir cuando la lava sale de pantalla (`OnBecameInvisible`).
 
 ## Trampas dinámicas
 

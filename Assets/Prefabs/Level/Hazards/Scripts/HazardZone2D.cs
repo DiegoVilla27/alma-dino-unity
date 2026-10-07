@@ -52,6 +52,9 @@ namespace AlmaGame.Level
 
         public Vector2 Size => _size;
 
+        // Raised after this zone kills Alma, with her position (liquids splash there).
+        public event System.Action<Vector2> Killed;
+
         // Rising or moving traps resize the zone at runtime; sprite, colliders and label follow.
         public void SetSize(Vector2 size)
         {
@@ -120,7 +123,9 @@ namespace AlmaGame.Level
         {
             if (!_active) return;
             Rigidbody2D body = other.attachedRigidbody;
-            if (body != null && body.TryGetComponent(out AlmaMotor2D alma) && !alma.IsDead) alma.Die();
+            if (body == null || !body.TryGetComponent(out AlmaMotor2D alma) || alma.IsDead) return;
+            alma.Die();
+            Killed?.Invoke(body.position);
         }
 
         // Small temporary text so each hazard can be told apart before it has art. Shared by all traps.
