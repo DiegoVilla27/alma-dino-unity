@@ -10,6 +10,7 @@ namespace AlmaGame.Level
         private static Texture2D s_chunk;
         private static Sprite s_glow;
         private static Texture2D s_streak;
+        private static Texture2D s_bubble;
 
         // Soft round puff (smoke, gas, dust, glow).
         public static Texture2D Puff()
@@ -45,6 +46,29 @@ namespace AlmaGame.Level
                 pixels[y * size + x] = new Color32(shade, shade, shade, (byte)(inside > 0f ? 255 : 0));
             }
             return Apply(s_chunk, pixels);
+        }
+
+        // Bubble: bright rim, faint see-through fill and a highlight at the top left (liquid bubbles).
+        public static Texture2D Bubble()
+        {
+            if (s_bubble != null) return s_bubble;
+            const int size = 32;
+            s_bubble = NewTexture("HazardBubble", size, size);
+            var pixels = new Color32[size * size];
+            float radius = size * 0.5f;
+            var highlight = new Vector2(size * 0.36f, size * 0.66f);
+            for (int y = 0; y < size; y++)
+            for (int x = 0; x < size; x++)
+            {
+                var p = new Vector2(x + 0.5f, y + 0.5f);
+                float d = Vector2.Distance(p, new Vector2(radius, radius)) / radius;
+                float rim = Mathf.Clamp01(1f - Mathf.Abs(d - 0.84f) / 0.12f);
+                float fill = d < 0.84f ? 0.28f : 0f;
+                float shine = Mathf.Clamp01(1f - Vector2.Distance(p, highlight) / (size * 0.13f));
+                float alpha = Mathf.Max(Mathf.Max(rim, fill), shine);
+                pixels[y * size + x] = new Color32(255, 255, 255, (byte)(alpha * 255f));
+            }
+            return Apply(s_bubble, pixels);
         }
 
         // Thin horizontal streak with soft ends (wind lines).

@@ -14,6 +14,8 @@ namespace AlmaGame.Level
         [SerializeField] private Vector2 _bubbleSize = new Vector2(0.2f, 0.36f);
         [SerializeField] private Color _bubbleColor = new Color(1f, 0.92f, 0.6f, 1f);
         [SerializeField, Min(0f)] private float _bubbleDepth = 0.14f;
+        [Tooltip("Ring-shaped bubbles with a highlight instead of soft glows; reads better on bright surfaces.")]
+        [SerializeField] private bool _ringBubbles;
 
         [Header("Embers (per unit of width and second)")]
         [SerializeField, Min(0f)] private float _emberRate = 0.4f;
@@ -44,8 +46,9 @@ namespace AlmaGame.Level
             float top = size.y * 0.5f;
             float width = size.x * 0.9f;
 
-            // Bubbles: soft blobs that swell just below the surface line and fade out (no motion).
-            _bubbles = HazardFx.CreateParticles("LiquidBubbles", transform, _particleMaterial, HazardFx.Puff(),
+            // Bubbles: blobs (or rings) that swell just below the surface line and fade out (no motion).
+            _bubbles = HazardFx.CreateParticles("LiquidBubbles", transform, _particleMaterial,
+                _ringBubbles ? HazardFx.Bubble() : HazardFx.Puff(),
                 Budget(_bubbleRate * size.x, 1.1f), layer, order + 1);
             _bubbles.transform.localPosition = new Vector3(0f, top - _bubbleDepth, 0f);
             var bubbleMain = _bubbles.main;

@@ -21,8 +21,12 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.y
+      value: 0.4125
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_SpriteTilingProperty.drawMode
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
@@ -34,11 +38,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 3.4133334
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 3640596247738465948, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 3.4133334
+      value: 1.378125
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_FlipY
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_Size.x
@@ -51,7 +59,7 @@ PrefabInstance:
     - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 983dfcf9d531845a78d3759c8dd9577c, type: 3}
+      objectReference: {fileID: 21300000, guid: 56877cfbf37a41288fae406e5e9c413d, type: 3}
     - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -70,8 +78,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_DrawMode
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5860111226549277203, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f274cd798c8044bdfacb7f87dc5a15ee, type: 2}
     - target: {fileID: 6240128712795507209, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: _label
       value: "Lodo t\xF3xico"
@@ -89,8 +101,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6662996727564650443, guid: e430d065906f4f168404c79292039118, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.y
+      value: 0.4125
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662996727564650443, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_SpriteTilingProperty.drawMode
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6662996727564650443, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
@@ -102,22 +118,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6662996727564650443, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 3.4133334
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 6662996727564650443, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 3.4133334
+      value: 1.378125
       objectReference: {fileID: 0}
     - target: {fileID: 7107461757166497120, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7107461757166497120, guid: e430d065906f4f168404c79292039118, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2987060719447504068, guid: e430d065906f4f168404c79292039118, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9059042124310864110}
   m_SourcePrefab: {fileID: 100100000, guid: e430d065906f4f168404c79292039118, type: 3}
+--- !u!1 &8986503756673733400 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2987060719447504068, guid: e430d065906f4f168404c79292039118, type: 3}
+  m_PrefabInstance: {fileID: 6179592246081398748}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9059042124310864110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8986503756673733400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd79825d9d54f00883c64a5d1fdaac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.LiquidFx2D
+  _bubbleRate: 0.9
+  _bubbleSize: {x: 0.18, y: 0.32}
+  _bubbleColor: {r: 0.85, g: 1, b: 0.45, a: 1}
+  _ringBubbles: 1
+  _bubbleDepth: 0.06
+  _emberRate: 0.3
+  _emberSpeed: {x: 0.15, y: 0.3}
+  _emberSize: {x: 0.2, y: 0.35}
+  _emberColor: {r: 0.6, g: 0.65, b: 0.25, a: 0.6}
+  _splashCount: 10
+  _splashColor: {r: 0.5, g: 0.42, b: 0.12, a: 1}
+  _maxParticlesPerSystem: 24
+  _particleMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}

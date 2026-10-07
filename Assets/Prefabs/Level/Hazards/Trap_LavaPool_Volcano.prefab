@@ -161,6 +161,7 @@ MonoBehaviour:
   _bubbleSize: {x: 0.2, y: 0.36}
   _bubbleColor: {r: 1, g: 0.92, b: 0.6, a: 1}
   _bubbleDepth: 0.14
+  _ringBubbles: 0
   _emberRate: 0.4
   _emberSpeed: {x: 0.4, y: 0.9}
   _emberSize: {x: 0.06, y: 0.11}

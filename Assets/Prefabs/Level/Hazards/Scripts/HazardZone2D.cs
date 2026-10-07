@@ -9,7 +9,9 @@ namespace AlmaGame.Level
     // gameplay. The lethal area can be inset or fully custom, an optional solid part blocks or
     // supports Alma (spiked pillar), and `IsActive` lets timed traps switch the danger on and off.
     // While there is no final art, a small text label names the hazard in the Game view.
-    [DisallowMultipleComponent, RequireComponent(typeof(SpriteRenderer))]
+    // In the editor, resizing the sprite with the Rect tool (Tiled/Sliced) updates `Size` too, so
+    // the drawn size and the lethal area never drift apart and Play keeps what was drawn.
+    [ExecuteAlways, DisallowMultipleComponent, RequireComponent(typeof(SpriteRenderer))]
     public sealed class HazardZone2D : MonoBehaviour
     {
         [Header("Area")]
@@ -75,6 +77,7 @@ namespace AlmaGame.Level
 
         private void Awake()
         {
+            if (!Application.isPlaying) return;
             ApplyLayout();
             IsActive = _active;
             if (!_visibleInGame) _renderer.enabled = false;
@@ -83,6 +86,29 @@ namespace AlmaGame.Level
         }
 
         private void OnValidate() => HazardFx.DeferInEditor(this, ApplyLayout);
+
+#if UNITY_EDITOR
+        private Vector2? _appliedSize;
+
+        // Edit mode only. Whichever side changed since the last layout wins: a size drawn with the
+        // Rect tool on the SpriteRenderer updates `Size`; a new `Size` typed in the Inspector resizes the sprite.
+        private void Update()
+        {
+            if (Application.isPlaying) return;
+            if (_renderer == null) _renderer = GetComponent<SpriteRenderer>();
+            if (_renderer.drawMode == SpriteDrawMode.Simple) return;
+            _appliedSize ??= _renderer.size;
+            if (_renderer.size != _appliedSize.Value)
+            {
+                UnityEditor.Undo.RecordObject(this, "Resize Hazard");
+                _size = _renderer.size;
+                UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(this);
+            }
+            else if (_size == _appliedSize.Value) return;
+            ApplyLayout();
+            _appliedSize = _size;
+        }
+#endif
 
         // Keeps sprite, lethal trigger and solid collider in sync with the serialized sizes.
         private void ApplyLayout()

@@ -157,14 +157,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd79825d9d54f00883c64a5d1fdaac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.LiquidFx2D
-  _bubbleRate: 0.8
-  _bubbleSize: {x: 0.15, y: 0.3}
-  _bubbleColor: {r: 0.8, g: 1, b: 0.35, a: 1}
-  _bubbleDepth: 0.12
-  _emberRate: 0.3
-  _emberSpeed: {x: 0.2, y: 0.45}
-  _emberSize: {x: 0.12, y: 0.24}
-  _emberColor: {r: 0.55, g: 0.85, b: 0.25, a: 0.55}
+  _bubbleRate: 1.4
+  _bubbleSize: {x: 0.22, y: 0.4}
+  _bubbleColor: {r: 0.85, g: 1, b: 0.55, a: 1}
+  _bubbleDepth: 0.1
+  _ringBubbles: 1
+  _emberRate: 0.6
+  _emberSpeed: {x: 0.25, y: 0.5}
+  _emberSize: {x: 0.25, y: 0.45}
+  _emberColor: {r: 0.5, g: 0.9, b: 0.25, a: 0.7}
   _splashCount: 14
   _splashColor: {r: 0.7, g: 1, b: 0.3, a: 1}
   _maxParticlesPerSystem: 24
