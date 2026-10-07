@@ -6,8 +6,9 @@ namespace AlmaGame.Level
     // Volcanic geyser: a vent that spits a fireball straight up on a cycle.
     // Rest → Warning (vent glows, smoke and sparks rise) → Erupt (fireball flies up and falls back
     // into the vent, splashing lava) → Rest. Only the fireball is lethal; the vent is safe to walk on.
-    // Visuals are generated in code: glowing ball with a hot core, a flame trail and puffs.
-    [DisallowMultipleComponent, RequireComponent(typeof(SpriteRenderer))]
+    // Visuals are generated in code: a cartoon flame ball over a heat glow, a cooling trail, sparks and puffs.
+    // In the editor, resizing the vent sprite with the Rect tool updates `Vent Size`, so Play keeps it.
+    [ExecuteAlways, DisallowMultipleComponent, RequireComponent(typeof(SpriteRenderer))]
     public sealed class FireGeyser2D : MonoBehaviour
     {
         [Header("Cycle (seconds)")]
@@ -37,6 +38,7 @@ namespace AlmaGame.Level
         private Transform _fireball;
         private SpriteRenderer _core;
         private ParticleSystem _trail;
+        private ParticleSystem _sparks;
         private ParticleSystem _smoke;
         private ParticleSystem _splash;
         private State _state = State.Rest;
@@ -48,6 +50,7 @@ namespace AlmaGame.Level
 
         private void Awake()
         {
+            if (!Application.isPlaying) return;
             _vent = GetComponent<SpriteRenderer>();
             _vent.size = _ventSize;
             _ventColor = _vent.color;
@@ -55,23 +58,48 @@ namespace AlmaGame.Level
             int order = _vent.sortingOrder;
             Material material = _vent.sharedMaterial;
 
-            // Fireball: orange glow with a smaller hot core, lit from the trail behind it.
+            // Fireball: a cartoon flame ball (outlined, hot core) over a soft heat glow. It spins and
+            // flickers while it flies; a trail cools from yellow to red to smoke and sparks fly off it.
             _fireball = new GameObject("Fireball").transform;
             _fireball.SetParent(transform, false);
-            AddGlow(_fireball, "Glow", _fireballColor, _fireballRadius * 2.6f, layer, order + 3);
-            _core = AddGlow(_fireball, "Core", _coreColor, _fireballRadius * 1.3f, layer, order + 4);
+            Color glow = _fireballColor;
+            glow.a = 0.45f;
+            AddSprite(_fireball, "Glow", HazardFx.Glow(), glow, _fireballRadius * 3.4f, layer, order + 3);
+            _core = AddSprite(_fireball, "Flame", HazardFx.Fireball(), Color.white, _fireballRadius * 2.8f, layer, order + 4);
             _fireball.gameObject.SetActive(false);
 
-            _trail = HazardFx.CreateParticles("FireballTrail", _fireball, material, HazardFx.Puff(), 30, layer, order + 2);
+            _trail = HazardFx.CreateParticles("FireballTrail", _fireball, material, HazardFx.Puff(), 36, layer, order + 2);
             var trailMain = _trail.main;
-            trailMain.startLifetime = new ParticleSystem.MinMaxCurve(0.25f, 0.4f);
+            trailMain.startLifetime = new ParticleSystem.MinMaxCurve(0.3f, 0.5f);
             trailMain.startSpeed = 0f;
-            trailMain.startSize = new ParticleSystem.MinMaxCurve(_fireballRadius * 1.6f, _fireballRadius * 2.4f);
-            trailMain.startColor = new ParticleSystem.MinMaxGradient(_coreColor, _fireballColor);
-            HazardFx.SetSizeOverLifetime(_trail, 1f, 0.1f);
+            trailMain.startSize = new ParticleSystem.MinMaxCurve(_fireballRadius * 0.8f, _fireballRadius * 1.3f);
+            trailMain.startColor = Color.white;
+            var cooling = new Gradient();
+            cooling.SetKeys(
+                new[] { new GradientColorKey(_coreColor, 0f), new GradientColorKey(_fireballColor, 0.35f),
+                    new GradientColorKey(new Color(0.75f, 0.15f, 0.05f), 0.7f), new GradientColorKey(new Color(0.25f, 0.18f, 0.16f), 1f) },
+                new[] { new GradientAlphaKey(0.95f, 0f), new GradientAlphaKey(0.8f, 0.4f), new GradientAlphaKey(0.45f, 0.75f), new GradientAlphaKey(0f, 1f) });
+            var trailColor = _trail.colorOverLifetime;
+            trailColor.color = cooling;
+            HazardFx.SetSizeOverLifetime(_trail, 1f, 0.25f);
             var trailEmission = _trail.emission;
-            trailEmission.rateOverDistance = 8f;
+            trailEmission.rateOverDistance = 10f;
             trailEmission.enabled = true;
+
+            _sparks = HazardFx.CreateParticles("FireballSparks", _fireball, material, HazardFx.Puff(), 24, layer, order + 5);
+            var sparksMain = _sparks.main;
+            sparksMain.startLifetime = new ParticleSystem.MinMaxCurve(0.3f, 0.6f);
+            sparksMain.startSpeed = new ParticleSystem.MinMaxCurve(0.6f, 1.8f);
+            sparksMain.startSize = new ParticleSystem.MinMaxCurve(0.05f, 0.1f);
+            sparksMain.startColor = new ParticleSystem.MinMaxGradient(_coreColor, _fireballColor);
+            sparksMain.gravityModifier = 0.6f;
+            var sparksShape = _sparks.shape;
+            sparksShape.shapeType = ParticleSystemShapeType.Circle;
+            sparksShape.radius = _fireballRadius * 0.8f;
+            HazardFx.SetSizeOverLifetime(_sparks, 1f, 0.2f);
+            var sparksEmission = _sparks.emission;
+            sparksEmission.rateOverDistance = 5f;
+            sparksEmission.enabled = true;
 
             // Warning: dark smoke and orange sparks rising from the vent.
             _smoke = HazardFx.CreateParticles("VentSmoke", transform, material, HazardFx.Puff(), 20, layer, order + 1);
@@ -136,12 +164,20 @@ namespace AlmaGame.Level
         private void OnDestroy()
         {
             HazardFx.DestroyMaterial(_trail);
+            HazardFx.DestroyMaterial(_sparks);
             HazardFx.DestroyMaterial(_smoke);
             HazardFx.DestroyMaterial(_splash);
         }
 
         private void Update()
         {
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                SyncVentSizeInEditor();
+                return;
+            }
+#endif
             float elapsed = Time.time - _stateStartedAt;
             switch (_state)
             {
@@ -169,7 +205,7 @@ namespace AlmaGame.Level
 
         private void FixedUpdate()
         {
-            if (_state != State.Erupt) return;
+            if (!Application.isPlaying || _state != State.Erupt) return;
             int count = Physics2D.OverlapCircle(_fireball.position, _fireballRadius, ContactFilter2D.noFilter, _hits);
             for (int i = 0; i < count; i++)
             {
@@ -182,11 +218,13 @@ namespace AlmaGame.Level
         {
             _fireball.position = VentTop;
             _trail.Clear();
+            _sparks.Clear();
             _fireball.gameObject.SetActive(true);
             Enter(State.Erupt);
         }
 
-        // Rises and falls on a parabola; stretches along its speed and pulses its core.
+        // Rises and falls on a parabola; stretches along its speed, its flame tongues trail behind it
+        // (turning over at the top of the arc) and it flickers.
         private void Fly(float t)
         {
             float y = _launchSpeed * t - 0.5f * _gravity * t * t;
@@ -194,7 +232,11 @@ namespace AlmaGame.Level
             float speed = Mathf.Abs(_launchSpeed - _gravity * t) / _launchSpeed;
             float stretch = 1f + 0.35f * speed;
             _fireball.localScale = new Vector3(1f / Mathf.Sqrt(stretch), stretch, 1f);
-            _core.transform.localScale = Vector3.one * _fireballRadius * 1.3f * (1f + 0.15f * Mathf.Sin(Time.time * 30f));
+            float size = _fireballRadius * 2.8f;
+            _core.transform.localScale = new Vector3(size * (1f + 0.05f * Mathf.Sin(Time.time * 29f)),
+                size * (1f + 0.09f * Mathf.Sin(Time.time * 37f)), 1f);
+            float rising = Mathf.Clamp((_launchSpeed - _gravity * t) / (_launchSpeed * 0.3f), -1f, 1f);
+            _core.transform.localRotation = Quaternion.Euler(0f, 0f, (1f - rising) * 90f);
 
             if (t < _eruptTime) return;
             _fireball.gameObject.SetActive(false);
@@ -215,12 +257,12 @@ namespace AlmaGame.Level
             _stateStartedAt = Time.time;
         }
 
-        private static SpriteRenderer AddGlow(Transform parent, string name, Color color, float size, int layer, int order)
+        private static SpriteRenderer AddSprite(Transform parent, string name, Sprite sprite, Color color, float size, int layer, int order)
         {
             var renderer = new GameObject(name).AddComponent<SpriteRenderer>();
             renderer.transform.SetParent(parent, false);
             renderer.transform.localScale = Vector3.one * size;
-            renderer.sprite = HazardFx.Glow();
+            renderer.sprite = sprite;
             renderer.color = color;
             renderer.sortingLayerID = layer;
             renderer.sortingOrder = order;
@@ -232,6 +274,28 @@ namespace AlmaGame.Level
             var vent = GetComponent<SpriteRenderer>();
             if (vent != null) vent.size = _ventSize;
         });
+
+#if UNITY_EDITOR
+        private Vector2? _appliedVentSize;
+
+        // Edit mode only. Whichever side changed since the last sync wins: a vent drawn with the Rect tool
+        // updates `Vent Size`; a new `Vent Size` typed in the Inspector resizes the vent sprite.
+        private void SyncVentSizeInEditor()
+        {
+            var vent = GetComponent<SpriteRenderer>();
+            if (vent == null || vent.drawMode == SpriteDrawMode.Simple) return;
+            _appliedVentSize ??= vent.size;
+            if (vent.size != _appliedVentSize.Value)
+            {
+                UnityEditor.Undo.RecordObject(this, "Resize Geyser Vent");
+                _ventSize = vent.size;
+                UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(this);
+            }
+            else if (_ventSize == _appliedVentSize.Value) return;
+            vent.size = _ventSize;
+            _appliedVentSize = _ventSize;
+        }
+#endif
 
         private void OnDrawGizmosSelected()
         {

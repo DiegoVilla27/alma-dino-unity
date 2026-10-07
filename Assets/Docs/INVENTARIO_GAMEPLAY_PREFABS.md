@@ -285,7 +285,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 8. Gas tóxico ascendente
 
-- **Estado:** implementado con arte final (sprite fijo, escala 2 × 2; ver problemas conocidos en la ficha) y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_RisingToxicGas_Swamp.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
+- **Estado:** implementado con arte final redimensionable (tile repetible que crece al subir, como los líquidos) y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_RisingToxicGas_Swamp.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
 - **Archivo definitivo:** `Trap_RisingToxicGas_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_RisingToxicGas_Swamp.prefab`.
 - **Implementación:** `RisingHazardFloor2D`.
@@ -336,7 +336,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 12. Techo aplastante
 
-- **Estado:** implementado con arte final (sprite fijo, escala 2 × 2; ver problemas conocidos en la ficha) y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_CrushingCeiling_Caves.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
+- **Estado:** implementado con arte final (sprite recortado en *Sliced*, escala 1 × 1) y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_CrushingCeiling_Caves.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
 - **Archivo definitivo:** `Trap_CrushingCeiling_Caves.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_CrushingCeiling_Caves.prefab`.
 - **Implementación:** `CrushingCeiling2D`.
@@ -349,7 +349,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 13. Géiser volcánico peligroso
 
-- **Estado:** implementado con arte final (sprite fijo, escala 2 × 2; ver problemas conocidos en la ficha) y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_FireGeyser_Volcano.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
+- **Estado:** implementado con arte final (sprite recortado en *Sliced*, escala 1 × 1) y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_FireGeyser_Volcano.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
 - **Archivo definitivo:** `Trap_FireGeyser_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_FireGeyser_Volcano.prefab`.
 - **Implementación:** `LavaGeyser2D`.

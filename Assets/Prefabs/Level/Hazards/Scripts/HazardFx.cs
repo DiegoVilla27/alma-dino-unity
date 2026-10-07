@@ -11,6 +11,7 @@ namespace AlmaGame.Level
         private static Sprite s_glow;
         private static Texture2D s_streak;
         private static Texture2D s_bubble;
+        private static Sprite s_fireball;
 
         // Soft round puff (smoke, gas, dust, glow).
         public static Texture2D Puff()
@@ -69,6 +70,62 @@ namespace AlmaGame.Level
                 pixels[y * size + x] = new Color32(255, 255, 255, (byte)(alpha * 255f));
             }
             return Apply(s_bubble, pixels);
+        }
+
+        // Cartoon fireball sprite, 1 unit wide: a round head with three flame tongues trailing below it,
+        // a hot white-yellow core cooling to orange and red at the tips, and a dark red outline like the
+        // rest of the art. The pivot is the centre of the head; rotate it so the tongues trail behind.
+        public static Sprite Fireball()
+        {
+            if (s_fireball != null) return s_fireball;
+            const int width = 96;
+            const int height = 160;
+            Texture2D texture = NewTexture("HazardFireball", width, height);
+            var pixels = new Color32[width * height];
+            var head = new Vector2(0f, 1.05f);
+            const float headRadius = 0.36f;
+            var white = new Color(1f, 0.98f, 0.85f);
+            var yellow = new Color(1f, 0.82f, 0.2f);
+            var orange = new Color(1f, 0.45f, 0.07f);
+            var red = new Color(0.85f, 0.18f, 0.04f);
+            var outline = new Color(0.45f, 0.08f, 0.03f);
+            for (int y = 0; y < height; y++)
+            for (int x = 0; x < width; x++)
+            {
+                // coordinates in units of the sprite width, x centred, y from the bottom
+                var p = new Vector2((x + 0.5f) / width - 0.5f, (y + 0.5f) / width);
+                float d = Vector2.Distance(p, head) - headRadius;
+                d = SmoothMin(d, Tongue(p, new Vector2(-0.21f, 0.66f), 0.11f, 0.32f), 0.04f);
+                d = SmoothMin(d, Tongue(p, new Vector2(0f, 0.48f), 0.14f, 0.46f), 0.04f);
+                d = SmoothMin(d, Tongue(p, new Vector2(0.2f, 0.7f), 0.1f, 0.28f), 0.04f);
+                float heat = Mathf.Clamp01(1f - Vector2.Distance(p, head + new Vector2(0f, 0.04f)) / 0.62f);
+                Color color = heat > 0.66f ? Color.Lerp(yellow, white, (heat - 0.66f) / 0.34f)
+                    : heat > 0.33f ? Color.Lerp(orange, yellow, (heat - 0.33f) / 0.33f)
+                    : Color.Lerp(red, orange, heat / 0.33f);
+                color = Color.Lerp(color, outline, Mathf.Clamp01((d + 0.035f) / 0.015f));
+                color.a = Mathf.Clamp01(-d * width * 0.5f); // ~2px antialiased edge
+                pixels[y * width + x] = color;
+            }
+            Apply(texture, pixels);
+            s_fireball = Sprite.Create(texture, new Rect(0f, 0f, width, height), new Vector2(0.5f, head.y * width / height), width);
+            s_fireball.name = "HazardFireball";
+            return s_fireball;
+        }
+
+        // Flame tongue: an ellipse that narrows to a point towards its bottom end.
+        private static float Tongue(Vector2 p, Vector2 centre, float rx, float ry)
+        {
+            Vector2 q = p - centre;
+            float taper = q.y < 0f ? Mathf.Lerp(0.15f, 1f, Mathf.Clamp01(1f + q.y / ry)) : 1f;
+            float width = rx * taper;
+            float k = Mathf.Sqrt(q.x * q.x / (width * width) + q.y * q.y / (ry * ry));
+            return (k - 1f) * Mathf.Min(width, ry);
+        }
+
+        private static float SmoothMin(float a, float b, float k)
+        {
+            float h = Mathf.Clamp01(0.5f + 0.5f * (b - a) / k);
+            return Mathf.Lerp(b, a, h) - k * h * (1f - h);
         }
 
         // Thin horizontal streak with soft ends (wind lines).

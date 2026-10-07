@@ -1,6 +1,6 @@
 # Zonas de peligro — piezas de nivel
 
-**Estado (7 de octubre de 2026):** conjunto de trampas **cerrado** en doce: implementadas en Unity 6000.6.0f1 con un script común, un prefab base, nueve variantes estáticas y tres trampas dinámicas (gas tóxico ascendente, géiser volcánico y techo aplastante). Las otras cuatro trampas del inventario se descartaron. **Todas tienen arte final** salvo la zona de muerte, que es invisible a propósito. Los tres líquidos (lava, lago y lodo) son redimensionables y tienen vida (shader + partículas). Todavía no están colocadas en ninguna escena ni probadas en juego, y hay [problemas conocidos](#problemas-conocidos) en las trampas a escala 2 × 2.
+**Estado (7 de octubre de 2026):** conjunto de trampas **cerrado** en doce: implementadas en Unity 6000.6.0f1 con un script común, un prefab base, nueve variantes estáticas y tres trampas dinámicas (gas tóxico ascendente, géiser volcánico y techo aplastante). Las otras cuatro trampas del inventario se descartaron. **Todas tienen arte final** salvo la zona de muerte, que es invisible a propósito. Los tres líquidos (lava, lago y lodo) son redimensionables y tienen vida (shader + partículas). El techo y el géiser pasaron a escala 1 × 1, la bola del géiser tiene un dibujo nuevo y el gas es ahora un volumen redimensionable como los líquidos (7/10/2026). Todavía no están colocadas en ninguna escena ni probadas en juego, y queda un [problema conocido](#problemas-conocidos) en las trampas estáticas a escala 2 × 2.
 
 Fichas de diseño originales: [inventario, Trampas](../INVENTARIO_GAMEPLAY_PREFABS.md#trampas). Jugador: [Alma](../Player/Alma.md). Piezas no letales: [Piezas de nivel](Pieces.md).
 
@@ -38,7 +38,7 @@ Todo está en `Assets/Prefabs/Level/Hazards/`:
 | `Scripts/CrushingCeiling2D.cs` | Techo aplastante. |
 | `Scripts/LiquidFx2D.cs` | Burbujas, brasas/vapor y salpicadura de los líquidos. |
 | `Shaders/LiquidSprite.shader` | Shader de sprite para líquidos (`AlmaGame/LiquidSprite`): latido de brillo y ondulación. |
-| `Materials/Liquid_Lava.mat`, `Liquid_Toxic.mat`, `Liquid_Mud.mat` | Un material por líquido con ese shader. |
+| `Materials/Liquid_Lava.mat`, `Liquid_Toxic.mat`, `Liquid_Mud.mat`, `Liquid_Gas.mat` | Un material por líquido (y el gas) con ese shader. |
 | `Sprites/Trap_*.png` | Arte de cada trampa (los líquidos usan `*_Tile.png`). |
 | `Hazard_Base.prefab` | Prefab base: SpriteRenderer, un `BoxCollider2D` trigger (zona letal), un `BoxCollider2D` sólido (desactivado) y `HazardZone2D`. Usa el cuadrado blanco de `../Shared/Sprites/Level_Placeholder.png`. |
 | `Trap_*.prefab` (9 estáticas) | **Prefab Variants** de `Hazard_Base`. |
@@ -46,14 +46,14 @@ Todo está en `Assets/Prefabs/Level/Hazards/`:
 
 ## Dos formas de dibujar
 
-| | Trampas de dibujo fijo | Líquidos redimensionables |
-| --- | --- | --- |
-| Prefabs | Pinchos, zarzas, cristales, pinchos ardientes, pilar, gas, géiser, techo | Lava, lago tóxico, lodo tóxico |
-| `Draw Mode` | **Simple** (el dibujo tiene un tamaño fijo) | **Tiled** (tile 9-slice que se repite) |
-| Escala del Transform | **2 × 2** | **1 × 1** |
-| Sprite | 512 × 512 px a **150 PPU** (3,41 u; ×2 = 6,83 u en pantalla) | Tile a 256/320 PPU |
-| Cambiar el tamaño | No se adapta: cambiar `Size` solo cambia la zona letal | `Size` o la herramienta Rect: dibujo y zona letal van juntos |
-| Zona letal real | **El doble de `Size`** (la escala la multiplica) | Igual a `Size` (menos `Hitbox Inset`) |
+| | Dibujo fijo a escala 2 | Objeto recortado a escala 1 | Líquidos redimensionables |
+| --- | --- | --- | --- |
+| Prefabs | Pinchos, zarzas, cristales, pinchos ardientes, pilar | Techo aplastante, géiser | Lava, lago tóxico, lodo tóxico, **gas tóxico** |
+| `Draw Mode` | **Simple** (tamaño fijo) | **Sliced** sin borders (el dibujo se ajusta a su tamaño) | **Tiled** (tile 9-slice que se repite) |
+| Escala del Transform | **2 × 2** | **1 × 1** | **1 × 1** |
+| Sprite | 512 × 512 px a **150 PPU** (×2 = 6,83 u en pantalla) | Recortado al dibujo, **75 PPU** (se ve igual que antes a escala 2) | Tile a 256/320 PPU |
+| Cambiar el tamaño | No se adapta: `Size` solo cambia la zona letal | `Size` (techo) o `Vent Size` (géiser), o la herramienta Rect: el dibujo se estira a ese tamaño | `Size` o herramienta Rect: dibujo y zona letal juntos |
+| Zona letal real | **El doble de `Size`** | Igual a `Size` (techo) / radio de la bola (géiser) | Igual a `Size` (menos `Hitbox Inset`) |
 
 ## Trampas estáticas (9)
 
@@ -130,22 +130,31 @@ Fijos en código: las burbujas viven 0,7–1,1 s y crecen de 0,4× a 1,15×; las
 
 ## Trampas dinámicas
 
-Arte final en modo Simple a escala 2 × 2 (ver [Problemas conocidos](#problemas-conocidos)). Los efectos (humo, chispas, polvo, bola de fuego) se generan por código con `HazardFx`, con un presupuesto fijo de partículas.
+Las tres están a escala 1 × 1: el gas usa un tile repetible como los líquidos; el techo y el géiser, su sprite recortado en *Sliced*. Los efectos (humo, chispas, polvo, bola de fuego) se generan por código con `HazardFx`, con un presupuesto fijo de partículas.
 
 ### Gas tóxico ascendente (`Trap_RisingToxicGas_Swamp`)
 
-Sprite `Trap_RisingToxicGas_Swamp.png`, color (1; 1; 1; 0,55) y orden de dibujo 5 (delante de Alma, para que se vea que está dentro). Sube desde un fondo fijo; el borde superior son nubes en dos tonos de verde que burbujean y suben.
+Un **volumen** que sube desde un fondo fijo y crece: se dibuja como los líquidos, con un tile repetible (`Trap_RisingToxicGas_Swamp_Tile.png`, 512 × 498 px a 256 PPU, border inferior de 155 px = 0,6 u) en *Tiled*, con la imagen boca abajo y **Flip Y**, a escala 1 × 1. Arriba, un borde de nubes con contorno y sombras moradas (fijo, siempre en la cima); debajo, niebla verde con remolinos morados que se repite al crecer. Color (1; 1; 1; 0,7): translúcido. Orden de dibujo 5 (delante de Alma, para que se vea que está dentro). Sobre el borde, nubes de partículas en dos tonos de verde que burbujean y suben.
+
+Arte generado con IA (una generación, 7/10/2026) con el sprite anterior (`Trap_RisingToxicGas_Swamp.png`, una nube con forma de arbusto que no podía crecer) como referencia de estilo, y procesado como los líquidos. Material `Materials/Liquid_Gas.mat` (shader `AlmaGame/LiquidSprite`):
+
+| Propiedad | Valor |
+| --- | --- |
+| `Glow Color` | (0,8; 1; 0,4) — laten los reflejos lima |
+| `Bright Threshold` | 0,6 |
+| `Pulse Strength` / `Pulse Speed` / `Pulse Wave Scale` | 0,25 / 0,3 / 0,3 por u |
+| `Sway Amount` / `Sway Speed` / `Sway Wave Scale` | 0,012 / 0,35 / 1,2 por u (ondulación lenta y amplia, de gas) |
 
 | Fase | Qué pasa |
 | --- | --- |
 | **Espera** | Quieto a su altura inicial hasta que Alma cruza la línea de activación (o desde el inicio, según `Activation`). |
-| **Aviso (3 s)** | El gas parpadea más opaco y las nubes se agitan (×2,5). |
+| **Aviso (3 s)** | El gas parpadea más opaco (de 70 % a 95 %) y las nubes se agitan (×2,5). |
 | **Subida** | Sube a 0,9 u/s manteniendo el fondo fijo; mata a Alma en todo su volumen. |
 | **Lleno** | Se detiene en `Max Height` (10 u sobre el fondo). |
 
 - Al reaparecer Alma (evento `Respawned`) vuelve a su altura inicial y a la espera.
 - `Activate()` y `Stop()` permiten que un encuentro lo arranque o lo detenga.
-- Tamaño inicial: `Size` de su `HazardZone2D` = 12 × 1, `Hitbox Inset` 0,1. El ancho se mantiene; la altura crece con `SetSize()`.
+- Tamaño inicial: `Size` de su `HazardZone2D` = 12 × 1 (mínimo 0,6 de alto, el borde de nubes), `Hitbox Inset` 0,1. El ancho se mantiene; la altura crece con `SetSize()` y el dibujo crece con ella. Con la escala 1 × 1 vuelven a valer los valores del diseño: sube 0,9 u/s hasta 10 u (a escala 2 eran el doble).
 
 | Campo | Valor | Uso |
 | --- | ---: | --- |
@@ -162,34 +171,37 @@ Gizmos: **verde** = altura máxima; **amarillo** = línea de activación.
 
 ### Géiser volcánico (`Trap_FireGeyser_Volcano`)
 
-Sprite `Trap_FireGeyser_Volcano.png` (el respiradero, no letal: se puede pisar). Escupe una bola de fuego hacia arriba que vuelve a caer en él.
+Sprite `Trap_FireGeyser_Volcano_Vent.png` (el respiradero recortado de `Trap_FireGeyser_Volcano.png`, 439 × 135 px a 75 PPU), en *Sliced* a escala 1 × 1 y estirado a `Vent Size` (5,853 × 1,8). No es letal y no tiene colisionador. Escupe una bola de fuego hacia arriba que vuelve a caer en él.
 
 | Fase | Duración | Qué pasa |
 | --- | --- | --- |
 | **Reposo** | 2,2 s | Nada. |
 | **Aviso** | 0,8 s | El respiradero parpadea en naranja y suelta humo oscuro y chispas hacia arriba. |
-| **Erupción** | 1,2 s | La bola sube 4 u y cae (parábola), estirándose según su velocidad, con un núcleo amarillo que palpita y una estela de llamas. Al volver salpica 8 gotas de lava. |
+| **Erupción** | 1,2 s | La bola sube 4 u y cae (parábola), estirándose según su velocidad. Al volver salpica 8 gotas de lava. |
 
 - **Solo la bola mata** (círculo de `Fireball Radius` comprobado cada paso de física).
+- **Dibujo de la bola** (7/10/2026, sustituye a las dos manchas difusas): sprite cartoon generado por código (`HazardFx.Fireball()`, 96 × 160 px): cabeza redonda con núcleo blanco-amarillo, tres lenguas de llama afiladas que pasan de naranja a rojo y contorno rojo oscuro como el resto del arte. Mide 2,8 × `Fireball Radius` de ancho; sus lenguas quedan siempre detrás del movimiento (hacia abajo al subir, hacia arriba al caer, girando en lo alto) y parpadea (±5 % de ancho, ±9 % de alto). Detrás lleva un halo naranja suave (alfa 45 %, 3,4 × radio).
+- **Estela:** nubes de 0,8–1,3 × radio que se enfrían de amarillo a naranja, rojo y humo en 0,3–0,5 s (10 por unidad recorrida, máx. 36). **Chispas:** puntos de 0,05–0,1 u que saltan de la bola (5 por unidad recorrida, máx. 24) y caen con gravedad 0,6.
 - `Start Delay` desfasa varios géiseres entre sí.
-- **Respeta el `Draw Mode` del prefab** (desde el 7/10/2026 ya no fuerza *Tiled*); solo ajusta `size`, que en modo Simple no tiene efecto.
+- **Respeta el `Draw Mode` del prefab** (desde el 7/10/2026 ya no fuerza *Tiled*).
+- **Tamaño en el editor:** con `[ExecuteAlways]` (solo actúa en modo edición; en juego no cambia nada), arrastrar el respiradero con la herramienta Rect actualiza `Vent Size`, y cambiar `Vent Size` en el Inspector redimensiona el sprite. Al dar Play se conserva lo dibujado.
 
 | Campo | Valor | Uso |
 | --- | ---: | --- |
 | `Rest Time` / `Warning Time` / `Erupt Time` | 2,2 / 0,8 / 1,2 | Ciclo (s). `Erupt Time` es el vuelo completo. |
 | `Start Delay` | 0 | Retraso del primer ciclo (s). |
 | `Height` | 4 | Altura máxima de la bola sobre el respiradero. |
-| `Fireball Radius` | 0,35 | Radio letal. |
+| `Fireball Radius` | **0,5** | Radio letal (antes 0,35; con la escala 2 se veía de 0,7). |
 | `Fireball Color` / `Core Color` | (1; 0,45; 0,1) / (1; 0,9; 0,4) | Colores de la bola y su núcleo. |
-| `Vent Size` | (1,2; 0,4) | Tamaño del respiradero (posición de salida de la bola y del humo). |
+| `Vent Size` | (5,853; 1,8) | Tamaño del dibujo del respiradero; la bola y el humo salen de su borde superior. |
 | `Warning Glow` | (1; 0,55; 0,2) | Color del parpadeo del aviso. |
 | `Label` / `Show Label` | «Géiser» / no | Etiqueta provisional. |
 
-Partículas: estela (máx. 30), humo (máx. 20), salpicadura (máx. 12). Gizmos: **naranja** = trayectoria y radio letal.
+Partículas: estela (máx. 36), chispas (máx. 24), humo (máx. 20), salpicadura (máx. 12). Gizmos: **naranja** = trayectoria y radio letal.
 
 ### Techo aplastante (`Trap_CrushingCeiling_Caves`)
 
-Sprite `Trap_CrushingCeiling_Caves.png`. Bloque colocado en el techo, sólido mientras está arriba (`Solid` sí, 3 × 1); cae cuando Alma pasa por debajo.
+Sprite `Trap_CrushingCeiling_Caves_Block.png` (recortado de `Trap_CrushingCeiling_Caves.png`, 450 × 115 px a 75 PPU), en *Sliced* a escala 1 × 1 y ajustado a `Size` = **6 × 1,533** (se ve igual que antes a escala 2). Bloque colocado en el techo, sólido mientras está arriba (`Solid` sí, `Solid Size` 6 × 1,533); zona letal 5,9 × 1,433. Cae cuando Alma pasa por debajo.
 
 | Fase | Duración | Qué pasa |
 | --- | --- | --- |
@@ -258,20 +270,17 @@ Por trampa estática: un SpriteRenderer y uno o dos `BoxCollider2D` estáticos. 
 
 ## Problemas conocidos
 
-Detectados el 7/10/2026 al revisar los prefabs; **sin corregir**:
+Detectados el 7/10/2026 al revisar los prefabs. El techo, el géiser y el gas ya se corrigieron (escala 1 × 1); **queda sin corregir**:
 
-- **Techo aplastante a escala 2 × 2:** su script vuelve a poner la escala a 1 × 1 al reaparecer y al terminar de formarse (`transform.localScale = Vector3.one`). Tras la primera caída quedaría a la mitad de tamaño. Además mide la caída con `Size` (sin escalar).
-- **Gas tóxico en modo Simple:** sube cambiando `Size` con `SetSize()`, pero en Simple eso no cambia el dibujo: la zona letal crece y el sprite no.
-- **Géiser a escala 2 × 2:** la bola se ve el doble de grande que su radio letal (0,35) y el punto de salida (`Vent Size`) no tiene en cuenta la escala.
 - **Trampas estáticas a escala 2 × 2:** la zona letal real es el doble de `Size` (ver la tabla); hay que tenerlo en cuenta al diseñar los niveles.
 
-Solución propuesta: dejar estas trampas a escala 1 × 1 y ajustar el tamaño en pantalla con el PPU de cada sprite (como en los líquidos).
+Solución propuesta: escala 1 × 1 y el tamaño en pantalla con el PPU de cada sprite, como en el techo y el géiser.
 
 ## Pendiente
 
 - Corregir los [problemas conocidos](#problemas-conocidos).
 - Colocar las trampas en niveles y probarlas.
 - Gas: la regla del diseño de «quedar 4 u por debajo del checkpoint» al reaparecer no está implementada; hoy vuelve a su altura inicial.
-- Sprite original `Sprites/Trap_ToxicMud_Swamp.png` sin uso (el lodo usa `_Tile`); se puede borrar.
+- Sprites originales sin uso: `Trap_ToxicMud_Swamp.png` (el lodo usa `_Tile`), `Trap_CrushingCeiling_Caves.png` y `Trap_FireGeyser_Volcano.png` (se usan sus versiones recortadas `_Block` y `_Vent`) y `Trap_RisingToxicGas_Swamp.png` (el gas usa `_Tile`); se pueden borrar.
 - **Fuera de alcance (decisión del 5/10/2026):** erupción de lava ascendente, magma ascendente del jefe final, chorro de fuego de aterrizaje y puerta de llamas no se harán.
 - El inventario prevé `Assets/_Project/Prefabs/Traps/`; están en `Assets/Prefabs/Level/Hazards/`.

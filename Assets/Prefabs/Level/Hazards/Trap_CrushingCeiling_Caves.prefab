@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,12 +85,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 6bef59600ed0545739dc285a4b05caee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 01ccc912642747e69462285e5cdd3f43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 3, y: 1}
+  m_DrawMode: 1
+  m_Size: {x: 6, y: 1.533}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -134,13 +134,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.4133334, y: 3.4133334}
-    newSize: {x: 3, y: 1}
+    oldSize: {x: 6, y: 1.5333333}
+    newSize: {x: 6, y: 1.533}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.9, y: 0.9}
+  m_Size: {x: 5.9, y: 1.433}
   m_EdgeRadius: 0
 --- !u!61 &1356283346192166614
 BoxCollider2D:
@@ -180,13 +180,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.4133334, y: 3.4133334}
-    newSize: {x: 3, y: 1}
+    oldSize: {x: 6, y: 1.5333333}
+    newSize: {x: 6, y: 1.533}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3, y: 1}
+  m_Size: {x: 6, y: 1.533}
   m_EdgeRadius: 0
 --- !u!114 &4657402902623480713
 MonoBehaviour:
@@ -200,14 +200,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a8f9cd5adb4666bbfd4425ea46970d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.HazardZone2D
-  _size: {x: 3, y: 1}
+  _size: {x: 6, y: 1.533}
   _hitboxInset: 0.05
   _customHitbox: 0
   _hitboxOffset: {x: 0, y: 0}
   _hitboxSize: {x: 1, y: 1}
   _solid: 1
   _solidOffset: {x: 0, y: 0}
-  _solidSize: {x: 3, y: 1}
+  _solidSize: {x: 6, y: 1.533}
   _active: 1
   _visibleInGame: 1
   _label: Techo aplastante
