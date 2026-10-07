@@ -42,6 +42,13 @@ namespace AlmaGame.Player
         private float _bounceSpeed;
         private float _bounceHeldMultiplier;
         private bool _bounceRising;
+        // Wind: zones add their acceleration each physics step (consumed and cleared next step).
+        // The horizontal push lives in its own velocity so the run controller doesn't cancel it.
+        private const float WindDrag = 4f;
+        private Vector2 _windAcceleration;
+        private float _windGravityCompensation;
+        private float _windVelocityX;
+        private float _appliedWindVx;
 
         public AlmaMovementSettings Settings => _settings;
         public Vector2 Velocity => _body != null ? _body.linearVelocity : Vector2.zero;
@@ -118,6 +125,13 @@ namespace AlmaGame.Player
         // Consumed on the next physics step; ignored unless Alma is airborne.
         public void RequestGroundPound() => _groundPoundQueued = true;
 
+        // Wind zones call this every physics step while Alma is inside. Dash and Pisotón ignore wind.
+        public void AddWind(Vector2 acceleration, float gravityCompensation)
+        {
+            _windAcceleration += acceleration;
+            _windGravityCompensation = Mathf.Max(_windGravityCompensation, gravityCompensation);
+        }
+
         // Springs (bouncy mushroom): launches Alma up on the next physics step. Holding jump multiplies
         // the speed, and releasing jump doesn't cut the rise short. Optionally restores air abilities.
         public void Bounce(float speed, float heldMultiplier, bool refillAirAbilities)
@@ -158,12 +172,25 @@ namespace AlmaGame.Player
             RefreshGrounded();
             if (IsGrounded) _airJumpAvailable = true;
             Vector2 velocity = _body.linearVelocity;
+            // Take last step's wind out, update it, and add it back after the run controller.
+            bool windBlocked = IsDashing || IsGroundPounding;
+            velocity.x -= _appliedWindVx;
+            float windAccelX = windBlocked ? 0f : _windAcceleration.x;
+            _windVelocityX = windBlocked ? 0f
+                : _windVelocityX + (windAccelX - _windVelocityX * WindDrag) * Time.fixedDeltaTime;
+            if (!windBlocked)
+                velocity.y += (_windAcceleration.y + Mathf.Abs(Physics2D.gravity.y) * _settings.GravityScale
+                    * _windGravityCompensation) * Time.fixedDeltaTime;
+            _windAcceleration = Vector2.zero;
+            _windGravityCompensation = 0f;
             // Alma stands still while roaring on the ground; air control is kept for aerial roars.
             float move = IsRoaring && IsGrounded ? 0f : _moveInput;
             float moveTime = !IsGrounded ? _settings.AirAccelerationTime
                 : Mathf.Abs(move) < 0.01f ? _settings.BrakingTime : _settings.AccelerationTime;
             velocity.x = Mathf.MoveTowards(velocity.x, move * _settings.MoveSpeed,
                 _settings.MoveSpeed / moveTime * Time.fixedDeltaTime);
+            velocity.x += _windVelocityX;
+            _appliedWindVx = _windVelocityX;
 
             if (_jumpQueued && Time.time - _jumpPressedAt > _settings.JumpBufferTime)
                 _jumpQueued = false;
@@ -227,7 +254,10 @@ namespace AlmaGame.Player
         private void RefreshGrounded()
         {
             IsGrounded = false;
-            if (_body.linearVelocity.y > 0.1f || Time.time < _ignoreGroundUntil) return;
+            // Moving up usually means a jump, so the ground isn't checked; but if Alma was on the ground
+            // last step (walking up a slope or a tilted seesaw) she stays grounded. Jumps clear that.
+            bool wasGrounded = Time.time - _lastGroundedAt <= Time.fixedDeltaTime * 1.5f;
+            if ((_body.linearVelocity.y > 0.1f && !wasGrounded) || Time.time < _ignoreGroundUntil) return;
             var filter = new ContactFilter2D { useTriggers = false };
             filter.SetLayerMask(_settings.GroundLayers);
             int count = _collider.Cast(Vector2.down, filter, _groundHits, _settings.GroundProbeDistance);
@@ -372,6 +402,8 @@ namespace AlmaGame.Player
             _roarQueued = IsRoaring = false;
             _airJumpAvailable = false;
             _bounceQueued = _bounceRising = false;
+            _windAcceleration = Vector2.zero;
+            _windGravityCompensation = _windVelocityX = _appliedWindVx = 0f;
             _lastGroundedAt = float.NegativeInfinity;
             _ignoreGroundUntil = Time.time + 0.08f;
             IsGrounded = false;

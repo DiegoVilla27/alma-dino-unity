@@ -1,6 +1,8 @@
 # Piezas de nivel — plataformas y recursos
 
-**Estado (5 de octubre de 2026):** implementadas en Unity 6000.6.0f1 cinco piezas reutilizables (plataforma atravesable, plataforma que se desmorona con tres variantes, hongo saltarín, piso rompible con Pisotón y espora de recarga del Dash). Usan **cajas de color con etiqueta** como marcador hasta que llegue el arte. Todavía no están colocadas en ninguna escena ni probadas en juego (ver [Pendiente](#pendiente)).
+**Estado (6 de octubre de 2026):** implementadas en Unity 6000.6.0f1 siete piezas reutilizables (plataforma atravesable, plataforma que se desmorona con tres variantes, hongo saltarín, piso rompible con Pisotón, espora de recarga del Dash, barrera rompible con Dash con dos variantes y corriente de viento). Usan **cajas de color con etiqueta** como marcador hasta que llegue el arte. La barrera y el viento están comprobados con una prueba PlayMode (caminando contra la barrera no se rompe; con Dash sí y Alma la atraviesa; el viento de 22 empuja a Alma ~4 u en 1 s y su efecto se apaga al salir). El resto todavía no está colocado en ninguna escena (ver [Pendiente](#pendiente)).
+
+Los puzles (roca de basalto movible y balancín con contrapeso, runa y compuerta) tienen su propia ficha: [Puzles](Puzzles.md).
 
 Fichas de diseño originales: [inventario, Recursos](../INVENTARIO_GAMEPLAY_PREFABS.md#recursos). Trampas: [Zonas de peligro](Hazards.md). Jugador: [Alma](../Player/Alma.md).
 
@@ -15,6 +17,9 @@ Fichas de diseño originales: [inventario, Recursos](../INVENTARIO_GAMEPLAY_PREF
 | `Resource_BouncyMushroom_Jungle` | Hongo saltarín | Rosa (0,95; 0,45; 0,65) | 1,6 × 0,8 | Al caer encima lanza a Alma hacia arriba (17 m/s; ×1,18 manteniendo salto) y le recarga el doble salto y el Dash. | 1 |
 | `Resource_PoundBreakableFloor_Universal` | Piso rompible | Gris piedra (0,55; 0,5; 0,45) | 3 × 0,6 | Se rompe con un Pisotón encima y Alma sigue cayendo. | 2–4 |
 | `Resource_DashRefillSpore_Swamp` | Espora Dash | Amarillo (1; 0,9; 0,3) | 0,7 × 0,7 | Flota; al tocarla en el aire recarga el Dash (y el doble salto). Vuelve a los 2,5 s. | 3 |
+| `Resource_DashReedBarrier_Swamp` | Barrera de cañas | Verde caña (0,55; 0,65; 0,3) | 0,8 × 3 | Sólida; **solo** se rompe si Alma choca contra ella haciendo un Dash. | 3 |
+| `Resource_DashTrialGrid_Volcano` | Reja Dash | Gris (0,5; 0,5; 0,55) | 0,8 × 3 | Igual que la barrera de cañas (prueba aérea del templo). | 4 |
+| `Resource_WindCurrent_Universal` | Corriente de viento | Celeste translúcido (0,7; 0,9; 1; 0,15) | 6 × 3 | Empuja a Alma y a los objetos físicos en su dirección; puede contrarrestar la gravedad. El Dash y el Pisotón la ignoran. | 3 (reutilizable) |
 
 Todas están en `Assets/Prefabs/Level/Pieces/` y **no hacen daño**.
 
@@ -28,6 +33,9 @@ Todas están en `Assets/Prefabs/Level/Pieces/` y **no hacen daño**.
 | `Pieces/Scripts/BouncyMushroom2D.cs` | Hongo saltarín. |
 | `Pieces/Scripts/BreakableFloor2D.cs` | Piso rompible con Pisotón. |
 | `Pieces/Scripts/DashRefillSpore2D.cs` | Espora de recarga del Dash. |
+| `Pieces/Scripts/DashBreakableBarrier2D.cs` | Barrera rompible con Dash. |
+| `Pieces/Scripts/WindCurrentZone2D.cs` | Corriente de viento. |
+| `Pieces/Resource_DashBarrier_Base.prefab` | Prefab base de la barrera; las variantes de cañas y reja solo cambian nombre, color y etiqueta. |
 | `Pieces/Platform_Crumbling_Base.prefab` | Prefab base de las plataformas que se desmoronan; las tres variantes (hoja, nenúfar, cornisa) solo cambian nombre, color, tiempo de colapso y etiqueta. |
 | `Pieces/*.prefab` | Un prefab por pieza: SpriteRenderer (modo *Tiled*), `BoxCollider2D` y su script. |
 | `Shared/Sprites/Level_Placeholder.png` | Cuadrado blanco compartido con las trampas (antes `Hazards/Sprites/Hazard_Placeholder.png`, mismo GUID). |
@@ -123,12 +131,47 @@ Con la física de Alma, el rebote sube unos 6,7 m sin mantener el salto y unos 9
 | `Regrow Time` | 0,2 | Tiempo en volver a crecer (s). |
 | `Burst Color` | amarillo | Color del estallido. |
 
+## Barrera rompible con Dash (`Resource_DashBarrier_Base`, `Resource_DashReedBarrier_Swamp`, `Resource_DashTrialGrid_Volcano`)
+
+- Sólida. **Solo se rompe con el Dash:** al chocar con ella mientras `IsDashing`. Caminar contra ella, saltar, caer encima o hacer un Pisotón no le hacen nada.
+- Al romperse, el colisionador se apaga en ese mismo paso (el Dash sigue y la atraviesa), suelta 18 trozos hacia donde iba el Dash y se desvanece en 0,2 s.
+- Por defecto queda abierta. Con `Can Respawn` vuelve a los 5 s, solo cuando Alma no está dentro de su hueco.
+- Al reaparecer Alma vuelve a estar entera (`Restore On Respawn`).
+- `Break(direction)` es público, por si otro mecanismo tiene que romperla.
+
+| Campo | Valor | Uso |
+| --- | ---: | --- |
+| `Size` | (0,8; 3) | Tamaño. |
+| `Fade Time` | 0,2 | Desvanecimiento (s). |
+| `Can Respawn` / `Respawn Delay` | no / 5 | Volver a cerrarse sola y tras cuánto (s). |
+| `Restore On Respawn` | sí | Restaurarla al reaparecer Alma. |
+
+## Corriente de viento (`Resource_WindCurrent_Universal`)
+
+- Trigger. Mientras Alma está dentro recibe una aceleración en `Direction` de `Strength` (22 u/s²). Con un rozamiento propio de 4, la velocidad que aporta el viento tiende a `Strength / 4` (≈5,5 u/s con 22), que se **suma** al movimiento de Alma: caminar a favor es más rápido y en contra más lento. Al salir, ese empuje se va apagando en unas décimas.
+- `Gravity Compensation` (0–1,5) anula esa fracción de la gravedad mientras está dentro: 1 = flota, más de 1 = corriente ascendente.
+- **El Dash y el Pisotón ignoran el viento** (durante el impulso no empuja ni frena).
+- También empuja cualquier cuerpo físico dinámico que entre (por ejemplo el contrapeso del balancín).
+- `Active` la enciende o apaga (un mecanismo puede cambiarla).
+- Visual: área celeste translúcida con trazos blancos que fluyen en su dirección (1,2 trazos por unidad²). Gizmo: flecha con la dirección.
+- No hace daño, pero puede empujar a Alma hacia un peligro.
+
+| Campo | Valor | Uso |
+| --- | ---: | --- |
+| `Size` | (6; 3) | Área. |
+| `Direction` | (1; 0) | Dirección (se normaliza). |
+| `Strength` | 22 | Aceleración (u/s²). |
+| `Gravity Compensation` | 0 | Fracción de la gravedad que anula. |
+| `Active` | sí | Encendida. |
+| `Streak Color` / `Streaks Per Unit` | blanco azulado / 1,2 | Trazos de viento. |
+
 ## Cambios en Alma
 
 `AlmaMotor2D` tiene dos métodos nuevos que usan estas piezas (documentados en [Alma](../Player/Alma.md)):
 
 - `Bounce(speed, heldMultiplier, refillAirAbilities)`: rebote del hongo.
 - `RefillAirAbilities(dash, doubleJump)`: recarga de la espora; devuelve si recargó algo.
+- `AddWind(acceleration, gravityCompensation)`: empuje de la corriente de viento en este paso de física.
 
 ## Coste
 
@@ -140,4 +183,5 @@ Por pieza: un SpriteRenderer, un `BoxCollider2D` y un sistema de partículas peq
 - Colocarlas en niveles y probarlas.
 - Plataforma atravesable: si Alma llega al punto más alto del salto justo dentro de la plataforma, la detección de suelo podría darla por apoyada; usar plataformas finas (0,3) y probarlo.
 - El hongo no tiene animación propia de compresión con arte; hoy se aplasta el sprite entero.
-- Recursos restantes del inventario sin hacer (balancín, catapultas, corrientes de viento, interruptores, etc.).
+- Recursos restantes del inventario sin hacer (catapulta de raíces, campanas, etc.).
+- Arte de los trazos de viento (hoy son rayas generadas).

@@ -47,6 +47,9 @@ El cuerpo usa Rigidbody2D con interpolación, colisión continua, rotación bloq
 - **Dash aéreo.** Solo en el aire, con carga y fuera de un Pisotón. Recorre 6 m en 0,45 s (≈13,3 m/s) en la orientación de Alma al comenzar, sin gravedad y con velocidad vertical 0. La orientación queda fijada durante el impulso. Al terminar, la velocidad horizontal se limita a 7 m/s para que no recorra distancia extra. Hay una carga aérea, recuperada al tocar suelo (o con la espora o el hongo), y 0,4 s de espera tras cada Dash; si la carga se recuperó durante el Dash (por ejemplo, tocando una espora), no hay espera y el siguiente Dash sale enseguida. No concede inmunidad.
 - **Rugido.** Se puede usar en suelo y en el aire, fuera del Dash y del Pisotón. Dura 0,67 s, lo mismo que su animación. Durante ese tiempo fija la orientación y no permite otro Rugido. En el suelo Alma se frena y no puede caminar hasta que termina; en el aire conserva el control horizontal (Rugido aéreo). Saltar sí está permitido. Al iniciarse lanza un único `Physics2D.OverlapCircle` (incluye triggers) desde el centro del cuerpo. Cada objeto con `IRoarTarget` cuyo punto más cercano esté dentro del cono frontal (45° de semiancho) recibe `ReceiveRoar` una sola vez por Rugido. El alcance es de 3 m, o de 8 m si el objeto declara `ResonatesWithRoar` (campanas). No tiene cooldown aparte de su duración.
 
+- **Viento.** Las [corrientes de viento](../LevelPieces/Pieces.md) llaman a `AddWind(aceleración, compensación de gravedad)` en cada paso de física. La parte horizontal se acumula en una velocidad de viento propia (rozamiento 4) que se suma después del control de carrera, así que no altera la aceleración ni el frenado de Alma; la vertical y la compensación de gravedad se suman a la velocidad vertical. Durante el Dash y el Pisotón el viento no actúa. Se pone a cero al reaparecer.
+- **Suelo en cuesta.** Si Alma estaba apoyada el paso anterior, sigue contando como en el suelo aunque suba un poco (por ejemplo, caminando por un balancín inclinado). Saltar desactiva esa excepción, porque ignora el suelo unos instantes.
+
 Todas las acciones se cancelan al reaparecer o al desactivar el componente.
 
 - **Muerte.** `Die()` es el punto de entrada para peligros y caídas (hoy la caída por debajo de Y = −12, la [planta carnívora](../Enemies/Plant_Carnivorous_Jungle.md) el [escarabajo de cristal](../Enemies/CrystalBeetle_Caves.md), el [murciélago de cueva](../Enemies/CaveBat_Caves.md) y las [zonas de peligro](../LevelPieces/Hazards.md)). Activa `IsDead`, cancela habilidades, desactiva la física del cuerpo (`Rigidbody2D.simulated = false`) e ignora la entrada, y lanza el evento `Died`. El control vuelve con `Respawn()`, que reactiva la física y coloca a Alma en `RespawnPosition` (la posición inicial o el último [nido de checkpoint](../LevelPieces/Progression.md) tocado). Si nadie escucha `Died`, reaparece al instante. `Respawn()` lanza al final el evento `Respawned`, que usan las piezas de nivel para reiniciarse.
@@ -154,8 +157,7 @@ Las ocho pruebas se ejecutan en Test Runner → PlayMode → `AlmaMovementTests`
 
 ### Pendiente
 
-- Inmunidad del Dash al viento (todavía no hay viento).
-- Receptores del Rugido (rocas, campanas, interruptores, enemigos) implementando `IRoarTarget`, efecto visual de la resonancia (8 m) al alcanzar una campana.
+- Más receptores del Rugido (campanas, interruptores, enemigos) implementando `IRoarTarget` (la [roca de basalto](../LevelPieces/Puzzles.md) ya lo hace), efecto visual de la resonancia (8 m) al alcanzar una campana.
 - Rotura de suelos y activación de mecanismos con el Pisotón (pueden suscribirse a `GroundPoundLanded`, como ya hace el [escarabajo de cristal](../Enemies/CrystalBeetle_Caves.md) para voltearse).
 - Mando y controles táctiles.
 - Clip propio de DoubleJump (Dead/Respawn se resolvió por código). Indicador diegético de Dash disponible (plumas del lomo, requiere arte).
@@ -172,7 +174,7 @@ Alma es una madre dinosaurio ágil. Su control debe permitir saltos precisos y e
 | Salto | Espacio | Altura variable al mantener o soltar; coyote time y buffer de entrada. | Implementado |
 | Doble salto | Espacio en el aire | Un segundo impulso, recuperado al aterrizar o tocar un recurso que lo recargue. | Implementado (recarga también con el hongo y la espora) |
 | Pisotón | S, abajo o C en el aire | Breve preparación y descenso vertical rápido; rompe suelos y activa mecanismos. | Movimiento implementado; faltan efectos sobre el entorno |
-| Dash aéreo | Shift en el aire | Impulso horizontal en la dirección fijada al comenzar; una carga aérea y recarga al aterrizar o tocar una espora. | Implementado (recarga también con la espora y el hongo); falta el viento |
+| Dash aéreo | Shift en el aire | Impulso horizontal en la dirección fijada al comenzar; una carga aérea y recarga al aterrizar o tocar una espora. | Implementado (recarga también con la espora y el hongo; ignora el viento) |
 | Rugido | E o F | Cono frontal que empuja objetos y activa objetivos compatibles. | Detección implementada; faltan receptores |
 
 El mando y los controles táctiles deben ofrecer las mismas acciones con iconos y estados visibles. El Dash no concede inmunidad a enemigos, pinchos, veneno ni lava; durante el impulso ignora el viento. Ninguna habilidad debe sustituir el botón de otra.
