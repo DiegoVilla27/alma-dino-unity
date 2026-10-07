@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 60
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -145,9 +145,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 444
-        width: 443
-        height: 443
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,10 +166,10 @@ TextureImporter:
       name: MagmaSalamander_Volcano_Walk_Sheet_1
       rect:
         serializedVersion: 2
-        x: 443
-        y: 444
-        width: 443
-        height: 443
+        x: 256
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,8 +178,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ee11c61f7616467fad58750f492d660
-      internalID: 664105190
+      spriteID: 704e79bf42acc4f0cb12f5614f10e621
+      internalID: -1213180169
       vertices: []
       indices: 
       edges: []
@@ -188,10 +188,10 @@ TextureImporter:
       name: MagmaSalamander_Volcano_Walk_Sheet_2
       rect:
         serializedVersion: 2
-        x: 886
-        y: 444
-        width: 443
-        height: 443
+        x: 512
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc0b7631e695244abaa98c5a4cdd9fd0
-      internalID: -1768212482
+      spriteID: 2d6bf0e92cdc84effb494dd27196f636
+      internalID: -1451077860
       vertices: []
       indices: 
       edges: []
@@ -210,10 +210,10 @@ TextureImporter:
       name: MagmaSalamander_Volcano_Walk_Sheet_3
       rect:
         serializedVersion: 2
-        x: 1329
-        y: 444
-        width: 443
-        height: 443
+        x: 768
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,8 +222,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8057d4aa8fd614b3bbe9d2e341f9b391
-      internalID: 1377957499
+      spriteID: 154a7a79212a041ca8908d8f9edefcf5
+      internalID: 173074396
       vertices: []
       indices: 
       edges: []
@@ -233,9 +233,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
-        width: 443
-        height: 443
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,8 +244,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56362da6b6e1349cca20c85a2e729abd
-      internalID: 254486260
+      spriteID: 15cf4af6713b447d18925a6680345fe6
+      internalID: -1225704657
       vertices: []
       indices: 
       edges: []
@@ -254,10 +254,10 @@ TextureImporter:
       name: MagmaSalamander_Volcano_Walk_Sheet_5
       rect:
         serializedVersion: 2
-        x: 443
-        y: 1
-        width: 443
-        height: 443
+        x: 256
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,8 +266,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5963cbecee4c42be94393ce142f5b1a
-      internalID: 1287205896
+      spriteID: 739fa6020d8d04f728013f6da5dd2c57
+      internalID: 232822243
       vertices: []
       indices: 
       edges: []
@@ -276,10 +276,10 @@ TextureImporter:
       name: MagmaSalamander_Volcano_Walk_Sheet_6
       rect:
         serializedVersion: 2
-        x: 886
-        y: 1
-        width: 443
-        height: 443
+        x: 512
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,8 +288,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d32c5681979ab4c2c8fac890c1da0359
-      internalID: -58837536
+      spriteID: dedf6f04d57244a44b74008da32ab08a
+      internalID: -1902720118
       vertices: []
       indices: 
       edges: []
@@ -298,10 +298,10 @@ TextureImporter:
       name: MagmaSalamander_Volcano_Walk_Sheet_7
       rect:
         serializedVersion: 2
-        x: 1329
-        y: 1
-        width: 443
-        height: 443
+        x: 768
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -310,8 +310,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 368a74bad79bf4bcab58e6e98f05b2a5
-      internalID: 2124931728
+      spriteID: 70fba30fa0ab941d2a7208813acd9c23
+      internalID: 752508048
       vertices: []
       indices: 
       edges: []
@@ -320,7 +320,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2cf6d20056c924545ad5026b6bfdefd7
+    spriteID: 441ae431d908a4bee8c8745bfc5b3e0b
     internalID: 0
     vertices: []
     indices: 
@@ -330,16 +330,16 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":2.0},"gridSpriteSize":{"x":443.0,"y":443.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":2.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       MagmaSalamander_Volcano_Walk_Sheet_0: 6558267082089412318
-      MagmaSalamander_Volcano_Walk_Sheet_1: 664105190
-      MagmaSalamander_Volcano_Walk_Sheet_2: -1768212482
-      MagmaSalamander_Volcano_Walk_Sheet_3: 1377957499
-      MagmaSalamander_Volcano_Walk_Sheet_4: 254486260
-      MagmaSalamander_Volcano_Walk_Sheet_5: 1287205896
-      MagmaSalamander_Volcano_Walk_Sheet_6: -58837536
-      MagmaSalamander_Volcano_Walk_Sheet_7: 2124931728
+      MagmaSalamander_Volcano_Walk_Sheet_1: -1213180169
+      MagmaSalamander_Volcano_Walk_Sheet_2: -1451077860
+      MagmaSalamander_Volcano_Walk_Sheet_3: 173074396
+      MagmaSalamander_Volcano_Walk_Sheet_4: -1225704657
+      MagmaSalamander_Volcano_Walk_Sheet_5: 232822243
+      MagmaSalamander_Volcano_Walk_Sheet_6: -1902720118
+      MagmaSalamander_Volcano_Walk_Sheet_7: 752508048
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

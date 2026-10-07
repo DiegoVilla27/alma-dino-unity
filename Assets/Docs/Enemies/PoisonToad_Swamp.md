@@ -21,7 +21,6 @@ Todo está en `Assets/Prefabs/Enemies/PoisonToad_Swamp/`:
 | `Animations/Idle/PoisonToad_Swamp_Idle_Animation.anim` + `_Sheet.png` | Reposo: 8 frames a 12 fps, en bucle. |
 | `Animations/Attack/PoisonToad_Swamp_Attack_Animation.anim` + `_Sheet.png` | Escupitajo hacia la derecha: 4 frames. El script elige cada frame. |
 | `Animations/Attack/PoisonToad_Swamp_Attack_Sheet_0.controller` | Generado por Unity al crear el clip; el prefab no lo usa. |
-| `Sprites/PoisonToad_Swamp_Idle_Base.png` | Imagen base de referencia; no se usa en el juego. |
 
 ## Cómo probarlo
 
