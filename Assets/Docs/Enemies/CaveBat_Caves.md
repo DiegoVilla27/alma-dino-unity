@@ -1,6 +1,6 @@
 # Murciélago de cueva — enemigo del Mundo 2
 
-**Estado (5 de octubre de 2026):** implementado en Unity 6000.6.0f1 como prefab reutilizable, con patrulla aérea entre dos puntos, animación Fly, aviso, picado en arco y muerte por contacto. Hay una instancia de prueba en `Level_1_1` (ver [Instancias en escenas](#instancias-en-escenas)), pero todavía no está probado a fondo (ver [Pendiente](#pendiente)).
+**Estado (7 de octubre de 2026):** implementado en Unity 6000.6.0f1 como prefab reutilizable, con patrulla aérea entre dos puntos, animación Fly, aviso, picado en arco y muerte por contacto. No hay una instancia colocada en la escena actual; falta probarlo a fondo (ver [Pendiente](#pendiente)).
 
 Ficha de diseño original: [inventario, enemigo 3](../INVENTARIO_GAMEPLAY_PREFABS.md#3-murciélago-de-cueva). Uso previsto en [Level 2-3](../Levels/World_2_Caves/Level_2_3.md). Jugador: [Alma](../Player/Alma.md).
 
@@ -100,9 +100,7 @@ Cada frame mide ~3,7 × 3,7 unidades. Medido sobre el dibujo: con las alas abier
 
 ## Instancias en escenas
 
-| Escena | Objeto | Posición | Valores cambiados respecto al prefab |
-| --- | --- | --- | --- |
-| `Scenes/World_01/Level_1_1.unity` | `CaveBat_Caves` | (−0,52; 4,08) | Ninguno (instancia de prueba: es un enemigo del Mundo 2) |
+Actualmente ninguna. La antigua instancia de prueba en `Level_1_1` se retiró.
 
 ## Gizmos
 

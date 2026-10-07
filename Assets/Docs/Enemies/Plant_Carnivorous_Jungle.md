@@ -1,6 +1,6 @@
 # Planta carnívora — enemigo del Mundo 1
 
-**Estado (5 de octubre de 2026):** implementada en Unity 6000.6.0f1 como prefab reutilizable, con animaciones Idle y Bite, detección de Alma, mordisco a izquierda o derecha y onda de impacto letal. Hay una instancia de prueba en `Level_1_1` (ver [Instancias en escenas](#instancias-en-escenas)), pero todavía no está probada a fondo (ver [Pendiente](#pendiente)).
+**Estado (7 de octubre de 2026):** implementada en Unity 6000.6.0f1 como prefab reutilizable, con animaciones Idle y Bite, detección de Alma, mordisco a izquierda o derecha y onda de impacto letal. No hay una instancia colocada en la escena actual; falta probarla a fondo (ver [Pendiente](#pendiente)).
 
 Ficha de diseño original: [inventario, enemigo 1](../INVENTARIO_GAMEPLAY_PREFABS.md#1-planta-carnívora). Jugador: [Alma](../Player/Alma.md).
 
@@ -105,9 +105,7 @@ Las nuevas hojas deben mantener el mismo formato (base centrada y en la misma po
 
 ## Instancias en escenas
 
-| Escena | Objeto | Posición | Valores cambiados respecto al prefab |
-| --- | --- | --- | --- |
-| `Scenes/World_01/Level_1_1.unity` | `Plant_Carnivorous` | (−6,55; 0,85) | Ninguno |
+Actualmente ninguna. La posición de prueba que aparecía aquí pertenecía a una versión anterior de `Level_1_1`.
 
 ## Gizmos
 
@@ -123,7 +121,7 @@ Un SpriteRenderer y un Animator por planta, más tres sprites de arco (hijos de 
 
 ## Pendiente
 
-- Probarla en `Level_1_1`; ajustar `Ground Offset Y` y la zona de la cabeza a ojo.
+- Colocarla en una escena de prueba o en un nivel de jungla y ajustar `Ground Offset Y` y la zona de la cabeza a ojo.
 - **Alcance de detección sin decidir:** el script tiene 4,4 por defecto y el prefab 3,3. Con 4,4 la planta empezaría a morder antes de que la onda (que llega a 3,3) pueda alcanzar a Alma. Decidir el valor y cambiarlo en el Inspector del prefab.
 - **La onda atraviesa paredes y huecos:** no comprueba si hay suelo o un muro delante. Colocar la planta en tramos de suelo plano de al menos 3,3 unidades a cada lado, o añadir esa comprobación.
 - La planta no tiene colisionador: Alma la atraviesa en reposo. Si debe bloquear el paso o poder pisarse, hay que añadirlo.

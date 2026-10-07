@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 3-4: "El Sauce Ancestral"
 > **Mundo 3: Pantano de Viento y Niebla** | **Función Pedagógica:** Evaluar + Tercer Rescate (La Subida del Gas & Huevo Morado)
@@ -69,7 +69,7 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 
 - Escena `Assets/Scenes/World_3_Swamp/Level_3_4.unity`, conectada desde 3-3 y registrada en Build Settings.
 - Menús **Alma → 📂 Cargar Nivel 3-4** y **Tools → Alma → Construir Nivel 3-4 - El Sauce Ancestral**.
-- Cámara size 6, seguimiento vertical y anticipo horizontal; pared detrás del inicio. Doble Salto, Pisotón y Dash disponibles; Rugido bloqueado.
+- Cámara size 8, seguimiento vertical y anticipo horizontal; pared detrás del inicio. Doble Salto, Pisotón y Dash disponibles; Rugido bloqueado.
 
 ### Secciones
 

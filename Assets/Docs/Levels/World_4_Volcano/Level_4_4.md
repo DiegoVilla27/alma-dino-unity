@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 4-4: "La Antecámara del Fuego"
 > **Mundo 4: Cima Volcánica** | **Función Pedagógica:** Evaluar + Cuarto Rescate (El Nido Completo & Huevo Rojo)
@@ -79,11 +79,11 @@ Escena `Assets/Scenes/World_4_Volcano/Level_4_4.unity`, accesible desde `Alma/�
 
 Tras 2.5s de calma, una silueta del Rey Ladrón emerge junto al pedestal con temblor breve. Es la anticipación del combate: no inflige daño. El portal X=95 se dirige a `Boss_Final`, todavía pendiente de implementación. Rescatar el huevo no completa Mundo 4; eso corresponde a derrotar al jefe final. Al recargar, el rescate y el acceso al portal persisten sin duplicar huevos.
 
-Morir restaura pilares y reja pendientes, mientras los mecanismos ya resueltos detrás del checkpoint y el puente completado permanecen. Los enemigos y la corriente reinician sus ciclos. El checkpoint del rescate permite recuperarse en el pedestal. Cámara size 6, seguimiento de Alma y anticipación horizontal 1.25m; muro detrás del inicio. Se retiraron las columnas decorativas y los bloques del fondo para despejar el santuario. El arte definitivo sigue pendiente.
+Morir restaura pilares y reja pendientes, mientras los mecanismos ya resueltos detrás del checkpoint y el puente completado permanecen. Los enemigos y la corriente reinician sus ciclos. El checkpoint del rescate permite recuperarse en el pedestal. Cámara size 8, seguimiento de Alma y anticipación horizontal 4.3 m; muro detrás del inicio. Se retiraron las columnas decorativas y los bloques del fondo para despejar el santuario. El arte definitivo sigue pendiente.
 
 ### Validación de la implementación
 
 - 13 pruebas PlayMode del Nivel 4-4 aprobadas, incluido el recorrido completo con controles reales y sin muertes.
 - 16 pruebas PlayMode del Nivel 4-3 aprobadas como regresión, incluida la transición al 4-4.
 - 79 pruebas EditMode aprobadas.
-- Verificados alcance del doble salto, pisotón de ambos pilares, dash sobre corrientes, puente de rugido, checkpoints, rescate persistente y cámara de tamaño 6.
+- Verificaciones históricas del doble salto, Pisotón, Dash, puente, checkpoints y rescate; repetirlas con cámara de tamaño 8 al reconstruir.

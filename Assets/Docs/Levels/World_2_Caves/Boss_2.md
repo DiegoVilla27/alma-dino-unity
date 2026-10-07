@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 👑 Jefe 2: "El Acorazado Subterráneo — Armadillo Prehistórico"
 > **Mundo 2: Cuevas de Cristal** | **Arena de Combate y Cierre del Mundo 2**
@@ -68,8 +68,8 @@ Arena jugable en `Assets/Scenes/World_2_Caves/Boss_2.unity`, enlazada desde 2-4 
 
 Validación: 42 pruebas EditMode y 2 pruebas PlayMode del Boss 2 superadas. Las pruebas físicas comprueban el daño por Pisotón directo, rechazo de caída normal y reinicio por muerte.
 
-Cámara corregida: tamaño ortográfico fijo 6, seguimiento de Alma y anticipo horizontal de 1.25 unidades. Se eliminó el encuadre automático de toda la arena. Los límites de seguimiento pertenecen a esta arena, sin heredar los de 2-4.
+Para reconstruir la arena: cámara ortográfica fija de tamaño 8, seguimiento de Alma y anticipo horizontal de 4,3 unidades. La cámara no debe encuadrar automáticamente toda la arena; sus límites pertenecerán al jefe y no se heredarán de 2-4.
 
-Validación del ajuste: las 11 escenas guardan tamaño 6 y seguimiento activo. Dos pruebas PlayMode confirman el anticipo a izquierda/derecha a 7 m/s y el zoom fijo con distintas relaciones de aspecto; las dos pruebas físicas del boss también pasan.
+Validación histórica del prototipo retirado: once escenas tenían seguimiento y se probaron distintas relaciones de aspecto. Estos resultados no verifican la cámara de tamaño 8 de la reconstrucción.
 
 Acceso y contraataque corregidos: los refugios se centran en X = -5 y +5, con ancho 3 y superficie a Y = 2.15 (antes 2.65). El boss se aturde en X = -8 o +8, fuera de las plataformas; queda libre toda la vertical de la coronilla. Sube al refugio con doble salto, salta hacia el pilar y pulsa POUND al estar encima del jefe. Cuatro pruebas PlayMode superadas, incluidas subida desde suelo y Pisotón desde ambos refugios con controles reales.

@@ -1,6 +1,6 @@
 # Escarabajo de cristal — enemigo del Mundo 2
 
-**Estado (5 de octubre de 2026):** implementado en Unity 6000.6.0f1 como prefab reutilizable, con patrulla entre dos puntos, animación Walk, disparo de cristales en arco, muerte por contacto y volteo con el Pisotón. Hay una instancia de prueba en `Level_1_1`, pero todavía no está probado a fondo (ver [Pendiente](#pendiente)).
+**Estado (7 de octubre de 2026):** implementado en Unity 6000.6.0f1 como prefab reutilizable, con patrulla entre dos puntos, animación Walk, disparo de cristales en arco, muerte por contacto y volteo con el Pisotón. No hay una instancia colocada en la escena actual; falta probarlo a fondo (ver [Pendiente](#pendiente)).
 
 Ficha de diseño original: [inventario, enemigo 2](../INVENTARIO_GAMEPLAY_PREFABS.md#2-escarabajo-de-cristal). Uso previsto en [Level 2-3](../Levels/World_2_Caves/Level_2_3.md) y [Level 2-4](../Levels/World_2_Caves/Level_2_4.md). Jugador: [Alma](../Player/Alma.md).
 
@@ -118,9 +118,7 @@ No hay hojas de volteo ni de patas arriba: se resuelve girando el sprite de la c
 
 ## Instancias en escenas
 
-| Escena | Objeto | Posición | Valores cambiados respecto al prefab |
-| --- | --- | --- | --- |
-| `Scenes/World_01/Level_1_1.unity` | `CrystalBeetle` | (−1,6; −0,08) | Ninguno (instancia de prueba: es un enemigo del Mundo 2) |
+Actualmente ninguna. La antigua instancia de prueba en `Level_1_1` se retiró.
 
 ## Gizmos
 

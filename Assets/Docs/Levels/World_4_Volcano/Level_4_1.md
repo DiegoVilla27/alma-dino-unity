@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 4-1: "Los Ríos de Ceniza"
 > **Mundo 4: Cima Volcánica** | **Función Pedagógica:** Introducir (Despertar del Rugido de Choque & Rocas Ígneas)
@@ -83,7 +83,7 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 - La lava y el vapor activo causan daño por contacto; reaparece Alma en el último checkpoint.
 - Morir restaura las rocas pendientes o movidas del tramo actual. Los puentes completados detrás del checkpoint se conservan, y los chorros vuelven a un período seguro completo.
 - El nivel no rescata todavía el Huevo Rojo ni completa Mundo 4; corresponden al 4-4 y al jefe final. Su portal carga `Level_4_2`, Las Campanas de Basalto.
-- Cámara **size 6**, seguimiento de Alma y anticipación horizontal **1.25m**. Cuatro capas de parallax volcánico con basalto, lava lejana, ceniza y brasas; luz cálida naranja.
+- Cámara **size 8**, seguimiento de Alma y anticipación horizontal **4.3 m**. Cuatro capas de parallax volcánico con basalto, lava lejana, ceniza y brasas; luz cálida naranja.
 - Constructor: `Tools → Alma → Construir Nivel 4-1 - Los Ríos de Ceniza`. Acceso: `Alma → 📂 Cargar Nivel 4-1`.
 - Reutiliza `PushableBoulder2D`, `LavaGeyser2D`, el altar de habilidad y el portal. Datos de roca y vapor en `BoulderRoarConfig.asset` y `GeyserConfig.asset`; el Rugido se ajusta en `AlmaPhysicsConfig.asset`.
 

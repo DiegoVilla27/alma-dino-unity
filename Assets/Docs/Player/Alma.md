@@ -1,6 +1,6 @@
 # Alma — diseño del personaje jugable
 
-**Estado (6 de octubre de 2026):** Alma está implementada en Unity 6000.6.0f1 con locomoción, salto variable, doble salto, Pisotón, Dash aéreo y Rugido. Las siete hojas de animación (Idle, Run, Jump, Fall, GroundPound, Dash y Roar) están conectadas en un único Animator. Correr, Pisotón, Dash, Rugido y muerte/reaparición tienen efectos visuales generados por código. Las habilidades se desbloquean con altares y los nidos de checkpoint fijan dónde reaparece, con guardado en JSON. Faltan los receptores del Rugido, mando, controles táctiles y el clip propio de doble salto (ver [Pendiente](#pendiente)).
+**Estado (7 de octubre de 2026):** Alma está implementada en Unity 6000.6.0f1 con locomoción, salto variable, doble salto, Pisotón, Dash aéreo y Rugido. Las siete hojas de animación (Idle, Run, Jump, Fall, GroundPound, Dash y Roar) están conectadas en un único Animator. Correr, Pisotón, Dash, Rugido y muerte/reaparición tienen efectos visuales generados por código. Las habilidades se desbloquean con altares y los nidos de checkpoint fijan dónde reaparece, con guardado en JSON. La roca de basalto ya reacciona al Rugido. Faltan otros receptores del Rugido, mando, controles táctiles y el clip propio de doble salto (ver [Pendiente](#pendiente)).
 
 ## Implementación actual y prueba
 
@@ -31,7 +31,7 @@ El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de fu
 | `Scripts/IRoarTarget.cs` | Contrato para objetos que reaccionan al Rugido (`ResonatesWithRoar`, `ReceiveRoar(origin, direction)`). |
 | `Scripts/AlmaMovementSettings.cs` | ScriptableObject con todos los valores de movimiento y habilidades. |
 | `Scripts/AlmaCameraFollow.cs` | Cámara de plataformas: zonas muertas horizontal y vertical, anticipación gradual, encuadre bajo, límites de nivel y `Shake(amplitud, duración)` (ver [Cámara](#cámara-daño-y-feedback)). |
-| `Scripts/CameraBounds2D.cs` | Ajustes de cámara de un nivel (uno por escena): límites y altura fija opcional. |
+| `Scripts/CameraBounds2D.cs` | Componente opcional de límites y altura fija para cada nivel; la escena de práctica `Level_1_1` aún no lo tiene colocado. |
 | `Configuration/AlmaMovement.asset` | Instancia de `AlmaMovementSettings` usada por el prefab. Los valores se editan aquí, no en el script. |
 | `Configuration/AlmaFrictionless.physicsMaterial2D` | Evita adherirse a paredes. |
 | `Animations/` | Hojas de sprites, clips y el controlador `Idle/Player_Idle_Sheet_0.controller`. |
@@ -152,18 +152,17 @@ El prefab usa `Animations/Idle/Player_Idle_Sheet_0.controller`. Todas las transi
 
 ### Pruebas y escena
 
-La escena incluye un suelo y tres plataformas de práctica con desniveles alcanzables. Si Alma cae por debajo de Y = -12, muere y reaparece en su posición inicial tras la secuencia de muerte.
+La escena incluye suelo y plataformas de práctica con desniveles alcanzables, y un parallax de jungla. No tiene enemigos colocados. Si Alma cae por debajo de Y = -12, muere y reaparece en su posición inicial tras la secuencia de muerte.
 
 Las ocho pruebas se ejecutan en Test Runner → PlayMode → `AlmaMovementTests`. Cubren carrera/frenado/orientación, estados animados, salto largo y corto, buffer al aterrizar, coyote time, doble salto (una sola vez por estancia en el aire), paredes y reaparición. Las pruebas de movimiento base desactivan el doble salto en su preparación. Pisotón, Dash y Rugido todavía no tienen pruebas automáticas.
 
 ### Pendiente
 
 - Más receptores del Rugido (campanas, interruptores, enemigos) implementando `IRoarTarget` (la [roca de basalto](../LevelPieces/Puzzles.md) ya lo hace), efecto visual de la resonancia (8 m) al alcanzar una campana.
-- Rotura de suelos y activación de mecanismos con el Pisotón (pueden suscribirse a `GroundPoundLanded`, como ya hace el [escarabajo de cristal](../Enemies/CrystalBeetle_Caves.md) para voltearse).
+- Integrar el Pisotón con los mecanismos que aún no tienen prefab; el [suelo rompible](../LevelPieces/Pieces.md), el [balancín](../LevelPieces/Puzzles.md) y el [escarabajo de cristal](../Enemies/CrystalBeetle_Caves.md) ya reaccionan a `GroundPoundLanded`.
 - Mando y controles táctiles.
 - Clip propio de DoubleJump (Dead/Respawn se resolvió por código). Indicador diegético de Dash disponible (plumas del lomo, requiere arte).
-- Tamaño de cámara: el código usa 8 y el diseño 6 (ver [Cámara](#cámara-daño-y-feedback)).
-- El resto de peligros (deben llamar a `Die()`, como ya hacen los enemigos y las zonas de peligro estáticas). Un destello blanco puro al morir necesitaría un shader propio; hoy se usa un tinte rojo claro.
+- Integrar y equilibrar en los niveles los enemigos y las doce trampas ya implementadas. Un destello blanco puro al morir necesitaría un shader propio; hoy se usa un tinte rojo claro.
 
 Alma es una madre dinosaurio ágil. Su control debe permitir saltos precisos y encadenar habilidades sin retrasos artificiales. No tiene puntos de vida: al tocar un peligro activo reaparece en el último checkpoint. El juego no usa música ni efectos de sonido; cada acción necesita señales visuales claras.
 
@@ -174,13 +173,13 @@ Alma es una madre dinosaurio ágil. Su control debe permitir saltos precisos y e
 | Moverse | A/D o flechas | Aceleración y frenado breves, con control aéreo. | Implementado |
 | Salto | Espacio | Altura variable al mantener o soltar; coyote time y buffer de entrada. | Implementado |
 | Doble salto | Espacio en el aire | Un segundo impulso, recuperado al aterrizar o tocar un recurso que lo recargue. | Implementado (recarga también con el hongo y la espora) |
-| Pisotón | S, abajo o C en el aire | Breve preparación y descenso vertical rápido; rompe suelos y activa mecanismos. | Movimiento implementado; faltan efectos sobre el entorno |
+| Pisotón | S, abajo o C en el aire | Breve preparación y descenso vertical rápido; rompe suelos y activa mecanismos. | Implementado; rompe el suelo frágil, acciona el balancín y voltea al escarabajo |
 | Dash aéreo | Shift en el aire | Impulso horizontal en la dirección fijada al comenzar; una carga aérea y recarga al aterrizar o tocar una espora. | Implementado (recarga también con la espora y el hongo; ignora el viento) |
-| Rugido | E o F | Cono frontal que empuja objetos y activa objetivos compatibles. | Detección implementada; faltan receptores |
+| Rugido | E o F | Cono frontal que empuja objetos y activa objetivos compatibles. | Implementado; la roca de basalto ya es un receptor, faltan otros |
 
 El mando y los controles táctiles deben ofrecer las mismas acciones con iconos y estados visibles. El Dash no concede inmunidad a enemigos, pinchos, veneno ni lava; durante el impulso ignora el viento. Ninguna habilidad debe sustituir el botón de otra.
 
-Las habilidades se incorporan de forma acumulativa: Doble Salto en el mundo 1, Pisotón en el 2, Dash en el 3 y Rugido en el 4. Los altares del [inventario](../INVENTARIO_GAMEPLAY_PREFABS.md) son las piezas previstas para desbloquearlas. La progresión exacta de cada escena se define en su ficha de nivel.
+Las habilidades se incorporan de forma acumulativa: Doble Salto en el mundo 1, Pisotón en el 2, Dash en el 3 y Rugido en el 4. Los [altares implementados](../LevelPieces/Progression.md) las desbloquean. La progresión exacta de cada escena se define en su ficha de nivel.
 
 ## Física de referencia
 
@@ -231,23 +230,21 @@ Conservar tamaño de lienzo, pivote, escala y línea de apoyo coherentes entre f
 
 ## Cámara, daño y feedback
 
-> **Discrepancia pendiente:** `AlmaCameraFollow.Awake` fuerza hoy `orthographicSize = 8`, aunque el diseño y la escena indican 6. Decidir el valor y alinear código y documento.
-
-**Comportamiento actual (7/10/2026).** La cámara se mueve poco, despacio y con intención, para que el nivel y su parallax se vean tranquilos:
+**Comportamiento actual (7/10/2026).** La cámara de la reconstrucción usa un tamaño ortográfico fijo de **8** tanto en `AlmaCameraFollow.Awake` como en la escena `Level_1_1`. Sigue a Alma con zona muerta, anticipación direccional, suavizado y límites de nivel:
 
 | Regla | Qué hace | Campo | Valor |
 | --- | --- | --- | ---: |
-| **Zona muerta** | Alma se mueve libremente dentro de una franja central; la cámara solo la sigue cuando empuja su borde. Pasos cortos y giros no mueven la vista. | `Dead Zone Width` | 3 |
-| **Anticipación** | Tras correr en una dirección, la vista se adelanta poco a poco para mostrar lo que viene; al girar vuelve gradualmente (nunca de golpe). Quieta, conserva la anticipación. | `Look Ahead Distance` / `Look Ahead Time` / `Look Ahead Delay` / `Look Ahead Speed Threshold` | 2,5 / 1,2 s / 0,3 s / 0,6 × velocidad de carrera |
+| **Zona muerta** | Alma se mueve libremente dentro de una franja central; la cámara solo la sigue cuando empuja su borde. Pasos cortos y giros no mueven la vista. | `Dead Zone Width` | 3,9 |
+| **Anticipación** | Cuando Alma corre, la vista se adelanta hacia el lado de avance; al girar, se desplaza hacia el lado contrario con suavizado. Quieta, conserva la anticipación. | `Look Ahead Distance` / `Look Ahead Time` / `Look Ahead Delay` / `Look Ahead Speed Threshold` | 4,3 / 0,05 s / 0 s / 0,6 × velocidad de carrera |
 | **Suavizado horizontal** | Con tope de velocidad para no "barrer" la pantalla al alcanzar a Alma. | `Horizontal Smooth Time` / `Max Speed Factor` | 0,25 s / 1,3 × carrera |
 | **Encuadre inicial** | Al empezar y al reaparecer, Alma queda baja en la pantalla (se ve más lo de arriba). | `Alma Screen Height` | 0,38 |
-| **Zona muerta vertical** | La vista no se mueve en vertical mientras Alma esté en la franja central: saltar, subir o bajar escalones y plataformas no la mueve (sin efecto ascensor). Solo se recoloca, suave, cuando Alma pasa del borde de la franja (subidas grandes, fosos). | `Dead Zone Bottom` / `Dead Zone Top` / `Vertical Smooth Time` | 0,2 / 0,65 de la pantalla / 0,35 s |
+| **Zona muerta vertical** | La vista no se mueve en vertical mientras Alma esté en la franja central: saltar, subir o bajar escalones y plataformas no la mueve (sin efecto ascensor). Solo se recoloca, suave, cuando Alma pasa del borde de la franja (subidas grandes, fosos). | `Dead Zone Bottom` / `Dead Zone Top` / `Vertical Smooth Time` | 0,2 / 0,65 de la pantalla / 0,3 s en `Level_1_1` |
 | **Altura fija (por nivel)** | En niveles horizontales, la cámara no se mueve nunca en vertical: solo de lado. | `CameraBounds2D.Lock Height` / `Fixed Camera Y` | no / 5 (por nivel) |
 | **Límites** | Con un `CameraBounds2D` en la escena, la vista nunca enseña más allá de sus bordes (ni bajo el suelo); si el área es menor que la vista, se centra. | `CameraBounds2D.Size` | por nivel |
 
-Al empezar y al reaparecer Alma, la cámara salta a ella sin deslizarse por el nivel (`SnapToTarget`). Comprobado con pruebas PlayMode: saltar no mueve la vista (0 u), subir a una cornisa tampoco (0 u), una subida grande la recoloca dejando a Alma al 64 % de la pantalla, con altura fija no se mueve nada en vertical, pasos cortos no la mueven (0 u), girar no supera 1,3 × la velocidad de carrera y la vista no sale de los límites.
+Al empezar y al reaparecer Alma, la cámara salta a ella sin deslizarse por el nivel (`SnapToTarget`). La configuración de zona muerta evita seguir cada salto o paso corto; el tope horizontal es 1,3 × la velocidad de carrera. `CameraBounds2D` limita la vista cuando se coloca en una escena. Las verificaciones PlayMode de cámara citadas en versiones anteriores de esta ficha no están incluidas como pruebas automatizadas en el repositorio actual; el tamaño 8 y la anticipación actual deben comprobarse al montar cada nivel.
 
-**Elección por nivel:** niveles horizontales (1-1, 1-3) → `Lock Height` activo; niveles de ascenso (1-2, 1-4) → zona muerta vertical.
+**Criterio para los futuros niveles:** los horizontales (1-1, 1-3) pueden usar `Lock Height`; los de ascenso (1-2, 1-4) usarán la zona muerta vertical. La escena de práctica `Level_1_1` aún no tiene un `CameraBounds2D`, así que no aplica límites ni bloqueo de altura.
 
 **Límites por nivel:** el rectángulo debe cubrir el área jugable; conviene que su borde inferior quede 2–3 u por debajo del suelo más bajo (rellenas con terreno) para que Alma no quede pegada al borde de la pantalla.
 
@@ -255,4 +252,4 @@ Todo contacto con un peligro activo es letal y produce reaparición; no hay barr
 
 ## Integración futura
 
-El archivo actual es `Assets/Prefabs/Player/Alma.prefab`, siguiendo la estructura creada para esta reconstrucción. Su controlador, configuración de física, sprites y animaciones están agrupados con él. Cada escena tendrá una sola instancia de Alma, y sus mecanismos enlazarán esa instancia y la cámara. Antes de construir niveles completos, verificar entradas de teclado, mando y táctil, alcance de salto, Dash, Pisotón, Rugido, muerte/reaparición y cámara con tamaño 6.
+El archivo actual es `Assets/Prefabs/Player/Alma.prefab`, siguiendo la estructura creada para esta reconstrucción. Su controlador, configuración de física, sprites y animaciones están agrupados con él. Cada escena tendrá una sola instancia de Alma, y sus mecanismos enlazarán esa instancia y la cámara. Antes de construir niveles completos, verificar entradas de teclado, mando y táctil, alcance de salto, Dash, Pisotón, Rugido, muerte/reaparición y cámara con tamaño 8.

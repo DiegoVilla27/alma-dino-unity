@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 👑 Jefe Final & Epílogo: "El Rey Ladrón — Tirano Ancestral"
 > **Mundo 4: Cima Volcánica** | **El Ojo del Volcán (El Caldero de Magma) & Final del Juego**
@@ -82,7 +82,7 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 
 ## 6. Implementación jugable
 
-`Assets/Scenes/World_4_Volcano/Boss_Final.unity`, disponible desde **Alma → 📂 Cargar Jefe Final**, continúa el portal del 4-4. Mantiene cámara ortográfica 6, seguimiento vertical y anticipación horizontal 1.25m. El encuentro se comunica visualmente.
+En la reconstrucción, `Boss_Final` continuará el portal del 4-4 y usará cámara ortográfica de tamaño 8, seguimiento vertical y anticipación horizontal de 4,3 m. La escena `Assets/Scenes/World_4_Volcano/Boss_Final.unity` y el menú **Alma → 📂 Cargar Jefe Final** pertenecían al prototipo retirado. El encuentro se comunicará visualmente.
 
 - **Carga:** mandíbula baja precedida por aviso. Doble salto y Dash aéreo contra el sello de calor X=8 exponen la placa dorsal X=12 durante 4 segundos. Solo un Pisotón desde arriba confirma el impacto; caminar, aterrizar normalmente o rugir no dañan la coraza.
 - **Meteoros:** un peñasco se acerca desde la derecha. El Rugido frontal lo devuelve a las fauces y abre otra ventana de 4 segundos para el Pisotón. La lluvia secundaria marca primero su punto de caída en amarillo y no persigue después a Alma.
@@ -95,4 +95,4 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 - 7 pruebas PlayMode del jefe final aprobadas: recorrido completo con controles reales y sin muertes, daño de la mandíbula, requisitos de habilidades, ventanas, checkpoints, ausencia de audio y portal del 4-4.
 - 13 pruebas PlayMode del Nivel 4-4 aprobadas como regresión.
 - 83 pruebas EditMode aprobadas, incluidas las reglas de exposición, impactos, vapor, anclaje y reinicio de fase.
-- Revisadas visualmente arena, ascenso y epílogo; cámara en tamaño 6 en todo momento.
+- Revisión visual histórica de la arena, el ascenso y el epílogo; repetirla con la cámara de tamaño 8 al reconstruir la escena.

@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 3-2: "El Cañón de las Ráfagas"
 > **Mundo 3: Pantano de Viento y Niebla** | **Función Pedagógica:** Practicar (Géiseres de Viento & Inmunidad del Dash Aéreo)
@@ -59,7 +59,7 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 
 - Escena: `Assets/Scenes/World_3_Swamp/Level_3_2.unity`. Entrada desde 3-1 y salida conectada a `Level_3_3`.
 - Abrir con **Alma → 📂 Cargar Nivel 3-2**. Regenerar con **Tools → Alma → Construir Nivel 3-2 - El Cañón de las Ráfagas**.
-- Doble Salto, Pisotón y Dash disponibles al entrar, también con una partida limpia abierta directamente en esta escena. Rugido bloqueado. Física compartida sin cambios; cámara size 6 y anticipo direccional.
+- Doble Salto, Pisotón y Dash disponibles al entrar, también con una partida limpia abierta directamente en esta escena. Rugido bloqueado. Física compartida sin cambios; cámara size 8 y anticipo direccional.
 - Pared sólida detrás del punto de aparición. Primera barrera de cañas en X=10 sobre suelo continuo hasta X=16: permite aprender a saltar y embestir sin un abismo debajo.
 - Tres fosos de lodo: X=16–25 (9m), X=40–50 (10m) y X=68–79 (11m). Barreras aéreas en X=45 y X=74.5, de 7m de altura; exigen un impacto de Dash y no se evitan con Doble Salto.
 - Cuatro zonas de viento frontal, aceleración de 12m/s² hacia la izquierda, sin compensación de gravedad. El Dash ignora exclusivamente el viento durante la acción; no protege del lodo.

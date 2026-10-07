@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 👑 Jefe 3: "El Señor de las Ráfagas — Pterodáctilo Alfa"
 > **Mundo 3: Pantano de Viento y Niebla** | **Arena de Combate y Cierre del Mundo 3**
@@ -65,7 +65,7 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 
 - Escena `Assets/Scenes/World_3_Swamp/Boss_3.unity`, accesible desde el portal del 3-4 tras rescatar el Huevo Morado.
 - Cuatro ramas: X=0 (ancho 6m, suelo Y=0), X=-6 y X=6 (ancho 4m, suelo Y=0.6), X=12 (ancho 4m, suelo Y=1.2). Todas se alcanzan con Doble Salto. La rama central permanece hasta la victoria.
-- Cámara size **6**, seguimiento de Alma y anticipación horizontal **1.25m**. El abismo causa daño y devuelve a la rama central.
+- Cámara size **8**, seguimiento de Alma y anticipación horizontal **4.3 m**. El abismo causa daño y devuelve a la rama central.
 - **Vendaval:** 3s de viento horizontal a 12m/s², con 2s adicionales de preparación inicial. La dirección alterna tras cada impacto. Dash ignora el viento y conserva el peligro por contacto con el cuerpo.
 - **Aviso:** 1.4s. Fija la altura del ataque a 3.5m sobre la rama más próxima a Alma. Una línea cian señala esa altura y el texto indica la dirección del Dash de contraataque. La trayectoria queda fijada durante el aviso.
 - **Picado horizontal:** velocidad 7, 8 y 9m/s según los impactos. Salto → Doble Salto → Dash frontal contra la cabeza cian. Un salto corriente, Pisotón, Dash en el suelo o ataque en la dirección del vuelo no dañan al jefe.

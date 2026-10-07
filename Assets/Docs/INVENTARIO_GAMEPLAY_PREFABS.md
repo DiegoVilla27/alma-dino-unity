@@ -1,25 +1,25 @@
 # Inventario de gameplay y nombres de prefabs
 
-Fecha de revisión: 4 de octubre de 2026.
+Fecha de revisión: 7 de octubre de 2026.
 
-Este documento conserva el inventario del prototipo anterior y define los **nombres futuros** de 82 prefabs. En esta rama solo existen Alma (`Assets/Prefabs/Player/Alma.prefab`), la planta carnívora (`Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/`), el escarabajo de cristal (`Assets/Prefabs/Enemies/CrystalBeetle_Caves/`), el murciélago de cueva (`Assets/Prefabs/Enemies/CaveBat_Caves/`), el sapo venenoso (`Assets/Prefabs/Enemies/PoisonToad_Swamp/`), la salamandra de magma (`Assets/Prefabs/Enemies/MagmaSalamander_Volcano/`), doce trampas (`Assets/Prefabs/Level/Hazards/`) y la escena de práctica `Level_1_1`. Cada elemento implementado tiene su propia ficha en `Docs/` con valores y configuración reales. Las descripciones y cifras sirven como referencia de diseño para reconstruirlos; habrá que verificarlas durante la nueva implementación.
+Este documento conserva las 82 fichas del inventario original y sus nombres de referencia. La reconstrucción actual ya tiene **43 elementos jugables implementados**, además de prefabs base y el parallax de la escena de práctica `Level_1_1`. Las rutas reales de los elementos implementados aparecen abajo; `Ruta prevista` identifica únicamente los que siguen sin prefab. Las descripciones y cifras históricas son objetivos de diseño: los valores efectivos están en los componentes y en las fichas de implementación de `Assets/Docs/`.
 
-**Estado:** 82 fichas planificadas (81 elementos del entorno y Alma), de las que 4 trampas están descartadas; 43 prefabs implementados en esta rama (más los prefabs base de trampas, plataformas que se desmoronan, barreras Dash, altares y huevos, y `System_GameProgress`): Alma, en `Assets/Prefabs/Player/Alma.prefab` (no en la ruta propuesta `Player_Alma.prefab`), ver [Alma](Player/Alma.md); y la planta carnívora, en `Assets/Prefabs/Enemies/Plant_Carnivorous_Jungle/Plant_Carnivorous.prefab`, ver [Planta carnívora](Enemies/Plant_Carnivorous_Jungle.md); y el escarabajo de cristal, en `Assets/Prefabs/Enemies/CrystalBeetle_Caves/CrystalBeetle.prefab`, ver [Escarabajo de cristal](Enemies/CrystalBeetle_Caves.md); y el murciélago de cueva, en `Assets/Prefabs/Enemies/CaveBat_Caves/CaveBat_Caves.prefab`, ver [Murciélago de cueva](Enemies/CaveBat_Caves.md); y el sapo venenoso, en `Assets/Prefabs/Enemies/PoisonToad_Swamp/PoisonToad_Swamp.prefab`, ver [Sapo venenoso](Enemies/PoisonToad_Swamp.md); y la salamandra de magma, en `Assets/Prefabs/Enemies/MagmaSalamander_Volcano/MagmaSalamander_Volcano.prefab`, ver [Salamandra de magma](Enemies/MagmaSalamander_Volcano.md); y doce trampas (nueve estáticas, gas tóxico ascendente, géiser y techo aplastante) en `Assets/Prefabs/Level/Hazards/`, ver [Zonas de peligro](LevelPieces/Hazards.md); y diez piezas de nivel (plataforma atravesable, tres plataformas que se desmoronan, hongo saltarín, piso rompible, espora del Dash, barrera de cañas, reja Dash y corriente de viento) en `Assets/Prefabs/Level/Pieces/`, ver [Piezas de nivel](LevelPieces/Pieces.md); y la roca de basalto movible y el conjunto del balancín (balancín, contrapeso, runa y compuerta rúnica) en `Assets/Prefabs/Level/Puzzles/`, ver [Puzles](LevelPieces/Puzzles.md); y el nido de checkpoint, los cuatro altares de habilidad, los cuatro huevos y el portal de salida en `Assets/Prefabs/Level/Progression/`, ver [Progresión](LevelPieces/Progression.md). Desde el 7/10/2026 todas estas piezas tienen **arte final** (salvo la zona de muerte y la corriente de viento, sin imagen a propósito); los prefabs base conservan el marcador provisional. El guardado y el gestor de progreso están en `Assets/Systems/`, ver [Guardado y progreso](Systems/SaveAndProgress.md). Las carpetas y los nombres indicados son rutas propuestas.
+**Estado:** 82 fichas (81 elementos del entorno y Alma), de las que 4 trampas se descartaron. Los 43 elementos implementados se reparten en Alma (1), enemigos (5), trampas (12), piezas de nivel (10), puzles (5) y progresión (10). Las variantes visibles tienen sprites integrados; la zona de muerte es invisible y la corriente de viento se dibuja con partículas. El [guardado y gestor de progreso](Systems/SaveAndProgress.md) está en `Assets/Systems/`; el [parallax de jungla](../Prefabs/Level/Backgrounds/World_1/Parallax_Level_1_1.prefab) es un prefab adicional de ambientación. Los jefes y la mayoría de elementos narrativos aún son diseño.
 
 ## Reglas de daño y funcionamiento
 
-- Alma no tiene actualmente un sistema de HP ni daño por puntos. Los peligros activos detectados por `PlayerCollisionService2D` ejecutan `KillAndRespawn()` y devuelven a Alma al último checkpoint.
+- Alma no tiene sistema de HP ni daño por puntos. Los enemigos, proyectiles y zonas de peligro implementados llaman a `AlmaMotor2D.Die()` y la secuencia de muerte la devuelve al último checkpoint.
 - «Letal» indica esa muerte/reaparición; no significa «quita 1 HP» ni una cantidad configurable de salud.
 - Un peligro condicional solo mata cuando `IsDangerous` es verdadero; algunos enemigos y proyectiles tienen ventanas seguras o contraataques válidos.
 - Los recursos indican **0 daño directo**. Hundirse, colapsar, empujar o activar una erupción puede exponer a Alma a otro peligro, pero el recurso no es por ello un atacante.
 - Los jefes progresan por impactos/condiciones válidas de sus puzzles, no por una barra de HP numérica.
 - Los valores provienen del prototipo retirado. Son referencias históricas y pueden cambiar al reconstruir cada elemento.
-- Cada futuro elemento visual deberá exponer un campo de sprite; Alma necesitará soporte para sus animaciones. Las láminas conceptuales están en `Docs/Art/`.
+- Los elementos implementados usan `SpriteRenderer` y, cuando corresponde, hojas de animación configuradas en su prefab. Las láminas conceptuales están en [`Assets/Art/`](../Art/).
 - El juego permanece sin sonido. Campanas, Rugido, ataques y rescates usan feedback visual y gameplay.
 
 ## Convención de nombres y carpetas
 
-En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, scripts, imágenes, animaciones y configuraciones propias. Compartir únicamente las piezas comunes a varios elementos. El campo de sprite debe quedar expuesto para asignar arte después.
+La estructura actual agrupa los enemigos y a Alma por personaje; las trampas y recursos comparten carpetas por función. Los scripts, sprites y animaciones específicos viven junto a sus prefabs cuando existen. Las rutas `Assets/_Project/` que siguen en fichas pendientes son propuestas del inventario original, no rutas del checkout actual.
 
 - Archivos en inglés, sin espacios ni tildes, usando `Tipo_Identidad_Contexto.prefab`.
 - Un nombre identifica una función estable. Ejemplos: `Enemy_PoisonToad_Swamp.prefab` y `Trap_FireGeyser_Volcano.prefab`.
@@ -27,26 +27,26 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 - No usar nombres de colocación como `Platform_42`, `Enemy_3` o el nombre de un nivel para el prefab base.
 - Los conjuntos completos de puzzles/jefes están en `Resources/Assemblies` y `Bosses/Assemblies`; una pieza con referencias a otra requiere conexiones o colocación del conjunto completo.
 
-| Categoría | Carpeta objetivo | Fichas |
+| Categoría | Carpeta actual / estado | Fichas |
 |---|---|---:|
-| Enemigos | `Assets/_Project/Prefabs/Enemies/` | 5 |
-| Trampas | `Assets/_Project/Prefabs/Traps/` | 16 |
-| Proyectiles | `Assets/_Project/Prefabs/Projectiles/` | 7 |
-| Jefes | `Assets/_Project/Prefabs/Bosses/` | 4 |
-| Recursos | `Assets/_Project/Prefabs/Resources/` | 41 |
-| Narrativa y apoyo | `Assets/_Project/Prefabs/Narrative/` | 8 |
-| Jugador | `Assets/_Project/Prefabs/Player/` | 1 |
+| Enemigos | `Assets/Prefabs/Enemies/<Enemigo>/` | 5 |
+| Trampas | `Assets/Prefabs/Level/Hazards/` (12 implementadas, 4 descartadas) | 16 |
+| Proyectiles | Integrados en scripts de enemigos cuando existen; sin prefabs independientes | 7 |
+| Jefes | Prefabs pendientes | 4 |
+| Recursos | `Assets/Prefabs/Level/Pieces/`, `Puzzles/` y `Progression/` | 41 |
+| Narrativa y apoyo | Parallax 1-1 en `Assets/Prefabs/Level/Backgrounds/`; resto pendiente | 8 |
+| Jugador | `Assets/Prefabs/Player/` | 1 |
 
 ## Índice de nombres definitivos
 
-| Elemento | Categoría | Archivo definitivo |
+| Elemento | Categoría | Nombre de referencia (ver ruta real en la ficha) |
 |---|---|---|
-| Alma | Jugador | `Player_Alma.prefab` |
-| Planta carnívora | Enemigos | `Plant_Carnivorous_Jungle.prefab` |
-| Escarabajo de cristal | Enemigos | `Enemy_CrystalBeetle_Caves.prefab` |
-| Murciélago de cueva | Enemigos | `Enemy_CaveBat_Caves.prefab` |
-| Sapo venenoso | Enemigos | `Enemy_PoisonToad_Swamp.prefab` |
-| Salamandra de magma | Enemigos | `Enemy_MagmaSalamander_Volcano.prefab` |
+| Alma | Jugador | `Alma.prefab` |
+| Planta carnívora | Enemigos | `Plant_Carnivorous.prefab` |
+| Escarabajo de cristal | Enemigos | `CrystalBeetle.prefab` |
+| Murciélago de cueva | Enemigos | `CaveBat_Caves.prefab` |
+| Sapo venenoso | Enemigos | `PoisonToad_Swamp.prefab` |
+| Salamandra de magma | Enemigos | `MagmaSalamander_Volcano.prefab` |
 | Pinchos de jungla | Trampas | `Trap_Spikes_Jungle.prefab` |
 | Zarzas del pantano | Trampas | `Trap_Briers_Swamp.prefab` |
 | Pilar con espinas | Trampas | `Trap_SpikedPillar_Jungle.prefab` |
@@ -198,7 +198,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_Spikes_Jungle.png`, modo Simple a escala 1 × 1). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_Spikes_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_Spikes_Jungle.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_Spikes_Jungle.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_Spikes_Jungle.prefab`.
 - **Implementación:** `HazardTrigger2D`.
 - **Mundo/contexto:** 1.
 - **Qué es / para qué sirve:** Espinas estáticas en suelo, techo o paredes.
@@ -210,7 +210,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_Briers_Swamp.png`, modo Simple a escala 1 × 1). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_Briers_Swamp.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_Briers_Swamp.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_Briers_Swamp.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_Briers_Swamp.prefab`.
 - **Implementación:** `HazardTrigger2D`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Variante vegetal estática de pinchos.
@@ -223,7 +223,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_SpikedPillar_Jungle.png`, modo Simple a escala 1 × 1). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_SpikedPillar_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_SpikedPillar_Jungle.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_SpikedPillar_Jungle.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_SpikedPillar_Jungle.prefab`.
 - **Implementación:** `HazardTrigger2D + colliders de estructura`.
 - **Mundo/contexto:** 1.
 - **Qué es / para qué sirve:** Estructura sólida con una zona punzante.
@@ -236,7 +236,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_CrystalSpikes_Caves.png`, modo Simple a escala 1 × 1). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_CrystalSpikes_Caves.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_CrystalSpikes_Caves.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_CrystalSpikes_Caves.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_CrystalSpikes_Caves.prefab`.
 - **Implementación:** `HazardTrigger2D`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Cristales estáticos que cubren fosos y pasajes.
@@ -248,7 +248,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_BurningSpikes_Volcano.png`, modo Simple a escala 1 × 1). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_BurningSpikes_Volcano.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_BurningSpikes_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_BurningSpikes_Volcano.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_BurningSpikes_Volcano.prefab`.
 - **Implementación:** `HazardTrigger2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Variante de pinchos en la fractura volcánica.
@@ -261,7 +261,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final redimensionable (tile 9-slice repetido, se adapta a cualquier tamaño) y efectos de burbujas y vapor. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_ToxicMud_Swamp.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_ToxicMud_Swamp.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_ToxicMud_Swamp.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_ToxicMud_Swamp.prefab`.
 - **Implementación:** `HazardTrigger2D`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Superficie contaminada bajo los saltos.
@@ -274,7 +274,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final redimensionable (tile 9-slice repetido, se adapta a cualquier tamaño) y efectos de burbujas y vapor. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_ToxicLake_Swamp.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_ToxicLake_Swamp.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_ToxicLake_Swamp.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_ToxicLake_Swamp.prefab`.
 - **Implementación:** `HazardTrigger2D`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Lago letal atravesado mediante saltos, Dash y esporas.
@@ -287,7 +287,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final redimensionable (tile repetible que crece al subir, como los líquidos) y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_RisingToxicGas_Swamp.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
 - **Archivo definitivo:** `Trap_RisingToxicGas_Swamp.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_RisingToxicGas_Swamp.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_RisingToxicGas_Swamp.prefab`.
 - **Implementación:** `RisingHazardFloor2D`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Volumen de gas que obliga a ascender.
@@ -299,7 +299,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final redimensionable (tile 9-slice repetido, se adapta a cualquier tamaño) y efectos de burbujas y brasas. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_LavaPool_Volcano.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_LavaPool_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_LavaPool_Volcano.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_LavaPool_Volcano.prefab`.
 - **Implementación:** `HazardTrigger2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Superficie de magma estática.
@@ -311,8 +311,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 10. Erupción de lava ascendente
 
 - **Estado:** descartada (5/10/2026). No se implementará; los tramos que la usaban se rediseñarán con las trampas implementadas ([Zonas de peligro](LevelPieces/Hazards.md)).
-- **Archivo definitivo:** `Trap_RisingLavaEruption_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_RisingLavaEruption_Volcano.prefab`.
+- **Nombre histórico:** `Trap_RisingLavaEruption_Volcano.prefab`; no se creará prefab.
 - **Implementación:** `FractureEruption2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Erupción activada mediante un sello rompible.
@@ -324,8 +323,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 11. Magma ascendente del jefe final
 
 - **Estado:** descartada (5/10/2026). No se implementará; los tramos que la usaban se rediseñarán con las trampas implementadas ([Zonas de peligro](LevelPieces/Hazards.md)).
-- **Archivo definitivo:** `Trap_RisingMagma_FinalBoss.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_RisingMagma_FinalBoss.prefab`.
+- **Nombre histórico:** `Trap_RisingMagma_FinalBoss.prefab`; no se creará prefab.
 - **Implementación:** `Controlado por ThiefKingBoss2D`.
 - **Mundo/contexto:** 4 / jefe final.
 - **Qué es / para qué sirve:** Magma que presiona la fase de ascenso.
@@ -338,7 +336,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite recortado en *Sliced*, escala 1 × 1) y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_CrushingCeiling_Caves.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
 - **Archivo definitivo:** `Trap_CrushingCeiling_Caves.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_CrushingCeiling_Caves.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_CrushingCeiling_Caves.prefab`.
 - **Implementación:** `CrushingCeiling2D`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Techo móvil que cierra un corredor.
@@ -351,7 +349,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite recortado en *Sliced*, escala 1 × 1) y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_FireGeyser_Volcano.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
 - **Archivo definitivo:** `Trap_FireGeyser_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_FireGeyser_Volcano.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_FireGeyser_Volcano.prefab`.
 - **Implementación:** `LavaGeyser2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Columna intermitente de fuego/vapor que bloquea el paso.
@@ -363,8 +361,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 14. Chorro de fuego de aterrizaje
 
 - **Estado:** descartada (5/10/2026). No se implementará; los tramos que la usaban se rediseñarán con las trampas implementadas ([Zonas de peligro](LevelPieces/Hazards.md)).
-- **Archivo definitivo:** `Trap_LandingFlameJet_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_LandingFlameJet_Volcano.prefab`.
+- **Nombre histórico:** `Trap_LandingFlameJet_Volcano.prefab`; no se creará prefab.
 - **Implementación:** `FractureFlameJet2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Chorro que pone presión sobre una cornisa de llegada.
@@ -375,8 +372,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 15. Puerta de llamas
 
 - **Estado:** descartada (5/10/2026). No se implementará; los tramos que la usaban se rediseñarán con las trampas implementadas ([Zonas de peligro](LevelPieces/Hazards.md)).
-- **Archivo definitivo:** `Trap_BellFlameDoor_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_BellFlameDoor_Volcano.prefab`.
+- **Nombre histórico:** `Trap_BellFlameDoor_Volcano.prefab`; no se creará prefab.
 - **Implementación:** `BellFlameDoor2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Barrera de fuego controlada por una campana.
@@ -389,7 +385,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado; invisible en juego a propósito (sin sprite; en el editor se ve magenta translúcido). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_DeathZone_Universal.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_DeathZone_Universal.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_DeathZone_Universal.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_DeathZone_Universal.prefab`.
 - **Implementación:** `HazardTrigger2D`.
 - **Mundo/contexto:** 1–4.
 - **Qué es / para qué sirve:** Volumen normalmente invisible bajo el nivel.
@@ -404,7 +400,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 1. Fruto rodante
 
 - **Archivo definitivo:** `Projectile_RollingFruit_Jungle.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Projectiles/Projectile_RollingFruit_Jungle.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Projectiles/Projectile_RollingFruit_Jungle.prefab`.
 - **Implementación:** `RollingFruitProjectile2D`.
 - **Mundo/contexto:** 1 / jefe.
 - **Qué es / para qué sirve:** Fruto físico arrojado por el mono.
@@ -416,7 +412,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 2. Cristal que cae
 
 - **Archivo definitivo:** `Projectile_FallingCrystal_Caves.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Projectiles/Projectile_FallingCrystal_Caves.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Projectiles/Projectile_FallingCrystal_Caves.prefab`.
 - **Implementación:** `BossFallingCrystal2D`.
 - **Mundo/contexto:** 2 / jefe.
 - **Qué es / para qué sirve:** Estalactita/cristal que cae tras un marcador de aviso.
@@ -429,7 +425,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementada sin prefab como `PoisonSpit2D` (glob de veneno creado por código por el sapo, sin pool). Valores reales en la ficha del [Sapo venenoso](Enemies/PoisonToad_Swamp.md#el-glob-de-veneno): 8 / 3 u/s, gravedad 6 u/s², 3 s, partículas de goteo y salpicadura.
 - **Archivo definitivo:** `Projectile_PoisonBubble_Swamp.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Projectiles/Projectile_PoisonBubble_Swamp.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Projectiles/Projectile_PoisonBubble_Swamp.prefab`.
 - **Implementación:** `PoisonBubble2D`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Proyectil venenoso del sapo.
@@ -442,7 +438,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementada sin prefab como `MagmaFireball2D` (script propio, no reutiliza el del veneno; creada por código por la salamandra, sin pool). Valores reales en la ficha de la [Salamandra de magma](Enemies/MagmaSalamander_Volcano.md#la-bola-de-fuego): recta a 7 u/s hacia Alma (máx. ±40°), 2 s, estela de llamas y chispas.
 - **Archivo definitivo:** `Projectile_MagmaFireball_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Projectiles/Projectile_MagmaFireball_Volcano.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Projectiles/Projectile_MagmaFireball_Volcano.prefab`.
 - **Implementación:** `PoisonBubble2D reutilizado con aspecto de fuego`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Proyectil dirigido de la salamandra.
@@ -454,7 +450,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 5. Meteorito reflejable de compuerta
 
 - **Archivo definitivo:** `Projectile_ReflectableMeteor_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Projectiles/Projectile_ReflectableMeteor_Volcano.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Projectiles/Projectile_ReflectableMeteor_Volcano.prefab`.
 - **Implementación:** `ReflectableMeteor2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Meteorito peligroso que se convierte en herramienta de puzzle al devolverlo.
@@ -466,7 +462,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 6. Meteorito de contraataque final
 
 - **Archivo definitivo:** `Projectile_CounterMeteor_FinalBoss.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Projectiles/Projectile_CounterMeteor_FinalBoss.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Projectiles/Projectile_CounterMeteor_FinalBoss.prefab`.
 - **Implementación:** `ThiefKingMechanism2D + ThiefKingHazard2D`.
 - **Mundo/contexto:** 4 / jefe final.
 - **Qué es / para qué sirve:** Meteorito que se devuelve con Rugido durante el combate final.
@@ -478,7 +474,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 7. Roca de lluvia de meteoritos
 
 - **Archivo definitivo:** `Projectile_MeteorRainRock_FinalBoss.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Projectiles/Projectile_MeteorRainRock_FinalBoss.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Projectiles/Projectile_MeteorRainRock_FinalBoss.prefab`.
 - **Implementación:** `ThiefKingHazard2D + controlador del jefe`.
 - **Mundo/contexto:** 4 / jefe final.
 - **Qué es / para qué sirve:** Roca de caída señalizada durante el asedio final.
@@ -493,7 +489,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 1. Rey de la Copa — Mono Ladrón Gigante
 
 - **Archivo definitivo:** `Boss_GiantMonkey_Jungle.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Bosses/Boss_GiantMonkey_Jungle.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Bosses/Boss_GiantMonkey_Jungle.prefab`.
 - **Implementación:** `GiantMonkeyBoss2D + BossBodyHazard2D + BossHeadHurtbox2D`.
 - **Mundo/contexto:** 1.
 - **Qué es / para qué sirve:** Jefe de frutos rodantes y ventanas de cansancio.
@@ -505,7 +501,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 2. Acorazado Subterráneo — Armadillo Prehistórico
 
 - **Archivo definitivo:** `Boss_PrehistoricArmadillo_Caves.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Bosses/Boss_PrehistoricArmadillo_Caves.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Bosses/Boss_PrehistoricArmadillo_Caves.prefab`.
 - **Implementación:** `PrehistoricArmadilloBoss2D + ArmadilloFight`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Jefe rodante que se expone al chocar.
@@ -517,7 +513,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 3. Señor de las Ráfagas — Pterodáctilo Alfa
 
 - **Archivo definitivo:** `Boss_AlphaPterodactyl_Swamp.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Bosses/Boss_AlphaPterodactyl_Swamp.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Bosses/Boss_AlphaPterodactyl_Swamp.prefab`.
 - **Implementación:** `PterodactylBoss2D + PterodactylHead2D + PterodactylBody2D`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Jefe aéreo de vendaval y picado.
@@ -529,7 +525,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 4. Rey Ladrón — Tirano Ancestral
 
 - **Archivo definitivo:** `Boss_ThiefKing_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Bosses/Boss_ThiefKing_Volcano.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Bosses/Boss_ThiefKing_Volcano.prefab`.
 - **Implementación:** `ThiefKingBoss2D + ThiefKingFight`.
 - **Mundo/contexto:** 4 / final.
 - **Qué es / para qué sirve:** Encuentro final que combina Dash, Pisotón, Rugido y ascenso.
@@ -544,7 +540,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 1. Plataforma sólida
 
 - **Archivo definitivo:** `Platform_Solid_Universal.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Platform_Solid_Universal.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Platform_Solid_Universal.prefab`.
 - **Implementación:** `BoxCollider2D + SpriteRenderer`.
 - **Mundo/contexto:** 1–4.
 - **Qué es / para qué sirve:** Superficie estable para caminar, saltar o refugiarse.
@@ -557,7 +553,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite `Pieces/Sprites/Platform_OneWay_Universal.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Platform_OneWay_Universal.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Platform_OneWay_Universal.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Platform_OneWay_Universal.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Pieces/Platform_OneWay_Universal.prefab`.
 - **Implementación:** `BoxCollider2D + PlatformEffector2D`.
 - **Mundo/contexto:** 1–4.
 - **Qué es / para qué sirve:** Plataforma a la que se sube atravesándola desde abajo.
@@ -569,7 +565,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite `Pieces/Sprites/Resource_BouncyMushroom_Jungle.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Resource_BouncyMushroom_Jungle.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Resource_BouncyMushroom_Jungle.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_BouncyMushroom_Jungle.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Pieces/Resource_BouncyMushroom_Jungle.prefab`.
 - **Implementación:** `BouncyPlatform2D`.
 - **Mundo/contexto:** 1.
 - **Qué es / para qué sirve:** Trampolín vegetal.
@@ -580,7 +576,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 4. Cristal de rebote
 
 - **Archivo definitivo:** `Resource_BouncyCrystal_Caves.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_BouncyCrystal_Caves.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_BouncyCrystal_Caves.prefab`.
 - **Implementación:** `BouncyPlatform2D`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Variante cristalina del trampolín.
@@ -592,7 +588,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 5. Respiradero de vapor de rebote
 
 - **Archivo definitivo:** `Resource_SteamVent_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_SteamVent_Volcano.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_SteamVent_Volcano.prefab`.
 - **Implementación:** `BouncyPlatform2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Trampolín seguro con temática de vapor.
@@ -605,7 +601,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite `Pieces/Sprites/Platform_CrumblingLeaf_Jungle.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Platform_CrumblingLeaf_Jungle.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Platform_CrumblingLeaf_Jungle.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Platform_CrumblingLeaf_Jungle.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Pieces/Platform_CrumblingLeaf_Jungle.prefab`.
 - **Implementación:** `CrumblingPlatform2D`.
 - **Mundo/contexto:** 1.
 - **Qué es / para qué sirve:** Apoyo temporal que exige avanzar rápido.
@@ -618,7 +614,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite `Pieces/Sprites/Platform_CrumblingLilypad_Swamp.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Platform_CrumblingLilypad_Swamp.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Platform_CrumblingLilypad_Swamp.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Platform_CrumblingLilypad_Swamp.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Pieces/Platform_CrumblingLilypad_Swamp.prefab`.
 - **Implementación:** `CrumblingPlatform2D`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Apoyo temporal del pantano.
@@ -630,7 +626,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite `Pieces/Sprites/Platform_CrumblingLedge_Volcano.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Platform_CrumblingLedge_Volcano.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Platform_CrumblingLedge_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Platform_CrumblingLedge_Volcano.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Pieces/Platform_CrumblingLedge_Volcano.prefab`.
 - **Implementación:** `CrumblingPlatform2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Cornisa temporal de la fractura/ascenso.
@@ -641,7 +637,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 9. Basalto que se hunde
 
 - **Archivo definitivo:** `Platform_SinkingBasalt_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Platform_SinkingBasalt_Volcano.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Platform_SinkingBasalt_Volcano.prefab`.
 - **Implementación:** `SinkingBasalt2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Plataforma que pierde altura al soportar peso.
@@ -654,7 +650,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite `Pieces/Sprites/Resource_PoundBreakableFloor_Universal.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Resource_PoundBreakableFloor_Universal.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Resource_PoundBreakableFloor_Universal.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_PoundBreakableFloor_Universal.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Pieces/Resource_PoundBreakableFloor_Universal.prefab`.
 - **Implementación:** `BreakableGround2D`.
 - **Mundo/contexto:** 2–4.
 - **Qué es / para qué sirve:** Suelo agrietado que abre un pasaje.
@@ -665,7 +661,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 11. Pilar sísmico rompible
 
 - **Archivo definitivo:** `Resource_SeismicPillar_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_SeismicPillar_Volcano.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_SeismicPillar_Volcano.prefab`.
 - **Implementación:** `BreakableGround2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Variante de bloque rompible para la prueba de Pisotón.
@@ -677,7 +673,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 12. Sello de erupción rompible
 
 - **Archivo definitivo:** `Resource_EruptionSeal_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_EruptionSeal_Volcano.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_EruptionSeal_Volcano.prefab`.
 - **Implementación:** `BreakableGround2D conectado a FractureEruption2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Sello que desbloquea salida y activa una erupción.
@@ -690,7 +686,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite `Pieces/Sprites/Resource_DashReedBarrier_Swamp.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Resource_DashReedBarrier_Swamp.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Resource_DashReedBarrier_Swamp.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_DashReedBarrier_Swamp.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Pieces/Resource_DashReedBarrier_Swamp.prefab`.
 - **Implementación:** `DashBreakableBarrier2D`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Barrera vegetal para practicar Dash.
@@ -703,7 +699,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite `Pieces/Sprites/Resource_DashTrialGrid_Volcano.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Resource_DashTrialGrid_Volcano.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Resource_DashTrialGrid_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_DashTrialGrid_Volcano.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Pieces/Resource_DashTrialGrid_Volcano.prefab`.
 - **Implementación:** `DashBreakableBarrier2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Variante de barrera para la prueba aérea del templo.
@@ -715,7 +711,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final. Prefab real: `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_SeesawCatapult_Caves.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
 - **Archivo definitivo:** `Resource_SeesawCatapult_Caves.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_SeesawCatapult_Caves.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_SeesawCatapult_Caves.prefab`.
 - **Implementación:** `SeesawPlatform2D`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Plataforma inclinable que transforma un Pisotón en impulso.
@@ -727,7 +723,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 16. Catapulta de raíces
 
 - **Archivo definitivo:** `Resource_RootCatapult_Swamp.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RootCatapult_Swamp.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_RootCatapult_Swamp.prefab`.
 - **Implementación:** `SeesawPlatform2D`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Variante de balancín para ganar altura en el sauce.
@@ -740,7 +736,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final. Prefab real: `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_CatapultCounterweight_Caves.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
 - **Archivo definitivo:** `Resource_CatapultCounterweight_Caves.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_CatapultCounterweight_Caves.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_CatapultCounterweight_Caves.prefab`.
 - **Implementación:** `CatapultWeight2D`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Peso que sale disparado por el balancín.
@@ -753,7 +749,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado; sin imagen a propósito (su visual son el área translúcida y los trazos de partículas). Prefab real: `Assets/Prefabs/Level/Pieces/Resource_WindCurrent_Universal.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Resource_WindCurrent_Universal.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_WindCurrent_Universal.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Pieces/Resource_WindCurrent_Universal.prefab`.
 - **Implementación:** `WindCurrentZone2D`.
 - **Mundo/contexto:** 3; reutilizable.
 - **Qué es / para qué sirve:** Volumen de fuerza que empuja cuerpos físicos.
@@ -766,7 +762,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (sprite `Pieces/Sprites/Resource_DashRefillSpore_Swamp.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Resource_DashRefillSpore_Swamp.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Resource_DashRefillSpore_Swamp.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_DashRefillSpore_Swamp.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Pieces/Resource_DashRefillSpore_Swamp.prefab`.
 - **Implementación:** `DashRefillPickup2D`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Pickup flotante que permite encadenar Dash aéreos.
@@ -779,7 +775,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final. Prefab real: `Assets/Prefabs/Level/Puzzles/Resource_RoarBoulder_Volcano.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
 - **Archivo definitivo:** `Resource_RoarBoulder_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RoarBoulder_Volcano.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Puzzles/Resource_RoarBoulder_Volcano.prefab`.
 - **Implementación:** `PushableBoulder2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Roca pesada para construir apoyos/puentes.
@@ -792,7 +788,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final. Prefab real: `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_RuneSwitch_Caves.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
 - **Archivo definitivo:** `Resource_RuneSwitch_Caves.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RuneSwitch_Caves.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_RuneSwitch_Caves.prefab`.
 - **Implementación:** `RuneSwitch2D`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Sensor que habilita una señal temporal.
@@ -805,7 +801,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final. Prefab real: `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_TimedRuneGate_Caves.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
 - **Archivo definitivo:** `Resource_TimedRuneGate_Caves.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_TimedRuneGate_Caves.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_TimedRuneGate_Caves.prefab`.
 - **Implementación:** `TimedRuneGate2D`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Puerta sólida que abre mientras sus runas están activas.
@@ -817,7 +813,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 23. Campana de resonancia
 
 - **Archivo definitivo:** `Resource_ResonanceBell_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_ResonanceBell_Volcano.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_ResonanceBell_Volcano.prefab`.
 - **Implementación:** `ResonanceBell2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Receptor de Rugido que abre una ventana segura.
@@ -829,7 +825,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 24. Compuerta de impacto de meteorito
 
 - **Archivo definitivo:** `Resource_MeteorImpactGate_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_MeteorImpactGate_Volcano.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_MeteorImpactGate_Volcano.prefab`.
 - **Implementación:** `MeteorImpactGate2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Obstáculo que se abre con un meteorito devuelto.
@@ -841,7 +837,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 25. Control de pruebas del templo
 
 - **Archivo definitivo:** `Resource_TempleTrialGate_Volcano.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_TempleTrialGate_Volcano.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_TempleTrialGate_Volcano.prefab`.
 - **Implementación:** `TempleTrialGates2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Mecanismo que vincula pilares, reja y progreso de checkpoints.
@@ -853,7 +849,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 26. Sello de contraataque con Dash
 
 - **Archivo definitivo:** `Resource_DashHeatSeal_FinalBoss.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_DashHeatSeal_FinalBoss.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_DashHeatSeal_FinalBoss.prefab`.
 - **Implementación:** `ThiefKingMechanism2D: HeatSeal`.
 - **Mundo/contexto:** 4 / jefe final.
 - **Qué es / para qué sirve:** Objetivo de Dash para exponer al jefe.
@@ -865,7 +861,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 27. Placa dorsal vulnerable
 
 - **Archivo definitivo:** `Resource_WeakDorsalPlate_FinalBoss.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_WeakDorsalPlate_FinalBoss.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_WeakDorsalPlate_FinalBoss.prefab`.
 - **Implementación:** `ThiefKingMechanism2D: WeakPlate`.
 - **Mundo/contexto:** 4 / jefe final.
 - **Qué es / para qué sirve:** Objetivo de Pisotón durante la vulnerabilidad.
@@ -877,7 +873,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 28. Sello de vapor rompible
 
 - **Archivo definitivo:** `Resource_SteamSeal_FinalBoss.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_SteamSeal_FinalBoss.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_SteamSeal_FinalBoss.prefab`.
 - **Implementación:** `ThiefKingMechanism2D: SteamSeal`.
 - **Mundo/contexto:** 4 / jefe final.
 - **Qué es / para qué sirve:** Sello que bloquea el respiradero de ascenso.
@@ -889,7 +885,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 29. Anclaje de estalactita
 
 - **Archivo definitivo:** `Resource_StalactiteAnchor_FinalBoss.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_StalactiteAnchor_FinalBoss.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_StalactiteAnchor_FinalBoss.prefab`.
 - **Implementación:** `ThiefKingMechanism2D: Anchor`.
 - **Mundo/contexto:** 4 / jefe final.
 - **Qué es / para qué sirve:** Objetivo combinado para el remate.
@@ -901,7 +897,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 30. Estalactita colosal de remate
 
 - **Archivo definitivo:** `Resource_ColossalStalactite_FinalBoss.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_ColossalStalactite_FinalBoss.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_ColossalStalactite_FinalBoss.prefab`.
 - **Implementación:** `Transform controlado por ThiefKingBoss2D`.
 - **Mundo/contexto:** 4 / jefe final.
 - **Qué es / para qué sirve:** Arma ambiental del remate final.
@@ -914,7 +910,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_DoubleJump.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_AbilityAltar_DoubleJump.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_DoubleJump.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_DoubleJump.prefab`.
 - **Implementación:** `AbilityRelic2D`.
 - **Mundo/contexto:** 1.
 - **Qué es / para qué sirve:** Relicario que desbloquea una habilidad de Alma.
@@ -927,7 +923,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_GroundPound.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_AbilityAltar_GroundPound.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_GroundPound.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_GroundPound.prefab`.
 - **Implementación:** `AbilityRelic2D`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Relicario que desbloquea una habilidad de Alma.
@@ -940,7 +936,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_AirDash.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_AbilityAltar_AirDash.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_AirDash.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_AirDash.prefab`.
 - **Implementación:** `AbilityRelic2D`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Relicario que desbloquea una habilidad de Alma.
@@ -953,7 +949,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (script `AbilityAltar2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_Roar.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_AbilityAltar_Roar.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_AbilityAltar_Roar.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Progression/Resource_AbilityAltar_Roar.prefab`.
 - **Implementación:** `AbilityRelic2D`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Relicario que desbloquea una habilidad de Alma.
@@ -966,7 +962,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (script `CheckpointNest2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_CheckpointNest_Universal.prefab`. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_CheckpointNest_Universal.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_CheckpointNest_Universal.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Progression/Resource_CheckpointNest_Universal.prefab`.
 - **Implementación:** `Checkpoint2D`.
 - **Mundo/contexto:** 1–4.
 - **Qué es / para qué sirve:** Punto seguro de reaparición.
@@ -979,7 +975,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Green.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_RescueEgg_Green.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Green.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Green.prefab`.
 - **Implementación:** `GreenEggRescue2D (tipo de huevo) + lógica de santuario cuando corresponda`.
 - **Mundo/contexto:** 1.
 - **Qué es / para qué sirve:** Objetivo de rescate que habilita el avance hacia el jefe.
@@ -992,7 +988,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Blue.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_RescueEgg_Blue.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Blue.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Blue.prefab`.
 - **Implementación:** `GreenEggRescue2D (tipo de huevo) + lógica de santuario cuando corresponda`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Objetivo de rescate que habilita el avance hacia el jefe.
@@ -1005,7 +1001,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Purple.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_RescueEgg_Purple.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Purple.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Purple.prefab`.
 - **Implementación:** `GreenEggRescue2D (tipo de huevo) + lógica de santuario cuando corresponda`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Objetivo de rescate que habilita el avance hacia el jefe.
@@ -1018,7 +1014,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (script `RescueEgg2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Red.prefab`. Al tocarlo se guarda el rescate y aparece el texto del GDD 5.2; aún no hay portal vinculado. Ficha: [Progresión](LevelPieces/Progression.md).
 - **Archivo definitivo:** `Resource_RescueEgg_Red.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RescueEgg_Red.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Progression/Resource_RescueEgg_Red.prefab`.
 - **Implementación:** `GreenEggRescue2D (tipo de huevo) + lógica de santuario cuando corresponda`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Objetivo de rescate que habilita el avance hacia el jefe.
@@ -1030,7 +1026,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 40. Santuario de rescate
 
 - **Archivo definitivo:** `Resource_EggSanctuary_Universal.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_EggSanctuary_Universal.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Resources/Resource_EggSanctuary_Universal.prefab`.
 - **Implementación:** `Conjunto de huevo + nido + controlador de santuario`.
 - **Mundo/contexto:** 1–4.
 - **Qué es / para qué sirve:** Lugar seguro y presentación del rescate.
@@ -1043,7 +1039,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 - **Estado:** implementado con arte final (script `LevelExitPortal2D`). Prefab real: `Assets/Prefabs/Level/Progression/Resource_LevelExitPortal_Universal.prefab`. Va en todos los niveles, sin condición de apertura: al entrar Alma guarda el nivel como completado y carga `Next Scene`. Ficha: [Progresión](LevelPieces/Progression.md#portal-de-salida-resource_levelexitportal_universal).
 - **Archivo definitivo:** `Resource_LevelExitPortal_Universal.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_LevelExitPortal_Universal.prefab`.
+- **Ruta real:** `Assets/Prefabs/Level/Progression/Resource_LevelExitPortal_Universal.prefab`.
 - **Implementación:** `LevelExit2D`.
 - **Mundo/contexto:** 1–4.
 - **Qué es / para qué sirve:** Salida entre niveles y arenas.
@@ -1058,7 +1054,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 1. Mono ladrón de presentación
 
 - **Archivo definitivo:** `NPC_ThiefMonkeyTeaser_Jungle.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Narrative/NPC_ThiefMonkeyTeaser_Jungle.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Narrative/NPC_ThiefMonkeyTeaser_Jungle.prefab`.
 - **Implementación:** `ThiefMonkeyTeaser2D`.
 - **Mundo/contexto:** 1.
 - **Qué es / para qué sirve:** NPC narrativo que muestra el robo y orienta la persecución.
@@ -1070,7 +1066,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 2. Silueta de guardián Armadillo
 
 - **Archivo definitivo:** `Narrative_GuardianTeaser_Armadillo.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Narrative/Narrative_GuardianTeaser_Armadillo.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Narrative/Narrative_GuardianTeaser_Armadillo.prefab`.
 - **Implementación:** `Visual/presentación controlada por el santuario`.
 - **Mundo/contexto:** 2.
 - **Qué es / para qué sirve:** Anticipación visual del jefe siguiente.
@@ -1082,7 +1078,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 3. Silueta de guardián Pterodactyl
 
 - **Archivo definitivo:** `Narrative_GuardianTeaser_Pterodactyl.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Narrative/Narrative_GuardianTeaser_Pterodactyl.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Narrative/Narrative_GuardianTeaser_Pterodactyl.prefab`.
 - **Implementación:** `Visual/presentación controlada por el santuario`.
 - **Mundo/contexto:** 3.
 - **Qué es / para qué sirve:** Anticipación visual del jefe siguiente.
@@ -1094,7 +1090,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 4. Silueta de guardián Thief_King
 
 - **Archivo definitivo:** `Narrative_GuardianTeaser_Thief_King.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Narrative/Narrative_GuardianTeaser_Thief_King.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Narrative/Narrative_GuardianTeaser_Thief_King.prefab`.
 - **Implementación:** `Visual/presentación controlada por el santuario`.
 - **Mundo/contexto:** 4.
 - **Qué es / para qué sirve:** Anticipación visual del jefe siguiente.
@@ -1106,7 +1102,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 5. Mensaje de prólogo
 
 - **Archivo definitivo:** `Narrative_PrologueTrigger_Universal.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Narrative/Narrative_PrologueTrigger_Universal.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Narrative/Narrative_PrologueTrigger_Universal.prefab`.
 - **Implementación:** `NarrativePrologueTrigger`.
 - **Mundo/contexto:** 1–4.
 - **Qué es / para qué sirve:** Trigger de explicación/presentación al entrar en una zona.
@@ -1117,7 +1113,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 ### 6. Onda visual de Rugido
 
 - **Archivo definitivo:** `VFX_RoarWave_Universal.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Narrative/VFX_RoarWave_Universal.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Narrative/VFX_RoarWave_Universal.prefab`.
 - **Implementación:** `RoarWaveVisual2D`.
 - **Mundo/contexto:** 4; reutilizable.
 - **Qué es / para qué sirve:** Representación visual del Rugido.
@@ -1127,20 +1123,19 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 7. Fondo con parallax
 
-- **Archivo definitivo:** `Scenery_ParallaxLayer_Universal.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Narrative/Scenery_ParallaxLayer_Universal.prefab`.
+- **Prefab real:** `Assets/Prefabs/Level/Backgrounds/World_1/Parallax_Level_1_1.prefab`; el antiguo nombre `Scenery_ParallaxLayer_Universal.prefab` queda como referencia histórica.
 - **Implementación:** `ParallaxLayer2D`.
-- **Mundo/contexto:** 2–4.
+- **Mundo/contexto:** 1-1 implementado; fondos de los demás niveles pendientes.
 - **Qué es / para qué sirve:** Capa de fondo con profundidad aparente.
 - **Cómo funciona:** Se desplaza en proporción al movimiento de la cámara.
 - **Daño a Alma:** 0 daño.
-- **Valores y propiedades:** Cámara y factores horizontal/vertical; clase por defecto (0.6, 0.6), variables por capa.
+- **Valores y propiedades:** Cámara, desplazamiento horizontal/vertical, repetición y anclaje configurables por capa; ver el prefab de 1-1 para sus valores reales.
 - **Conexiones, variantes o límites:** Las múltiples capas del catálogo son composiciones/variantes de la misma función.
 
 ### 8. Decoración visual
 
 - **Archivo definitivo:** `Scenery_Decoration_Universal.prefab`.
-- **Ruta objetivo:** `Assets/_Project/Prefabs/Narrative/Scenery_Decoration_Universal.prefab`.
+- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Narrative/Scenery_Decoration_Universal.prefab`.
 - **Implementación:** `SpriteRenderer`.
 - **Mundo/contexto:** 1–4.
 - **Qué es / para qué sirve:** Pieza gráfica de ambientación.
@@ -1153,14 +1148,14 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### Alma — madre dinosaurio
 
-- **Prefab previsto:** `Assets/_Project/Prefabs/Player/Alma/Player_Alma.prefab`.
+- **Prefab real:** `Assets/Prefabs/Player/Alma.prefab`.
 - **Función:** personaje jugable, capaz de moverse, saltar, hacer Doble Salto, Pisotón, Dash y Rugido.
 - **Daño:** contacto con peligro activo → reaparece en el último checkpoint; no usa HP.
-- **Especificación completa:** [controles, física, estados, animaciones y cámara de Alma](Docs/Player/Alma.md).
-- **Arte conceptual:** [índice de láminas](Docs/Art/README.md).
+- **Especificación completa:** [controles, física, estados, animaciones y cámara de Alma](Player/Alma.md).
+- **Arte conceptual:** [índice de láminas](../Art/README.md).
 
 ## Uso futuro del inventario
 
-Las rutas de prefab de este documento son objetivos de organización para el nuevo proyecto Unity. Las fichas recogen el comportamiento del prototipo anterior y las láminas de `Docs/Art/` recogen el aspecto conceptual. Reconstruir, integrar y verificar cada elemento antes de crear niveles.
+Las entradas con **Ruta real** señalan prefabs existentes. Las entradas con **Ruta prevista (sin prefab)** mantienen una propuesta histórica de organización; no describen archivos del repositorio. Las cuatro trampas descartadas no deben construirse. Las fichas antiguas describen el prototipo retirado y sus números no sustituyen los valores de los componentes actuales.
 
-Las fichas de `Docs/Levels/` describen los niveles por reconstruir. La [ficha de Alma](Docs/Player/Alma.md) reúne controles, física, animaciones y cámara; [las láminas](Docs/Art/README.md) reúnen las referencias visuales.
+Las fichas de [niveles](Levels/) describen los niveles por reconstruir. La [ficha de Alma](Player/Alma.md) reúne controles, física, animaciones y la cámara ortográfica de tamaño 8; [las láminas](../Art/README.md) reúnen las referencias visuales.

@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+> **Ficha de diseño para reconstrucción:** existe `Assets/Scenes/World_01/Level_1_1.unity` como escena de práctica, pero aún no implementa el nivel completo descrito aquí. Las notas antiguas de escenas y pruebas corresponden al prototipo retirado. La cámara actual usa tamaño ortográfico **8** y el juego no usa audio.
 
 # 🗺️ Nivel 1-1: "Despertar en el Nido"
 > **Mundo 1: Jungla Esmeralda** | **Función Pedagógica:** Introducir (Locomoción Base + Despertar del Doble Salto)
@@ -33,9 +33,9 @@
   - *Capa 1 (Fondo Medio):* Troncos colosales de árboles centenarios desdibujados por una niebla dorada tenue.
   - *Capa 2 (Fondo Cercano / Gameplay):* Plataformas de roca y tierra cubierta de hierba, lianas colgantes, flores silvestres.
   - *Capa 3 (Primer Plano / Foreground):* Hojas de helecho desenfocadas en las esquinas inferiores que reaccionan con balanceo al paso de la cámara.
-- **Iluminación 2D (URP):**
-  - Luz Global cálida tenue (intensidad 0.65).
-  - Luces Spot 2D que simulan rayos solares (*god rays*) cayendo en ángulo de 45° sobre el nido y el altar.
+- **Iluminación visual prevista:**
+  - Atmósfera cálida de amanecer mediante los sprites de fondo y el parallax ya integrado en la escena de práctica.
+  - Rayos solares y brillos del nido y altar mediante arte y partículas; el proyecto actual usa el pipeline integrado, sin luces URP 2D.
 
 ---
 
@@ -50,7 +50,7 @@
   - *Altar Materno (`AbilityRelic2D`):* Pedestal de piedra ancestral con una gema flotante que pulsa suavemente. Al tocarlo, congela brevemente el tiempo (hit stop) y desbloquea el Doble Salto.
 - **Hojas de práctica:** Colapso tras 1.0 s, con aviso visual desde el primer contacto.
 - **Peligros:**
-  - Sin enemigos hostiles. En las escenas actuales hay espinas bajo los fosos de práctica y las hojas. El contacto o una caída profunda devuelven al último checkpoint mediante respawn rápido.
+  - El nivel completo empezará sin enemigos hostiles. La escena actual de práctica no contiene enemigos; los peligros definitivos del nivel aún no están montados. El contacto letal o una caída profunda activan la reaparición.
 
 ---
 
@@ -62,4 +62,5 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 
 - [ ] **Tileset:** Tierra con hierba superior, tierra interior, bordes de raíz y rocas musgosas (16x16 o 32x32).
 - [ ] **Props:** Nido de ramas y plumas destrozado, altar de piedra runal, gema flotante con halo emisor, flores tropicales.
-- [ ] **Sprites Alma:** Animaciones de Idle (respiración atenta), Run (zancadas ágiles), Jump (despegue firme) y Double Jump (aleteo de plumas del lomo).
+- [x] **Sprites Alma:** Idle, Run y Jump integrados en su Animator.
+- [ ] **Double Jump:** clip propio; por ahora reutiliza Jump y añade un efecto visual generado por código.

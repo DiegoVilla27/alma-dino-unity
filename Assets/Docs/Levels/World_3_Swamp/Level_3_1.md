@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 3-1: "Los Fangales Tóxicos"
 > **Mundo 3: Pantano de Viento y Niebla** | **Función Pedagógica:** Introducir (Despertar del Dash Aéreo & Fosos Infranqueables)
@@ -75,5 +75,5 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 - Isla inicial segura desde X=-6 hasta X=14; Espora del Viento en X=7, antes del primer abismo. Al comenzar una partida limpia, Alma conserva Doble Salto y Pisotón, pero debe recoger la espora para desbloquear Dash.
 - Cuatro fosos de 11m: X=14–25, 33–44, 52–63 y 71–82. Las islas de práctica tienen 8m de anchura y la final 12m; sus superficies están en Y=0.
 - Checkpoints estables en X=10, 29 y 67. Morir en el lodo devuelve al último nido sin perder el Dash desbloqueado. Aterrizar repone la carga aérea; sigue vigente el cooldown de 0.4s.
-- Cámara ortográfica size 6, seguimiento de Alma y anticipo horizontal de 1.25 unidades. Cuatro capas de parallax, siluetas de sauces, bancos de niebla y juncos geométricos; arte final pendiente.
+- Cámara ortográfica size 8, seguimiento de Alma y anticipo horizontal de 4.3 unidades. Cuatro capas de parallax, siluetas de sauces, bancos de niebla y juncos geométricos; arte final pendiente.
 - `Level3_1PlayTests`: entrada y destino correctos, imposibilidad de cruzar el foso tutorial con Doble Salto solo, conservación del Dash al morir y recorrido completo con entradas reales sin muertes. Las cuatro pruebas pasan, incluida la protección del extremo de entrada al caminar y usar Doble Salto.

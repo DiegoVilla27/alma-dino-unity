@@ -1,4 +1,4 @@
-> **Estado:** documento rector de diseño para reconstruir el juego. En esta rama están implementadas Alma (movimiento, doble salto, Pisotón, Dash, Rugido, muerte/reaparición y sus efectos visuales), en la escena de práctica `Level_1_1`, y como prefabs la planta carnívora (Mundo 1), el escarabajo de cristal y el murciélago de cueva (Mundo 2), el sapo venenoso (Mundo 3), la salamandra de magma (Mundo 4), doce trampas, diez piezas de nivel (plataformas, hongo saltarín, piso rompible, espora del Dash, barreras rompibles con Dash y corriente de viento), los puzles de la roca de basalto movible y del balancín (con contrapeso, runa y compuerta rúnica), el nido de checkpoint, los cuatro altares de habilidad, los cuatro huevos y el portal de salida; los enemigos con su arte y, desde el 7/10/2026, las trampas, piezas, puzles y elementos de progresión también con **arte final** (ver 6.1), además del guardado JSON y el reinicio de enemigos y trampas al reaparecer. Su estado y valores reales están en [`Player/Alma.md`](Player/Alma.md), [`Enemies/Plant_Carnivorous_Jungle.md`](Enemies/Plant_Carnivorous_Jungle.md), [`Enemies/CrystalBeetle_Caves.md`](Enemies/CrystalBeetle_Caves.md), [`Enemies/CaveBat_Caves.md`](Enemies/CaveBat_Caves.md), [`Enemies/PoisonToad_Swamp.md`](Enemies/PoisonToad_Swamp.md), [`Enemies/MagmaSalamander_Volcano.md`](Enemies/MagmaSalamander_Volcano.md), [`LevelPieces/Hazards.md`](LevelPieces/Hazards.md), [`LevelPieces/Pieces.md`](LevelPieces/Pieces.md), [`LevelPieces/Puzzles.md`](LevelPieces/Puzzles.md), [`LevelPieces/Progression.md`](LevelPieces/Progression.md) y [`Systems/SaveAndProgress.md`](Systems/SaveAndProgress.md); cada elemento nuevo tendrá su propia ficha. Las notas de fases y tiempos son planificación, no estado de producción.
+> **Estado:** documento rector de diseño. La reconstrucción actual incluye a Alma con sus cuatro habilidades y cámara ortográfica de tamaño 8; la escena de práctica `Level_1_1` con parallax de jungla; cinco enemigos, doce trampas, diez piezas de nivel, cinco piezas de puzle y diez elementos de progresión como prefabs; y guardado JSON. Los elementos visibles de estos grupos tienen arte integrado, salvo los efectos que se dibujan por código. Las veinte fichas de niveles y jefes describen niveles completos aún pendientes, incluido el diseño final de 1-1; sus registros de pruebas corresponden al prototipo retirado. El estado real se detalla en [Alma](Player/Alma.md), [enemigos](Enemies/), [piezas de nivel](LevelPieces/) y [guardado](Systems/SaveAndProgress.md).
 
 ---
 
@@ -8,7 +8,7 @@
 **Versión:** 1.0
 **Género:** Plataformas 2D de precisión con progresión tipo Metroidvania-lite
 **Plataformas:** PC (prioritario), consolas (si el alcance lo permite)
-**Motor:** Unity (C#) o Godot (GDScript)
+**Motor de la reconstrucción:** Unity 6000.6.0f1 (C#)
 **Duración estimada:** 4-6 horas
 **Público objetivo:** Jugadores de plataformas 2D que valoran la narrativa atmosférica y emocional (referencias: *Celeste*, *Hollow Knight*, *Ori and the Blind Forest*, *Yoshi's Island*)
 
@@ -84,7 +84,7 @@ Las habilidades se desbloquean al inicio de cada mundo y son **acumulativas**: n
 |---|---|---|---|---|
 | **1. Jungla** | 1-4 | **Doble Salto / Aleteo** | Segundo impulso en el aire; mantener salto conserva la altura y soltarlo acorta el ascenso. | Solo habilidades base. |
 | **2. Cuevas** | 5-8 | **Pisotón Sísmico** | En el aire, pulsar abajo para caer rápido y golpear el suelo. Rompe suelos frágiles y aturde enemigos. | Requiere Doble Salto para alcanzar altura. |
-| **3. Pantano** | 9-12 | **Dash Aéreo** | Impulso horizontal rápido en el aire. Otorga invulnerabilidad momentánea frente a vientos. | Requiere Doble Salto + Dash para cruzar abismos largos. |
+| **3. Pantano** | 9-12 | **Dash Aéreo** | Impulso horizontal rápido en el aire; ignora el empuje del viento mientras dura, sin inmunidad al daño. | Requiere Doble Salto + Dash para cruzar abismos largos. |
 | **4. Volcán** | 13-16 | **Rugido de Choque** | Proyectil cónico de corto alcance que empuja objetos y activa interruptores. | Requiere combinar todas las anteriores en puzles de *timing*. |
 
 ### 3.4. Física del personaje (Game Feel)
@@ -103,12 +103,13 @@ Perfil objetivo para todos los mundos. Los detalles y criterios de prueba viven 
 | Dash Distance / Time | 6 m en 0.45 s | Impulso rápido; congela la gravedad en Y durante el dash. |
 | Ground Pound Speed | 22.0 m/s hacia abajo | Caída seca con *wind-up* de 0.1 s antes de caer. |
 | Roar | 0.67 s; cono de 3 m y 45° (8 m para resonancia) | Alma no camina mientras ruge en el suelo; dura lo mismo que su animación. |
+| Cámara ortográfica | Tamaño fijo 8 | Seguimiento con zona muerta, anticipo horizontal y límites por escena; ver la [ficha de Alma](Player/Alma.md#cámara-daño-y-feedback). |
 | Coyote Time | 0.14 s | Permite saltar tras abandonar el borde. |
 | Jump Buffer | 0.12 s | Registra el salto pulsado justo antes de aterrizar. |
 
 ### 3.5. Máquina de estados finita (FSM)
 
-Para evitar código espagueti, el `PlayerController` se implementa como una FSM:
+El diagrama siguiente representa los estados de diseño. La implementación actual usa `AlmaMotor2D` para resolver habilidades y movimiento en física, y `AlmaAnimation` para seleccionar las animaciones por prioridad:
 
 ```
 [IDLE] <--> [RUN] <--> [JUMP / FALL] <--> [DOUBLE_JUMP]
@@ -117,7 +118,7 @@ Para evitar código espagueti, el `PlayerController` se implementa como una FSM:
 [GROUND_POUND] <-----------> [AIR_DASH] <--> [ROAR_ACTION]
 ```
 
-Cada estado gestiona sus propias transiciones y animaciones. Ningún estado se solapa con otro. Las pulsaciones se capturan en cada fotograma y se consumen una sola vez en el paso fijo de física; las transiciones y los impulsos se resuelven en ese paso.
+El motor comprueba las condiciones de cada habilidad y evita combinaciones incompatibles, como Dash con Pisotón; el Rugido aéreo sí permite conservar el movimiento horizontal y saltar. `AlmaAnimation` da prioridad a Dash, Pisotón y Rugido sobre locomoción y salto. Las pulsaciones se capturan en cada fotograma y se consumen una sola vez en el paso fijo de física; allí se resuelven las transiciones y los impulsos.
 
 ### 3.6. Loop de juego
 
@@ -275,7 +276,7 @@ Uso intenso de luz dinámica 2D (Unity URP 2D Renderer o Godot CanvasModulate + 
 Alma necesita, como mínimo:
 - Idle, Run, Jump, Fall, Double Jump, Ground Pound, Air Dash, Roar, Hurt, Rescate.
 - **Estado:** Idle, Run, Jump, Fall, Ground Pound, Air Dash y Roar tienen hoja de sprites (Jump de 4 frames y Fall de 2, separadas). Double Jump y Hurt/muerte se resuelven por código con efectos sobre el sprite existente; Rescate sigue pendiente.
-- Animaciones cortas (4-8 frames) para pixel art, con *smear frames* en acciones rápidas (Dash, Pisotón).
+- Animaciones cortas (4-8 frames) en el estilo 2D dibujado a mano elegido para la reconstrucción.
 
 ---
 
@@ -319,17 +320,13 @@ HUD minimalista y diegético.
 
 ### 9.1. Motor y versión
 
-- **Unity 6000.6.0f1** con URP 2D Renderer, **o**
-- **Godot 4.x** con Light2D.
-
-Ambos tienen herramientas nativas para plataformas 2D, tilemaps, luces 2D y animación por sprites.
+- **Implementado:** Unity 6000.6.0f1 con el pipeline integrado. La iluminación se representa ahora con sprites, partículas y shader de líquidos; no hay URP 2D configurado.
 
 ### 9.2. Arquitectura de código
 
-- **PlayerController** como FSM (ver sección 3.5).
-- **Sistemas desacoplados:** input, movimiento, habilidades y animación.
-- **ScriptableObjects (Unity) o Resources (Godot)** para datos de niveles, habilidades y enemigos.
-- **Event bus** simple para comunicación entre sistemas (ej. "huevo rescatado" → UI + animación + narrativa).
+- **Jugador:** `AlmaInput`, `AlmaMotor2D` y `AlmaAnimation` separan entrada, física/habilidades y animación; `AlmaMovementSettings` es un ScriptableObject de configuración.
+- **Escenario:** componentes y prefabs reutilizables por enemigo, trampa, recurso y sistema de progresión. Los eventos del jugador conectan Pisotón, muerte y reaparición con las piezas que reaccionan a ellos.
+- **Planificado:** ampliar las conexiones de objetivos del Rugido, los jefes y la interfaz cuando se reconstruyan sus escenas.
 
 ### 9.3. Guardado
 
@@ -340,15 +337,13 @@ Ambos tienen herramientas nativas para plataformas 2D, tilemaps, luces 2D y anim
 
 ### 9.4. Controles
 
-- **Teclado:** WASD o flechas + Espacio (salto) + Shift (dash) + Abajo/S o C (pisotón) + E o F (rugido).
-- **Mando:** Stick izquierdo + A (salto) + B (dash) + Abajo (pisotón) + X (rugido).
-- **Remapeable** desde el menú de opciones.
+- **Teclado implementado:** A/D o flechas izquierda/derecha (moverse), Espacio (salto), Shift (Dash), Abajo/S o C (Pisotón) y E o F (Rugido).
+- **Mando y controles táctiles:** previstos; aún no implementados.
+- **Remapeo desde opciones:** previsto; aún no implementado.
 
 ### 9.5. Optimización
 
-- **Object pooling** para partículas, enemigos y proyectiles.
-- **Tilemaps** en lugar de sprites individuales para el terreno.
-- **Culling** de enemigos fuera de pantalla.
+- **Objetivos futuros:** reutilización de partículas y proyectiles, tilemaps para el terreno y descarte de enemigos fuera de pantalla al construir niveles completos.
 - Objetivo: **60 FPS estables** en hardware modesto (integrada moderna).
 
 ---
@@ -427,5 +422,3 @@ Solo si el juego base funciona y hay demanda:
 8. **Criterios de salida por fase** — Cada fase tiene una condición clara para avanzar a la siguiente.
 9. **Duración estimada** — Añadida (4-6 h), el original no la especificaba.
 10. **Referencias concretas** — Añadidas para que el arte y el diseño tengan norte.
-
-

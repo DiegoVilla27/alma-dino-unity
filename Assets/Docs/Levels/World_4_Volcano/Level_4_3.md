@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** no hay escena implementada. Las notas sobre escenas, pruebas o assets existentes describen el prototipo anterior. La política vigente es jugar sin audio.
+> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 4-3: "La Gran Fractura"
 > **Mundo 4: Cima Volcánica** | **Función Pedagógica:** Complicar (La Gran Prueba de Síntesis Mecánica Total)
@@ -67,6 +67,6 @@ El nivel tiene tres situaciones distintas, con descanso en X=32 y X=68:
 
 El meteorito de la entrada aparece 2.4m a la derecha y 1.35m sobre Alma, dentro del Rugido normal de 3m. Cambia a cian al devolverse. Si se falla, hay otra oportunidad con aviso; junto a la compuerta se pide retroceder para mantener un ángulo alcanzable. Rugir directamente sobre la compuerta no la abre. Las salamandras apuntan hacia ambos lados y Rugido/Pisotón las aturden.
 
-Morir conserva la compuerta de entrada si ya quedó detrás del checkpoint y restaura el sello, la erupción, las cornisas, los chorros y los enemigos. Muro detrás del inicio. Cámara size 6, seguimiento de Alma y anticipación horizontal 1.25m. Portal X=110, Y=5.3 hacia `Level_4_4`, La Antecámara del Fuego. No rescata el Huevo Rojo ni completa el mundo. Arte definitivo pendiente.
+Morir conserva la compuerta de entrada si ya quedó detrás del checkpoint y restaura el sello, la erupción, las cornisas, los chorros y los enemigos. Muro detrás del inicio. Cámara size 8, seguimiento de Alma y anticipación horizontal 4.3 m. Portal X=110, Y=5.3 hacia `Level_4_4`, La Antecámara del Fuego. No rescata el Huevo Rojo ni completa el mundo. Arte definitivo pendiente.
 
-Validación: 16 pruebas PlayMode del 4-3, con ruta alta + huida completas sin muertes, ruta baja sin muertes, ascenso real de lava y reinicios de checkpoints. 77 pruebas EditMode aprobadas. Revisión visual a size 6.
+Validación: 16 pruebas PlayMode del 4-3, con ruta alta + huida completas sin muertes, ruta baja sin muertes, ascenso real de lava y reinicios de checkpoints. 77 pruebas EditMode aprobadas. Revisión visual histórica; repetirla con cámara de tamaño 8 al reconstruir.
