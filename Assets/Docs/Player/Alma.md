@@ -30,7 +30,8 @@ El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de fu
 | `Scripts/AlmaFxRoot.cs` | Agrupa en un único objeto de escena, «Alma FX», los efectos que deben quedarse fijos en el mundo (ondas, anillos, fantasmas, arcos y ráfagas). Se crea en tiempo de ejecución y se destruye con Alma. |
 | `Scripts/IRoarTarget.cs` | Contrato para objetos que reaccionan al Rugido (`ResonatesWithRoar`, `ReceiveRoar(origin, direction)`). |
 | `Scripts/AlmaMovementSettings.cs` | ScriptableObject con todos los valores de movimiento y habilidades. |
-| `Scripts/AlmaCameraFollow.cs` | Seguimiento suave, anticipación horizontal según velocidad y `Shake(amplitud, duración)` para temblores breves. |
+| `Scripts/AlmaCameraFollow.cs` | Cámara de plataformas: zonas muertas horizontal y vertical, anticipación gradual, encuadre bajo, límites de nivel y `Shake(amplitud, duración)` (ver [Cámara](#cámara-daño-y-feedback)). |
+| `Scripts/CameraBounds2D.cs` | Ajustes de cámara de un nivel (uno por escena): límites y altura fija opcional. |
 | `Configuration/AlmaMovement.asset` | Instancia de `AlmaMovementSettings` usada por el prefab. Los valores se editan aquí, no en el script. |
 | `Configuration/AlmaFrictionless.physicsMaterial2D` | Evita adherirse a paredes. |
 | `Animations/` | Hojas de sprites, clips y el controlador `Idle/Player_Idle_Sheet_0.controller`. |
@@ -232,7 +233,23 @@ Conservar tamaño de lienzo, pivote, escala y línea de apoyo coherentes entre f
 
 > **Discrepancia pendiente:** `AlmaCameraFollow.Awake` fuerza hoy `orthographicSize = 8`, aunque el diseño y la escena indican 6. Decidir el valor y alinear código y documento.
 
-La cámara de **todos los niveles y jefes** tendrá tamaño ortográfico 6, seguirá a Alma con suavizado y mostrará aproximadamente 1,25 unidades adicionales hacia la dirección de desplazamiento. Al detenerse, el encuadre vuelve al centro. Cada nivel puede limitar el recorrido de cámara para evitar enseñar zonas fuera del mapa, sin cambiar el zoom.
+**Comportamiento actual (7/10/2026).** La cámara se mueve poco, despacio y con intención, para que el nivel y su parallax se vean tranquilos:
+
+| Regla | Qué hace | Campo | Valor |
+| --- | --- | --- | ---: |
+| **Zona muerta** | Alma se mueve libremente dentro de una franja central; la cámara solo la sigue cuando empuja su borde. Pasos cortos y giros no mueven la vista. | `Dead Zone Width` | 3 |
+| **Anticipación** | Tras correr en una dirección, la vista se adelanta poco a poco para mostrar lo que viene; al girar vuelve gradualmente (nunca de golpe). Quieta, conserva la anticipación. | `Look Ahead Distance` / `Look Ahead Time` / `Look Ahead Delay` / `Look Ahead Speed Threshold` | 2,5 / 1,2 s / 0,3 s / 0,6 × velocidad de carrera |
+| **Suavizado horizontal** | Con tope de velocidad para no "barrer" la pantalla al alcanzar a Alma. | `Horizontal Smooth Time` / `Max Speed Factor` | 0,25 s / 1,3 × carrera |
+| **Encuadre inicial** | Al empezar y al reaparecer, Alma queda baja en la pantalla (se ve más lo de arriba). | `Alma Screen Height` | 0,38 |
+| **Zona muerta vertical** | La vista no se mueve en vertical mientras Alma esté en la franja central: saltar, subir o bajar escalones y plataformas no la mueve (sin efecto ascensor). Solo se recoloca, suave, cuando Alma pasa del borde de la franja (subidas grandes, fosos). | `Dead Zone Bottom` / `Dead Zone Top` / `Vertical Smooth Time` | 0,2 / 0,65 de la pantalla / 0,35 s |
+| **Altura fija (por nivel)** | En niveles horizontales, la cámara no se mueve nunca en vertical: solo de lado. | `CameraBounds2D.Lock Height` / `Fixed Camera Y` | no / 5 (por nivel) |
+| **Límites** | Con un `CameraBounds2D` en la escena, la vista nunca enseña más allá de sus bordes (ni bajo el suelo); si el área es menor que la vista, se centra. | `CameraBounds2D.Size` | por nivel |
+
+Al empezar y al reaparecer Alma, la cámara salta a ella sin deslizarse por el nivel (`SnapToTarget`). Comprobado con pruebas PlayMode: saltar no mueve la vista (0 u), subir a una cornisa tampoco (0 u), una subida grande la recoloca dejando a Alma al 64 % de la pantalla, con altura fija no se mueve nada en vertical, pasos cortos no la mueven (0 u), girar no supera 1,3 × la velocidad de carrera y la vista no sale de los límites.
+
+**Elección por nivel:** niveles horizontales (1-1, 1-3) → `Lock Height` activo; niveles de ascenso (1-2, 1-4) → zona muerta vertical.
+
+**Límites por nivel:** el rectángulo debe cubrir el área jugable; conviene que su borde inferior quede 2–3 u por debajo del suelo más bajo (rellenas con terreno) para que Alma no quede pegada al borde de la pantalla.
 
 Todo contacto con un peligro activo es letal y produce reaparición; no hay barra de HP. Una ventana segura de un enemigo o trampa debe indicarse visualmente. La disponibilidad del Dash, los avisos de ataque, los temporizadores, los checkpoints y los rescates también deben entenderse sin sonido y sin depender solo del color.
 
