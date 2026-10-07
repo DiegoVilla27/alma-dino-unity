@@ -12,6 +12,8 @@ namespace AlmaGame.Level
         [SerializeField] private Vector2 _size = new Vector2(3f, 0.6f);
         [SerializeField] private bool _restoreOnRespawn = true;
         [SerializeField] private Color _dustColor = new Color(0.7f, 0.66f, 0.6f, 0.8f);
+        [Tooltip("Colour of the rock pieces it breaks into (the sprite itself is not tinted).")]
+        [SerializeField] private Color _debrisColor = new Color(0.4f, 0.36f, 0.38f, 1f);
         [SerializeField, Min(0f)] private float _shakeAmplitude = 0.12f;
         [SerializeField, Min(0f)] private float _shakeDuration = 0.18f;
         [SerializeField] private string _label = "Piso rompible";
@@ -36,7 +38,7 @@ namespace AlmaGame.Level
             _collider.isTrigger = false;
             _player = FindAnyObjectByType<AlmaMotor2D>();
             if (_player != null) _playerCollider = _player.GetComponent<Collider2D>();
-            Color color = _renderer.color;
+            Color color = _debrisColor;
             int layer = _renderer.sortingLayerID;
             int order = _renderer.sortingOrder;
 

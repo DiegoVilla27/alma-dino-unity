@@ -15,6 +15,8 @@ namespace AlmaGame.Level
         [SerializeField] private bool _canRespawn;
         [SerializeField, Min(0.1f)] private float _respawnDelay = 5f;
         [SerializeField] private bool _restoreOnRespawn = true;
+        [Tooltip("Colour of the pieces it breaks into (the sprite itself is not tinted).")]
+        [SerializeField] private Color _debrisColor = new Color(0.55f, 0.65f, 0.3f, 1f);
         [SerializeField] private string _label = "Barrera Dash";
         [SerializeField] private bool _showLabel = true;
 
@@ -48,7 +50,7 @@ namespace AlmaGame.Level
             main.startSpeed = new ParticleSystem.MinMaxCurve(1.5f, 4f);
             main.startSize = new ParticleSystem.MinMaxCurve(0.12f, 0.3f);
             main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
-            main.startColor = new ParticleSystem.MinMaxGradient(_baseColor, _baseColor * 0.7f);
+            main.startColor = new ParticleSystem.MinMaxGradient(_debrisColor, _debrisColor * 0.7f);
             main.gravityModifier = 1.8f;
             var shape = _debris.shape;
             shape.shapeType = ParticleSystemShapeType.Box;

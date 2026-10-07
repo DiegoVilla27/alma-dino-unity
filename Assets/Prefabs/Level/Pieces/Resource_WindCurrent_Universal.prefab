@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2886902420985003706}
   - component: {fileID: 6662939629560498185}
   - component: {fileID: 4082279105062294584}
+  - component: {fileID: 6186553325385070151}
   m_Layer: 0
   m_Name: Resource_WindCurrent_Universal
   m_TagString: Untagged
@@ -84,7 +85,7 @@ SpriteRenderer:
   m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 1387dde0d2434013881fcc5b66e5b1ed, type: 3}
-  m_Color: {r: 0.7, g: 0.9, b: 1, a: 0.15}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -133,9 +134,9 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 6, y: 3}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 6, y: 3}
@@ -160,4 +161,17 @@ MonoBehaviour:
   _streakColor: {r: 0.9, g: 0.97, b: 1, a: 0.55}
   _streaksPerUnit: 1.2
   _label: Corriente de viento
-  _showLabel: 1
+  _showLabel: 0
+--- !u!114 &6186553325385070151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8125427692691188036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689e3ccc32dc4792859b50fb844b8cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.PieceArt2D
+  _margin: {x: 0, y: 0}

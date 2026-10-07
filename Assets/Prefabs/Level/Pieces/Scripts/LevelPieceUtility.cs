@@ -6,13 +6,16 @@ namespace AlmaGame.Level
     // Helpers shared by the level pieces (platforms, mushroom, breakable floor, spore).
     public static class LevelPieceUtility
     {
-        // Tiles the sprite to `size` (art repeats instead of stretching) and fits the collider to it.
+        // Fits the collider to `size` and the sprite to `size` plus the art margin of its PieceArt2D, if any.
+        // A Simple sprite becomes Tiled (art repeats instead of stretching); Tiled and Sliced keep their mode,
+        // so single objects (mushroom, spore) can use Sliced without borders to scale as one picture.
         public static void ApplySize(SpriteRenderer renderer, BoxCollider2D collider, Vector2 size)
         {
             if (renderer != null)
             {
-                renderer.drawMode = SpriteDrawMode.Tiled;
-                renderer.size = size;
+                if (renderer.drawMode == SpriteDrawMode.Simple) renderer.drawMode = SpriteDrawMode.Tiled;
+                Vector2 margin = renderer.TryGetComponent(out PieceArt2D art) ? art.Margin : Vector2.zero;
+                renderer.size = size + 2f * margin;
             }
             if (collider != null)
             {

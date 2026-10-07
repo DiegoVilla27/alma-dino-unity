@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4501342484758686907}
   - component: {fileID: 4955525222218978188}
   - component: {fileID: 8978033263256314285}
+  - component: {fileID: 6496515044929485735}
   m_Layer: 0
   m_Name: Platform_Crumbling_Base
   m_TagString: Untagged
@@ -133,9 +134,9 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 2.5, y: 0.4}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 2.5, y: 0.4}
@@ -157,5 +158,19 @@ MonoBehaviour:
   _respawnTime: 2.5
   _shakeIntensity: 0.05
   _reformTime: 0.25
+  _debrisColor: {r: 0.45, g: 0.75, b: 0.3, a: 1}
   _label: Plataforma que se desmorona
   _showLabel: 1
+--- !u!114 &6496515044929485735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4814981352685090186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689e3ccc32dc4792859b50fb844b8cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.PieceArt2D
+  _margin: {x: 0, y: 0}

@@ -8,29 +8,97 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4501342484758686907, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_Size.y
+      value: 1.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 4501342484758686907, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c406bccd2d0409b8f9773648e122f9c, type: 3}
+    - target: {fileID: 4501342484758686907, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4501342484758686907, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4501342484758686907, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4501342484758686907, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_DrawMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4501342484758686907, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_SpriteTileMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4814981352685090186, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
       propertyPath: m_Name
       value: Platform_CrumblingLeaf_Jungle
       objectReference: {fileID: 0}
-    - target: {fileID: 4501342484758686907, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
-      propertyPath: m_Color.r
-      value: 0.45
+    - target: {fileID: 4955525222218978188, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_Size.y
+      value: 0.297
       objectReference: {fileID: 0}
-    - target: {fileID: 4501342484758686907, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
-      propertyPath: m_Color.g
-      value: 0.75
+    - target: {fileID: 4955525222218978188, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.x
+      value: 0.44140625
       objectReference: {fileID: 0}
-    - target: {fileID: 4501342484758686907, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
-      propertyPath: m_Color.b
-      value: 0.3
+    - target: {fileID: 4955525222218978188, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.z
+      value: 0.43359375
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955525222218978188, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_SpriteTilingProperty.drawMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955525222218978188, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 1.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955525222218978188, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955525222218978188, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955525222218978188, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_SpriteTilingProperty.adaptiveTiling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6496515044929485735, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: _margin.y
+      value: 0.414
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978033263256314285, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: _label
+      value: Hoja que se desmorona
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978033263256314285, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: _size.y
+      value: 0.297
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978033263256314285, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: _showLabel
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8978033263256314285, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
       propertyPath: _collapseTime
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8978033263256314285, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
-      propertyPath: _label
-      value: Hoja que se desmorona
+      propertyPath: _debrisColor.b
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978033263256314285, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: _debrisColor.g
+      value: 0.72
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

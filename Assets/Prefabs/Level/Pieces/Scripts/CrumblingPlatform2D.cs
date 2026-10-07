@@ -14,6 +14,8 @@ namespace AlmaGame.Level
         [SerializeField, Min(0.1f)] private float _respawnTime = 2.5f;
         [SerializeField, Min(0f)] private float _shakeIntensity = 0.05f;
         [SerializeField, Min(0.05f)] private float _reformTime = 0.25f;
+        [Tooltip("Colour of the pieces it crumbles into (the sprite itself is not tinted).")]
+        [SerializeField] private Color _debrisColor = new Color(0.45f, 0.75f, 0.3f, 1f);
         [SerializeField] private string _label = "Plataforma que se desmorona";
         [SerializeField] private bool _showLabel = true;
 
@@ -47,7 +49,7 @@ namespace AlmaGame.Level
             main.startSpeed = new ParticleSystem.MinMaxCurve(0.2f, 1.2f);
             main.startSize = new ParticleSystem.MinMaxCurve(0.12f, 0.28f);
             main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
-            main.startColor = new ParticleSystem.MinMaxGradient(_baseColor, _baseColor * 0.75f);
+            main.startColor = new ParticleSystem.MinMaxGradient(_debrisColor, _debrisColor * 0.75f);
             main.gravityModifier = 1.5f;
             var shape = _crumbs.shape;
             shape.shapeType = ParticleSystemShapeType.Box;

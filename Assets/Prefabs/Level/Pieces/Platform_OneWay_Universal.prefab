@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3767588650808246746}
   - component: {fileID: 8249054951050651542}
   - component: {fileID: 6786397725136334993}
+  - component: {fileID: 5401921749912780961}
   m_Layer: 0
   m_Name: Platform_OneWay_Universal
   m_TagString: Untagged
@@ -83,14 +84,14 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1387dde0d2434013881fcc5b66e5b1ed, type: 3}
-  m_Color: {r: 0.4, g: 0.6, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 019b7de7022a4cb5b1f426abedd65804, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 3, y: 0.3}
+  m_Size: {x: 3, y: 0.633}
   m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
+  m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
@@ -130,15 +131,15 @@ BoxCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.39453125, y: 0, z: 0.4296875, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 3, y: 0.6328125}
+    newSize: {x: 3, y: 0.633}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
+    drawMode: 2
+    adaptiveTiling: 1
   m_AutoTiling: 0
-  m_Size: {x: 3, y: 0.3}
+  m_Size: {x: 3, y: 0.297}
   m_EdgeRadius: 0
 --- !u!114 &6786397725136334993
 MonoBehaviour:
@@ -152,7 +153,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a9b73e73184d4db5005f3d1093f876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.OneWayPlatform2D
-  _size: {x: 3, y: 0.3}
+  _size: {x: 3, y: 0.297}
   _surfaceArc: 160
   _label: Plataforma atravesable
-  _showLabel: 1
+  _showLabel: 0
+--- !u!114 &5401921749912780961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4956771235004336139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689e3ccc32dc4792859b50fb844b8cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.PieceArt2D
+  _margin: {x: 0, y: 0.168}

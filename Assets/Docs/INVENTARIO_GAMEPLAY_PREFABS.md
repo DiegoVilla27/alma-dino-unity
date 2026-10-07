@@ -196,7 +196,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 1. Pinchos de jungla
 
-- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_Spikes_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_Spikes_Jungle.png`, modo Simple a escala 2 × 2: la zona letal real es el doble de `Size`). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_Spikes_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_Spikes_Jungle.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_Spikes_Jungle.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -208,7 +208,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 2. Zarzas del pantano
 
-- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_Briers_Swamp.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_Briers_Swamp.png`, modo Simple a escala 2 × 2: la zona letal real es el doble de `Size`). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_Briers_Swamp.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_Briers_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_Briers_Swamp.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -221,7 +221,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 3. Pilar con espinas
 
-- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_SpikedPillar_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_SpikedPillar_Jungle.png`, modo Simple a escala 2 × 2: la zona letal real es el doble de `Size`). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_SpikedPillar_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_SpikedPillar_Jungle.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_SpikedPillar_Jungle.prefab`.
 - **Implementación:** `HazardTrigger2D + colliders de estructura`.
@@ -234,7 +234,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 4. Cristales punzantes y estalagmitas
 
-- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_CrystalSpikes_Caves.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_CrystalSpikes_Caves.png`, modo Simple a escala 2 × 2: la zona letal real es el doble de `Size`). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_CrystalSpikes_Caves.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_CrystalSpikes_Caves.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_CrystalSpikes_Caves.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -246,7 +246,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 5. Pinchos ardientes
 
-- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_BurningSpikes_Volcano.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_BurningSpikes_Volcano.png`, modo Simple a escala 2 × 2: la zona letal real es el doble de `Size`). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_BurningSpikes_Volcano.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_BurningSpikes_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_BurningSpikes_Volcano.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -285,7 +285,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 8. Gas tóxico ascendente
 
-- **Estado:** implementado con marcador provisional y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_RisingToxicGas_Swamp.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
+- **Estado:** implementado con arte final (sprite fijo, escala 2 × 2; ver problemas conocidos en la ficha) y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_RisingToxicGas_Swamp.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
 - **Archivo definitivo:** `Trap_RisingToxicGas_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_RisingToxicGas_Swamp.prefab`.
 - **Implementación:** `RisingHazardFloor2D`.
@@ -336,7 +336,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 12. Techo aplastante
 
-- **Estado:** implementado con marcador provisional y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_CrushingCeiling_Caves.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
+- **Estado:** implementado con arte final (sprite fijo, escala 2 × 2; ver problemas conocidos en la ficha) y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_CrushingCeiling_Caves.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
 - **Archivo definitivo:** `Trap_CrushingCeiling_Caves.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_CrushingCeiling_Caves.prefab`.
 - **Implementación:** `CrushingCeiling2D`.
@@ -349,7 +349,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 13. Géiser volcánico peligroso
 
-- **Estado:** implementado con marcador provisional y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_FireGeyser_Volcano.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
+- **Estado:** implementado con arte final (sprite fijo, escala 2 × 2; ver problemas conocidos en la ficha) y efectos de partículas generados por código. Prefab real: `Assets/Prefabs/Level/Hazards/Trap_FireGeyser_Volcano.prefab`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md#trampas-dinámicas).
 - **Archivo definitivo:** `Trap_FireGeyser_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_FireGeyser_Volcano.prefab`.
 - **Implementación:** `LavaGeyser2D`.
@@ -387,7 +387,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 16. Zona de caída mortal
 
-- **Estado:** implementado con marcador provisional (caja de color y etiqueta). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_DeathZone_Universal.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado; invisible en juego a propósito (sin sprite; en el editor se ve magenta translúcido). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_DeathZone_Universal.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_DeathZone_Universal.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_DeathZone_Universal.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -555,7 +555,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 2. Plataforma atravesable desde abajo
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Pieces/Platform_OneWay_Universal.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
+- **Estado:** implementado con arte final (sprite `Pieces/Sprites/Platform_OneWay_Universal.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Platform_OneWay_Universal.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Platform_OneWay_Universal.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Platform_OneWay_Universal.prefab`.
 - **Implementación:** `BoxCollider2D + PlatformEffector2D`.
@@ -567,7 +567,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 3. Hongo saltarín
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Pieces/Resource_BouncyMushroom_Jungle.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
+- **Estado:** implementado con arte final (sprite `Pieces/Sprites/Resource_BouncyMushroom_Jungle.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Resource_BouncyMushroom_Jungle.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Resource_BouncyMushroom_Jungle.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_BouncyMushroom_Jungle.prefab`.
 - **Implementación:** `BouncyPlatform2D`.
@@ -603,7 +603,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 6. Hoja que se desmorona
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Pieces/Platform_CrumblingLeaf_Jungle.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
+- **Estado:** implementado con arte final (sprite `Pieces/Sprites/Platform_CrumblingLeaf_Jungle.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Platform_CrumblingLeaf_Jungle.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Platform_CrumblingLeaf_Jungle.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Platform_CrumblingLeaf_Jungle.prefab`.
 - **Implementación:** `CrumblingPlatform2D`.
@@ -616,7 +616,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 7. Nenúfar que se desmorona
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Pieces/Platform_CrumblingLilypad_Swamp.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
+- **Estado:** implementado con arte final (sprite `Pieces/Sprites/Platform_CrumblingLilypad_Swamp.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Platform_CrumblingLilypad_Swamp.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Platform_CrumblingLilypad_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Platform_CrumblingLilypad_Swamp.prefab`.
 - **Implementación:** `CrumblingPlatform2D`.
@@ -628,7 +628,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 8. Cornisa que colapsa
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Pieces/Platform_CrumblingLedge_Volcano.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
+- **Estado:** implementado con arte final (sprite `Pieces/Sprites/Platform_CrumblingLedge_Volcano.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Platform_CrumblingLedge_Volcano.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Platform_CrumblingLedge_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Platform_CrumblingLedge_Volcano.prefab`.
 - **Implementación:** `CrumblingPlatform2D`.
@@ -652,7 +652,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 10. Piso rompible con Pisotón
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Pieces/Resource_PoundBreakableFloor_Universal.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
+- **Estado:** implementado con arte final (sprite `Pieces/Sprites/Resource_PoundBreakableFloor_Universal.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Resource_PoundBreakableFloor_Universal.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Resource_PoundBreakableFloor_Universal.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_PoundBreakableFloor_Universal.prefab`.
 - **Implementación:** `BreakableGround2D`.
@@ -688,7 +688,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 13. Barrera de cañas rompible
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Pieces/Resource_DashReedBarrier_Swamp.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
+- **Estado:** implementado con arte final (sprite `Pieces/Sprites/Resource_DashReedBarrier_Swamp.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Resource_DashReedBarrier_Swamp.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Resource_DashReedBarrier_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_DashReedBarrier_Swamp.prefab`.
 - **Implementación:** `DashBreakableBarrier2D`.
@@ -701,7 +701,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 14. Reja rompible con Dash
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Pieces/Resource_DashTrialGrid_Volcano.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
+- **Estado:** implementado con arte final (sprite `Pieces/Sprites/Resource_DashTrialGrid_Volcano.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Resource_DashTrialGrid_Volcano.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Resource_DashTrialGrid_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_DashTrialGrid_Volcano.prefab`.
 - **Implementación:** `DashBreakableBarrier2D`.
@@ -751,7 +751,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 18. Corriente de viento
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Pieces/Resource_WindCurrent_Universal.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
+- **Estado:** implementado; sin imagen a propósito (su visual son el área translúcida y los trazos de partículas). Prefab real: `Assets/Prefabs/Level/Pieces/Resource_WindCurrent_Universal.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Resource_WindCurrent_Universal.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_WindCurrent_Universal.prefab`.
 - **Implementación:** `WindCurrentZone2D`.
@@ -764,7 +764,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 19. Espora de recarga de Dash
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Pieces/Resource_DashRefillSpore_Swamp.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
+- **Estado:** implementado con arte final (sprite `Pieces/Sprites/Resource_DashRefillSpore_Swamp.png`). Prefab real: `Assets/Prefabs/Level/Pieces/Resource_DashRefillSpore_Swamp.prefab`. Ficha: [Piezas de nivel](LevelPieces/Pieces.md).
 - **Archivo definitivo:** `Resource_DashRefillSpore_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_DashRefillSpore_Swamp.prefab`.
 - **Implementación:** `DashRefillPickup2D`.
