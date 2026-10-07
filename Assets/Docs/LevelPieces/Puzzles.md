@@ -4,6 +4,8 @@
 
 Fichas de diseño originales: [inventario, Recursos](../INVENTARIO_GAMEPLAY_PREFABS.md#recursos) y [Level 2-2](../Levels/World_2_Caves/Level_2_2.md). Otras piezas: [plataformas y recursos](Pieces.md), [trampas](Hazards.md). Jugador: [Alma](../Player/Alma.md).
 
+**Comprobado de nuevo (7/10/2026)** tras el arte y los tamaños nuevos, con pruebas PlayMode en una copia del proyecto: el Rugido empuja la roca 5 u, sobre su lava se hunde y aparece la costra del puente; un Pisotón en el balancín lanza el contrapeso, que enciende la runa, y la compuerta se abre. Las piezas que buscan a Alma al empezar (balancín, roca) necesitan que Alma ya exista en la escena.
+
 ## Resumen
 
 | Prefab | Carpeta | Etiqueta | Arte | `Size` | Qué hace | Mundo |

@@ -196,7 +196,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 1. Pinchos de jungla
 
-- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_Spikes_Jungle.png`, modo Simple a escala 2 × 2: la zona letal real es el doble de `Size`). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_Spikes_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_Spikes_Jungle.png`, modo Simple a escala 1 × 1). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_Spikes_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_Spikes_Jungle.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_Spikes_Jungle.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -208,7 +208,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 2. Zarzas del pantano
 
-- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_Briers_Swamp.png`, modo Simple a escala 2 × 2: la zona letal real es el doble de `Size`). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_Briers_Swamp.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_Briers_Swamp.png`, modo Simple a escala 1 × 1). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_Briers_Swamp.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_Briers_Swamp.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_Briers_Swamp.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -221,7 +221,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 3. Pilar con espinas
 
-- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_SpikedPillar_Jungle.png`, modo Simple a escala 2 × 2: la zona letal real es el doble de `Size`). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_SpikedPillar_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_SpikedPillar_Jungle.png`, modo Simple a escala 1 × 1). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_SpikedPillar_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_SpikedPillar_Jungle.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_SpikedPillar_Jungle.prefab`.
 - **Implementación:** `HazardTrigger2D + colliders de estructura`.
@@ -234,7 +234,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 4. Cristales punzantes y estalagmitas
 
-- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_CrystalSpikes_Caves.png`, modo Simple a escala 2 × 2: la zona letal real es el doble de `Size`). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_CrystalSpikes_Caves.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_CrystalSpikes_Caves.png`, modo Simple a escala 1 × 1). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_CrystalSpikes_Caves.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_CrystalSpikes_Caves.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_CrystalSpikes_Caves.prefab`.
 - **Implementación:** `HazardTrigger2D`.
@@ -246,7 +246,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 5. Pinchos ardientes
 
-- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_BurningSpikes_Volcano.png`, modo Simple a escala 2 × 2: la zona letal real es el doble de `Size`). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_BurningSpikes_Volcano.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_BurningSpikes_Volcano.png`, modo Simple a escala 1 × 1). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_BurningSpikes_Volcano.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
 - **Archivo definitivo:** `Trap_BurningSpikes_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Traps/Trap_BurningSpikes_Volcano.prefab`.
 - **Implementación:** `HazardTrigger2D`.

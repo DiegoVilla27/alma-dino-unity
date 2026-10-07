@@ -4,6 +4,8 @@
 
 Fichas de diseño originales: [inventario, Recursos](../INVENTARIO_GAMEPLAY_PREFABS.md#recursos). GDD: 8.3 (checkpoints) y 9.3 (guardado). Jugador: [Alma](../Player/Alma.md).
 
+**Comprobado de nuevo (7/10/2026)** tras el arte y los tamaños nuevos, con pruebas PlayMode en una copia del proyecto: el nido se enciende y pasa a ser el punto de reaparición; el altar desbloquea su habilidad; el huevo se rescata; el portal se activa al entrar Alma.
+
 ## Resumen
 
 | Prefab | Etiqueta | Arte | `Size` | Qué hace |

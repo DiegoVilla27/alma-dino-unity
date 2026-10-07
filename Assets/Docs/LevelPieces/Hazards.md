@@ -1,6 +1,6 @@
 # Zonas de peligro — piezas de nivel
 
-**Estado (7 de octubre de 2026):** conjunto de trampas **cerrado** en doce: implementadas en Unity 6000.6.0f1 con un script común, un prefab base, nueve variantes estáticas y tres trampas dinámicas (gas tóxico ascendente, géiser volcánico y techo aplastante). Las otras cuatro trampas del inventario se descartaron. **Todas tienen arte final** salvo la zona de muerte, que es invisible a propósito. Los tres líquidos (lava, lago y lodo) son redimensionables y tienen vida (shader + partículas). El techo y el géiser pasaron a escala 1 × 1, la bola del géiser tiene un dibujo nuevo y el gas es ahora un volumen redimensionable como los líquidos (7/10/2026). Todavía no están colocadas en ninguna escena ni probadas en juego, y queda un [problema conocido](#problemas-conocidos) en las trampas estáticas a escala 2 × 2.
+**Estado (7 de octubre de 2026):** conjunto de trampas **cerrado** en doce: implementadas en Unity 6000.6.0f1 con un script común, un prefab base, nueve variantes estáticas y tres trampas dinámicas (gas tóxico ascendente, géiser volcánico y techo aplastante). Las otras cuatro trampas del inventario se descartaron. **Todas tienen arte final** salvo la zona de muerte, que es invisible a propósito. Los tres líquidos (lava, lago y lodo) son redimensionables y tienen vida (shader + partículas). Todas están a escala 1 × 1, la bola del géiser tiene un dibujo nuevo y el gas es un volumen redimensionable como los líquidos (7/10/2026). Todavía no están colocadas en ninguna escena; están comprobadas con pruebas PlayMode (ver [Pruebas](#pruebas)).
 
 Fichas de diseño originales: [inventario, Trampas](../INVENTARIO_GAMEPLAY_PREFABS.md#trampas). Jugador: [Alma](../Player/Alma.md). Piezas no letales: [Piezas de nivel](Pieces.md).
 
@@ -46,30 +46,32 @@ Todo está en `Assets/Prefabs/Level/Hazards/`:
 
 ## Dos formas de dibujar
 
-| | Dibujo fijo a escala 2 | Objeto recortado a escala 1 | Líquidos redimensionables |
+| | Dibujo fijo | Objeto recortado | Líquidos redimensionables |
 | --- | --- | --- | --- |
 | Prefabs | Pinchos, zarzas, cristales, pinchos ardientes, pilar | Techo aplastante, géiser | Lava, lago tóxico, lodo tóxico, **gas tóxico** |
 | `Draw Mode` | **Simple** (tamaño fijo) | **Sliced** sin borders (el dibujo se ajusta a su tamaño) | **Tiled** (tile 9-slice que se repite) |
-| Escala del Transform | **2 × 2** | **1 × 1** | **1 × 1** |
-| Sprite | 512 × 512 px a **150 PPU** (×2 = 6,83 u en pantalla) | Recortado al dibujo, **75 PPU** (se ve igual que antes a escala 2) | Tile a 256/320 PPU |
+| Escala del Transform | **1 × 1** | **1 × 1** | **1 × 1** |
+| Sprite | 512 × 512 px a **75 PPU** (6,83 u en pantalla) | Recortado al dibujo, **75 PPU** | Tile a 256/320 PPU |
 | Cambiar el tamaño | No se adapta: `Size` solo cambia la zona letal | `Size` (techo) o `Vent Size` (géiser), o la herramienta Rect: el dibujo se estira a ese tamaño | `Size` o herramienta Rect: dibujo y zona letal juntos |
-| Zona letal real | **El doble de `Size`** | Igual a `Size` (techo) / radio de la bola (géiser) | Igual a `Size` (menos `Hitbox Inset`) |
+| Zona letal | `Size` menos `Hitbox Inset` (0,1), o la personalizada | Igual a `Size` (techo) / radio de la bola (géiser) | Igual a `Size` (menos `Hitbox Inset`) |
 
 ## Trampas estáticas (9)
 
-| Prefab | Sprite | Draw / escala | `Size` | Zona letal real | Particularidad |
+| Prefab | Sprite | Draw / escala | `Size` | Zona letal | Particularidad |
 | --- | --- | --- | --- | --- | --- |
-| `Trap_Spikes_Jungle` | `Trap_Spikes_Jungle.png` | Simple / 2 | 3 × 0,5 | 5,8 × 0,8 | — |
-| `Trap_Briers_Swamp` | `Trap_Briers_Swamp.png` | Simple / 2 | 3 × 0,8 | 5,8 × 1,4 | El sprite tiene borders (39, 192, 37, 196) que en Simple no se usan. |
-| `Trap_CrystalSpikes_Caves` | `Trap_CrystalSpikes_Caves.png` | Simple / 2 | 3 × 0,6 | 5,8 × 1,0 | — |
-| `Trap_BurningSpikes_Volcano` | `Trap_BurningSpikes_Volcano.png` | Simple / 2 | 3 × 0,5 | 5,8 × 0,8 | — |
-| `Trap_SpikedPillar_Jungle` | `Trap_SpikedPillar_Jungle.png` | Simple / 2 | 1,6 × 4 | 3,2 × 6,8 (desplazada −0,6) | Tronco **sólido** de 1 × 4 (2 × 8 en pantalla) que se puede pisar. Zona letal personalizada (1,6 × 3,4, desplazada 0,3 hacia abajo antes de escalar): mata al tocar sus lados, no al estar encima. |
+| `Trap_Spikes_Jungle` | `Trap_Spikes_Jungle.png` | Simple / 1 | 6 × 1 | 5,8 × 0,8 | — |
+| `Trap_Briers_Swamp` | `Trap_Briers_Swamp.png` | Simple / 1 | 6 × 1,6 | 5,8 × 1,4 | El sprite tiene borders (39, 192, 37, 196) que en Simple no se usan. |
+| `Trap_CrystalSpikes_Caves` | `Trap_CrystalSpikes_Caves.png` | Simple / 1 | 6 × 1,2 | 5,8 × 1,0 | — |
+| `Trap_BurningSpikes_Volcano` | `Trap_BurningSpikes_Volcano.png` | Simple / 1 | 6 × 1 | 5,8 × 0,8 | — |
+| `Trap_SpikedPillar_Jungle` | `Trap_SpikedPillar_Jungle.png` | Simple / 1 | 3,2 × 8 | 3,2 × 6,8, desplazada −0,6 (personalizada) | Tronco **sólido** de 2 × 8 (`Solid Size`) que se puede pisar. La zona letal personalizada mata al tocar sus lados, no al estar encima. |
 | `Trap_ToxicMud_Swamp` | `Trap_ToxicMud_Swamp_Tile.png` | Tiled / 1 | 4 × 0,6 | 3,9 × 0,5 | Líquido. Ver [Líquidos redimensionables](#líquidos-redimensionables). |
 | `Trap_ToxicLake_Swamp` | `Trap_ToxicLake_Swamp_Tile.png` | Tiled / 1 | 6 × 1,5 | 5,9 × 1,4 | Líquido. |
 | `Trap_LavaPool_Volcano` | `Trap_LavaPool_Volcano_Tile.png` | Tiled / 1 | 5 × 1,2 | 4,9 × 1,1 | Líquido. |
 | `Trap_DeathZone_Universal` | ninguno | Tiled / 1 | 10 × 2 | 10 × 2 | **Invisible en juego** (`Visible In Game` = no); en el editor se ve magenta translúcido (1; 0; 1; 0,35). Zona letal completa (`Hitbox Inset` 0). Se coloca bajo los abismos. |
 
-Todas las estáticas con arte tienen el color en blanco (sin tinte) y `Show Label` desactivado; la zona de muerte conserva la etiqueta, pero no se ve al jugar.
+Todas las estáticas con arte tienen el color en blanco (sin tinte) y `Show Label` desactivado; la zona de muerte conserva la etiqueta, pero no se ve al jugar. `Hitbox Inset` es 0,1 en las cinco de dibujo fijo.
+
+**Cambio de escala (7/10/2026):** estas cinco estaban a escala 2 × 2 con sprites a 150 PPU, así que su zona letal real era el doble de `Size`. Ahora están a escala 1 × 1 con los sprites a 75 PPU y todas las medidas dobladas (`Size`, `Hitbox Inset`, zona personalizada y parte sólida). **El resultado en el mundo es idéntico** (comprobado midiendo en Unity los límites de sprite y colisionadores antes y después) y `Size` vuelve a ser la medida real.
 
 ## Líquidos redimensionables
 
@@ -136,7 +138,7 @@ Las tres están a escala 1 × 1: el gas usa un tile repetible como los líquidos
 
 Un **volumen** que sube desde un fondo fijo y crece: se dibuja como los líquidos, con un tile repetible (`Trap_RisingToxicGas_Swamp_Tile.png`, 512 × 498 px a 256 PPU, border inferior de 155 px = 0,6 u) en *Tiled*, con la imagen boca abajo y **Flip Y**, a escala 1 × 1. Arriba, un borde de nubes con contorno y sombras moradas (fijo, siempre en la cima); debajo, niebla verde con remolinos morados que se repite al crecer. Color (1; 1; 1; 0,7): translúcido. Orden de dibujo 5 (delante de Alma, para que se vea que está dentro). Sobre el borde, nubes de partículas en dos tonos de verde que burbujean y suben.
 
-Arte generado con IA (una generación, 7/10/2026) con el sprite anterior (`Trap_RisingToxicGas_Swamp.png`, una nube con forma de arbusto que no podía crecer) como referencia de estilo, y procesado como los líquidos. Material `Materials/Liquid_Gas.mat` (shader `AlmaGame/LiquidSprite`):
+Arte generado con IA (una generación, 7/10/2026) con el sprite anterior (una nube con forma de arbusto que no podía crecer, ya borrado) como referencia de estilo, y procesado como los líquidos. Material `Materials/Liquid_Gas.mat` (shader `AlmaGame/LiquidSprite`):
 
 | Propiedad | Valor |
 | --- | --- |
@@ -171,7 +173,7 @@ Gizmos: **verde** = altura máxima; **amarillo** = línea de activación.
 
 ### Géiser volcánico (`Trap_FireGeyser_Volcano`)
 
-Sprite `Trap_FireGeyser_Volcano_Vent.png` (el respiradero recortado de `Trap_FireGeyser_Volcano.png`, 439 × 135 px a 75 PPU), en *Sliced* a escala 1 × 1 y estirado a `Vent Size` (5,853 × 1,8). No es letal y no tiene colisionador. Escupe una bola de fuego hacia arriba que vuelve a caer en él.
+Sprite `Trap_FireGeyser_Volcano_Vent.png` (el respiradero recortado del sprite original, ya borrado; 439 × 135 px a 75 PPU), en *Sliced* a escala 1 × 1 y estirado a `Vent Size` (5,853 × 1,8). No es letal y no tiene colisionador. Escupe una bola de fuego hacia arriba que vuelve a caer en él.
 
 | Fase | Duración | Qué pasa |
 | --- | --- | --- |
@@ -201,7 +203,7 @@ Partículas: estela (máx. 36), chispas (máx. 24), humo (máx. 20), salpicadura
 
 ### Techo aplastante (`Trap_CrushingCeiling_Caves`)
 
-Sprite `Trap_CrushingCeiling_Caves_Block.png` (recortado de `Trap_CrushingCeiling_Caves.png`, 450 × 115 px a 75 PPU), en *Sliced* a escala 1 × 1 y ajustado a `Size` = **6 × 1,533** (se ve igual que antes a escala 2). Bloque colocado en el techo, sólido mientras está arriba (`Solid` sí, `Solid Size` 6 × 1,533); zona letal 5,9 × 1,433. Cae cuando Alma pasa por debajo.
+Sprite `Trap_CrushingCeiling_Caves_Block.png` (recortado del sprite original, ya borrado; 450 × 115 px a 75 PPU), en *Sliced* a escala 1 × 1 y ajustado a `Size` = **6 × 1,533** (se ve igual que antes a escala 2). Bloque colocado en el techo, sólido mientras está arriba (`Solid` sí, `Solid Size` 6 × 1,533); zona letal 5,9 × 1,433. Cae cuando Alma pasa por debajo.
 
 | Fase | Duración | Qué pasa |
 | --- | --- | --- |
@@ -260,7 +262,7 @@ El prefab base conserva el marcador provisional: `Level_Placeholder.png` (4 × 4
 
 1. Arrastra la variante que necesites (no `Hazard_Base`) a la escena.
 2. **Líquidos:** ajusta el tamaño con `Size` o con la herramienta Rect; nunca con la escala.
-3. **Trampas de dibujo fijo:** el dibujo no se adapta; para un tramo más largo, coloca varias instancias. Recuerda que su zona letal es el doble de `Size`.
+3. **Trampas de dibujo fijo:** el dibujo no se adapta; para un tramo más largo, coloca varias instancias.
 4. Comprueba los gizmos: **rojo** = zona letal; **gris** = parte sólida.
 5. Para la zona de caída mortal, colócala bajo cada abismo, cubriendo todo su ancho.
 
@@ -268,19 +270,20 @@ El prefab base conserva el marcador provisional: `Level_Placeholder.png` (4 × 4
 
 Por trampa estática: un SpriteRenderer y uno o dos `BoxCollider2D` estáticos. Sin consultas físicas por frame (la detección la hace el trigger). Los líquidos añaden su shader (barato) y tres sistemas de partículas pequeños; las dinámicas, sus sistemas de partículas (ver cada una).
 
-## Problemas conocidos
+## Pruebas
 
-Detectados el 7/10/2026 al revisar los prefabs. El techo, el géiser y el gas ya se corrigieron (escala 1 × 1); **queda sin corregir**:
+Comprobado el 7/10/2026 con pruebas PlayMode (en una copia del proyecto, junto a las 8 de movimiento de Alma; las 20 pasan):
 
-- **Trampas estáticas a escala 2 × 2:** la zona letal real es el doble de `Size` (ver la tabla); hay que tenerlo en cuenta al diseñar los niveles.
+- Pinchos, zarzas, cristales y pinchos ardientes matan a Alma al caminar hacia ellos.
+- El pilar con espinas: encima se puede estar de pie; tocarlo de lado mata.
+- La lava mata.
 
-Solución propuesta: escala 1 × 1 y el tamaño en pantalla con el PPU de cada sprite, como en el techo y el géiser.
+Los problemas detectados al revisar los prefabs (techo, gas, géiser y trampas estáticas a escala 2 × 2) están corregidos.
 
 ## Pendiente
 
-- Corregir los [problemas conocidos](#problemas-conocidos).
 - Colocar las trampas en niveles y probarlas.
 - Gas: la regla del diseño de «quedar 4 u por debajo del checkpoint» al reaparecer no está implementada; hoy vuelve a su altura inicial.
-- Sprites originales sin uso: `Trap_ToxicMud_Swamp.png` (el lodo usa `_Tile`), `Trap_CrushingCeiling_Caves.png` y `Trap_FireGeyser_Volcano.png` (se usan sus versiones recortadas `_Block` y `_Vent`) y `Trap_RisingToxicGas_Swamp.png` (el gas usa `_Tile`); se pueden borrar.
+- Géiser: el concepto (#13 de `Art/Traps/Traps_ConceptSheet_v1.png`) muestra un **chorro de lava vertical**; el juego lanza una bola de fuego. Decidir si se cambia.
 - **Fuera de alcance (decisión del 5/10/2026):** erupción de lava ascendente, magma ascendente del jefe final, chorro de fuego de aterrizaje y puerta de llamas no se harán.
 - El inventario prevé `Assets/_Project/Prefabs/Traps/`; están en `Assets/Prefabs/Level/Hazards/`.
