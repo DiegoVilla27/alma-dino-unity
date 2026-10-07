@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3544555767749789720}
   - component: {fileID: 5863978321021258498}
   - component: {fileID: 6964078752983163651}
+  - component: {fileID: 5014348273416027663}
   m_Layer: 0
   m_Name: Resource_RuneSwitch_Caves
   m_TagString: Untagged
@@ -83,14 +84,14 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1387dde0d2434013881fcc5b66e5b1ed, type: 3}
-  m_Color: {r: 0.3, g: 0.35, b: 0.5, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1fad668b8fec400ca8bfaf0d5a15a30c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
-  m_Size: {x: 1, y: 1}
+  m_DrawMode: 1
+  m_Size: {x: 1, y: 2.145}
   m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
+  m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
@@ -132,13 +133,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 2.1445312}
+    newSize: {x: 1, y: 2.145}
     adaptiveTilingThreshold: 0.5
-    drawMode: 2
-    adaptiveTiling: 0
+    drawMode: 1
+    adaptiveTiling: 1
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.965}
   m_EdgeRadius: 0
 --- !u!114 &6964078752983163651
 MonoBehaviour:
@@ -152,8 +153,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef8d9a341464762bea7789adccd4563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.RuneSwitch2D
-  _size: {x: 1, y: 1}
+  _size: {x: 1, y: 0.965}
   _signalTime: 4
-  _activeColor: {r: 0.45, g: 1, b: 0.6, a: 1}
+  _activeColor: {r: 0.4, g: 1, b: 0.8, a: 1}
+  _idleTint: {r: 0.55, g: 0.6, b: 0.7, a: 1}
+  _activeTint: {r: 1, g: 1, b: 1, a: 1}
   _label: Runa
-  _showLabel: 1
+  _showLabel: 0
+--- !u!114 &5014348273416027663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6619155400567049404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689e3ccc32dc4792859b50fb844b8cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.PieceArt2D
+  _margin: {x: 0, y: 0.59}

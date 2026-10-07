@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4432863019470190253}
   - component: {fileID: 4970128094330455701}
   - component: {fileID: 6429720626623696124}
+  - component: {fileID: 6598808495644506119}
   m_Layer: 0
   m_Name: Resource_CatapultCounterweight_Caves
   m_TagString: Untagged
@@ -83,14 +84,14 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1387dde0d2434013881fcc5b66e5b1ed, type: 3}
-  m_Color: {r: 0.4, g: 0.35, b: 0.3, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 5671cc632a524ac6b1df0d9bed56ccb6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
-  m_Size: {x: 0.9, y: 0.9}
+  m_DrawMode: 1
+  m_Size: {x: 0.898, y: 1.074}
   m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
+  m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
@@ -132,13 +133,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 0.9, y: 0.9}
+    oldSize: {x: 0.8984375, y: 1.0742188}
+    newSize: {x: 0.898, y: 1.074}
     adaptiveTilingThreshold: 0.5
-    drawMode: 2
-    adaptiveTiling: 0
+    drawMode: 1
+    adaptiveTiling: 1
   m_AutoTiling: 0
-  m_Size: {x: 0.9, y: 0.9}
+  m_Size: {x: 0.898, y: 1.074}
   m_EdgeRadius: 0
 --- !u!114 &6429720626623696124
 MonoBehaviour:
@@ -153,8 +154,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.CatapultWeight2D
   _seesaw: {fileID: 0}
-  _size: {x: 0.9, y: 0.9}
+  _size: {x: 0.898, y: 1.074}
   _resetTime: 4.7
   _reappearTime: 0.25
   _label: Contrapeso
-  _showLabel: 1
+  _showLabel: 0
+--- !u!114 &6598808495644506119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4664500393310390460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689e3ccc32dc4792859b50fb844b8cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Level.PieceArt2D
+  _margin: {x: 0, y: 0}

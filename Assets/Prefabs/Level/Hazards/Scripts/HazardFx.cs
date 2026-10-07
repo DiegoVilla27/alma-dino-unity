@@ -12,6 +12,7 @@ namespace AlmaGame.Level
         private static Texture2D s_streak;
         private static Texture2D s_bubble;
         private static Sprite s_fireball;
+        private static Sprite s_pixel;
 
         // Soft round puff (smoke, gas, dust, glow).
         public static Texture2D Puff()
@@ -144,6 +145,20 @@ namespace AlmaGame.Level
                 pixels[y * width + x] = new Color32(255, 255, 255, (byte)(Mathf.Clamp01(across * along) * 255f));
             }
             return Apply(s_streak, pixels);
+        }
+
+        // Solid white 1×1-unit sprite (bars and flat shapes tinted by the renderer colour).
+        public static Sprite Pixel()
+        {
+            if (s_pixel != null) return s_pixel;
+            const int size = 4;
+            Texture2D texture = NewTexture("HazardPixel", size, size);
+            var pixels = new Color32[size * size];
+            for (int i = 0; i < pixels.Length; i++) pixels[i] = new Color32(255, 255, 255, 255);
+            Apply(texture, pixels);
+            s_pixel = Sprite.Create(texture, new Rect(0f, 0f, size, size), new Vector2(0.5f, 0.5f), size);
+            s_pixel.name = "HazardPixel";
+            return s_pixel;
         }
 
         // Puff as a 1×1-unit sprite (fireball glow, cores).

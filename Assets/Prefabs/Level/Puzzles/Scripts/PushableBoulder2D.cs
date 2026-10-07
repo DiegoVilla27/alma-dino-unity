@@ -20,6 +20,8 @@ namespace AlmaGame.Level
         [SerializeField] private HazardZone2D _linkedLava;
         [SerializeField] private Vector2 _bridgeSize = new Vector2(4.2f, 0.2f);
         [SerializeField, Min(0.05f)] private float _sinkTime = 0.4f;
+        [Tooltip("Cooled basalt crust drawn over the lava when the bridge forms (Tiled to the bridge width).")]
+        [SerializeField] private Sprite _bridgeSprite;
 
         [Header("Placeholder label")]
         [SerializeField] private string _label = "Roca movible";
@@ -32,6 +34,7 @@ namespace AlmaGame.Level
         private BoxCollider2D _collider;
         private AlmaMotor2D _player;
         private BoxCollider2D _bridge;
+        private SpriteRenderer _bridgeArt;
         private ParticleSystem _dust;
         private ParticleSystem _splash;
         private State _state = State.Resting;
@@ -60,6 +63,21 @@ namespace AlmaGame.Level
             _bridge.transform.SetParent(transform.parent, false);
             _bridge.size = _bridgeSize;
             _bridge.enabled = false;
+            if (_bridgeSprite != null)
+            {
+                // Its top lines up with the solid lid; it hangs down into the lava and fades in as the rock sinks.
+                _bridgeArt = new GameObject("Art").AddComponent<SpriteRenderer>();
+                _bridgeArt.transform.SetParent(_bridge.transform, false);
+                _bridgeArt.sprite = _bridgeSprite;
+                _bridgeArt.drawMode = SpriteDrawMode.Tiled;
+                _bridgeArt.tileMode = SpriteTileMode.Adaptive;
+                float artHeight = _bridgeSprite.bounds.size.y;
+                _bridgeArt.size = new Vector2(_bridgeSize.x, artHeight);
+                _bridgeArt.transform.localPosition = new Vector3(0f, _bridgeSize.y * 0.5f - artHeight * 0.5f, 0f);
+                _bridgeArt.sortingLayerID = _renderer.sortingLayerID;
+                _bridgeArt.sortingOrder = _renderer.sortingOrder + 2;
+                _bridgeArt.enabled = false;
+            }
 
             _dust = HazardFx.CreateParticles("PushDust", transform, _renderer.sharedMaterial, HazardFx.Puff(), 16, layer, order + 1);
             var dustMain = _dust.main;
@@ -155,6 +173,12 @@ namespace AlmaGame.Level
                 case State.Sinking:
                     float s = Mathf.Clamp01(elapsed / _sinkTime);
                     transform.position = Vector3.Lerp(_moveTo, _sinkTo, s * s);
+                    if (_bridgeArt != null)
+                    {
+                        // The rock melts into the crust: it fades out while the crust fades in.
+                        _bridgeArt.color = new Color(1f, 1f, 1f, s);
+                        _renderer.color = new Color(1f, 1f, 1f, 1f - s);
+                    }
                     if (s >= 1f) Enter(State.Bridge);
                     break;
             }
@@ -169,6 +193,11 @@ namespace AlmaGame.Level
                 _sinkTo = new Vector3(_moveTo.x, lavaTop + _bridgeSize.y * 0.5f - _size.y * 0.5f, _moveTo.z);
                 _bridge.transform.position = new Vector3(_moveTo.x, lavaTop, _moveTo.z);
                 _bridge.enabled = true;
+                if (_bridgeArt != null)
+                {
+                    _bridgeArt.color = new Color(1f, 1f, 1f, 0f);
+                    _bridgeArt.enabled = true;
+                }
                 _splash.transform.position = new Vector3(_moveTo.x, lavaTop, _moveTo.z);
                 _splash.Emit(16);
                 Enter(State.Sinking);
@@ -190,6 +219,8 @@ namespace AlmaGame.Level
         {
             transform.position = _home;
             _bridge.enabled = false;
+            if (_bridgeArt != null) _bridgeArt.enabled = false;
+            _renderer.color = Color.white;
             Enter(State.Resting);
         }
 

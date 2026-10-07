@@ -22,6 +22,11 @@ namespace AlmaGame.Level
         [SerializeField, Min(1f)] private float _almaLaunchSpeed = 15f;
         [SerializeField, Min(1f)] private float _weightLaunchSpeed = 14f;
         [SerializeField, Min(1f)] private float _returnSpeed = 20f;
+        [Header("Art")]
+        [Tooltip("Fixed fulcrum drawn under the plank (it doesn't rotate). Empty = a small grey block.")]
+        [SerializeField] private Sprite _pivotSprite;
+        [Tooltip("Distance from the plank's centre down to the pivot sprite's centre (units).")]
+        [SerializeField] private float _pivotDrop = 0.5f;
         [SerializeField] private string _label = "Balancín";
         [SerializeField] private bool _showLabel = true;
 
@@ -62,13 +67,23 @@ namespace AlmaGame.Level
             // Fixed pivot under the plank (doesn't rotate with it).
             _pivot = new GameObject("SeesawPivot").AddComponent<SpriteRenderer>();
             _pivot.transform.SetParent(transform.parent, false);
-            _pivot.transform.position = transform.position + Vector3.down * (_size.y * 0.5f + 0.3f);
-            _pivot.sprite = _renderer.sprite;
-            _pivot.drawMode = SpriteDrawMode.Tiled;
-            _pivot.size = new Vector2(0.5f, 0.6f);
-            _pivot.color = _renderer.color * 0.75f;
             _pivot.sortingLayerID = _renderer.sortingLayerID;
-            _pivot.sortingOrder = _renderer.sortingOrder - 1;
+            if (_pivotSprite != null)
+            {
+                // Art fulcrum: its axle disc sits on the plank's centre, drawn in front like a real pin.
+                _pivot.transform.position = transform.position + Vector3.down * _pivotDrop;
+                _pivot.sprite = _pivotSprite;
+                _pivot.sortingOrder = _renderer.sortingOrder + 1;
+            }
+            else
+            {
+                _pivot.transform.position = transform.position + Vector3.down * (_size.y * 0.5f + 0.3f);
+                _pivot.sprite = _renderer.sprite;
+                _pivot.drawMode = SpriteDrawMode.Tiled;
+                _pivot.size = new Vector2(0.5f, 0.6f);
+                _pivot.color = _renderer.color * 0.75f;
+                _pivot.sortingOrder = _renderer.sortingOrder - 1;
+            }
 
             _dust = HazardFx.CreateParticles("SlamDust", transform, _renderer.sharedMaterial, HazardFx.Puff(), 16,
                 _renderer.sortingLayerID, _renderer.sortingOrder + 1);

@@ -13,6 +13,9 @@ namespace AlmaGame.Level
         [SerializeField] private Vector2 _size = new Vector2(1f, 1f);
         [SerializeField, Min(0.1f)] private float _signalTime = 4f;
         [SerializeField] private Color _activeColor = new Color(0.45f, 1f, 0.6f, 1f);
+        [Tooltip("Sprite tint while waiting (dimmed rune) and while active (full brightness).")]
+        [SerializeField] private Color _idleTint = new Color(0.55f, 0.6f, 0.7f, 1f);
+        [SerializeField] private Color _activeTint = Color.white;
         [SerializeField] private string _label = "Runa";
         [SerializeField] private bool _showLabel = true;
 
@@ -22,7 +25,6 @@ namespace AlmaGame.Level
         private SpriteRenderer _bar;
         private ParticleSystem _burst;
         private AlmaMotor2D _player;
-        private Color _baseColor;
         private float _activeUntil = float.NegativeInfinity;
 
         public bool IsActive => Time.time < _activeUntil;
@@ -35,7 +37,6 @@ namespace AlmaGame.Level
             _trigger = GetComponent<BoxCollider2D>();
             LevelPieceUtility.ApplySize(_renderer, _trigger, _size);
             _trigger.isTrigger = true;
-            _baseColor = _renderer.color;
             _player = FindAnyObjectByType<AlmaMotor2D>();
             int layer = _renderer.sortingLayerID;
             int order = _renderer.sortingOrder;
@@ -53,7 +54,7 @@ namespace AlmaGame.Level
             _bar = new GameObject("TimeBar").AddComponent<SpriteRenderer>();
             _bar.transform.SetParent(transform, false);
             _bar.transform.localPosition = new Vector3(0f, -_size.y * 0.5f - 0.2f, 0f);
-            _bar.sprite = _renderer.sprite;
+            _bar.sprite = HazardFx.Pixel();
             _bar.color = _activeColor;
             _bar.sortingLayerID = layer;
             _bar.sortingOrder = order + 1;
@@ -114,7 +115,7 @@ namespace AlmaGame.Level
         private void Update()
         {
             bool active = IsActive;
-            _renderer.color = active ? _activeColor : _baseColor;
+            _renderer.color = active ? _activeTint : _idleTint;
             _glow.enabled = active;
             _bar.enabled = active;
             if (!active) return;

@@ -713,7 +713,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 15. Balancín de lanzamiento
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_SeesawCatapult_Caves.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
+- **Estado:** implementado con arte final. Prefab real: `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_SeesawCatapult_Caves.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
 - **Archivo definitivo:** `Resource_SeesawCatapult_Caves.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_SeesawCatapult_Caves.prefab`.
 - **Implementación:** `SeesawPlatform2D`.
@@ -738,7 +738,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 17. Contrapeso de catapulta
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_CatapultCounterweight_Caves.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
+- **Estado:** implementado con arte final. Prefab real: `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_CatapultCounterweight_Caves.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
 - **Archivo definitivo:** `Resource_CatapultCounterweight_Caves.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_CatapultCounterweight_Caves.prefab`.
 - **Implementación:** `CatapultWeight2D`.
@@ -777,7 +777,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 20. Roca de basalto movible
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Puzzles/Resource_RoarBoulder_Volcano.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
+- **Estado:** implementado con arte final. Prefab real: `Assets/Prefabs/Level/Puzzles/Resource_RoarBoulder_Volcano.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
 - **Archivo definitivo:** `Resource_RoarBoulder_Volcano.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RoarBoulder_Volcano.prefab`.
 - **Implementación:** `PushableBoulder2D`.
@@ -790,7 +790,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 21. Interruptor rúnico
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_RuneSwitch_Caves.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
+- **Estado:** implementado con arte final. Prefab real: `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_RuneSwitch_Caves.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
 - **Archivo definitivo:** `Resource_RuneSwitch_Caves.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_RuneSwitch_Caves.prefab`.
 - **Implementación:** `RuneSwitch2D`.
@@ -803,7 +803,7 @@ En el proyecto futuro, agrupar cada elemento en su propia carpeta con prefab, sc
 
 ### 22. Compuerta rúnica temporizada
 
-- **Estado:** implementado con marcador provisional. Prefab real: `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_TimedRuneGate_Caves.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
+- **Estado:** implementado con arte final. Prefab real: `Assets/Prefabs/Level/Puzzles/Seesaw/Resource_TimedRuneGate_Caves.prefab`. Ficha: [Puzles](LevelPieces/Puzzles.md).
 - **Archivo definitivo:** `Resource_TimedRuneGate_Caves.prefab`.
 - **Ruta objetivo:** `Assets/_Project/Prefabs/Resources/Resource_TimedRuneGate_Caves.prefab`.
 - **Implementación:** `TimedRuneGate2D`.
