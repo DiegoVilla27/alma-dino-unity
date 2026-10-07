@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
+> **Ficha de diseño para reconstrucción:** existe una escena de trabajo `Assets/Scenes/World_01/Level_1_4.unity` (copia de la escena de práctica con el fondo parallax del nivel), pero esta ficha describe el nivel completo previsto. Las notas antiguas de pruebas corresponden al prototipo retirado. La cámara ortográfica debe usar tamaño **8**; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 1-4: "La Copa del Gran Árbol"
 > **Mundo 1: Jungla Esmeralda** | **Función Pedagógica:** Evaluar + Primer Rescate (Ascenso Maestro & Huevo Verde)
@@ -17,7 +17,7 @@
     > *Mamá llegó a tiempo. Ya estás a salvo.*  
     > *(Uno de cuatro rescatados)*"
   - Inmediatamente después, un rugido colosal sacude la copa: el **Mono Ladrón Gigante** desciende de las alturas bloqueando el paso hacia el siguiente mundo.
-- **Pistas Narrativas en el Entorno:** Plumas doradas y verdes de cría dinosaurio, cáscaras de frutos gigantes partidos por la mitad, y el latido del huevo audible como un pulso cardíaco rítmico que se hace más fuerte al acercarse.
+- **Pistas Narrativas en el Entorno:** Plumas doradas y verdes de cría dinosaurio, cáscaras de frutos gigantes partidos por la mitad y un pulso luminoso del huevo que se intensifica al acercarse.
 
 ---
 
@@ -29,14 +29,12 @@
   - Vegetación de Copa: Verde esmeralda resplandeciente (`#2EC4B6`) y hojas doradas (`#FFB703`).
   - Nido del Rescate: Fibras vegetales doradas y plumas protectoras de Alma.
   - Huevo Verde: Esmeralda bioluminiscente (`#00F5D4`) con un halo palpitante.
-- **Fondos Parallax (4 Capas):**
-  - *Capa 0 (Fondo Lejano):* Mar de nubes blancas en movimiento horizontal continuo bajo un cielo abierto infinito.
-  - *Capa 1 (Fondo Medio):* Copas de árboles lejanos que sobresalen de las nubes como islas verdes.
-  - *Capa 2 (Fondo Cercano / Gameplay):* Las ramas más gruesas del árbol, hojas doradas, hongos elásticos de copa alta.
-  - *Capa 3 (Primer Plano / Foreground):* Hojas y lianas que se balancean con el viento cruzando la pantalla.
-- **Iluminación 2D (URP):**
-  - Luz Global intensa y cálida (intensidad 1.1).
-  - Efecto de destello de lente solar (*lens flare*) sutil en la esquina superior.
+- **Fondo parallax (2 capas):**
+  - *Fondo lejano:* Cielo azul de mediodía y mar de nubes blancas bajo la copa del bosque.
+  - *Fondo medio:* Copas lejanas que sobresalen de las nubes como islas verdes, con una abertura transparente que deja ver el cielo sin velarlo.
+- **Escenario jugable:** Las ramas del Gran Árbol, hojas doradas, hongos, nido y huevo son piezas independientes del fondo. No se usa capa de primer plano.
+- **Parallax preparado:** `Assets/Prefabs/Level/Backgrounds/World_1/Parallax_Level_1_4.prefab` contiene Far y Mid, repetibles horizontalmente y diseñados para cámara ortográfica de tamaño **8**. Está colocado en la escena de trabajo `Level_1_4` y revela la parte alta del cielo al subir (`Ascent Reveal Per Unit` 0,13 / 0,07); el nivel completo sigue pendiente. Valores en [Fondos](../../LevelPieces/Backgrounds.md#valores-por-nivel).
+- **Iluminación visual:** El proyecto usa el renderizador integrado. La luz cálida y el halo del huevo deben representarse mediante sprites y efectos compatibles, sin depender de luces 2D de URP.
 
 ---
 
@@ -63,5 +61,5 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 ## 5. 📋 Checklist de Assets para Producción a Futuro
 
 - [x] **Sprites Props:** Cuna de ramas de la copa, Huevo Verde con textura de cáscara y máscara de iluminación (Sprite + Light 2D bioluminiscente con GreenEggRescue2D).
-- [ ] **Sprites Fondo:** Capas de nubes panorámicas para tileado horizontal infinito.
-- [x] **VFX & Iluminación:** Halo bioluminiscente palpitante 2D Light sobre el nido del huevo verde; luz global cenital cálida 1.1.
+- [x] **Sprites Fondo:** Dos capas panorámicas de cielo, nubes y copas lejanas, preparadas para repetición horizontal.
+- [ ] **VFX & Iluminación:** Pulso luminoso visible del huevo verde y acentos cálidos del rescate mediante efectos compatibles con el renderizador integrado.

@@ -26,6 +26,9 @@ namespace AlmaGame.Level
         [SerializeField] private ScreenAnchor _anchor = ScreenAnchor.None;
         [Tooltip("Distance from that edge to the sprite's edge (units): negative = partly off-screen.")]
         [SerializeField] private float _anchorOffset;
+        [Tooltip("For a bottom-anchored background, reveal higher artwork as the camera climbs, without exposing an image edge.")]
+        [SerializeField, Min(0f)] private float _ascentRevealPerUnit;
+        [SerializeField] private float _ascentStartY;
         [Tooltip("Keep the layer covering the whole view height, so its top and bottom edges never show.")]
         [SerializeField] private bool _coverView = true;
 
@@ -86,6 +89,12 @@ namespace AlmaGame.Level
             {
                 case ScreenAnchor.Bottom:
                     position.y = cam.y - halfHeight + _extents.y + _anchorOffset;
+                    if (_ascentRevealPerUnit > 0f)
+                    {
+                        float spareHeight = Mathf.Max(0f, _extents.y * 2f - halfHeight * 2f + _anchorOffset);
+                        float ascent = Mathf.Max(0f, cam.y - _ascentStartY);
+                        position.y -= Mathf.Min(spareHeight, ascent * _ascentRevealPerUnit);
+                    }
                     break;
                 case ScreenAnchor.Top:
                     position.y = cam.y + halfHeight - _extents.y - _anchorOffset;

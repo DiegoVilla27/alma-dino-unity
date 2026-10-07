@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
+> **Ficha de diseño para reconstrucción:** existe una escena de trabajo para el nivel 1-2, pero esta ficha describe el nivel completo previsto. Las notas de pruebas antiguas corresponden al prototipo retirado. La cámara ortográfica debe usar tamaño **8**; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 1-2: "El Dosel Peligroso"
 > **Mundo 1: Jungla Esmeralda** | **Función Pedagógica:** Practicar (Verticalidad, Hongos Elásticos y Encuentro con el Mono Ladrón)
@@ -28,14 +28,12 @@
   - Hongos Elásticos: Fucsia bioluminiscente (`#E030A0`) con esporas brillantes (`#FF80DF`).
   - Peligros (Espinas y Plantas): Rojo advertencia (`#C82828`) y púrpura carnoso (`#952020`).
   - Huevo Dorado: Oro brillante (`#FFD700`) con reflejos cálidos.
-- **Fondos Parallax (4 Capas):**
-  - *Capa 0 (Fondo Lejano):* Cielo tropical brillante que se va abriendo a medida que Alma asciende en altitud.
-  - *Capa 1 (Fondo Medio):* Siluetas de copas de árboles vecinos y ramas gigantescas entrelazadas.
-  - *Capa 2 (Fondo Cercano / Gameplay):* Tronco colosal central sobre el que se trepa, ramas que sirven de plataformas, hongos y zarzas.
-  - *Capa 3 (Primer Plano / Foreground):* Hojas gigantes de higuera que pasan en primer plano a distintas alturas, acentuando la sensación de escala y altura.
-- **Iluminación 2D (URP):**
-  - Cada hongo elástico emite una luz circular suave fucsia (intensidad 0.8, radio 2.5m).
-  - La planta carnívora emite un pulso sutil cuando pasa al estado de advertencia amarillo.
+- **Fondo parallax (2 capas):**
+  - *Fondo lejano:* Cielo tropical brillante que se va abriendo a medida que Alma asciende en altitud.
+  - *Fondo medio:* Siluetas de copas de árboles vecinos y ramas gigantescas entrelazadas.
+- **Escenario jugable:** Tronco colosal central sobre el que se trepa, ramas que sirven de plataformas, hongos y zarzas.
+- **Parallax preparado:** `Assets/Prefabs/Level/Backgrounds/World_1/Parallax_Level_1_2.prefab` contiene solo el cielo lejano y el dosel medio. El dosel deja ver el cielo a través de una abertura central. Diseñado para cámara ortográfica de tamaño **8**. Está colocado en la escena de trabajo `Level_1_2` y revela la parte alta del cielo al subir (`Ascent Reveal Per Unit` 0,13 / 0,07). Valores en [Fondos](../../LevelPieces/Backgrounds.md#valores-por-nivel).
+- **Iluminación visual:** el proyecto usa el renderizador integrado. Representar el resplandor fucsia de los hongos y el aviso de la planta mediante sprites, animación y partículas, sin depender de luces 2D de URP.
 
 ---
 

@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
+> **Ficha de diseño para reconstrucción:** existe una escena de trabajo `Assets/Scenes/World_01/Level_1_3.unity` (copia de la escena de práctica con el fondo parallax del nivel), pero esta ficha describe el nivel completo previsto. Las notas antiguas de pruebas corresponden al prototipo retirado. La cámara ortográfica debe usar tamaño **8**; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 1-3: "Las Zarzas Profundas"
 > **Mundo 1: Jungla Esmeralda** | **Función Pedagógica:** Complicar (Suelo Cero, Hojas Quebradizas y Compromiso de Salto)
@@ -26,14 +26,12 @@
   - Hojas Quebradizas: Verde oliva seco (`#63733A`) que vira a rojo agrietado (`#B33927`) al pisarlas.
   - Troncos y Rocas Seguras: Pardo pizarra (`#2B2A27`) con musgo marchito.
   - Acentos de Luz: Haces de luz solar mortecina que perforan la espesura en tonos ocres (`#C79A45`).
-- **Fondos Parallax (4 Capas):**
-  - *Capa 0 (Fondo Lejano):* Siluetas oscuras de árboles retorcidos cubiertos de enredaderas espinosas.
-  - *Capa 1 (Fondo Medio):* Bruma baja que se arremolina sobre el lecho de espinas.
-  - *Capa 2 (Fondo Cercano / Gameplay):* Las plataformas suspendidas: ramas estrechas, hongos colocados en ángulos exigentes y hojas quebradizas.
-  - *Capa 3 (Primer Plano / Foreground):* Zarzas desenfocadas que sobresalen desde el borde inferior de la pantalla, transmitiendo la sensación de que el peligro está rozando los pies del jugador.
-- **Iluminación 2D (URP):**
-  - Luz ambiental tenue y lúgubre (intensidad 0.45).
-  - Puntos de luz en los nidos de checkpoint que contrastan fuertemente con la oscuridad del nivel.
+- **Fondo parallax (2 capas):**
+  - *Fondo lejano:* Hondonada de árboles retorcidos, hojas oliva oscuras y luz ocre entre el dosel.
+  - *Fondo medio:* Troncos y lianas de contorno definido a los lados, con bruma verde localizada en la parte baja. La abertura central transparente deja ver el fondo lejano sin difuminar la escena completa.
+- **Escenario jugable:** Zarzas, columnas de espinas, ramas, hongos y hojas quebradizas son piezas independientes; no están pintadas en el fondo. No se usa capa de primer plano.
+- **Parallax preparado:** `Assets/Prefabs/Level/Backgrounds/World_1/Parallax_Level_1_3.prefab` contiene las dos capas, con repetición horizontal y encuadre para cámara ortográfica de tamaño **8**. Está colocado en la escena de trabajo `Level_1_3`; el nivel completo sigue pendiente. Valores en [Fondos](../../LevelPieces/Backgrounds.md#valores-por-nivel).
+- **Iluminación visual:** El proyecto usa el renderizador integrado. Representar el contraste de la hondonada y los checkpoints con el arte y los efectos disponibles, sin depender de luces 2D de URP.
 
 ---
 

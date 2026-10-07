@@ -34,7 +34,7 @@ La estructura actual agrupa los enemigos y a Alma por personaje; las trampas y r
 | Proyectiles | Integrados en scripts de enemigos cuando existen; sin prefabs independientes | 7 |
 | Jefes | Prefabs pendientes | 4 |
 | Recursos | `Assets/Prefabs/Level/Pieces/`, `Puzzles/` y `Progression/` | 41 |
-| Narrativa y apoyo | Parallax 1-1 en `Assets/Prefabs/Level/Backgrounds/`; resto pendiente | 8 |
+| Narrativa y apoyo | Parallax de 1-1 a 1-4 en `Assets/Prefabs/Level/Backgrounds/`; resto pendiente | 8 |
 | Jugador | `Assets/Prefabs/Player/` | 1 |
 
 ## Índice de nombres definitivos
@@ -1123,13 +1123,13 @@ La estructura actual agrupa los enemigos y a Alma por personaje; las trampas y r
 
 ### 7. Fondo con parallax
 
-- **Prefab real:** `Assets/Prefabs/Level/Backgrounds/World_1/Parallax_Level_1_1.prefab`; el antiguo nombre `Scenery_ParallaxLayer_Universal.prefab` queda como referencia histórica.
+- **Prefab real:** `Assets/Prefabs/Level/Backgrounds/World_1/Parallax_Level_1_1.prefab` a `Parallax_Level_1_4.prefab` (uno por nivel del Mundo 1, colocados en sus escenas). Ficha: [Fondos con parallax](LevelPieces/Backgrounds.md). El antiguo nombre `Scenery_ParallaxLayer_Universal.prefab` queda como referencia histórica.
 - **Implementación:** `ParallaxLayer2D`.
-- **Mundo/contexto:** 1-1 implementado; fondos de los demás niveles pendientes.
+- **Mundo/contexto:** Mundo 1 (1-1 a 1-4) implementado, con dos capas (lejana y media) por nivel; mundos 2 a 4 y jefes pendientes.
 - **Qué es / para qué sirve:** Capa de fondo con profundidad aparente.
 - **Cómo funciona:** Se desplaza en proporción al movimiento de la cámara.
 - **Daño a Alma:** 0 daño.
-- **Valores y propiedades:** Cámara, desplazamiento horizontal/vertical, repetición y anclaje configurables por capa; ver el prefab de 1-1 para sus valores reales.
+- **Valores y propiedades:** Seguimiento horizontal/vertical, repetición, anclaje a un borde de pantalla y revelado al ascender, configurables por capa; valores reales por nivel en la [ficha](LevelPieces/Backgrounds.md#valores-por-nivel).
 - **Conexiones, variantes o límites:** Las múltiples capas del catálogo son composiciones/variantes de la misma función.
 
 ### 8. Decoración visual

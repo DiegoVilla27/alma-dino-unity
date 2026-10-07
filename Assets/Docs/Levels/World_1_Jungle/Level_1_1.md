@@ -28,11 +28,10 @@
   - Cielo / Luz cenital: Oro pálido (`#F5E6A3`) y ámbar suave (`#D9A05B`).
   - Suelo y Vegetación: Verde bosque profundo (`#244023`), musgo esmeralda (`#4E7A38`) y corteza tierra húmeda (`#4A3319`).
   - Acentos de Interacción: Esmeralda brillante (`#00FF88`) para la Gema Materna y el portal de salida.
-- **Fondos Parallax (4 Capas):**
-  - *Capa 0 (Fondo Lejano):* Siluetas distantes de la cordillera volcánica humeante bajo un cielo matutino.
-  - *Capa 1 (Fondo Medio):* Troncos colosales de árboles centenarios desdibujados por una niebla dorada tenue.
-  - *Capa 2 (Fondo Cercano / Gameplay):* Plataformas de roca y tierra cubierta de hierba, lianas colgantes, flores silvestres.
-  - *Capa 3 (Primer Plano / Foreground):* Hojas de helecho desenfocadas en las esquinas inferiores que reaccionan con balanceo al paso de la cámara.
+- **Fondo parallax (2 capas):**
+  - *Fondo lejano:* Siluetas distantes de la cordillera volcánica humeante bajo un cielo matutino.
+  - *Fondo medio:* Troncos colosales de árboles centenarios desdibujados por una niebla dorada tenue.
+- **Escenario jugable:** Plataformas de roca y tierra cubierta de hierba, lianas colgantes y flores silvestres.
 - **Iluminación visual prevista:**
   - Atmósfera cálida de amanecer mediante los sprites de fondo y el parallax ya integrado en la escena de práctica.
   - Rayos solares y brillos del nido y altar mediante arte y partículas; el proyecto actual usa el pipeline integrado, sin luces URP 2D.
