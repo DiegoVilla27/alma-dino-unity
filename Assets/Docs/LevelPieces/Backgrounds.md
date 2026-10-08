@@ -10,7 +10,9 @@ Todo está en `Assets/Prefabs/Level/Backgrounds/`:
 
 | Archivo | Responsabilidad |
 | --- | --- |
-| `Scripts/ParallaxLayer2D.cs` | Una capa de parallax: seguimiento de la cámara, repetición horizontal, anclaje a un borde de la pantalla y revelado al ascender. Namespace `AlmaGame.Level`. |
+| `Scripts/ParallaxLayer2D.cs` | Una capa de parallax: seguimiento de la cámara, repetición horizontal, deriva propia, anclaje a un borde de la pantalla y revelado al ascender. Namespace `AlmaGame.Level`. |
+| `Scripts/LightningFlash2D.cs` | Relámpago lejano: cada pocos segundos el sprite (un brillo suave) destella dos veces y se apaga; evento `Flashed` en cada rayo; `Interval` ajustable desde código. |
+| `Scripts/BossBackdropPhases.cs` | Lleva el fondo de un jefe por las fases del combate (luz, tormenta, nubes, relámpagos y lluvia), con transición suave. El jefe llama a `SetPhase(0..2)`; `Preview Phase` permite probarlas en Play desde el Inspector. |
 | `World_1/Parallax_Level_1_X.prefab`, `World_2/Parallax_Level_2_X.prefab`, `World_3/Parallax_Level_3_X.prefab`, `World_4/Parallax_Level_4_X.prefab` | Fondo de cada nivel: un objeto raíz con las capas `Far` y `Mid` como hijos. |
 | `World_2/Sprites/BG_Level_2_X_Far.png` / `_Mid.png`, `World_3/Sprites/BG_Level_3_X_*.png`, `World_4/Sprites/BG_Level_4_X_*.png` | Imágenes de cada nivel de los mundos 2 a 4. |
 | `World_1/Sprites/BG_Level_1_X_Far.png` / `_Mid.png` | Imágenes de cada capa (la lejana opaca; la media con huecos transparentes). |
@@ -27,6 +29,7 @@ Cartoon plano con contorno oscuro y 2–3 tonos por zona, como el resto del arte
 - **Repetición horizontal (`Wrap`):** una tira en *Tiled* se recoloca bajo la cámara por tiles enteros, así que no se acaba por largo que sea el nivel. Al empezar, el script amplía el `Tiled` a los tiles necesarios para cubrir el ancho real de la pantalla más uno a cada lado, sea cual sea la proporción del dispositivo. Un sprite suelto puede repetirse cada `Wrap Period` unidades.
 - **Anclaje (`Anchor`):** con `Bottom`, el borde inferior de la capa queda siempre en el borde inferior de la pantalla (`Top`, igual arriba; `Anchor Offset` la desplaza). Las dos capas de fondo están ancladas abajo: como miden 20 u y la vista 16 u, su borde superior queda siempre fuera de la pantalla, suba lo que suba la cámara. Si una capa anclada fuera más baja que la vista, el script la amplía sola al empezar.
 - **Revelado al ascender (`Ascent Reveal Per Unit`, `Ascent Start Y`):** en niveles verticales, con la capa anclada abajo, por cada unidad que la cámara sube por encima de `Ascent Start Y` la imagen baja esa fracción, mostrando su parte superior (por ejemplo, el cielo que se abre al subir el árbol en 1-2). Nunca baja más que el sobrante de la imagen sobre la vista (20 − 16 = 4 u, menos el `Anchor Offset`), así que su borde superior no llega a verse.
+- **Deriva (`Drift`):** unidades por segundo que la capa se desplaza sola, sin que se mueva la cámara (nubes que pasan). Necesita `Wrap`.
 - **Cubrir la vista (`Cover View`):** solo actúa sin anclaje: mantiene la capa cubriendo la altura de la vista mientras sigue a la cámara por `Follow.y`.
 
 Comprobado en Unity (1-1) con el fondo de la cámara en magenta a cuatro alturas de cámara, hasta y = 30: 0 píxeles sin imagen.
@@ -38,6 +41,7 @@ Comprobado en Unity (1-1) con el fondo de la cámara en magenta a cuatro alturas
 | `Follow` | Seguimiento de la cámara en X e Y (ver arriba). |
 | `Wrap` | Repetir la tira *Tiled* en horizontal. |
 | `Wrap Period` | Para un sprite suelto: se repite cada tantas unidades (0 = no). |
+| `Drift` | Desplazamiento propio en u/s (negativo = hacia la izquierda). |
 | `Anchor` / `Anchor Offset` | `None`, `Bottom` o `Top`, y distancia a ese borde (negativo = parte fuera de pantalla). |
 | `Ascent Reveal Per Unit` / `Ascent Start Y` | Revelado de la parte alta de la imagen al subir la cámara (solo con `Bottom`). |
 | `Cover View` | Cubrir la altura de la vista cuando no hay anclaje. |
@@ -103,6 +107,37 @@ Con anclaje `Bottom`, `Follow.y` no se usa (la altura la fija el anclaje). En 1-
 | 4-3 | Lejana: "el colapso del mundo", con un cielo en vórtice de nubes negras y rojo sangre (`#9D0208`) con meteoritos pequeños a lo lejos, dos mitades de volcán partido, una garganta de magma (`#FF5400`, `#FFDD00`) y acantilados de basalto (`#03071E`) agrietados con magma. Es el fondo más saturado del juego y tiene una franja inferior gris oscura y lisa (puede asomar sobre fosos). Media: dos agujas de basalto de tamaño distinto partidas por grietas de magma, con humo y losas grabadas caídas en la base. |
 | 4-4 | Lejana: una catedral volcánica con hileras de columnas de obsidiana negra (`#0B090A`) con grabados dorados, bóvedas de basalto, ríos de magma rubí y oro (`#BA181B`, `#FFBA08`), el esqueleto de una bestia colosal en un lago de magma, el volcán visto por el arco y ceniza dorada cayendo; sin pedestal ni huevo. Es simétrica y enmarcada como la del 4-2, así que el esqueleto y el arco se repiten. Media: dos columnas de obsidiana con grabados dorados y grietas de magma, una entera y otra rota, con ceniza dorada; se parecen a los pilares del 4-2. |
 
+## Fondos de jefe
+
+Las arenas de jefe tienen un tamaño fijo (una pantalla) y la cámara no recorre el nivel, así que su fondo **no usa parallax**: es una **composición única, fija en el mundo y centrada en la arena**, con animaciones propias. Cada una es un prefab `Backdrop_Boss_X` que se coloca en el centro de la arena.
+
+### Jefe 1 — `World_1/Backdrop_Boss_1.prefab`
+
+La arena es la **guarida del Mono Ladrón** en lo alto del árbol: una rama colosal arriba (de la que cuelgan las tres lianas de la fase 2) con su nido de reliquias robadas, sobre un abismo de nubes al atardecer. **La tormenta avanza con las fases del combate**: el jugador siente la escalada sin texto. El cielo es dorado y cálido para que se lean los cocos verde lima y púrpura del jefe.
+
+Arte en `World_1/Boss_1/` (generado el 8/10/2026). Escena de trabajo: `Scenes/World_01/Boss_1.unity` (copia de la de práctica con este fondo en (0, 1), el inicio de la cámara). Todas las imágenes a 64 PPU → 42 u de ancho (más que una vista 21:9). Posiciones relativas al centro de la arena (la raíz del prefab).
+
+| Capa | Sprite | Tamaño / posición | Componentes; orden | Contenido |
+| --- | --- | --- | --- | --- |
+| `Sky` | `BG_Boss_1_Sky` 2688 × 1152 | 42 × 18 u, centrado | `SpriteRenderer` fijo; −100 | Atardecer dorado desde lo alto del árbol: sol bajo con rayos, volcanes del Mundo 1, mar de nubes doradas y una tormenta pequeña y lejana a la izquierda. |
+| `Lightning` | `BG_Boss_1_Glow` (brillo radial generado, 16 PPU) | según la fase | `LightningFlash2D` (doble destello de 0,45 s, opacidad 0,5, color lila); −97 | Destello sobre la tormenta. |
+| `Storm` | `BG_Boss_1_Storm` 2688 × 814 | 42 × 12,7 u; en su sitio final sus jirones bajan hasta y −2 | `SpriteRenderer`; −98 | Masa de tormenta gris pizarra (no violeta) que entra con las fases. |
+| `Clouds` | `BG_Boss_1_Clouds` 2208 × 499 | 34,5 × 7,8 u, *Tiled*, techo en y −4 | `ParallaxLayer2D` fija (`Follow` 0) con `Wrap`; la deriva la pone la fase; −95 | El abismo de nubes bajo la arena, teñido a dorado y melocotón. |
+| `Lair` | `BG_Boss_1_Lair` 2688 × 516 | 42 × 8,1 u, techo en y +10 | `SpriteRenderer`; −90 | Rama de teca con dosel, el nido con reliquias (corona, gemas, monedas) a la izquierda y tres nudos con cabos de cuerda en **x −4,5, 0 y +4,5**, donde cuelgan las lianas de la fase 2. Los dos nudos laterales se movieron a mano desde ±15 u para que coincidan. |
+| `Rain` | partículas (`FX_Mote.mat`, estiradas ×0,07 por velocidad, tamaño 0,09–0,14, blanco azulado al 75 %) | caja de 46 u en y +9,5 | `ParticleSystem` (vida 1,6 s, caída oblicua −4/−15 u/s, máx. 500); 25 | Lluvia de la fase 3 (la cantidad la pone la fase). |
+
+**Fases** (`BossBackdropPhases`, transición de 2,5 s; la guarida recibe el 60 % del cambio de luz):
+
+| Fase | Luz | Tormenta (opacidad / subida) | Deriva de las nubes | Relámpagos (cada / sitio / escala) | Lluvia |
+| --- | --- | --- | --- | --- | --- |
+| 1 — El Asedio Ágil | 1 | 0 / 9 u | −0,3 u/s | 7–12 s, en la tormenta lejana (−15,5; 2,3), 0,25 × 0,2 | 0 |
+| 2 — Furia del Simio | 0,8 | 0,75 / 2,5 u | −0,7 u/s | 4–7 s, en (−5; 2,5), 0,6 × 0,4 | 20 /s |
+| 3 — Frenesí | 0,6 | 1 / 0 | −1,4 u/s | 1,5–3,5 s, sobre la arena (0; 1,5), 1,1 × 0,6 | 140 /s |
+
+Comprobado en Unity a 16:9 y 21:9 con el fondo de cámara en magenta: 0 píxeles sin imagen en las tres fases.
+
+**Pendiente:** el jefe debe llamar a `SetPhase(1)` y `SetPhase(2)` al cambiar de fase y conectar `LightningFlash2D.Flashed` para iluminar su silueta; construir la arena (plataforma central y ramas laterales) centrada en el fondo, con un `CameraBounds2D` del tamaño de la arena y las tres lianas en x −4,5, 0 y +4,5.
+
 ## Uso
 
 1. Arrastra el `Parallax_Level_1_X` del nivel a su escena (ya están colocados en `Level_1_1` a `Level_1_4`).
@@ -118,7 +153,7 @@ Dos SpriteRenderers *Tiled* por nivel y un `LateUpdate` sencillo por capa. Sin f
 - `Level_1_1` ya tiene su recorrido completo. Las escenas `Level_1_2` a `Level_1_4` son copias de la escena de práctica (suelo y escalones provisionales); el nivel completo de cada ficha está por construir.
 - `Level_1_2` a `Level_1_4` aún no tienen `CameraBounds2D` (1-1 sí) (límites y altura fija de la cámara, ver [Alma](../Player/Alma.md#cámara-daño-y-feedback)).
 - Solo `Level_1_1` está en **Build Settings**; añadir 1-2 a 1-4 para que el portal pueda cargarlas.
-- Fondos de los jefes.
+- Fondos de los jefes 2, 3 y final.
 - 4-3: si el fondo lejano, muy saturado en rojo y naranja, resta legibilidad a la lava y el fuego jugables, apagarlo con el color de su `SpriteRenderer` (p. ej. 0,8).
 - Las escenas `Level_4_1` a `Level_4_4` son copias de la escena de práctica; los niveles completos están por construir.
 - Si en el 4-1 la cascada de lava de la capa media se confunde con la lava letal, se puede apagar la capa con el color de su `SpriteRenderer` (sin créditos).

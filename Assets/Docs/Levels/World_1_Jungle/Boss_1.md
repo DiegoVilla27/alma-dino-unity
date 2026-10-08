@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
+> **Ficha de diseño para reconstrucción:** existe `Assets/Scenes/World_01/Boss_1.unity` como escena de trabajo con el fondo de la arena ([`Backdrop_Boss_1`](../../LevelPieces/Backgrounds.md#jefe-1--world_1backdrop_boss_1prefab): la guarida del mono sobre un abismo de nubes al atardecer, con una tormenta que avanza con las fases del combate); la arena y el jefe aún no están construidos. Las referencias de cámara a **8** son el criterio de la reconstrucción. No habrá audio.
 
 # 👑 Jefe 1: "El Rey de la Copa — Mono Ladrón Gigante"
 > **Mundo 1: Jungla Esmeralda** | **Arena de Combate y Cierre del Mundo 1**

@@ -20,6 +20,8 @@ namespace AlmaGame.Level
         [SerializeField] private bool _wrap = true;
         [Tooltip("For a single sprite: it reappears every this many units of camera travel (0 = no repeat).")]
         [SerializeField, Min(0f)] private float _wrapPeriod;
+        [Tooltip("Units per second the layer slides by itself (drifting clouds); negative = to the left. Needs Wrap.")]
+        [SerializeField] private float _drift;
 
         [Header("Vertical")]
         [Tooltip("Pin the sprite to a screen edge (foreground plants). Overrides the vertical follow.")]
@@ -38,6 +40,10 @@ namespace AlmaGame.Level
         private Vector3 _cameraStart;
         private float _tileWidth;
         private Vector2 _extents;
+        private float _driftOffset;
+
+        // Self-motion speed (units/s); boss backdrops change it per phase.
+        public float Drift { get => _drift; set => _drift = value; }
 
         private void Start()
         {
@@ -77,7 +83,8 @@ namespace AlmaGame.Level
             if (_camera == null) return;
             Vector3 cam = _camera.transform.position;
             Vector3 moved = cam - _cameraStart;
-            Vector3 position = _start + new Vector3(moved.x * _follow.x, moved.y * _follow.y, 0f);
+            _driftOffset += _drift * Time.deltaTime;
+            Vector3 position = _start + new Vector3(moved.x * _follow.x + _driftOffset, moved.y * _follow.y, 0f);
 
             if (_wrap && _tileWidth > 0f && _wrapPeriod <= 0f)
                 position.x += Mathf.Round((cam.x - position.x) / _tileWidth) * _tileWidth;
