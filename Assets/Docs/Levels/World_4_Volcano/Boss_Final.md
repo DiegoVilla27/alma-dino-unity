@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
+> **Ficha de diseño para reconstrucción:** existe `Assets/Scenes/World_04/Boss_Final.unity` como escena de trabajo con el fondo de la arena ([`Backdrop_Boss_Final`](../../LevelPieces/Backgrounds.md#jefe-final--world_4backdrop_boss_finalprefab): el Ojo del Volcán, que despierta hasta la erupción con las fases y muestra el cráter con el amanecer al trepar); la arena y el jefe aún no están construidos. Las referencias de cámara a **8** son el criterio de la reconstrucción. No habrá audio.
 
 # 👑 Jefe Final & Epílogo: "El Rey Ladrón — Tirano Ancestral"
 > **Mundo 4: Cima Volcánica** | **El Ojo del Volcán (El Caldero de Magma) & Final del Juego**

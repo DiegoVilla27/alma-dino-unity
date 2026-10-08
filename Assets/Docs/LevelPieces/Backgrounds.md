@@ -200,6 +200,33 @@ Comprobado en Unity a 16:9 y 21:9 con el fondo de cámara en magenta: 0 píxeles
 
 **Pendiente:** el jefe debe llamar a `SetPhase(1)` y `SetPhase(2)` tras los impactos 1 y 2, y a `SetWindDirection` cuando alterna el vendaval; construir la arena (cuatro ramas en semicírculo) centrada en el fondo, con su `CameraBounds2D`.
 
+### Jefe final — `World_4/Backdrop_Boss_Final.prefab`
+
+La arena es **el Ojo del Volcán**: el caldero de magma donde espera el Rey Ladrón. Su reloj es **el volcán despertando hasta la erupción**, y es el único fondo de jefe que acompaña una subida vertical: en la fase 3 Alma trepa hasta el techo, así que la caverna es una imagen alta que se desplaza despacio y va mostrando el lago, las paredes y, arriba, **el cráter con un hilo de cielo de amanecer**, la salida hacia el valle del epílogo. La caverna está iluminada desde abajo y llena de bruma anaranjada, para que la silueta gris ceniza del tirano se recorte contra ella. Sin vegetación.
+
+Arte en `World_4/Boss_Final/` (generado el 8/10/2026: la caverna a 4k en vertical y el mar de magma; 2,25 créditos). Escena de trabajo: `Scenes/World_04/Boss_Final.unity`, copia de la del jefe 3 del usuario (suelo, escalones y `Alma_Practice`), con este fondo en (0, 1).
+
+| Capa | Sprite | Tamaño / posición | Componentes; orden | Contenido |
+| --- | --- | --- | --- | --- |
+| `Chamber` | `BG_Boss_Final_Chamber` 2480 × 3312 (59 PPU) | 42 × 56,1 u; base en y −21 | `ParallaxLayer2D` `Follow` (0,95; 0,15), `Cover View`; −100 | El caldero: lago de magma (oscurecido un 38 % en la parte baja para no competir con la lava jugable), paredes de columnas de basalto con cascadas de lava, bóveda agrietada y la boca del cráter con humo y cielo de amanecer. |
+| `Chamber/LavaGlow` | `BG_Boss_Final_LavaGlow` (extraído: las cascadas y grietas incandescentes, difuminadas; sin el lago) | igual que `Chamber` | `Pulse2D`; −99 | El fuego de las paredes que late. |
+| `Chamber/CraterGlow` | `BG_Boss_Final_Glow` (brillo radial) | sobre la boca del cráter (y +21,2 local) | `Pulse2D`, color dorado; −98 | El amanecer que llama a Alma. |
+| `Chamber/EruptionLightning` | `BG_Boss_Final_Glow` | en la columna de humo (y +18,5 local) | `LightningFlash2D`; −97 | Rayos volcánicos en la columna de erupción. |
+| `MagmaSea` | `BG_Boss_Final_Magma` 2208 × 701 | 34,5 × 11 u, *Tiled*, cresta en y −6 | `ParallaxLayer2D` fija con `Wrap`; deriva y subida por fase; −90 | El mar de magma al pie de la arena, que sube con la erupción. |
+| `CameraFX/Embers`, `Meteors`, `Ash` | partículas (`FX_Mote.mat`) | siguen a la cámara (`Follow` 1) | `ParticleSystem`; 24 / −92 / 21 | Brasas que suben del magma, meteoros incandescentes que caen en diagonal al fondo y ceniza. |
+
+**Fases:**
+
+| Fase | Luz | Lava (nivel / pulso) | Amanecer del cráter | Rayos de erupción | Magma (deriva / subida) | Brasas / meteoros / ceniza (por s) |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 — La Carga del Coloso | 1 | 0,3 / 0,35 Hz | 0,12 | cada 40–60 s | 0,3 u/s / 0 | 12 / 0 / 0 |
+| 2 — Lluvia de Meteoros | 0,9 | 0,55 / 0,8 Hz | 0,25 | cada 8–14 s | 0,6 u/s / 0,6 | 30 / 6 / 12 |
+| 3 — El Gran Colapso | 0,8 | 0,9 / 1,6 Hz | 0,85 (pulso 0,9 Hz) | cada 1,5–3,5 s | 1,2 u/s / 2,5 | 80 / 16 / 40 |
+
+Comprobado en Unity a 16:9 y 21:9 (incluida una vista con la cámara 30 u más arriba, en lo alto de la subida) con el fondo de cámara en magenta: 0 píxeles sin imagen.
+
+**Pendiente:** el jefe debe llamar a `SetPhase(1)` y `SetPhase(2)` tras los impactos 1 y 2; construir la arena (plataformas hexagonales, columnas, estalactita colosal y el nido con los cuatro huevos) y su `CameraBounds2D` alto para la subida; el magma jugable que sube en la fase 3 es una pieza aparte (el `MagmaSea` del fondo solo lo acompaña).
+
 ## Uso
 
 1. Arrastra el `Parallax_Level_1_X` del nivel a su escena (ya están colocados en `Level_1_1` a `Level_1_4`).
@@ -215,7 +242,6 @@ Dos SpriteRenderers *Tiled* por nivel y un `LateUpdate` sencillo por capa. Sin f
 - `Level_1_1` ya tiene su recorrido completo. Las escenas `Level_1_2` a `Level_1_4` son copias de la escena de práctica (suelo y escalones provisionales); el nivel completo de cada ficha está por construir.
 - `Level_1_2` a `Level_1_4` aún no tienen `CameraBounds2D` (1-1 sí) (límites y altura fija de la cámara, ver [Alma](../Player/Alma.md#cámara-daño-y-feedback)).
 - Solo `Level_1_1` está en **Build Settings**; añadir 1-2 a 1-4 para que el portal pueda cargarlas.
-- Fondo del jefe final.
 - 4-3: si el fondo lejano, muy saturado en rojo y naranja, resta legibilidad a la lava y el fuego jugables, apagarlo con el color de su `SpriteRenderer` (p. ej. 0,8).
 - Las escenas `Level_4_1` a `Level_4_4` son copias de la escena de práctica; los niveles completos están por construir.
 - Si en el 4-1 la cascada de lava de la capa media se confunde con la lava letal, se puede apagar la capa con el color de su `SpriteRenderer` (sin créditos).
