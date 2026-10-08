@@ -1,6 +1,6 @@
 # Terreno
 
-**Estado (7 de octubre de 2026):** implementado el kit de terreno del Mundo 1: **4 diseños × 2 piezas = 8 prefabs** redimensionables (bloque de suelo y plataforma flotante en piedra, madera, raíces y zarzas oscuras), con el componente `SolidPlatform2D`. Es la "plataforma sólida" del inventario, hecha por mundo. Aún no está colocado en ninguna escena (todas son de práctica); se probó en un recorrido del 1-1 que luego se retiró.
+**Estado (8 de octubre de 2026):** implementados los kits de terreno de **los cuatro mundos** (32 prefabs; secciones de los mundos 2 a 4 más abajo). Mundo 1 (7/10/2026): **4 diseños × 2 piezas = 8 prefabs** redimensionables (bloque de suelo y plataforma flotante en piedra, madera, raíces y zarzas oscuras), con el componente `SolidPlatform2D`. Es la "plataforma sólida" del inventario, hecha por mundo. Aún no está colocado en ninguna escena (todas son de práctica); se probó en un recorrido del 1-1 que luego se retiró.
 
 Fichas relacionadas: [Piezas de nivel](Pieces.md) (margen de arte y herramienta Rect), [Fondos con parallax](Backgrounds.md), niveles [1-1](../Levels/World_1_Jungle/Level_1_1.md) a [1-4](../Levels/World_1_Jungle/Level_1_4.md). Inventario: [Plataforma sólida](../INVENTARIO_GAMEPLAY_PREFABS.md#1-plataforma-sólida).
 
@@ -118,6 +118,35 @@ Arte generado con IA el 8/10/2026 (8 generaciones, ~6 créditos) con la forma de
 
 Comprobado en Unity redimensionando cada pieza (suelo 11 × 6, flotante de 9 de ancho): se repiten sin juntas, incluidos los postes de la pasarela.
 
+## Mundo 4 — Cima Volcánica
+
+**Estado (8 de octubre de 2026):** implementado el kit del Mundo 4: **4 diseños × 2 piezas = 8 prefabs** en `Terrain/World_4/` (`Platform_Ground_<Diseño>_Volcano`, `Platform_Floating_<Diseño>_Volcano`), con los sprites en `World_4/Sprites/`. Mismo componente, piezas y procesado que los demás mundos; `Order in Layer` −5. Aún no está colocado en ninguna escena (todas son de práctica).
+
+Arte generado con IA el 8/10/2026 (8 generaciones, ~6 créditos) con la forma del bloque y la flotante del Mundo 1 y el estilo de los fondos del 4-1 y 4-2 y los sprites del volcán. Reglas: **sin vegetación** (comprobado: 0 píxeles verdes) y **sin lava ni llamas**; las vetas incandescentes son mínimas y apagadas, para que la lava, los pinchos ardientes y los géiseres sigan siendo lo único que brilla y se lea como peligro. Son más oscuras y sólidas que la cornisa que se desmorona.
+
+| Diseño | Bloque de suelo | Plataforma flotante | Uso previsto |
+| --- | --- | --- | --- |
+| **Basalt** | Columnas hexagonales de basalto negro carbón con vetas naranjas muy tenues | Losa de columnas de basalto | 4-1 y 4-3, terreno base |
+| **Ash** | Roca volcánica porosa gris con una capa de ceniza pálida y piedras calcinadas (margen de arte) | Roca porosa con ceniza | 4-1, los ríos de ceniza |
+| **Obsidian** | Cristal volcánico negro facetado con reflejos y finas vetas rojo oscuro | Obsidiana con puntas de cristal debajo | 4-4 y arena del jefe final |
+| **Temple** | Sillares de basalto con grabados en oro antiguo, como los pilares del fondo del 4-2 | Losa de templo grabada | 4-2, el santuario de las campanas |
+
+| Prefab | `Size` (colisión) | Margen (`PieceArt2D`) | Sprite (px) | Borders (izq., abajo, der., arriba) |
+| --- | --- | --- | --- | --- |
+| `Platform_Ground_Basalt_Volcano` | 8,0 × 2,668 | (0; 0,07) | 2048 × 719 | 174, 202, 174, 209 |
+| `Platform_Ground_Ash_Volcano` | 8,0 × 2,648 | (0; 0,359) | 2048 × 862 | 174, 275, 174, 282 |
+| `Platform_Ground_Obsidian_Volcano` | 8,0 × 2,672 | (0; 0,031) | 2048 × 700 | 174, 193, 174, 200 |
+| `Platform_Ground_Temple_Volcano` | 8,0 × 2,641 | (0; 0,039) | 2048 × 696 | 174, 193, 174, 199 |
+
+| Prefab | `Size` (colisión) | Margen (`PieceArt2D`) | Sprite (px) |
+| --- | --- | --- | --- |
+| `Platform_Floating_Basalt_Volcano` | 4,0 × 0,453 | (0; 0,242) | 1024 × 240 |
+| `Platform_Floating_Ash_Volcano` | 4,0 × 0,465 | (0; 0,262) | 1024 × 253 |
+| `Platform_Floating_Obsidian_Volcano` | 4,0 × 0,441 | (0; 0,246) | 1024 × 239 |
+| `Platform_Floating_Temple_Volcano` | 4,0 × 0,398 | (0; 0,25) | 1024 × 230 |
+
+Comprobado en Unity redimensionando cada pieza (suelo 11 × 6, flotante de 9 de ancho): se repiten sin juntas.
+
 ## Uso
 
 1. Arrastra el prefab a la escena.
@@ -131,6 +160,5 @@ Por pieza: un `SpriteRenderer` y un `BoxCollider2D` estático. `PieceArt2D` no h
 
 ## Pendiente
 
-- Colocar el terreno en los niveles del Mundo 1 en lugar del suelo y los escalones provisionales.
+- Colocar el terreno en los niveles de cada mundo en lugar del suelo y los escalones provisionales.
 - Tinte por nivel opcional (más oscuro en 1-3, más dorado en 1-4) con el color del `SpriteRenderer`.
-- Kit de terreno del Mundo 4.
