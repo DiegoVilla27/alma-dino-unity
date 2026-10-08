@@ -89,6 +89,35 @@ Arte generado con IA el 8/10/2026 (8 generaciones, ~6 créditos) usando como ref
 
 Comprobado en Unity redimensionando cada pieza (suelo 11 × 6, flotante de 9 de ancho): se repiten sin juntas. En el fósil se nota algo el patrón al repetirse en vertical; en bloques bajos casi no se ve.
 
+## Mundo 3 — Pantano de Viento y Niebla
+
+**Estado (8 de octubre de 2026):** implementado el kit del Mundo 3: **4 diseños × 2 piezas = 8 prefabs** en `Terrain/World_3/` (`Platform_Ground_<Diseño>_Swamp`, `Platform_Floating_<Diseño>_Swamp`), con los sprites en `World_3/Sprites/`. Mismo componente, piezas y procesado que los mundos 1 y 2; `Order in Layer` −5. Aún no está colocado en ninguna escena (todas son de práctica).
+
+Arte generado con IA el 8/10/2026 (8 generaciones, ~6 créditos) con la forma del bloque y la flotante del Mundo 1 y el estilo de los fondos del 3-1 y 3-2 y los sprites del pantano. Reglas: el musgo es **gris verdoso apagado** (nunca lima ni amarillo), para no confundirse con el lago tóxico (lima) ni el lodo tóxico (oliva amarillento) ni parecer la jungla del Mundo 1. Juncos, matas y musgo colgante por encima o por debajo son margen de arte.
+
+| Diseño | Bloque de suelo | Plataforma flotante | Uso previsto |
+| --- | --- | --- | --- |
+| **Peat** | Turba negra parda con raíces, musgo de pantano gris verdoso y matas de juncos (margen de arte) | Islote de turba con raíces colgando | 3-1, los fangales |
+| **Mangrove** | Raíces de manglar entrelazadas en madera gris verdosa pálida, con musgo colgante | Masa de raíces con musgo colgando | 3-1 y 3-4, raíces del Sauce |
+| **Boardwalk** | Pasarela de tablones podridos sobre troncos atados con cuerda, con setitas | Tramo de pasarela sobre dos troncos | 3-2 y 3-3, zonas construidas |
+| **Mire** | Piedras gris verdosas en barro, con musgo y helechos en la base | Piedras con musgo colgante | 3-2, el cañón, y variedad |
+
+| Prefab | `Size` (colisión) | Margen (`PieceArt2D`) | Sprite (px) | Borders (izq., abajo, der., arriba) |
+| --- | --- | --- | --- | --- |
+| `Platform_Ground_Peat_Swamp` | 8,0 × 2,645 | (0; 0,609) | 2048 × 989 | 174, 339, 174, 346 |
+| `Platform_Ground_Mangrove_Swamp` | 8,0 × 2,676 | (0; 0,102) | 2048 × 737 | 174, 211, 174, 218 |
+| `Platform_Ground_Boardwalk_Swamp` | 8,0 × 2,688 | (0; 0,109) | 2048 × 744 | 174, 214, 174, 221 |
+| `Platform_Ground_Mire_Swamp` | 8,0 × 2,645 | (0; 0,285) | 2048 × 823 | 174, 256, 174, 263 |
+
+| Prefab | `Size` (colisión) | Margen (`PieceArt2D`) | Sprite (px) |
+| --- | --- | --- | --- |
+| `Platform_Floating_Peat_Swamp` | 4,0 × 0,457 | (0; 0,324) | 1024 × 283 |
+| `Platform_Floating_Mangrove_Swamp` | 4,0 × 0,367 | (0; 0,352) | 1024 × 274 |
+| `Platform_Floating_Boardwalk_Swamp` | 4,0 × 0,438 | (0; 0,293) | 1024 × 262 |
+| `Platform_Floating_Mire_Swamp` | 4,0 × 0,469 | (0; 0,316) | 1024 × 282 |
+
+Comprobado en Unity redimensionando cada pieza (suelo 11 × 6, flotante de 9 de ancho): se repiten sin juntas, incluidos los postes de la pasarela.
+
 ## Uso
 
 1. Arrastra el prefab a la escena.
@@ -104,4 +133,4 @@ Por pieza: un `SpriteRenderer` y un `BoxCollider2D` estático. `PieceArt2D` no h
 
 - Colocar el terreno en los niveles del Mundo 1 en lugar del suelo y los escalones provisionales.
 - Tinte por nivel opcional (más oscuro en 1-3, más dorado en 1-4) con el color del `SpriteRenderer`.
-- Kits de terreno de los mundos 3 y 4.
+- Kit de terreno del Mundo 4.

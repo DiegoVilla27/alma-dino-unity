@@ -541,7 +541,7 @@ La estructura actual agrupa los enemigos y a Alma por personaje; las trampas y r
 
 - **Estado:** implementado por mundo como kit de terreno. Mundo 1: `Assets/Prefabs/Level/Terrain/World_1/Platform_Ground_<Diseño>_Jungle.prefab` y `Platform_Floating_<Diseño>_Jungle.prefab`, en cuatro diseños (piedra, madera, raíces y zarzas oscuras), redimensionables. Ficha: [Terreno](LevelPieces/Terrain.md). El nombre `Platform_Solid_Universal.prefab` queda como referencia histórica.
 - **Implementación:** `SolidPlatform2D` + `BoxCollider2D` + `SpriteRenderer` (*Tiled* Adaptive) + `PieceArt2D`.
-- **Mundo/contexto:** 1–4 (mundos 1 y 2 implementados; 3 y 4 pendientes). Mundo 2: `Terrain/World_2/Platform_Ground_<Diseño>_Caves.prefab` y `Platform_Floating_<Diseño>_Caves.prefab` (pizarra, templo rúnico, geoda de amatista y fósiles).
+- **Mundo/contexto:** 1–4 (mundos 1, 2 y 3 implementados; 4 pendiente). Mundo 2: `Terrain/World_2/Platform_Ground_<Diseño>_Caves.prefab` y `Platform_Floating_<Diseño>_Caves.prefab` (pizarra, templo rúnico, geoda de amatista y fósiles). Mundo 3: `Terrain/World_3/Platform_*_Swamp.prefab` (turba, manglar, pasarela y piedra de ciénaga).
 - **Qué es / para qué sirve:** Superficie estable para caminar, saltar o refugiarse.
 - **Cómo funciona:** Su collider sólido sostiene y bloquea a Alma.
 - **Daño a Alma:** 0 daño directo. El peligro de una caída depende del entorno donde se coloque.
