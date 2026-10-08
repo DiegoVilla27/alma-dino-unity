@@ -1,4 +1,4 @@
-# Terreno — Mundo 1
+# Terreno
 
 **Estado (7 de octubre de 2026):** implementado el kit de terreno del Mundo 1: **4 diseños × 2 piezas = 8 prefabs** redimensionables (bloque de suelo y plataforma flotante en piedra, madera, raíces y zarzas oscuras), con el componente `SolidPlatform2D`. Es la "plataforma sólida" del inventario, hecha por mundo. Aún no está colocado en ninguna escena (todas son de práctica); se probó en un recorrido del 1-1 que luego se retiró.
 
@@ -60,6 +60,35 @@ Generado con IA el 7/10/2026 (8 generaciones: suelos a 2k, flotantes a 1k), usan
 | `Platform_Floating_Roots_Jungle` | 4 × 0,434 | (0; 0,387) | 1024 × 309 |
 | `Platform_Floating_Thorns_Jungle` | 4 × 0,445 | (0; 0,273) | 1024 × 254 |
 
+## Mundo 2 — Cuevas de Cristal
+
+**Estado (8 de octubre de 2026):** implementado el kit del Mundo 2: **4 diseños × 2 piezas = 8 prefabs** en `Terrain/World_2/` (`Platform_Ground_<Diseño>_Caves`, `Platform_Floating_<Diseño>_Caves`), con los sprites en `World_2/Sprites/`. Mismo componente (`SolidPlatform2D`), mismas piezas y mismo procesado que el Mundo 1; `Order in Layer` −5. Aún no está colocado en ninguna escena (todas son de práctica).
+
+Arte generado con IA el 8/10/2026 (8 generaciones, ~6 créditos) usando como referencia de **forma** el bloque y la flotante de piedra del Mundo 1 (por eso todas las piezas tienen el mismo perfil y se pueden mezclar) y como referencia de **estilo** los fondos del 2-1 y 2-2 y los sprites de cueva. Reglas: sin vegetación, **sin cristales cian** (no se confunden con los pinchos de cristal letales) y **siempre oscuros**, para contrastar con el suelo rompible (caliza clara agrietada). Lo que asoma por encima de la cara superior es margen de arte: Alma pisa la cara superior.
+
+| Diseño | Bloque de suelo | Plataforma flotante | Uso previsto |
+| --- | --- | --- | --- |
+| **Slate** | Pizarra azul oscuro en losas con vetas de cuarzo; pequeñas estalagmitas encima (margen de arte) | Losas de pizarra con estalactitas debajo | 2-1, la caverna fría |
+| **Rune** | Bloques de basalto grafito tallados con runas en oro viejo; cara superior enlosada | Losa de templo con runas | 2-2, el templo de los balancines |
+| **Amethyst** | Roca ciruela oscura con geodas de amatista y magenta incrustadas en la cara (nada asoma por encima) | Roca de geoda con puntas de amatista debajo | 2-4, la gran geoda |
+| **Fossil** | Roca en estratos con amonites, esqueletos de pez y huesos | Roca en estratos con fósiles | 2-3 y variedad |
+
+| Prefab | `Size` (colisión) | Margen (`PieceArt2D`) | Sprite (px) | Borders (izq., abajo, der., arriba) |
+| --- | --- | --- | --- | --- |
+| `Platform_Ground_Slate_Caves` | 8,0 × 2,621 | (0; 0,402) | 2048 × 877 | 174, 284, 174, 291 |
+| `Platform_Ground_Rune_Caves` | 8,0 × 2,547 | (0; 0,008) | 2048 × 656 | 174, 178, 174, 185 |
+| `Platform_Ground_Amethyst_Caves` | 8,0 × 2,688 | (0; 0,027) | 2048 × 702 | 174, 193, 174, 200 |
+| `Platform_Ground_Fossil_Caves` | 8,0 × 2,645 | (0; 0,195) | 2048 × 777 | 174, 233, 174, 240 |
+
+| Prefab | `Size` (colisión) | Margen (`PieceArt2D`) | Sprite (px) |
+| --- | --- | --- | --- |
+| `Platform_Floating_Slate_Caves` | 4,0 × 0,43 | (0; 0,266) | 1024 × 246 |
+| `Platform_Floating_Rune_Caves` | 4,0 × 0,453 | (0; 0,277) | 1024 × 258 |
+| `Platform_Floating_Amethyst_Caves` | 4,0 × 0,48 | (0; 0,262) | 1024 × 257 |
+| `Platform_Floating_Fossil_Caves` | 4,0 × 0,449 | (0; 0,266) | 1024 × 251 |
+
+Comprobado en Unity redimensionando cada pieza (suelo 11 × 6, flotante de 9 de ancho): se repiten sin juntas. En el fósil se nota algo el patrón al repetirse en vertical; en bloques bajos casi no se ve.
+
 ## Uso
 
 1. Arrastra el prefab a la escena.
@@ -75,4 +104,4 @@ Por pieza: un `SpriteRenderer` y un `BoxCollider2D` estático. `PieceArt2D` no h
 
 - Colocar el terreno en los niveles del Mundo 1 en lugar del suelo y los escalones provisionales.
 - Tinte por nivel opcional (más oscuro en 1-3, más dorado en 1-4) con el color del `SpriteRenderer`.
-- Kits de terreno de los mundos 2 a 4.
+- Kits de terreno de los mundos 3 y 4.
