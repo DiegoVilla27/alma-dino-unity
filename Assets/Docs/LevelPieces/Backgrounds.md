@@ -1,8 +1,8 @@
 # Fondos con parallax
 
-**Estado (7 de octubre de 2026):** implementado el fondo con parallax de los cuatro niveles del Mundo 1 (`Parallax_Level_1_1` a `Parallax_Level_1_4`), con el componente `ParallaxLayer2D`. Cada prefab tiene **dos capas** (lejana y media); no se usa capa de primer plano. Cada uno está colocado en su escena de trabajo (`Level_1_1` a `Level_1_4`). **Mundo 2:** implementados `Parallax_Level_2_1` (cueva de cristal), `Parallax_Level_2_2` (Galería de Ecos) y `Parallax_Level_2_3` (El Filo Resonante), cada uno colocado en su escena de trabajo nueva (`Scenes/World_02/Level_2_1` a `Level_2_3`).
+**Estado (7 de octubre de 2026):** implementado el fondo con parallax de los cuatro niveles del Mundo 1 (`Parallax_Level_1_1` a `Parallax_Level_1_4`), con el componente `ParallaxLayer2D`. Cada prefab tiene **dos capas** (lejana y media); no se usa capa de primer plano. Cada uno está colocado en su escena de trabajo (`Level_1_1` a `Level_1_4`). **Mundo 2:** implementados los cuatro: `Parallax_Level_2_1` (cueva de cristal), `Parallax_Level_2_2` (Galería de Ecos), `Parallax_Level_2_3` (El Filo Resonante) y `Parallax_Level_2_4` (Gran Geoda Sagrada), cada uno colocado en su escena de trabajo nueva (`Scenes/World_02/Level_2_1` a `Level_2_4`).
 
-Fichas relacionadas: [Alma (cámara)](../Player/Alma.md#cámara-daño-y-feedback), niveles [2-1](../Levels/World_2_Caves/Level_2_1.md), [2-2](../Levels/World_2_Caves/Level_2_2.md) y [2-3](../Levels/World_2_Caves/Level_2_3.md), niveles [1-1](../Levels/World_1_Jungle/Level_1_1.md), [1-2](../Levels/World_1_Jungle/Level_1_2.md), [1-3](../Levels/World_1_Jungle/Level_1_3.md) y [1-4](../Levels/World_1_Jungle/Level_1_4.md). Inventario: [Fondo con parallax](../INVENTARIO_GAMEPLAY_PREFABS.md#7-fondo-con-parallax).
+Fichas relacionadas: [Alma (cámara)](../Player/Alma.md#cámara-daño-y-feedback), niveles [2-1](../Levels/World_2_Caves/Level_2_1.md), [2-2](../Levels/World_2_Caves/Level_2_2.md), [2-3](../Levels/World_2_Caves/Level_2_3.md) y [2-4](../Levels/World_2_Caves/Level_2_4.md), niveles [1-1](../Levels/World_1_Jungle/Level_1_1.md), [1-2](../Levels/World_1_Jungle/Level_1_2.md), [1-3](../Levels/World_1_Jungle/Level_1_3.md) y [1-4](../Levels/World_1_Jungle/Level_1_4.md). Inventario: [Fondo con parallax](../INVENTARIO_GAMEPLAY_PREFABS.md#7-fondo-con-parallax).
 
 ## Archivos
 
@@ -19,7 +19,7 @@ Todo está en `Assets/Prefabs/Level/Backgrounds/`:
 
 ## Estilo
 
-Cartoon plano con contorno oscuro y 2–3 tonos por zona, como el resto del arte del juego (las primeras capas del 1-1, de aspecto "óleo", se descartaron). Las imágenes se generaron con IA usando como referencia de estilo los propios sprites del juego (hongo, nido, tronco, helecho, cornisa; en el 2-1, los fondos ya aprobados del 1-1 junto con los sprites de cueva: pinchos de cristal, techo aplastante, altar del Pisotón y suelo rompible; en el 2-2, los fondos del 2-1 con los sprites del balancín, el contrapeso, el interruptor y la compuerta rúnica; en el 2-3, los fondos del 2-1 y el 2-2 con los pinchos de cristal) y se procesaron para repetirse en horizontal sin junta (corte por el camino de menor diferencia, elegido para que pase por zonas limpias como el cielo). La luz va pintada en la imagen: el proyecto usa el renderizador integrado, sin luces 2D.
+Cartoon plano con contorno oscuro y 2–3 tonos por zona, como el resto del arte del juego (las primeras capas del 1-1, de aspecto "óleo", se descartaron). Las imágenes se generaron con IA usando como referencia de estilo los propios sprites del juego (hongo, nido, tronco, helecho, cornisa; en el 2-1, los fondos ya aprobados del 1-1 junto con los sprites de cueva: pinchos de cristal, techo aplastante, altar del Pisotón y suelo rompible; en el 2-2, los fondos del 2-1 con los sprites del balancín, el contrapeso, el interruptor y la compuerta rúnica; en el 2-3, los fondos del 2-1 y el 2-2 con los pinchos de cristal; en el 2-4, los tres fondos anteriores del Mundo 2 con el techo aplastante y el Huevo Azul) y se procesaron para repetirse en horizontal sin junta (corte por el camino de menor diferencia, elegido para que pase por zonas limpias como el cielo). La luz va pintada en la imagen: el proyecto usa el renderizador integrado, sin luces 2D.
 
 ## Cómo funciona una capa (`ParallaxLayer2D`)
 
@@ -63,6 +63,8 @@ Las dos capas usan *Tiled*, `Wrap` activo, anclaje `Bottom` con offset 0 y escal
 | 2-2 | Mid | `BG_Level_2_2_Mid` 2208 × 1152 | 57,6 | 38,3 × 20 (× 0,9) | (0,6; 0,15) | 0 |
 | 2-3 | Far | `BG_Level_2_3_Far` 2488 × 1152 | 57,6 | 43,2 × 20 | (0,92; 0,95) | 0 |
 | 2-3 | Mid | `BG_Level_2_3_Mid` 2208 × 1152 | 57,6 | 38,3 × 20 (× 0,9), color 0,72 | (0,6; 0,15) | 0 |
+| 2-4 | Far | `BG_Level_2_4_Far` 2328 × 1152 | 57,6 | 40,4 × 20 | (0,92; 0,95) | 0 |
+| 2-4 | Mid | `BG_Level_2_4_Mid` 2208 × 1152 | 57,6 | 38,3 × 20 (× 0,9), color 0,72 | (0,6; 0,15) | 0 |
 
 Con anclaje `Bottom`, `Follow.y` no se usa (la altura la fija el anclaje). En 1-2 y 1-4, niveles de ascenso, el revelado muestra la parte alta del cielo al subir; 1-1 y 1-3 son horizontales y no lo usan.
 
@@ -75,6 +77,7 @@ Con anclaje `Bottom`, `Follow.y` no se usa (la altura la fija el anclaje). En 1-
 | 2-1 | Lejana: interior de una caverna inmensa en azul pizarra (`#1C2541`, `#0B132B`), siluetas de roca por capas con bruma fría, estalactitas y vetas y racimos de cristal cian y amatista a lo lejos. Media: columnas colosales de roca envueltas en cristales cian y amatista que van del suelo al techo, con huecos transparentes anchos. |
 | 2-2 | Lejana: la "Galería de Ecos", una sala inmensa en gris grafito (`#2B2D42`) y azul medianoche (`#1D3557`), con arcos y pilares de roca que se pierden en la oscuridad, estalactitas y unas pocas geodas esmeralda (`#52B788`) y ámbar (`#EE9B00`) que la iluminan. Es más oscura y de menos contraste que la del 2-1. Media: estalagmitas gigantes y un puente natural de roca en arco, con geodas esmeralda y ámbar, y huecos transparentes. |
 | 2-3 | Lejana: "El Filo Resonante", un túnel estrecho con techo bajo de estalactitas, grandes prismas de cristal turquesa (`#00F5D4`) y cian (`#00BBF9`) que salen de las paredes en diagonal como cuchillas, murciélagos colgando en silueta y túneles que se alejan; la franja inferior es oscura y lisa. Media: estalactitas arriba y estalagmitas abajo con prismas de cristal y algún murciélago; la franja central es transparente, así que el juego ocurre "dentro" del túnel. **Oscurecida** con el color del `SpriteRenderer` (0,72), para que sus cristales no compitan con los pinchos de cristal letales. |
+| 2-4 | Lejana: la Gran Geoda Sagrada, una caverna colosal con las paredes cubiertas de geodas zafiro (`#0077B6`), azul hielo (`#90E0EF`) y algo de amatista. Haces de luz azul pálida en diagonal, techo de roca oscura (`#1B1B1E`) con estalactitas y, en el centro y a lo lejos, un pedestal de cristal sobre una meseta. Media: geodas de roca volcánica abiertas, llenas de cristales zafiro y azul hielo, que suben desde abajo, y estalactitas masivas desde arriba, con la franja central libre. Oscurecida a 0,72, como en el 2-3. |
 
 ## Uso
 
@@ -91,6 +94,7 @@ Dos SpriteRenderers *Tiled* por nivel y un `LateUpdate` sencillo por capa. Sin f
 - `Level_1_1` ya tiene su recorrido completo. Las escenas `Level_1_2` a `Level_1_4` son copias de la escena de práctica (suelo y escalones provisionales); el nivel completo de cada ficha está por construir.
 - `Level_1_2` a `Level_1_4` aún no tienen `CameraBounds2D` (1-1 sí) (límites y altura fija de la cámara, ver [Alma](../Player/Alma.md#cámara-daño-y-feedback)).
 - Solo `Level_1_1` está en **Build Settings**; añadir 1-2 a 1-4 para que el portal pueda cargarlas.
-- Fondos de 2-4, de los mundos 3 y 4 y de los jefes.
-- Las escenas `Level_2_1` a `Level_2_3` son copias de la escena de práctica (suelo y escalones provisionales); los niveles completos están por construir.
-- Los cristales cian del 2-1 (capa media) y del 2-3 (las dos capas; la media ya está al 0,72) son del mismo color que los pinchos de cristal letales: si al montar el nivel se confunden, bajar más el color del `SpriteRenderer` de la capa.
+- Fondos de los mundos 3 y 4 y de los jefes.
+- El pedestal de cristal del fondo lejano del 2-4 se repite cada ~40 u y puede confundirse con el pedestal real del Huevo Azul. Si molesta al montar el nivel, borrarlo de la imagen (retoque, sin créditos).
+- Las escenas `Level_2_1` a `Level_2_4` son copias de la escena de práctica (suelo y escalones provisionales); los niveles completos están por construir.
+- Los cristales cian del 2-1 (capa media) y del 2-3 (las dos capas; la media ya está al 0,72) y del 2-4 (lo mismo) son del mismo color que los pinchos de cristal letales: si al montar el nivel se confunden, bajar más el color del `SpriteRenderer` de la capa.
