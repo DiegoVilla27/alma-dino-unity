@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
+> **Ficha de diseño para reconstrucción:** existe `Assets/Scenes/World_03/Level_3_1.unity` como escena de trabajo (copia de la de práctica) con su fondo [`Parallax_Level_3_1`](../../LevelPieces/Backgrounds.md) (dos capas: pantano lejano con sauces en la niebla y manglares con juncos y bruma); el nivel completo aún no está construido. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 3-1: "Los Fangales Tóxicos"
 > **Mundo 3: Pantano de Viento y Niebla** | **Función Pedagógica:** Introducir (Despertar del Dash Aéreo & Fosos Infranqueables)
@@ -26,7 +26,7 @@
   - Agua y Lodo Tóxico: Verde ciénaga oscuro (`#1E2D24`) y limo sulfuroso (`#2D4A3E`).
   - Niebla y Atmósfera: Gris perla azulado (`#8D99AE`) con veladuras semitransparentes.
   - Acento del Dash Aéreo: Blanco cian relampagueante (`#CAF0F8`) en las plumas de Alma.
-- **Fondos Parallax (4 Capas):**
+- **Fondos Parallax:** implementados con **2 capas**, como en los mundos 1 y 2: la lejana corresponde a la capa 0 y la media a manglares con bandas de niebla, que hacen el papel de la capa 1. La capa 2 la forman las piezas jugables y no se usa capa de primer plano. Ficha original:
   - *Capa 0 (Fondo Lejano):* Siluetas fantasmales de sauces colosales perdidos en un horizonte blanco de niebla.
   - *Capa 1 (Fondo Medio):* Capas de niebla densa que se desplazan a diferentes velocidades.
   - *Capa 2 (Fondo Cercano / Gameplay):* Islotes de turba, troncos flotantes inestables, lodo burbujeante.
