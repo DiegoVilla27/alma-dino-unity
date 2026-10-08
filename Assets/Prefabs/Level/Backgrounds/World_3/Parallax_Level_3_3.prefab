@@ -82,12 +82,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -90
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1a101b293b1045bc87decd3018ff9e35, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1b28827fdf4d4354bbc11a7ba172e36f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 25.347, y: 20}
+  m_Size: {x: 55.156, y: 20}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -124,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8349532617640151912}
   m_Layer: 0
-  m_Name: Parallax_Level_3_2
+  m_Name: Parallax_Level_3_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,12 +229,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -100
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 0fb89cdb131e4ef69309a4aeda5712ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 239a63510eaf48bc8015a5532c72bd84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 38.333, y: 20}
+  m_Size: {x: 44.583, y: 20}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
