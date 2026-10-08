@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
+> **Ficha de diseño para reconstrucción:** existe `Assets/Scenes/World_04/Level_4_1.unity` como escena de trabajo (copia de la de práctica) con su fondo [`Parallax_Level_4_1`](../../LevelPieces/Backgrounds.md) (dos capas: el volcán lejano bajo nubes de tormenta y acantilados de basalto con cascadas de lava); el nivel completo aún no está construido. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 4-1: "Los Ríos de Ceniza"
 > **Mundo 4: Cima Volcánica** | **Función Pedagógica:** Introducir (Despertar del Rugido de Choque & Rocas Ígneas)
@@ -26,7 +26,7 @@
   - Magma y Lava: Amarillo fuego (`#FFD166`), naranja brillante (`#F77F00`) y rojo carmesí (`#D62828`).
   - Basalto y Roca: Negro carbón (`#1B1B1E`) y gris ceniza (`#3A3A3A`).
   - Onda del Rugido: Anillos concéntricos de distorsión sónica con tinte doradonaranja (`#FFB703`).
-- **Fondos Parallax (4 Capas):**
+- **Fondos Parallax:** implementados con **2 capas**, como en los mundos 1 a 3: la lejana corresponde a la capa 0 y la media a la capa 1. La capa 2 la forman las piezas jugables y no se usa capa de primer plano. Ficha original:
   - *Capa 0 (Fondo Lejano):* El cráter gigantesco del volcán activo bajo un cielo cubierto de nubes negras de tormenta ígnea.
   - *Capa 1 (Fondo Medio):* Cascadas de lava fluida cayendo de cornisas de basalto lejanas.
   - *Capa 2 (Fondo Cercano / Gameplay):* Canales de lava, puentes de roca natural, rocas ígneas empujables.
