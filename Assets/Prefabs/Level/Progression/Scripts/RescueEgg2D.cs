@@ -141,7 +141,7 @@ namespace AlmaGame.Level
             {
                 Vector3 from = transform.position;
                 CompleteRescue(from);
-                HudEggIndicator.Instance.FlyIn(_eggId, from);
+                HudEggIndicator.Instance.FlyIn(_eggId, from, _size.y);
                 return;
             }
             Enter(State.Collecting);

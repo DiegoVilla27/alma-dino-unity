@@ -177,7 +177,7 @@ Alma es una madre dinosaurio ágil. Su control debe permitir saltos precisos y e
 | Dash aéreo | Shift en el aire | Impulso horizontal en la dirección fijada al comenzar; una carga aérea y recarga al aterrizar o tocar una espora. | Implementado (recarga también con la espora y el hongo; ignora el viento) |
 | Rugido | E o F | Cono frontal que empuja objetos y activa objetivos compatibles. | Implementado; la roca de basalto ya es un receptor, faltan otros |
 
-El mando y los controles táctiles deben ofrecer las mismas acciones con iconos y estados visibles. El Dash no concede inmunidad a enemigos, pinchos, veneno ni lava; durante el impulso ignora el viento. Ninguna habilidad debe sustituir el botón de otra.
+El mando y los controles táctiles deben ofrecer las mismas acciones con iconos y estados visibles. **Táctil (9/10/2026):** los botones de acción del [HUD](../Systems/HUD.md#botones-de-acción-hudabilitybuttons) (Saltar, Dash, Pisotón y Rugido) entran por `AlmaTouchControls`, que `AlmaInput` suma al teclado; el movimiento táctil está pendiente. El Dash no concede inmunidad a enemigos, pinchos, veneno ni lava; durante el impulso ignora el viento. Ninguna habilidad debe sustituir el botón de otra.
 
 Las habilidades se incorporan de forma acumulativa: Doble Salto en el mundo 1, Pisotón en el 2, Dash en el 3 y Rugido en el 4. Los [altares implementados](../LevelPieces/Progression.md) las desbloquean. La progresión exacta de cada escena se define en su ficha de nivel.
 

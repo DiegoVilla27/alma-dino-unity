@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 766882091191443538}
   - component: {fileID: 4813984746421714384}
   - component: {fileID: 2454130166878730177}
+  - component: {fileID: 1795413248309604540}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -77,4 +78,55 @@ MonoBehaviour:
   _litHeight: 0.9
   _dimScale: 0.75
   _dimColor: {r: 0.55, g: 0.55, b: 0.62, a: 0.4}
+  _backingAlpha: 0.4
   _flightTime: 1.1
+--- !u!114 &1795413248309604540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8122954958874580315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa032ab425e419ba7be5ede0095465d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Systems.HudAbilityButtons
+  _buttons:
+  - Name: Jump
+    Ability: 0
+    IsJump: 1
+    Offset: {x: 0, y: -1.1}
+    Radius: 0.66
+    Rune: {fileID: 21300000, guid: 7f8cfdcd04384a48805d1e48e74b178d, type: 3}
+    Color: {r: 0.55, g: 1, b: 0.35, a: 1}
+  - Name: Dash
+    Ability: 2
+    IsJump: 0
+    Offset: {x: -1.15, y: 0}
+    Radius: 0.56
+    Rune: {fileID: 21300000, guid: 81a568390e0c4255b00ee27fa952468b, type: 3}
+    Color: {r: 0.8, g: 0.5, b: 1, a: 1}
+  - Name: GroundPound
+    Ability: 1
+    IsJump: 0
+    Offset: {x: 1.15, y: 0}
+    Radius: 0.56
+    Rune: {fileID: 21300000, guid: 6058b6487dd646d0b8bff16c4e7d2688, type: 3}
+    Color: {r: 0.45, g: 0.85, b: 1, a: 1}
+  - Name: Roar
+    Ability: 3
+    IsJump: 0
+    Offset: {x: 0, y: 1.1}
+    Radius: 0.56
+    Rune: {fileID: 21300000, guid: 13fbe5972cf94d1ab8684bc8d5e530e5, type: 3}
+    Color: {r: 1, g: 0.75, b: 0.25, a: 1}
+  _inset: {x: 2.15, y: 2.35}
+  _baseSprite: {fileID: 21300000, guid: c19f04db18f243de9ebfbf0349b70e38, type: 3}
+  _ringSprite: {fileID: 21300000, guid: a64581b48c3f4c88b50421d3e2ce05ff, type: 3}
+  _jumpIcon: {fileID: 21300000, guid: 85a63373eb2e4eff89e597a6753a9d9a, type: 3}
+  _shockwaveSprite: {fileID: 21300000, guid: c0ce8128fd50462db8ef67ed61a12a08, type: 3}
+  _touchMargin: 0.2
+  _lockedAlpha: 0.6
+  _flightTime: 1
+  _hitStop: 0.12

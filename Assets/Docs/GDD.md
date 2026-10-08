@@ -296,7 +296,11 @@ HUD minimalista y diegético.
 - Al rescatar cada uno, la silueta se ilumina con su color y emite un latido animado.
 - **Implementado (9/10/2026):** el huevo vuela desde el nivel hasta su hueco y este se enciende con rebote, destello, chispas y dos latidos. El HUD está en las 20 escenas jugables y se oculta durante las cinemáticas. Ver [HUD](Systems/HUD.md).
 
-### 8.2. Indicador de Dash
+### 8.2. Botones de acción y habilidades
+
+- **Implementado (9/10/2026):** rombo de botones táctiles abajo a la derecha (Saltar, Dash, Pisotón y Rugido) con las runas de los altares; las habilidades bloqueadas son huecos vacíos y, al coger un altar, su runa vuela al botón y se graba en él. El botón de Dash se oscurece mientras el Dash está gastado. Ver [HUD](Systems/HUD.md).
+
+### 8.2.1. Indicador de Dash
 
 - Sin barra en pantalla. Las plumas del lomo de Alma brillan tenuemente cuando el Dash está disponible, y se apagan al consumirlo. Feedback diegético.
 

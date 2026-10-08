@@ -27,10 +27,10 @@ namespace AlmaGame.Systems
         [Tooltip("Height of a rescued egg (HUD units).")]
         [SerializeField, Min(0.1f)] private float _litHeight = 0.9f;
         [Tooltip("Size of a missing egg, relative to a rescued one.")]
-        [SerializeField, Range(0.3f, 1f)] private float _dimScale = 0.75f;
+        [SerializeField, Range(0.3f, 1f)] private float _dimScale = 1f;
         [SerializeField] private Color _dimColor = new Color(0.7f, 0.7f, 0.78f, 0.5f);
         [Tooltip("Soft dark halo behind every slot, so the eggs read on bright and dark backdrops alike.")]
-        [SerializeField, Range(0f, 1f)] private float _backingAlpha = 0.4f;
+        [SerializeField, Range(0f, 1f)] private float _backingAlpha = 0.2f;
         [SerializeField, Min(0.1f)] private float _flightTime = 1.1f;
 
         private class Slot
@@ -47,6 +47,7 @@ namespace AlmaGame.Systems
             public Slot Slot;
             public SpriteRenderer Body, Glow;
             public Vector3 From;
+            public float StartScale;
             public float StartedAt;
         }
 
@@ -123,11 +124,12 @@ namespace AlmaGame.Systems
         private Vector2 SlotPosition(int index) => _hud.TopLeft(_inset) + Vector2.right * (_spacing * index);
 
         // An egg was picked up at `worldPosition`: it flies to its slot, which then lights up.
-        public void FlyIn(string eggId, Vector3 worldPosition)
+        public void FlyIn(string eggId, Vector3 worldPosition, float worldHeight = 0f)
         {
             Slot slot = _slots.Find(s => s.Egg.Id == eggId);
             if (slot == null) return;
-            var flight = new Flight { Slot = slot, From = worldPosition, StartedAt = Time.time };
+            float start = worldHeight > 0f && slot.Egg.Sprite != null ? worldHeight / slot.Egg.Sprite.bounds.size.y : 1f;
+            var flight = new Flight { Slot = slot, From = worldPosition, StartScale = start, StartedAt = Time.time };
             flight.Glow = NewRenderer("FlyingGlow", null, HazardFx.Glow(), _hud.SortingOrder + 4);
             flight.Body = NewRenderer("FlyingEgg", null, slot.Egg.Sprite, _hud.SortingOrder + 5);
             var main = _trail.main;
@@ -187,12 +189,12 @@ namespace AlmaGame.Systems
                 Vector3 control = Vector3.Lerp(f.From, to, 0.25f) + Vector3.up * (2.5f * scale);
                 Vector3 p = Vector3.Lerp(Vector3.Lerp(f.From, control, e), Vector3.Lerp(control, to, e), e);
                 float wobble = Mathf.Sin(t * Mathf.PI * 3f) * 12f * (1f - t);
-                float s = Mathf.Lerp(1f, scale, e) * (1f + 0.35f * Mathf.Sin(t * Mathf.PI));   // grows a little mid-flight
+                float s = (1f + 0.35f * Mathf.Sin(t * Mathf.PI));   // grows a little mid-flight
                 f.Body.transform.position = p;
                 f.Body.transform.rotation = Quaternion.Euler(0f, 0f, wobble);
-                f.Body.transform.localScale = Vector3.one * (Mathf.Lerp(1f, _eggScale, e) * s);
+                f.Body.transform.localScale = Vector3.one * (Mathf.Lerp(f.StartScale, _eggScale * scale, e) * s);
                 f.Glow.transform.position = p;
-                f.Glow.transform.localScale = Vector3.one * (1.6f * s);
+                f.Glow.transform.localScale = Vector3.one * (Mathf.Lerp(f.StartScale * 1.6f, _litHeight * 1.9f * scale, e) * s);
                 f.Glow.color = new Color(f.Slot.Egg.Color.r, f.Slot.Egg.Color.g, f.Slot.Egg.Color.b, 0.7f);
                 _trail.transform.position = p;
                 _trail.Emit(2);

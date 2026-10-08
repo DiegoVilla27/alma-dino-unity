@@ -60,6 +60,8 @@ namespace AlmaGame.Player
         public bool IsDashing { get; private set; }
         public bool IsRoaring { get; private set; }
         public bool IsDead { get; private set; }
+        // The air Dash can be used now (unlocked, its charge available and not cooling down).
+        public bool DashCharged => _dashUnlocked && _dashAvailable && Time.time >= _dashReadyAt && !IsDashing;
         public Vector2 RespawnPosition => _spawnPosition;
         // Raised when Alma dies; a listener (AlmaDeathFx) plays the sequence and then calls Respawn().
         public event System.Action Died;

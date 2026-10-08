@@ -5,7 +5,7 @@ using UnityEngine;
 namespace AlmaGame.Level
 {
     // Ability altar: a pedestal with a floating orb in the ability's colour. When Alma touches it, the
-    // orb flies into her (0.4 s), bursts into sparks, the ability's name shows briefly and the ability
+    // rune breaks free and flies to its HUD action button (HudAbilityButtons; into Alma if there is no HUD), bursts into sparks, the ability's name shows briefly and the ability
     // is unlocked (and saved through GameProgress, if present). An altar whose ability is already
     // unlocked starts spent (no orb, dimmed). One prefab per ability, all variants of the same base.
     [DisallowMultipleComponent, RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider2D))]
@@ -148,6 +148,14 @@ namespace AlmaGame.Level
             _collector = alma;
             var emission = _sparkle.emission;
             emission.enabled = false;
+            // With the HUD in the scene the rune breaks free and flies to its button; without it, into Alma.
+            if (HudAbilityButtons.Instance != null)
+            {
+                Vector3 from = _orb.position;
+                Unlock(from);
+                HudAbilityButtons.Instance.FlyIn(_ability, from);
+                return;
+            }
             Enter(State.Collecting);
         }
 

@@ -15,10 +15,10 @@ Fichas de diseño originales: [inventario, Recursos](../INVENTARIO_GAMEPLAY_PREF
 | `Resource_AbilityAltar_GroundPound` | Altar: Pisotón | Pedestal con cristales azules + runa de flecha abajo | 1,602 × 1,309 | Desbloquea el Pisotón (Mundo 2). |
 | `Resource_AbilityAltar_AirDash` | Altar: Dash | Pedestal con raíces y flores moradas + runa de flecha | 1,602 × 1,395 | Desbloquea el Dash aéreo (Mundo 3). |
 | `Resource_AbilityAltar_Roar` | Altar: Rugido | Pedestal volcánico + runa ámbar de ondas | 1,602 × 1,254 | Desbloquea el Rugido (Mundo 4). |
-| `Resource_RescueEgg_Green` | Huevo verde | Huevo verde de motas | 0,605 × 0,801 | Huevo 1 (Mundo 1): al tocarlo se rescata y se guarda. |
-| `Resource_RescueEgg_Blue` | Huevo azul | Huevo azul de motas | 0,602 × 0,801 | Huevo 2 (Mundo 2). |
-| `Resource_RescueEgg_Purple` | Huevo morado | Huevo morado de motas | 0,602 × 0,801 | Huevo 3 (Mundo 3). |
-| `Resource_RescueEgg_Red` | Huevo rojo | Huevo rojo de motas | 0,605 × 0,801 | Huevo 4 (Mundo 4). |
+| `Resource_RescueEgg_Green` | Huevo verde | Huevo verde de motas | 1 × 1,3 | Huevo 1 (Mundo 1): al tocarlo se rescata y se guarda. |
+| `Resource_RescueEgg_Blue` | Huevo azul | Huevo azul de motas | 1 × 1,3 | Huevo 2 (Mundo 2). |
+| `Resource_RescueEgg_Purple` | Huevo morado | Huevo morado de motas | 1 × 1,3 | Huevo 3 (Mundo 3). |
+| `Resource_RescueEgg_Red` | Huevo rojo | Huevo rojo de motas | 1 × 1,3 | Huevo 4 (Mundo 4). |
 | `Resource_LevelExitPortal_Universal` | Portal de salida | Arco de piedra con lianas, runas y remolino turquesa | 2,188 × 2,801 | Final de **todos** los niveles: guarda el nivel como completado y carga el siguiente. |
 
 Todos están en `Assets/Prefabs/Level/Progression/`. Los cuatro altares son variantes de `Resource_AbilityAltar_Base` (cambian habilidad, título, color, sprites y tamaño). Los cuatro huevos son variantes de `Resource_RescueEgg_Base` (cambian identificador, color, texto, sprite y etiqueta). Los prefabs base conservan el marcador provisional (`Level_Placeholder`); todos llevan `PieceArt2D` (ver [Piezas](Pieces.md#cambiar-el-tamaño)).
@@ -107,7 +107,7 @@ Si la habilidad ya estaba desbloqueada al empezar (por la partida guardada o por
 | Fase | Qué pasa |
 | --- | --- |
 | **Esperando** | El huevo flota (±0,1 u) sobre un aura suave de su color que late, con chispas. |
-| **Recogida (0,5 s)** | Al tocarlo Alma (zona de 1,2 × 1,6), vuela hasta ella encogiéndose. |
+| **Recogida (0,5 s)** | Al tocarlo Alma (zona de 1,6 × 2), vuela hasta ella encogiéndose. |
 | **Rescate** | Estallido de 20 destellos de su color y blancos; se guarda (`GameProgress.RescueEgg`, campo `RescuedEggs`); aparece el texto de rescate del GDD 5.2 sobre el lugar del huevo, sube despacio y se desvanece al final de 4,5 s. Se lanza el evento `Rescued` (para que el futuro portal de salida o santuario reaccionen). |
 | **Ya rescatado** | Si la partida guardada ya contiene ese huevo, no aparece. |
 
@@ -118,7 +118,7 @@ Sin `System_GameProgress` en la escena el rescate se ve igual, pero no se guarda
 | `Egg Id` | Green | Identificador guardado en `RescuedEggs` (`Green`, `Blue`, `Purple`, `Red`). |
 | `Egg Color` | verde | Color del aura, las chispas y el estallido. |
 | `Rescue Text` | texto del huevo 1 | Texto que aparece al rescatarlo (admite saltos de línea). |
-| `Size` / `Trigger Size` | (0,6; 0,8) (variantes 0,602–0,605 × 0,801) / (1,2; 1,6) | Tamaño del huevo y de su zona de rescate. |
+| `Size` / `Trigger Size` | (1; 1,3) en la base y en las cuatro variantes (antes 0,6 × 0,8) / (1,6; 2) | Tamaño del huevo y de su zona de rescate. |
 | `Collect Time` | 0,5 | Duración del vuelo hasta Alma (s). |
 | `Text Time` | 4,5 | Tiempo que se ve el texto (s). |
 | `Label` / `Show Label` | «Huevo verde» / sí (no en las variantes) | Etiqueta provisional bajo el huevo. |
@@ -157,7 +157,7 @@ Va al final de **cada** nivel (no depende de los huevos). Su única función es 
 | `Fade Time` | 0,8 | Duración del fundido a negro (s). |
 | `Label` / `Show Label` | «Portal de salida» / no | Etiqueta provisional. |
 
-**Con HUD en la escena** el huevo, al cogerlo, estalla y vuela hasta su hueco del [indicador de hijos](../Systems/HUD.md); sin HUD vuela hacia Alma como antes.
+**Con HUD en la escena** la runa de un altar, al cogerlo, se suelta (con un instante de *hit stop*) y vuela hasta su [botón de acción](../Systems/HUD.md#botones-de-acción-hudabilitybuttons), donde se graba; y el huevo, al cogerlo, estalla y vuela hasta su hueco del [indicador de hijos](../Systems/HUD.md); sin HUD vuela hacia Alma como antes.
 
 ## Coste
 

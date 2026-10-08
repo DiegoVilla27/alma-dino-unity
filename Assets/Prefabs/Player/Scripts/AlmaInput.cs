@@ -11,18 +11,20 @@ namespace AlmaGame.Player
 
         private void Update()
         {
-            // Uses the Input Manager already configured in this project.
+            // Uses the Input Manager already configured in this project, plus the on-screen touch buttons.
             float move = Input.GetAxisRaw("Horizontal");
+            if (Mathf.Abs(move) < 0.15f) move = AlmaTouchControls.Move;
+            bool touchJump = AlmaTouchControls.ConsumeJump();
             _motor.SetInput(Mathf.Abs(move) < 0.15f ? 0f : move,
-                Input.GetButtonDown("Jump"), Input.GetButton("Jump"));
+                Input.GetButtonDown("Jump") || touchJump, Input.GetButton("Jump") || AlmaTouchControls.JumpHeld);
 
             // Ground pound: S / down arrow (Vertical axis) or C, on press only.
             bool down = Input.GetAxisRaw("Vertical") < -0.5f;
-            if ((down && !_downHeld) || Input.GetKeyDown(KeyCode.C)) _motor.RequestGroundPound();
+            if ((down && !_downHeld) || Input.GetKeyDown(KeyCode.C) || AlmaTouchControls.ConsumePound()) _motor.RequestGroundPound();
             _downHeld = down;
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) _motor.RequestDash();
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.F)) _motor.RequestRoar();
+            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift) || AlmaTouchControls.ConsumeDash()) _motor.RequestDash();
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.F) || AlmaTouchControls.ConsumeRoar()) _motor.RequestRoar();
         }
 
         private void OnDisable()

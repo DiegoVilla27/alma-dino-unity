@@ -53,7 +53,8 @@ namespace AlmaGame.Systems
             if (_camera == null) FindCamera();
             if (_camera == null) return;
             Vector3 view = _follow != null ? _follow.ViewPosition : _camera.transform.position;
-            transform.position = new Vector3(view.x, view.y, 0f);
+            // Just in front of the camera's near plane, so nothing in the level (sprites or 3D meshes) covers it.
+            transform.position = new Vector3(view.x, view.y, view.z + _camera.nearClipPlane + 0.5f);
             transform.localScale = Vector3.one * Scale;
             float target = CinematicState.IsPlaying ? 0f : 1f;
             _visibility = Mathf.MoveTowards(_visibility, target, Time.unscaledDeltaTime / _fadeTime);
@@ -64,6 +65,21 @@ namespace AlmaGame.Systems
         {
             float halfH = 8f, halfW = 8f * (_camera != null ? _camera.aspect : 16f / 9f);
             return new Vector2(-halfW + inset.x, halfH - inset.y);
+        }
+
+        // Local position (HUD units) of a point at `inset` units from the bottom-right corner.
+        public Vector2 BottomRight(Vector2 inset)
+        {
+            float halfH = 8f, halfW = 8f * (_camera != null ? _camera.aspect : 16f / 9f);
+            return new Vector2(halfW - inset.x, -halfH + inset.y);
+        }
+
+        // HUD-local position under a screen point (touch, mouse).
+        public Vector2 ScreenToLocal(Vector2 screen)
+        {
+            if (_camera == null) return Vector2.zero;
+            Vector3 world = _camera.ScreenToWorldPoint(new Vector3(screen.x, screen.y, -_camera.transform.position.z));
+            return transform.InverseTransformPoint(world);
         }
 
         // World position of a HUD-local point, as it is this frame.
