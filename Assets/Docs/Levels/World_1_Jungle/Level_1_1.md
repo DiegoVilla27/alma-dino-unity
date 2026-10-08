@@ -1,4 +1,4 @@
-> **Estado (7 de octubre de 2026):** el recorrido jugable completo está montado en `Assets/Scenes/World_01/Level_1_1.unity` (ver [§6 Implementación](#6-implementación-del-recorrido)). Faltan los textos en pantalla y los props narrativos. La cámara usa tamaño ortográfico **8** y el juego no usa audio.
+> **Estado (8 de octubre de 2026):** `Assets/Scenes/World_01/Level_1_1.unity` es una **escena de práctica** (suelo y escalones provisionales con el fondo, `System_GameProgress` y el polen ambiental), como el resto de niveles: los niveles jugables se construirán más adelante. La sección 6 describe un recorrido que se montó y se retiró de la escena; queda como propuesta de diseño. La cámara usa tamaño ortográfico **8** y el juego no usa audio.
 
 # 🗺️ Nivel 1-1: "Despertar en el Nido"
 > **Mundo 1: Jungla Esmeralda** | **Función Pedagógica:** Introducir (Locomoción Base + Despertar del Doble Salto)
@@ -64,7 +64,9 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 - [x] **Sprites Alma:** Idle, Run y Jump integrados en su Animator.
 - [ ] **Double Jump:** clip propio; por ahora reutiliza Jump y añade un efecto visual generado por código.
 
-## 6. Implementación del recorrido
+## 6. Propuesta de recorrido (retirada de la escena)
+
+> Este recorrido se construyó y probó el 7/10/2026, pero la escena volvió a ser de práctica; se conserva como propuesta para cuando se construya el nivel.
 
 Escena `Level_1_1`: todo cuelga de un objeto raíz `Level_1_1` con los hijos `Terrain`, `Pieces`, `Hazards`, `Progression`, `Decor` y `CameraBounds`. Medidas en unidades; la `y` es la superficie donde se pisa.
 
@@ -106,4 +108,3 @@ Pasan las 12.
 **Pendiente:**
 - Textos en pantalla: prólogo y aviso del altar.
 - Props narrativos: plumas, ramitas y huellas hacia la derecha.
-- Añadir `Level_1_2` a **Build Settings** para que el portal pueda cargarla.

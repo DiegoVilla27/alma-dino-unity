@@ -239,9 +239,8 @@ Dos SpriteRenderers *Tiled* por nivel y un `LateUpdate` sencillo por capa. Sin f
 
 ## Pendiente
 
-- `Level_1_1` ya tiene su recorrido completo. Las escenas `Level_1_2` a `Level_1_4` son copias de la escena de práctica (suelo y escalones provisionales); el nivel completo de cada ficha está por construir.
+- Todas las escenas de nivel y de jefe son, por decisión de diseño, escenas de práctica (suelo y escalones provisionales con su fondo): los niveles jugables se construirán más adelante. Las 20 escenas están en **Build Settings** en orden de juego: `Level_1_1` … `Level_1_4`, `Boss_1`, `Level_2_1` … `Boss_2`, `Level_3_1` … `Boss_3`, `Level_4_1` … `Level_4_4` y `Boss_Final`.
 - `Level_1_2` a `Level_1_4` aún no tienen `CameraBounds2D` (1-1 sí) (límites y altura fija de la cámara, ver [Alma](../Player/Alma.md#cámara-daño-y-feedback)).
-- Solo `Level_1_1` está en **Build Settings**; añadir 1-2 a 1-4 para que el portal pueda cargarlas.
 - 4-3: si el fondo lejano, muy saturado en rojo y naranja, resta legibilidad a la lava y el fuego jugables, apagarlo con el color de su `SpriteRenderer` (p. ej. 0,8).
 - Las escenas `Level_4_1` a `Level_4_4` son copias de la escena de práctica; los niveles completos están por construir.
 - Si en el 4-1 la cascada de lava de la capa media se confunde con la lava letal, se puede apagar la capa con el color de su `SpriteRenderer` (sin créditos).

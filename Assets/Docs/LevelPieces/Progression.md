@@ -143,7 +143,7 @@ Va al final de **cada** nivel (no depende de los huevos). Su única función es 
 | **Fundido (0,8 s)** | La pantalla funde a negro (sprite negro delante de la cámara). |
 | **Carga** | Se carga `Next Scene`. |
 
-- `Next Scene` es el **nombre** de la escena (por ejemplo, `Level_1_2`) y debe estar en **File → Build Settings**. Hoy solo está `Level_1_1`.
+- `Next Scene` es el **nombre** de la escena (por ejemplo, `Level_1_2`) y debe estar en **File → Build Settings**. Las 20 escenas están en **Build Settings** en orden de juego: `Level_1_1` … `Level_1_4`, `Boss_1`, `Level_2_1` … `Boss_2`, `Level_3_1` … `Boss_3`, `Level_4_1` … `Level_4_4` y `Boss_Final`.
 - Si `Next Scene` está vacío o no está en Build Settings, el progreso se guarda igual, sale un aviso en consola, la pantalla vuelve a verse y Alma recupera el control (el juego no se queda en negro).
 - Sin `System_GameProgress` el portal funciona, pero no guarda (aviso en consola).
 - En el editor, la etiqueta del gizmo muestra a qué escena lleva («→ Level_1_2» o «(sin escena siguiente)»).

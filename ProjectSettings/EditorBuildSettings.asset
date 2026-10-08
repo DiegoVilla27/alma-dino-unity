@@ -8,4 +8,61 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/World_01/Level_1_1.unity
     guid: 44caab570a03548969fb11e96399222c
+  - enabled: 1
+    path: Assets/Scenes/World_01/Level_1_2.unity
+    guid: 643fcbf3ee9c042c19324873a4b937c9
+  - enabled: 1
+    path: Assets/Scenes/World_01/Level_1_3.unity
+    guid: a614c6ec16ae642f29d91cf7261b1ff5
+  - enabled: 1
+    path: Assets/Scenes/World_01/Level_1_4.unity
+    guid: b258229bb3dd1415d956dc3659caa7eb
+  - enabled: 1
+    path: Assets/Scenes/World_01/Boss_1.unity
+    guid: 421e8e3e867c34391b4729bd3a76d1cf
+  - enabled: 1
+    path: Assets/Scenes/World_02/Level_2_1.unity
+    guid: 66e0b43f03634011adee451cf31a95b2
+  - enabled: 1
+    path: Assets/Scenes/World_02/Level_2_2.unity
+    guid: d5fe386376f143689c16c5452a3e20df
+  - enabled: 1
+    path: Assets/Scenes/World_02/Level_2_3.unity
+    guid: c38ede3232d040a9aa7effd4b6c7e983
+  - enabled: 1
+    path: Assets/Scenes/World_02/Level_2_4.unity
+    guid: 7c51cc0a6f054f1db7b46f7244e487a9
+  - enabled: 1
+    path: Assets/Scenes/World_02/Boss_2.unity
+    guid: 00caf5bf78ec44ee78c97d76cbf7caf2
+  - enabled: 1
+    path: Assets/Scenes/World_03/Level_3_1.unity
+    guid: 320c654b5e4d40959b614794b2bcae2e
+  - enabled: 1
+    path: Assets/Scenes/World_03/Level_3_2.unity
+    guid: aaae62abd34d4ee698038562ec7381df
+  - enabled: 1
+    path: Assets/Scenes/World_03/Level_3_3.unity
+    guid: 26199a6f743648a3b5dc3ec78e3b7a59
+  - enabled: 1
+    path: Assets/Scenes/World_03/Level_3_4.unity
+    guid: 537eb03b53564e739364d4d211480bca
+  - enabled: 1
+    path: Assets/Scenes/World_03/Boss_3.unity
+    guid: 35879179f85904b54ad756154fb4d3b8
+  - enabled: 1
+    path: Assets/Scenes/World_04/Level_4_1.unity
+    guid: 823e7d28265e464a95855ea151bdc50c
+  - enabled: 1
+    path: Assets/Scenes/World_04/Level_4_2.unity
+    guid: b06834ce7b804f169f54d29f9ee9148b
+  - enabled: 1
+    path: Assets/Scenes/World_04/Level_4_3.unity
+    guid: 8e8e01ba98ec478bb11514804d78355c
+  - enabled: 1
+    path: Assets/Scenes/World_04/Level_4_4.unity
+    guid: e3df2a4ac408457a9f445f9dc96df0f6
+  - enabled: 1
+    path: Assets/Scenes/World_04/Boss_Final.unity
+    guid: 1ccc3c8d4363d4547904b1be9985a6f2
   m_configObjects: {}
