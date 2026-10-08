@@ -1124,7 +1124,7 @@ La estructura actual agrupa los enemigos y a Alma por personaje; las trampas y r
 
 - **Prefab real:** `Assets/Prefabs/Level/Backgrounds/World_1/Parallax_Level_1_1.prefab` a `Parallax_Level_1_4.prefab` (uno por nivel del Mundo 1, colocados en sus escenas). Ficha: [Fondos con parallax](LevelPieces/Backgrounds.md). El antiguo nombre `Scenery_ParallaxLayer_Universal.prefab` queda como referencia histórica.
 - **Implementación:** `ParallaxLayer2D`.
-- **Mundo/contexto:** Mundo 1 (1-1 a 1-4) implementado, con dos capas (lejana y media) por nivel; mundos 2 a 4 y jefes pendientes.
+- **Mundo/contexto:** Mundo 1 (1-1 a 1-4) y nivel 2-1 implementados, con dos capas (lejana y media) por nivel; 2-2 a 2-4, mundos 3 y 4 y jefes pendientes.
 - **Qué es / para qué sirve:** Capa de fondo con profundidad aparente.
 - **Cómo funciona:** Se desplaza en proporción al movimiento de la cámara.
 - **Daño a Alma:** 0 daño.

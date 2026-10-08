@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
+> **Ficha de diseño para reconstrucción:** existe `Assets/Scenes/World_02/Level_2_1.unity` como escena de trabajo (copia de la de práctica) con su fondo [`Parallax_Level_2_1`](../../LevelPieces/Backgrounds.md) (dos capas: caverna lejana y columnas de cristal); el nivel completo aún no está construido. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 2-1: "Descenso a la Penumbra"
 > **Mundo 2: Cuevas de Cristal** | **Función Pedagógica:** Introducir (Despertar del Pisotón Sísmico & Suelos Agrietados)
@@ -26,7 +26,7 @@
   - Roca y Caverna: Azul pizarra oscuro (`#1C2541`) y gris piedra mojada (`#0B132B`).
   - Cristales Emisores: Cian eléctrico (`#48CAE4`) y amatista luminosa (`#7209B7`).
   - Suelos Agrietados: Roca caliza quebrada (`#ADB5BD`) con líneas de fisura visibles.
-- **Fondos Parallax (4 Capas):**
+- **Fondos Parallax:** implementados con **2 capas**, como en el Mundo 1: la lejana corresponde a la capa 0 y la media a la capa 1. La capa 2 la forman las piezas jugables y no se usa capa de primer plano. Ficha original:
   - *Capa 0 (Fondo Lejano):* Abismo negro con motas de polvo cristalino flotante.
   - *Capa 1 (Fondo Medio):* Columnas colosales de cristal que conectan el suelo con el techo abovedado.
   - *Capa 2 (Fondo Cercano / Gameplay):* Estalagmitas, bloques de roca quebradiza, cornisas de piedra.
