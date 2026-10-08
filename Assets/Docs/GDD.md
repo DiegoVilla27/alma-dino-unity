@@ -294,6 +294,7 @@ HUD minimalista y diegético.
 
 - Esquina superior izquierda: 4 siluetas de huevo apagadas.
 - Al rescatar cada uno, la silueta se ilumina con su color y emite un latido animado.
+- **Implementado (9/10/2026):** el huevo vuela desde el nivel hasta su hueco y este se enciende con rebote, destello, chispas y dos latidos. El HUD está en las 20 escenas jugables y se oculta durante las cinemáticas. Ver [HUD](Systems/HUD.md).
 
 ### 8.2. Indicador de Dash
 

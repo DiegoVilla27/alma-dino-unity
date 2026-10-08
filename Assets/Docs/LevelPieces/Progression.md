@@ -157,6 +157,8 @@ Va al final de **cada** nivel (no depende de los huevos). Su única función es 
 | `Fade Time` | 0,8 | Duración del fundido a negro (s). |
 | `Label` / `Show Label` | «Portal de salida» / no | Etiqueta provisional. |
 
+**Con HUD en la escena** el huevo, al cogerlo, estalla y vuela hasta su hueco del [indicador de hijos](../Systems/HUD.md); sin HUD vuela hacia Alma como antes.
+
 ## Coste
 
 Nido: un SpriteRenderer, un trigger y tres sistemas de partículas pequeños (máx. 8, 24 y 16). Altar: un SpriteRenderer, un trigger, dos sprites de brillo, dos sistemas de partículas (máx. 10 y 20) y dos `TextMesh`. Sin consultas físicas por frame.

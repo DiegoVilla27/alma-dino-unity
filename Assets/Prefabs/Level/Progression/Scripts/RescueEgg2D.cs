@@ -6,8 +6,9 @@ using UnityEngine;
 namespace AlmaGame.Level
 {
     // One of Alma's four stolen eggs (one per world). It floats over a pulsing aura in its colour; when
-    // Alma touches it, it flies into her, bursts into sparkles, the rescue line from GDD 5.2 appears for
-    // a few seconds and the rescue is saved (GameProgress.RescueEgg). An egg already rescued in the save
+    // Alma touches it, it bursts into sparkles and flies up to its slot in the HUD egg indicator (or into Alma
+    // if the scene has no HUD), the rescue line from GDD 5.2 appears for a few seconds and the rescue is
+    // saved (GameProgress.RescueEgg). An egg already rescued in the save
     // doesn't appear. `Rescued` lets other pieces (exit portal, sanctuary) react later.
     [DisallowMultipleComponent, RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider2D))]
     public sealed class RescueEgg2D : MonoBehaviour
@@ -135,6 +136,14 @@ namespace AlmaGame.Level
             _trigger.enabled = false;
             var emission = _sparkle.emission;
             emission.enabled = false;
+            // With the HUD in the scene the egg flies up to its slot in the corner; without it, into Alma.
+            if (HudEggIndicator.Instance != null)
+            {
+                Vector3 from = transform.position;
+                CompleteRescue(from);
+                HudEggIndicator.Instance.FlyIn(_eggId, from);
+                return;
+            }
             Enter(State.Collecting);
         }
 

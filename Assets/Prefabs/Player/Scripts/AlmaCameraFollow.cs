@@ -76,6 +76,9 @@ namespace AlmaGame.Player
             if (Target != null) Target.Respawned -= SnapToTarget;
         }
 
+        // Where the view is without the shake offset (the HUD sticks to it, so it never shakes).
+        public Vector3 ViewPosition => _followPosition;
+
         // Short shake that fades linearly to zero; a new call replaces the current one.
         public void Shake(float amplitude, float duration)
         {

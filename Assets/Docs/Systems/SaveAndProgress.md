@@ -54,7 +54,10 @@ Después recibe los avisos de los nidos (`CheckpointReached`), los altares (`Unl
 | `Load Save` | sí | Leer la partida guardada al empezar. |
 | `Resume At Saved Checkpoint` | sí | Empezar en el checkpoint guardado si es de este nivel. |
 
-Menú contextual del componente (clic en los tres puntos del Inspector): **Borrar partida guardada**, útil al probar.
+**Para probar desde cero** hay tres formas:
+- Menú superior de Unity **AlmaDino → Borrar partida guardada** (`Assets/Systems/Editor/SaveMenu.cs`). Funciona en cualquier momento; si estás en Play, el cambio se nota al volver a darle a Play.
+- En el Inspector de `System_GameProgress`, los tres puntos del componente → **Borrar partida guardada**.
+- Desactivar `Load Save` en la escena: cada Play empieza sin partida, aunque se siga guardando.
 
 ### Importante al probar en el editor
 
@@ -78,6 +81,6 @@ Los nidos, los altares y los huevos **no** se reinician: un checkpoint encendido
 
 ## Pendiente
 
-- Indicador de huevos en pantalla.
+- ~~Indicador de huevos en pantalla.~~ Hecho: ver [HUD](HUD.md).
 - Menú de inicio que cargue el nivel guardado en `Level` (el portal ya pasa de un nivel al siguiente).
 - Varias ranuras de partida, si se quieren.
