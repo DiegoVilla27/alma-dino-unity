@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
+> **Ficha de diseño para reconstrucción:** existe `Assets/Scenes/World_02/Level_2_2.unity` como escena de trabajo (copia de la de práctica) con su fondo [`Parallax_Level_2_2`](../../LevelPieces/Backgrounds.md) (dos capas: galería lejana y estalagmitas con puente de roca); el nivel completo aún no está construido. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 2-2: "La Galería de Ecos"
 > **Mundo 2: Cuevas de Cristal** | **Función Pedagógica:** Practicar (Balancines de Piedra, Catapultas & Pisotón Sísmico)
@@ -20,7 +20,7 @@
   - Roca Cavernosa: Gris grafito (`#2B2D42`) y azul medianoche (`#1D3557`).
   - Balancines Mecánicos: Basalto pulido oscuro (`#111118`) con marcas rúnicas amarillas (`#E9D8A6`).
   - Cristales de Iluminación: Esmeralda cristalina (`#52B788`) y ámbar brillante (`#EE9B00`).
-- **Fondos Parallax (4 Capas):**
+- **Fondos Parallax:** implementados con **2 capas**, como en el Mundo 1: la lejana corresponde a la capa 0 y la media a la capa 1. La capa 2 la forman las piezas jugables y no se usa capa de primer plano. Ficha original:
   - *Capa 0 (Fondo Lejano):* Galería cavernosa infinita que se pierde en la negrura.
   - *Capa 1 (Fondo Medio):* Estalagmitas gigantescas y puentes naturales de roca en silueta.
   - *Capa 2 (Fondo Cercano / Gameplay):* Los balancines basculantes, bloques contrapeso y compuertas de piedra.
