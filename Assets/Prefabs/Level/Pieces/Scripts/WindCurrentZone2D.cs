@@ -26,11 +26,17 @@ namespace AlmaGame.Level
 
         public Vector2 Acceleration => _direction.sqrMagnitude > 0f ? _direction.normalized * _strength : Vector2.zero;
 
+        // Set from code by things that drive the wind over time (GustWind2D in a boss arena).
+        public float Strength { get => _strength; set => _strength = Mathf.Max(0f, value); }
+        public Vector2 Direction { get => _direction; set => _direction = value; }
+
         public bool IsActive
         {
             get => _active;
             set
             {
+                // Bodies at rest are asleep and get no trigger callbacks: wake whoever is inside when it starts.
+                if (value && !_active) WakeBodiesInside();
                 _active = value;
                 if (_streaks == null) return;
                 var emission = _streaks.emission;
@@ -75,6 +81,16 @@ namespace AlmaGame.Level
 
             if (_showLabel)
                 HazardZone2D.CreatePlaceholderLabel(transform, _label, new Vector3(0f, _size.y * 0.5f + 0.3f, 0f), _renderer);
+        }
+
+        private static readonly Collider2D[] s_inside = new Collider2D[16];
+
+        private void WakeBodiesInside()
+        {
+            if (_trigger == null) return;
+            int count = _trigger.Overlap(new ContactFilter2D { useTriggers = false }, s_inside);
+            for (int i = 0; i < count; i++)
+                if (s_inside[i].attachedRigidbody != null) s_inside[i].attachedRigidbody.WakeUp();
         }
 
         private void OnDestroy() => HazardFx.DestroyMaterial(_streaks);

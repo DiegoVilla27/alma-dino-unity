@@ -36,6 +36,7 @@ Todas están en `Assets/Prefabs/Level/Pieces/`, a escala 1 × 1, y **no hacen da
 | `Pieces/Scripts/DashRefillSpore2D.cs` | Espora de recarga del Dash. |
 | `Pieces/Scripts/DashBreakableBarrier2D.cs` | Barrera rompible con Dash. |
 | `Pieces/Scripts/WindCurrentZone2D.cs` | Corriente de viento. |
+| `Pieces/Scripts/GustWind2D.cs` | Convierte una corriente de viento en un vendaval a rachas (`Strength`, `Gust`, `Calm`, `Warning`, `Ramp`, `Side`) y acelera unas partículas como aviso; lo usa el fondo del jefe 3. |
 | `Pieces/Sprites/*.png` | Un sprite por pieza, con el nombre de su prefab. |
 | `Pieces/Platform_Crumbling_Base.prefab` | Base de las plataformas que se desmoronan (marcador provisional: `Level_Placeholder` teñido (0,6; 0,5; 0,35), 2,5 × 0,4). Las variantes cambian sprite, tamaño, tiempo de colapso, color de los trozos y etiqueta. |
 | `Pieces/Resource_DashBarrier_Base.prefab` | Base de las barreras (marcador provisional: `Level_Placeholder` teñido (0,55; 0,65; 0,3), 0,8 × 3). Las variantes cambian sprite, tamaño, color de los trozos y etiqueta. |
@@ -190,6 +191,7 @@ Con la física de Alma, el rebote sube unos 6,7 m sin mantener el salto y unos 9
 - Trigger. Mientras Alma está dentro recibe una aceleración en `Direction` de `Strength` (22 u/s²). Con un rozamiento propio de 4, la velocidad que aporta el viento tiende a `Strength / 4` (≈5,5 u/s con 22), que se **suma** al movimiento de Alma: caminar a favor es más rápido y en contra más lento. Al salir, ese empuje se va apagando en unas décimas.
 - `Gravity Compensation` (0–1,5) anula esa fracción de la gravedad mientras está dentro: 1 = flota, más de 1 = corriente ascendente.
 - **El Dash y el Pisotón ignoran el viento** (durante el impulso no empuja ni frena).
+- **Desde código:** `Strength` y `Direction` se pueden cambiar en juego (lo hace `GustWind2D`). Al activarse (`IsActive`) despierta los cuerpos físicos dormidos que ya estén dentro: Unity no avisa de la zona a un cuerpo en reposo, así que una Alma quieta no recibía el empuje.
 - También empuja cualquier cuerpo físico dinámico que entre (por ejemplo el contrapeso del balancín).
 - `Active` la enciende o apaga (un mecanismo puede cambiarla).
 - **Visual:** sin imagen a propósito. El área (`Level_Placeholder` en Tiled) tiene **alfa 0** y orden de dibujo −1, así que en juego solo se ven los trazos blancos que fluyen en su dirección (1,2 trazos por unidad²). Gizmo: rectángulo y flecha con la dirección.

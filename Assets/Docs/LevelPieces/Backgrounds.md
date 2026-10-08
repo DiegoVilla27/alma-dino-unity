@@ -12,7 +12,9 @@ Todo está en `Assets/Prefabs/Level/Backgrounds/`:
 | --- | --- |
 | `Scripts/ParallaxLayer2D.cs` | Una capa de parallax: seguimiento de la cámara, repetición horizontal, deriva propia, anclaje a un borde de la pantalla y revelado al ascender. Namespace `AlmaGame.Level`. |
 | `Scripts/LightningFlash2D.cs` | Relámpago lejano: cada pocos segundos el sprite (un brillo suave) destella dos veces y se apaga; evento `Flashed` en cada rayo; `Interval` ajustable desde código. |
-| `Scripts/BossBackdropPhases.cs` | Lleva el fondo de un jefe por las fases del combate (luz, tormenta, nubes, relámpagos y lluvia), con transición suave. El jefe llama a `SetPhase(0..2)`; `Preview Phase` permite probarlas en Play desde el Inspector. |
+| `Scripts/BossBackdropPhases.cs` | Lleva el fondo de un jefe por las fases del combate con transición suave. Es genérico: una lista de **pistas**, cada una con un valor por fase sobre un objetivo (`Brightness`, `Alpha`, `RaiseY`, `Position`, `Scale`, `Drift`, `Emission`, `LightningInterval`, `PulseLevel`, `PulseSpeed`, `SwayAmplitude`, `SwaySpeed`, `WindStrength`, `WindCalm`). El jefe llama a `SetPhase(0..2)` y, si el viento cambia, a `SetWindDirection(±1)` (refleja los objetos de `Wind Flip`, invierte las pistas `Drift` y gira el vendaval `GustWind2D`); `Preview Phase` y `Preview Wind Left` permiten probarlo en Play desde el Inspector. |
+| `Scripts/Sway2D.cs` | Balanceo horizontal a rachas (dos ondas desfasadas), con `Amplitude` y `Speed`; la copa del jefe 3. |
+| `Scripts/Pulse2D.cs` | Brillo que respira: la opacidad del sprite es `Level`, atenuada hasta `Depth` en una onda de `Speed` ciclos por segundo (geodas, grietas, haces de luz). |
 | `World_1/Parallax_Level_1_X.prefab`, `World_2/Parallax_Level_2_X.prefab`, `World_3/Parallax_Level_3_X.prefab`, `World_4/Parallax_Level_4_X.prefab` | Fondo de cada nivel: un objeto raíz con las capas `Far` y `Mid` como hijos. |
 | `World_2/Sprites/BG_Level_2_X_Far.png` / `_Mid.png`, `World_3/Sprites/BG_Level_3_X_*.png`, `World_4/Sprites/BG_Level_4_X_*.png` | Imágenes de cada nivel de los mundos 2 a 4. |
 | `World_1/Sprites/BG_Level_1_X_Far.png` / `_Mid.png` | Imágenes de cada capa (la lejana opaca; la media con huecos transparentes). |
@@ -126,7 +128,7 @@ Arte en `World_1/Boss_1/` (generado el 8/10/2026). Escena de trabajo: `Scenes/Wo
 | `Lair` | `BG_Boss_1_Lair` 2688 × 516 | 42 × 8,1 u, techo en y +10 | `SpriteRenderer`; −90 | Rama de teca con dosel, el nido con reliquias (corona, gemas, monedas) a la izquierda y tres nudos con cabos de cuerda en **x −4,5, 0 y +4,5**, donde cuelgan las lianas de la fase 2. Los dos nudos laterales se movieron a mano desde ±15 u para que coincidan. |
 | `Rain` | partículas (`FX_Mote.mat`, estiradas ×0,07 por velocidad, tamaño 0,09–0,14, blanco azulado al 75 %) | caja de 46 u en y +9,5 | `ParticleSystem` (vida 1,6 s, caída oblicua −4/−15 u/s, máx. 500); 25 | Lluvia de la fase 3 (la cantidad la pone la fase). |
 
-**Fases** (`BossBackdropPhases`, transición de 2,5 s; la guarida recibe el 60 % del cambio de luz):
+**Fases** (pistas de `BossBackdropPhases`, transición de 2,5 s; la guarida se oscurece menos que el cielo):
 
 | Fase | Luz | Tormenta (opacidad / subida) | Deriva de las nubes | Relámpagos (cada / sitio / escala) | Lluvia |
 | --- | --- | --- | --- | --- | --- |
@@ -137,6 +139,66 @@ Arte en `World_1/Boss_1/` (generado el 8/10/2026). Escena de trabajo: `Scenes/Wo
 Comprobado en Unity a 16:9 y 21:9 con el fondo de cámara en magenta: 0 píxeles sin imagen en las tres fases.
 
 **Pendiente:** el jefe debe llamar a `SetPhase(1)` y `SetPhase(2)` al cambiar de fase y conectar `LightningFlash2D.Flashed` para iluminar su silueta; construir la arena (plataforma central y ramas laterales) centrada en el fondo, con un `CameraBounds2D` del tamaño de la arena y las tres lianas en x −4,5, 0 y +4,5.
+
+### Jefe 2 — `World_2/Backdrop_Boss_2.prefab`
+
+La arena es la **cámara ovalada donde el Armadillo Prehistórico bloquea la salida** hacia el pantano. Su reloj es **la cueva derrumbándose**: con cada ciclo la pared se agrieta más, cae polvo y cascotes (en el ciclo 2 el jefe hace caer estalactitas) y, al final, la luz fría del pantano se cuela por la salida sellada, la promesa de escapar del texto de victoria. Paleta en negro violáceo con amatista y carmesí y **sin cian**, para que el caparazón gris pizarra del jefe y su punto débil cian resalten. Los pilares de amatista contra los que choca son piezas de juego, no fondo.
+
+Arte en `World_2/Boss_2/` (generado el 8/10/2026, 3 generaciones). Escena de trabajo: `Scenes/World_02/Boss_2.unity` (copia de la de práctica con este fondo en (0, 1)).
+
+| Capa | Sprite | Tamaño / posición | Componentes; orden | Contenido |
+| --- | --- | --- | --- | --- |
+| `Cave` | `BG_Boss_2_Cave` 2688 × 1152 (64 PPU) | 42 × 18 u, centrada | `SpriteRenderer`; −100 | Cámara ovalada con geodas de amatista y carmesí en las paredes y, arriba en el centro, la salida sellada por rocas con un hilo de luz fría. |
+| `GeodeGlow` | `BG_Boss_2_GeodeGlow` (extraído de la caverna: los cristales brillantes, difuminados) | igual que `Cave` | `Pulse2D`; −99 | Brillo de las geodas que respira. |
+| `Crack` | `BG_Boss_2_Crack` 2525 × 1519 (128 PPU; la punta superior se difumina) | bajo la salida, escala según la fase | `Pulse2D`; −98 | Red de grietas al rojo magenta que se abre desde la salida. |
+| `Beam` | `BG_Boss_2_Beam` (haz suave generado, 32 PPU) | 5,6 × 16 u, desde y +6 | `Pulse2D`, color verde frío (0,82; 1; 0,9); −97 | La luz del pantano entrando por la salida. |
+| `Ceiling` | `BG_Boss_2_Ceiling` 2688 × 454 (64 PPU) | 42 × 7,1 u, techo en y +9 | `SpriteRenderer`; −90 | Techo de estalactitas con cristales; el hueco del pasaje se hizo transparente para que se vea la salida sellada de la caverna. |
+| `Dust` / `Debris` | partículas (`FX_Mote.mat`) | cajas de 40 / 36 u en y +7 / +7,5 | `ParticleSystem`; 24 / 26 | Polvo lila que cae despacio y cascotes oscuros que caen con gravedad. |
+
+**Fases:**
+
+| Fase | Luz cueva / techo | Geodas (nivel / pulso) | Grieta (nivel / pulso / escala) | Luz de salida | Polvo / cascotes |
+| --- | --- | --- | --- | --- | --- |
+| 1 — Bola rodante | 1 / 1 | 0,35 / 0,35 Hz | 0 / 0,5 Hz / 0,6 | 0 | 3 / 0 por s |
+| 2 — Más rápido, caen estalactitas | 0,9 / 0,9 | 0,55 / 0,9 Hz | 0,7 / 1 Hz / 0,75 | 0,08 | 30 / 2 por s |
+| 3 — Salto rodante | 0,78 / 0,8 | 0,8 / 1,8 Hz | 1 / 2,2 Hz / 0,9 | 0,5 (pulso 0,6 Hz) | 70 / 12 por s |
+
+Comprobado en Unity a 16:9 y 21:9 con el fondo de cámara en magenta: 0 píxeles sin imagen en las tres fases.
+
+**Pendiente:** el jefe debe llamar a `SetPhase(1)` y `SetPhase(2)` al empezar los ciclos 2 y 3; construir la arena (suelo, dos plataformas superiores y los pilares de amatista) centrada en el fondo, con su `CameraBounds2D`.
+
+### Jefe 3 — `World_3/Backdrop_Boss_3.prefab`
+
+La arena es la **copa del Sauce Ancestral, sobre el abismo de niebla del pantano**. El Pterodáctilo Alfa bate las alas al fondo de la pantalla y sus vendavales intentan tirar a Alma de las ramas; tras cada impacto destruye una rama y el viento cambia de sentido. Su reloj es **el vendaval que crece hasta huracán** y, al final, el horizonte volcánico en llamas que anuncia el Mundo 4 (texto de victoria: «huye hacia el horizonte humeante»). Cielo claro y nacarado **sin púrpura ni cian**, para que resalten las alas púrpura oscuro del jefe, su cresta cian y la línea cian de aviso del picado.
+
+Arte en `World_3/Boss_3/` (generado el 8/10/2026, 3 generaciones). Escena de trabajo: `Scenes/World_03/Boss_3.unity`, copia de la escena del jefe 2 del usuario (su suelo, sus escalones y `Alma_Practice`), con este fondo en (0, 1).
+
+| Capa | Sprite | Tamaño / posición | Componentes; orden | Contenido |
+| --- | --- | --- | --- | --- |
+| `Sky` | `BG_Boss_3_Sky` 2688 × 1152 (64 PPU) | 42 × 18 u, centrado | `SpriteRenderer`; −100 | Cielo gris nacarado con nubes estiradas por el viento, mar de niebla y la cordillera volcánica humeante en el horizonte. |
+| `VolcanoGlow` | `BG_Boss_3_VolcanoGlow` (generado: el resplandor pintado detrás de las montañas, intensificado, más una neblina cálida) | igual que `Sky` | `SpriteRenderer` naranja (1; 0,38; 0,19); −99 | El horizonte que se enciende con las fases. |
+| `Fog` | `BG_Boss_3_Fog` 2248 × 586 | 35,1 × 9,2 u, *Tiled*, techo en y −4 | `ParallaxLayer2D` fija con `Wrap`; deriva y subida por fase; −95 | El abismo de niebla en remolinos. |
+| `Canopy` | `BG_Boss_3_Canopy` 2688 × 686 | 42 × 10,7 u, techo en y +11,2 | `Sway2D`; −90 | Copa del sauce con ramas pálidas y hojas barridas a la derecha por el viento. |
+| `Wind/Gusts` | partículas (`FX_Mote.mat`, estiradas) | entran por x −23 | `ParticleSystem` en espacio local, 18–26 u/s; 22 | Rachas blancas que cruzan la pantalla. |
+| `Wind/Leaves` | partículas (`BG_Boss_3_Leaf` + `BG_Boss_3_Leaf.mat`) | entran por x −22 | 7–13 u/s, giran hasta 540°/s, ruido; 23 | Hojas de sauce arrancadas. |
+| `Gale` | `Resource_WindCurrent_Universal` (área invisible, sin trazos propios) | 46 × 26 u, toda la arena | `WindCurrentZone2D` + `GustWind2D`; las rachas aceleran `Wind/Gusts` y `Wind/Leaves` (×2) desde 0,7 s antes de cada una | **El vendaval que empuja a Alma** (el Dash lo ignora). |
+| `Wind/Embers` / `Wind/Ash` | partículas (`FX_Mote.mat`) | entran por x −22 | naranja / gris, con ruido; 24 / 21 | Ascuas y ceniza del volcán: llegan con el huracán de la fase 3. |
+
+**Fases:**
+
+| Fase | Cielo | Horizonte | Niebla (deriva / subida) | Copa (balanceo / ritmo) | Rachas / hojas / ascuas / ceniza (por s) | Empuje del vendaval (racha 2,5 s / calma) |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 — Vendaval | 1 | 0,2 | 0,4 u/s / 0 | 0,05 u / 0,3 Hz | 4 / 1 / 0 / 0 | 0 (solo ambiente) |
+| 2 — Picados | 0,88 | 0,55 | 1,2 u/s / 0,3 | 0,15 u / 0,6 Hz | 14 / 6 / 0 / 4 | 14 u/s² / 2,5 s |
+| 3 — Ramas destruidas | 0,72 | 1 | 3 u/s / 0,7 | 0,35 u / 1,1 Hz | 35 / 20 / 18 / 25 | 22 u/s² / 1,5 s |
+
+**Sentido del viento:** todo lo que arrastra el viento está bajo `Wind`. `SetWindDirection(-1)` lo refleja (las partículas entran por la derecha) y hace correr la niebla hacia la izquierda. El vendaval empuja también hacia ese lado. La copa no se refleja, porque su dibujo va barrido a la derecha.
+
+**Vendaval jugable:** en las fases 2 y 3 el viento empuja a Alma a rachas (sube en 0,4 s, dura 2,5 s, luego calma), en el sentido del viento visible; justo antes de cada racha las rachas y hojas del fondo se aceleran como aviso. El Dash lo ignora. Comprobado con una prueba PlayMode en la escena real (`Boss3WindTests`, en la copia de trabajo de pruebas): en la fase 1 Alma quieta no se mueve; en las fases 2 y 3 una racha la desplaza ~3 u (hasta chocar con un escalón de la escena de trabajo); con el viento invertido, ~3 u hacia el otro lado. Los valores son los del vendaval de la ficha (12 u/s²) un poco por encima; ajustables en las pistas `Gale push` y `Gale calm`.
+
+Comprobado en Unity a 16:9 y 21:9 con el fondo de cámara en magenta: 0 píxeles sin imagen en las tres fases.
+
+**Pendiente:** el jefe debe llamar a `SetPhase(1)` y `SetPhase(2)` tras los impactos 1 y 2, y a `SetWindDirection` cuando alterna el vendaval; construir la arena (cuatro ramas en semicírculo) centrada en el fondo, con su `CameraBounds2D`.
 
 ## Uso
 
@@ -153,7 +215,7 @@ Dos SpriteRenderers *Tiled* por nivel y un `LateUpdate` sencillo por capa. Sin f
 - `Level_1_1` ya tiene su recorrido completo. Las escenas `Level_1_2` a `Level_1_4` son copias de la escena de práctica (suelo y escalones provisionales); el nivel completo de cada ficha está por construir.
 - `Level_1_2` a `Level_1_4` aún no tienen `CameraBounds2D` (1-1 sí) (límites y altura fija de la cámara, ver [Alma](../Player/Alma.md#cámara-daño-y-feedback)).
 - Solo `Level_1_1` está en **Build Settings**; añadir 1-2 a 1-4 para que el portal pueda cargarlas.
-- Fondos de los jefes 2, 3 y final.
+- Fondo del jefe final.
 - 4-3: si el fondo lejano, muy saturado en rojo y naranja, resta legibilidad a la lava y el fuego jugables, apagarlo con el color de su `SpriteRenderer` (p. ej. 0,8).
 - Las escenas `Level_4_1` a `Level_4_4` son copias de la escena de práctica; los niveles completos están por construir.
 - Si en el 4-1 la cascada de lava de la capa media se confunde con la lava letal, se puede apagar la capa con el color de su `SpriteRenderer` (sin créditos).

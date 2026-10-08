@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
+> **Ficha de diseño para reconstrucción:** existe `Assets/Scenes/World_02/Boss_2.unity` como escena de trabajo con el fondo de la arena ([`Backdrop_Boss_2`](../../LevelPieces/Backgrounds.md#jefe-2--world_2backdrop_boss_2prefab): cámara de amatista que se agrieta y derrumba con los ciclos del combate hasta que entra la luz del pantano); la arena y el jefe aún no están construidos. La sección «Estado de implementación» describe el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción. No habrá audio.
 
 # 👑 Jefe 2: "El Acorazado Subterráneo — Armadillo Prehistórico"
 > **Mundo 2: Cuevas de Cristal** | **Arena de Combate y Cierre del Mundo 2**

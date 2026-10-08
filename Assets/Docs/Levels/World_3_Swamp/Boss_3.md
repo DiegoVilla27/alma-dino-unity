@@ -1,4 +1,4 @@
-> **Ficha de diseño para reconstrucción:** esta escena aún no existe en el proyecto actual. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
+> **Ficha de diseño para reconstrucción:** existe `Assets/Scenes/World_03/Boss_3.unity` como escena de trabajo con el fondo de la arena ([`Backdrop_Boss_3`](../../LevelPieces/Backgrounds.md#jefe-3--world_3backdrop_boss_3prefab): la copa del Sauce Ancestral sobre la niebla, con un vendaval que crece hasta huracán y el horizonte volcánico encendiéndose con las fases); la arena y el jefe aún no están construidos. La sección «Implementación jugable» describe el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción. No habrá audio.
 
 # 👑 Jefe 3: "El Señor de las Ráfagas — Pterodáctilo Alfa"
 > **Mundo 3: Pantano de Viento y Niebla** | **Arena de Combate y Cierre del Mundo 3**
