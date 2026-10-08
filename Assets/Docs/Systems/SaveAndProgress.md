@@ -29,7 +29,8 @@ Namespace `AlmaGame.Systems`, ensamblado `Assembly-CSharp`.
 | `HasCheckpoint`, `CheckpointX`, `CheckpointY` | bool, float | Último checkpoint de ese nivel (punto de reaparición). |
 | `RescuedEggs` | lista de string | Huevos rescatados (`Green`, `Blue`, `Purple`, `Red`), añadidos por los [huevos](../LevelPieces/Progression.md#huevos-a-rescatar-resource_rescueegg_). |
 | `CompletedLevels` | lista de string | Niveles terminados por el [portal de salida](../LevelPieces/Progression.md#portal-de-salida-resource_levelexitportal_universal). |
-| `DoubleJump`, `GroundPound`, `Dash`, `Roar` | bool | Habilidades desbloqueadas. |
+| `DoubleJump`, `GroundPound`, `Dash`, `Roar` | bool | Registro global de habilidades conseguidas alguna vez (no decide qué tiene Alma al empezar un nivel). |
+| `LevelUnlocks` | lista de texto | Habilidades desbloqueadas en `Level` desde que se empezó desde el principio; se devuelven al reaparecer en un checkpoint de ese nivel. |
 | `PlayTimeSeconds` | float | Tiempo jugado (tiempo real). |
 | `SavedAtUtc` | string | Fecha y hora del último guardado (ISO 8601, UTC). |
 
@@ -41,7 +42,7 @@ Al empezar el nivel:
 
 1. Carga la partida (si `Load Save` está activo); si no hay, crea una nueva.
 2. Si la partida es de **otro nivel**, olvida su checkpoint (no aplica aquí) y pasa a este nivel.
-3. Suma las **habilidades iniciales del nivel** (`Start With …`) a las guardadas.
+3. Calcula las **habilidades del nivel**: las iniciales (`Start With …`, lo que dan los niveles anteriores) más, solo si reanuda en un checkpoint de este nivel, las de `LevelUnlocks`. Si empieza el nivel desde el principio, vacía `LevelUnlocks`. Así un nivel siempre se juega como está diseñado: en el 1-1 no hay doble salto antes del altar, aunque la partida lo tenga registrado.
 4. Aplica a Alma qué habilidades tiene (las demás quedan **bloqueadas**).
 5. Si la partida tiene checkpoint de este nivel y `Resume At Saved Checkpoint` está activo, Alma aparece en él y ese nido se enciende.
 
@@ -58,7 +59,7 @@ Menú contextual del componente (clic en los tres puntos del Inspector): **Borra
 ### Importante al probar en el editor
 
 - **Sin `System_GameProgress` en la escena**, Alma tiene **todas las habilidades desbloqueadas** y no se guarda nada (como hasta ahora). Con él, solo tiene las guardadas y las iniciales del nivel.
-- La partida **se mantiene entre sesiones de Play**: si activaste un nido, la siguiente vez empiezas en él; si desbloqueaste una habilidad, sigue desbloqueada y su altar sale gastado. Para empezar de cero usa **Borrar partida guardada** o desactiva `Load Save`.
+- La partida **se mantiene entre sesiones de Play**: si activaste un nido, la siguiente vez empiezas en él; si además desbloqueaste una habilidad en ese nivel, la conservas y su altar sale gastado. Si empiezas el nivel desde el principio (sin checkpoint guardado), vuelves a tener solo sus habilidades iniciales. Para empezar de cero usa **Borrar partida guardada** o desactiva `Load Save`.
 - Debe haber un solo `GameProgress` por escena; si hay dos, el segundo se desactiva con un aviso.
 
 ## Reinicio al morir

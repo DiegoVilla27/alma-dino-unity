@@ -1,6 +1,6 @@
 # Terreno — Mundo 1
 
-**Estado (7 de octubre de 2026):** implementado el kit de terreno del Mundo 1: **4 diseños × 2 piezas = 8 prefabs** redimensionables (bloque de suelo y plataforma flotante en piedra, madera, raíces y zarzas oscuras), con el componente `SolidPlatform2D`. Es la "plataforma sólida" del inventario, hecha por mundo. Aún no está colocado en las escenas.
+**Estado (7 de octubre de 2026):** implementado el kit de terreno del Mundo 1: **4 diseños × 2 piezas = 8 prefabs** redimensionables (bloque de suelo y plataforma flotante en piedra, madera, raíces y zarzas oscuras), con el componente `SolidPlatform2D`. Es la "plataforma sólida" del inventario, hecha por mundo. Colocado en `Level_1_1` (piedra, raíces y zarzas oscuras; ver la [ficha del nivel](../Levels/World_1_Jungle/Level_1_1.md#6-implementación-del-recorrido)).
 
 Fichas relacionadas: [Piezas de nivel](Pieces.md) (margen de arte y herramienta Rect), [Fondos con parallax](Backgrounds.md), niveles [1-1](../Levels/World_1_Jungle/Level_1_1.md) a [1-4](../Levels/World_1_Jungle/Level_1_4.md). Inventario: [Plataforma sólida](../INVENTARIO_GAMEPLAY_PREFABS.md#1-plataforma-sólida).
 
@@ -15,7 +15,7 @@ Todo está en `Assets/Prefabs/Level/Terrain/`:
 | `World_1/Platform_Floating_<Diseño>_Jungle.prefab` | Plataforma flotante. |
 | `World_1/Sprites/Platform_*_Jungle.png` | Un sprite por prefab, con su mismo nombre. |
 
-Cada prefab: `SpriteRenderer` (*Tiled*, `Tile Mode` *Adaptive*), `BoxCollider2D` sólido, `PieceArt2D` y `SolidPlatform2D`.
+Cada prefab: `SpriteRenderer` (*Tiled*, `Tile Mode` *Adaptive*, `Order in Layer` −5, detrás de nidos, altares, trampas y Alma), `BoxCollider2D` sólido, `PieceArt2D` y `SolidPlatform2D`.
 
 ## Diseños
 
@@ -73,6 +73,6 @@ Por pieza: un `SpriteRenderer` y un `BoxCollider2D` estático. `PieceArt2D` no h
 
 ## Pendiente
 
-- Colocar el terreno en `Level_1_1` a `Level_1_4` en lugar del suelo y los escalones provisionales.
+- Colocar el terreno en `Level_1_2` a `Level_1_4` en lugar del suelo y los escalones provisionales.
 - Tinte por nivel opcional (más oscuro en 1-3, más dorado en 1-4) con el color del `SpriteRenderer`.
 - Kits de terreno de los mundos 2 a 4.

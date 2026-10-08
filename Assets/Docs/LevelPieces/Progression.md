@@ -47,6 +47,8 @@ Generado con IA el 7/10/2026 (7 generaciones: una por altar, una con los cuatro 
 | Nido | `Resource_CheckpointNest_Universal.png` | 563 × 649 | La caja de juego es el nido con su anillo de piedra; el farolillo y su poste son margen de arte (`PieceArt2D` margin 0,815, filas transparentes abajo para centrar). |
 | Portal | `Resource_LevelExitPortal_Universal.png` | 560 × 717 | La caja de juego es el arco entero. |
 
+**Orden de dibujo:** nido, altares, huevos y portal tienen `Order in Layer` **−4** (sus brillos y partículas van de −3 a 0). Quedan detrás de Alma (0) y delante del terreno (−5), así que Alma pasa por delante al tocarlos.
+
 Los colores de los altares siguen al concepto (antes eran otros): Doble Salto verde, Pisotón azul, Dash morado, Rugido ámbar; coinciden con los huevos de cada mundo.
 
 ## Nido de checkpoint (`Resource_CheckpointNest_Universal`)

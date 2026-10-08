@@ -21,6 +21,9 @@ namespace AlmaGame.Systems
         public bool GroundPound;
         public bool Dash;
         public bool Roar;
+        // Abilities unlocked in `Level` since it was last started from its beginning (names of AlmaAbility).
+        // Resuming at a checkpoint of that level gives them back; the flags above are the overall record.
+        public List<string> LevelUnlocks = new List<string>();
         public float PlayTimeSeconds;
         public string SavedAtUtc = string.Empty;
     }

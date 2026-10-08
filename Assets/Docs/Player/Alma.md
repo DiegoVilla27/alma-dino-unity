@@ -31,7 +31,7 @@ El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de fu
 | `Scripts/IRoarTarget.cs` | Contrato para objetos que reaccionan al Rugido (`ResonatesWithRoar`, `ReceiveRoar(origin, direction)`). |
 | `Scripts/AlmaMovementSettings.cs` | ScriptableObject con todos los valores de movimiento y habilidades. |
 | `Scripts/AlmaCameraFollow.cs` | Cámara de plataformas: zonas muertas horizontal y vertical, anticipación gradual, encuadre bajo, límites de nivel y `Shake(amplitud, duración)` (ver [Cámara](#cámara-daño-y-feedback)). |
-| `Scripts/CameraBounds2D.cs` | Componente opcional de límites y altura fija para cada nivel; la escena de práctica `Level_1_1` aún no lo tiene colocado. |
+| `Scripts/CameraBounds2D.cs` | Componente de límites y altura fija para cada nivel; colocado en `Level_1_1`. |
 | `Configuration/AlmaMovement.asset` | Instancia de `AlmaMovementSettings` usada por el prefab. Los valores se editan aquí, no en el script. |
 | `Configuration/AlmaFrictionless.physicsMaterial2D` | Evita adherirse a paredes. |
 | `Animations/` | Hojas de sprites, clips y el controlador `Idle/Player_Idle_Sheet_0.controller`. |
@@ -244,7 +244,7 @@ Conservar tamaño de lienzo, pivote, escala y línea de apoyo coherentes entre f
 
 Al empezar y al reaparecer Alma, la cámara salta a ella sin deslizarse por el nivel (`SnapToTarget`). La configuración de zona muerta evita seguir cada salto o paso corto; el tope horizontal es 1,3 × la velocidad de carrera. `CameraBounds2D` limita la vista cuando se coloca en una escena. Las verificaciones PlayMode de cámara citadas en versiones anteriores de esta ficha no están incluidas como pruebas automatizadas en el repositorio actual; el tamaño 8 y la anticipación actual deben comprobarse al montar cada nivel.
 
-**Criterio para los futuros niveles:** los horizontales (1-1, 1-3) pueden usar `Lock Height`; los de ascenso (1-2, 1-4) usarán la zona muerta vertical. La escena de práctica `Level_1_1` aún no tiene un `CameraBounds2D`, así que no aplica límites ni bloqueo de altura.
+**Criterio para los futuros niveles:** los horizontales (1-1, 1-3) pueden usar `Lock Height`; los de ascenso (1-2, 1-4) usarán la zona muerta vertical. `Level_1_1` tiene `CameraBounds2D` **sin** altura fija, porque su recorrido sube y baja (ver su [ficha](../Levels/World_1_Jungle/Level_1_1.md#6-implementación-del-recorrido)); `Level_1_2` a `Level_1_4` aún no tienen `CameraBounds2D`.
 
 **Límites por nivel:** el rectángulo debe cubrir el área jugable; conviene que su borde inferior quede 2–3 u por debajo del suelo más bajo (rellenas con terreno) para que Alma no quede pegada al borde de la pantalla.
 

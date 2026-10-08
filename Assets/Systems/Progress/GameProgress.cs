@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 namespace AlmaGame.Systems
 {
     // One per level (System_GameProgress prefab). Bridges the save file, Alma and the progression
-    // pieces: on start it loads the save, applies unlocked abilities (plus this level's starting ones)
-    // and, if the save is from this level, puts Alma at the saved checkpoint. Checkpoints and altars
+    // pieces: on start it loads the save and, if the save is from this level, puts Alma at the saved
+    // checkpoint. Abilities belong to the level: Alma gets this level's starting ones (what earlier levels
+    // gave) plus those already unlocked in this level when resuming at one of its checkpoints, so starting
+    // a level always plays it as designed (an altar is never spent before it is reached). Checkpoints and altars
     // report to it; it autosaves when a checkpoint is reached or an ability is unlocked (GDD 9.3).
     [DisallowMultipleComponent]
     public sealed class GameProgress : MonoBehaviour
@@ -27,6 +29,7 @@ namespace AlmaGame.Systems
         private static readonly List<ICheckpoint> s_checkpoints = new List<ICheckpoint>();
         private AlmaMotor2D _alma;
         private SaveData _data;
+        private readonly HashSet<AlmaAbility> _levelAbilities = new HashSet<AlmaAbility>();
 
         public SaveData Data => _data;
 
@@ -49,10 +52,16 @@ namespace AlmaGame.Systems
                 _data.Level = level;
                 _data.HasCheckpoint = false;
             }
-            _data.DoubleJump |= _startWithDoubleJump;
-            _data.GroundPound |= _startWithGroundPound;
-            _data.Dash |= _startWithDash;
-            _data.Roar |= _startWithRoar;
+            bool resuming = _resumeAtSavedCheckpoint && _data.HasCheckpoint;
+            if (!resuming) _data.LevelUnlocks.Clear(); // starting from the beginning: unlock it all again
+
+            if (_startWithDoubleJump) _levelAbilities.Add(AlmaAbility.DoubleJump);
+            if (_startWithGroundPound) _levelAbilities.Add(AlmaAbility.GroundPound);
+            if (_startWithDash) _levelAbilities.Add(AlmaAbility.Dash);
+            if (_startWithRoar) _levelAbilities.Add(AlmaAbility.Roar);
+            foreach (string name in _data.LevelUnlocks)
+                if (System.Enum.TryParse(name, out AlmaAbility ability)) _levelAbilities.Add(ability);
+            foreach (AlmaAbility ability in _levelAbilities) SetRecord(ability);
         }
 
         // Start runs after every Awake, so Alma, checkpoints and altars are ready.
@@ -87,16 +96,20 @@ namespace AlmaGame.Systems
             if (Instance == this) Instance = null;
         }
 
-        public bool IsUnlocked(AlmaAbility ability) => ability switch
-        {
-            AlmaAbility.DoubleJump => _data.DoubleJump,
-            AlmaAbility.GroundPound => _data.GroundPound,
-            AlmaAbility.Dash => _data.Dash,
-            AlmaAbility.Roar => _data.Roar,
-            _ => false,
-        };
+        // Whether Alma has the ability in this level (see the class comment).
+        public bool IsUnlocked(AlmaAbility ability) => _levelAbilities.Contains(ability);
 
         public void UnlockAbility(AlmaAbility ability)
+        {
+            _levelAbilities.Add(ability);
+            if (!_data.LevelUnlocks.Contains(ability.ToString())) _data.LevelUnlocks.Add(ability.ToString());
+            SetRecord(ability);
+            if (_alma != null) _alma.SetUnlocked(ability, true);
+            SaveSystem.Save(_data);
+        }
+
+        // Overall record of abilities ever obtained (kept in the save, e.g. for a future level select).
+        private void SetRecord(AlmaAbility ability)
         {
             switch (ability)
             {
@@ -105,8 +118,6 @@ namespace AlmaGame.Systems
                 case AlmaAbility.Dash: _data.Dash = true; break;
                 case AlmaAbility.Roar: _data.Roar = true; break;
             }
-            if (_alma != null) _alma.SetUnlocked(ability, true);
-            SaveSystem.Save(_data);
         }
 
         public void CheckpointReached(Vector2 respawnPoint)
@@ -129,6 +140,7 @@ namespace AlmaGame.Systems
             {
                 _data.Level = nextLevel;
                 _data.HasCheckpoint = false;
+                _data.LevelUnlocks.Clear();
             }
             SaveSystem.Save(_data);
         }

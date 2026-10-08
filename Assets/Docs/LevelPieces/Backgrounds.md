@@ -13,7 +13,8 @@ Todo está en `Assets/Prefabs/Level/Backgrounds/`:
 | `Scripts/ParallaxLayer2D.cs` | Una capa de parallax: seguimiento de la cámara, repetición horizontal, anclaje a un borde de la pantalla y revelado al ascender. Namespace `AlmaGame.Level`. |
 | `World_1/Parallax_Level_1_X.prefab` | Fondo de cada nivel: un objeto raíz con las capas `Far` y `Mid` como hijos. |
 | `World_1/Sprites/BG_Level_1_X_Far.png` / `_Mid.png` | Imágenes de cada capa (la lejana opaca; la media con huecos transparentes). |
-| `World_1/Sprites/FG_Jungle_*.png` | Kit de primer plano del Mundo 1 (helecho, hojas, helecho con flores, hierba, hojas colgantes). **Sin uso:** el primer plano se retiró de los fondos. |
+| `World_1/Sprites/FG_Jungle_*.png` | Kit de plantas del Mundo 1 (helecho, hojas, helecho con flores, hierba, hojas colgantes). Ya no se usa como capa de parallax: se coloca como decoración suelta en el nivel (ver [1-1](../Levels/World_1_Jungle/Level_1_1.md#6-implementación-del-recorrido)). |
+| `World_1/FX/FX_Mote.png` / `FX_Mote.mat` | Mota de polen (punto suave, 64 px) y su material de partículas (`Sprites/Default`). |
 
 ## Estilo
 
@@ -77,8 +78,7 @@ Dos SpriteRenderers *Tiled* por nivel y un `LateUpdate` sencillo por capa. Sin f
 
 ## Pendiente
 
-- Kit de primer plano `FG_Jungle_*` sin uso: borrarlo o reintroducir un primer plano.
-- Las escenas `Level_1_2` a `Level_1_4` son copias de la escena de práctica (suelo y escalones provisionales); el nivel completo de cada ficha está por construir.
-- Ninguna escena tiene aún `CameraBounds2D` (límites y altura fija de la cámara, ver [Alma](../Player/Alma.md#cámara-daño-y-feedback)).
+- `Level_1_1` ya tiene su recorrido completo. Las escenas `Level_1_2` a `Level_1_4` son copias de la escena de práctica (suelo y escalones provisionales); el nivel completo de cada ficha está por construir.
+- `Level_1_2` a `Level_1_4` aún no tienen `CameraBounds2D` (1-1 sí) (límites y altura fija de la cámara, ver [Alma](../Player/Alma.md#cámara-daño-y-feedback)).
 - Solo `Level_1_1` está en **Build Settings**; añadir 1-2 a 1-4 para que el portal pueda cargarlas.
 - Fondos de los mundos 2 a 4 y de los jefes.
