@@ -5,7 +5,7 @@ using UnityEngine;
 namespace AlmaGame.Level
 {
     // Ability altar: a pedestal with a floating orb in the ability's colour. When Alma touches it, the
-    // rune breaks free and flies to its HUD action button (HudAbilityButtons; into Alma if there is no HUD), bursts into sparks, the ability's name shows briefly and the ability
+    // game pauses and the HUD presents the ability (HudAbilityButtons.Present: the rune flies to the centre, then to its action button); without a HUD the orb flies into Alma and the name floats over the altar. The ability
     // is unlocked (and saved through GameProgress, if present). An altar whose ability is already
     // unlocked starts spent (no orb, dimmed). One prefab per ability, all variants of the same base.
     [DisallowMultipleComponent, RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider2D))]
@@ -20,11 +20,19 @@ namespace AlmaGame.Level
         [SerializeField, Min(0.2f)] private float _titleTime = 2f;
         [SerializeField] private bool _showLabel = true;
 
+        [Header("Banner (HUD)")]
+        [Tooltip("Name shown when the HUD presents the ability, under «¡Habilidad despertada!».")]
+        [SerializeField] private string _bannerTitle = "Aleteo Materno";
+        [Tooltip("One short line: how to use it (names the touch button).")]
+        [SerializeField, TextArea(1, 3)] private string _bannerText = "";
+
         [Header("Art")]
         [Tooltip("Floating rune shard shown instead of the plain light orb; it levitates and flies to Alma.")]
         [SerializeField] private Sprite _runeSprite;
         [Tooltip("Height of the rune's centre above the pedestal's centre (units).")]
         [SerializeField, Min(0f)] private float _runeLift = 1.2f;
+        [Tooltip("Size of the rune relative to its sprite (256 PPU).")]
+        [SerializeField, Min(0.1f)] private float _runeScale = 1.35f;
 
         private enum State { Waiting, Collecting, Spent }
 
@@ -61,10 +69,11 @@ namespace AlmaGame.Level
             if (_runeSprite != null)
             {
                 // Rune shard with a soft halo of its colour behind it.
-                float runeHeight = _runeSprite.bounds.size.y;
+                float runeHeight = _runeSprite.bounds.size.y * _runeScale;
                 _glow = AddGlow(_orb, "Glow", _orbColor * new Color(1f, 1f, 1f, 0.55f), runeHeight * 1.7f, layer, order + 2);
                 _rune = new GameObject("Rune").AddComponent<SpriteRenderer>();
                 _rune.transform.SetParent(_orb, false);
+                _rune.transform.localScale = Vector3.one * _runeScale;
                 _rune.sprite = _runeSprite;
                 _rune.sortingLayerID = layer;
                 _rune.sortingOrder = order + 3;
@@ -151,9 +160,11 @@ namespace AlmaGame.Level
             // With the HUD in the scene the rune breaks free and flies to its button; without it, into Alma.
             if (HudAbilityButtons.Instance != null)
             {
+                // The HUD pauses the game to present the ability, then engraves the rune on its button.
                 Vector3 from = _orb.position;
-                Unlock(from);
-                HudAbilityButtons.Instance.FlyIn(_ability, from);
+                float height = _runeSprite != null ? _runeSprite.bounds.size.y * _runeScale * transform.lossyScale.y : 1f;
+                Unlock(from, false);
+                HudAbilityButtons.Instance.Present(_ability, from, height, _bannerTitle, _bannerText);
                 return;
             }
             Enter(State.Collecting);
@@ -171,7 +182,7 @@ namespace AlmaGame.Level
                     {
                         _orb.localScale = Vector3.one;
                         _orb.localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(Time.time * 1.6f) * 5f);
-                        float runeHeight = _runeSprite.bounds.size.y;
+                        float runeHeight = _runeSprite.bounds.size.y * _runeScale;
                         _glow.transform.localScale = Vector3.one * runeHeight * (1.6f + 0.2f * Mathf.Sin(Time.time * 3f));
                     }
                     else
@@ -205,14 +216,15 @@ namespace AlmaGame.Level
             }
         }
 
-        private void Unlock(Vector3 at)
+        private void Unlock(Vector3 at, bool announce = true)
         {
             _burst.transform.position = at;
             _burst.Emit(18);
             if (GameProgress.Instance != null) GameProgress.Instance.UnlockAbility(_ability);
             else if (_collector != null) _collector.SetUnlocked(_ability, true);
             SetSpent();
-            _titleText.gameObject.SetActive(true);
+            // Without a HUD the title floats over the altar (with one, HudAbilityButtons.Present announces it).
+            if (announce) _titleText.gameObject.SetActive(true);
             Enter(State.Spent);
         }
 

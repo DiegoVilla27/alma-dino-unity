@@ -7,6 +7,8 @@ namespace AlmaGame.Player
         private static bool s_jumpPressed, s_poundPressed, s_dashPressed, s_roarPressed;
 
         public static bool JumpHeld { get; private set; }
+        // While true (e.g. the HUD pauses to present a new ability) Alma ignores every input.
+        public static bool InputLocked { get; set; }
         // Horizontal stick/pad value in -1..1 (for the future movement control).
         public static float Move { get; set; }
 
@@ -26,6 +28,7 @@ namespace AlmaGame.Player
             s_jumpPressed = s_poundPressed = s_dashPressed = s_roarPressed = false;
             JumpHeld = false;
             Move = 0f;
+            InputLocked = false;
         }
     }
 }

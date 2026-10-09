@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4813984746421714384}
   - component: {fileID: 2454130166878730177}
   - component: {fileID: 1795413248309604540}
+  - component: {fileID: 423854455102841328}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Systems.Hud2D
   _sortingOrder: 1000
   _fadeTime: 0.35
+  _minTextMillimetres: 2.4
 --- !u!114 &2454130166878730177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,10 +75,10 @@ MonoBehaviour:
   - Id: Red
     Sprite: {fileID: 21300000, guid: b33f7e16e69c4f33af9c7bc611a96bfa, type: 3}
     Color: {r: 1, g: 0.35, b: 0.3, a: 1}
-  _inset: {x: 0.95, y: 0.85}
-  _spacing: 0.95
-  _litHeight: 0.9
-  _dimScale: 0.75
+  _inset: {x: 1, y: 1}
+  _spacing: 1.4
+  _litHeight: 1.12
+  _dimScale: 0.85
   _dimColor: {r: 0.55, g: 0.55, b: 0.62, a: 0.4}
   _backingAlpha: 0.4
   _flightTime: 1.1
@@ -128,5 +130,27 @@ MonoBehaviour:
   _shockwaveSprite: {fileID: 21300000, guid: c0ce8128fd50462db8ef67ed61a12a08, type: 3}
   _touchMargin: 0.2
   _lockedAlpha: 0.6
+  _minButtonMillimetres: 3
+  _raysSprite: {fileID: 21300000, guid: 2535e1c6ad7f4873820583312a5162ac, type: 3}
+  _minPresentTime: 1.2
   _flightTime: 1
-  _hitStop: 0.12
+--- !u!114 &423854455102841328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8122954958874580315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106fba3529974c14a96b36c380194e9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Systems.HudBanners
+  _headlineFont: {fileID: 11400000, guid: de2cb403dc2884c43b7c24503567483e, type: 2}
+  _textFont: {fileID: 11400000, guid: d41bbeeeaa46c4824b8768242e4c2be1, type: 2}
+  _veilSprite: {fileID: 21300000, guid: af6980540a914e5296ad96f9fc5a1589, type: 3}
+  _dividerSprite: {fileID: 21300000, guid: dcbf939bd70d454393da7a65ffd145df, type: 3}
+  _readTime: 0.05
+  _fadeIn: 0.35
+  _fadeOut: 0.45
+  _barHeight: 0.14

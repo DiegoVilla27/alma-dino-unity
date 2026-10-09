@@ -22,12 +22,12 @@ namespace AlmaGame.Systems
 
         [SerializeField] private Egg[] _eggs = new Egg[0];
         [Tooltip("Distance of the first egg from the top-left corner (HUD units, camera size 8).")]
-        [SerializeField] private Vector2 _inset = new Vector2(0.95f, 0.85f);
-        [SerializeField, Min(0.1f)] private float _spacing = 0.95f;
+        [SerializeField] private Vector2 _inset = new Vector2(1.0f, 1.0f);
+        [SerializeField, Min(0.1f)] private float _spacing = 1.4f;
         [Tooltip("Height of a rescued egg (HUD units).")]
-        [SerializeField, Min(0.1f)] private float _litHeight = 0.9f;
+        [SerializeField, Min(0.1f)] private float _litHeight = 1.12f;
         [Tooltip("Size of a missing egg, relative to a rescued one.")]
-        [SerializeField, Range(0.3f, 1f)] private float _dimScale = 1f;
+        [SerializeField, Range(0.3f, 1f)] private float _dimScale = 0.85f;
         [SerializeField] private Color _dimColor = new Color(0.7f, 0.7f, 0.78f, 0.5f);
         [Tooltip("Soft dark halo behind every slot, so the eggs read on bright and dark backdrops alike.")]
         [SerializeField, Range(0f, 1f)] private float _backingAlpha = 0.2f;
@@ -121,7 +121,16 @@ namespace AlmaGame.Systems
             return sr;
         }
 
-        private Vector2 SlotPosition(int index) => _hud.TopLeft(_inset) + Vector2.right * (_spacing * index);
+        // Responsive: from the safe area's top-left corner, at the same scale as the action buttons (so a rescued
+        // egg reads as big as a button on every device).
+        private float SlotScale => HudAbilityButtons.Instance != null ? HudAbilityButtons.Instance.Scale : _hud.UiScale;
+
+        private Vector2 SlotPosition(int index)
+        {
+            float s = SlotScale;
+            Rect safe = _hud.Safe;
+            return new Vector2(safe.xMin + (_inset.x + _spacing * index) * s, safe.yMax - _inset.y * s);
+        }
 
         // An egg was picked up at `worldPosition`: it flies to its slot, which then lights up.
         public void FlyIn(string eggId, Vector3 worldPosition, float worldHeight = 0f)
@@ -140,11 +149,13 @@ namespace AlmaGame.Systems
         private void LateUpdate()
         {
             float vis = _hud.Visibility;
-            float scale = _hud.Scale;
+            float ui = SlotScale;
+            float scale = _hud.Scale * ui;
             for (int i = 0; i < _slots.Count; i++)
             {
                 var slot = _slots[i];
                 slot.Root.localPosition = SlotPosition(i);
+                slot.Root.localScale = Vector3.one * ui;
                 bool arriving = _flights.Exists(f => f.Slot == slot);
                 float since = Time.time - slot.LitAt;
                 float size, glow, flash = 0f;

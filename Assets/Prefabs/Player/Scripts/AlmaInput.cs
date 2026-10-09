@@ -11,6 +11,12 @@ namespace AlmaGame.Player
 
         private void Update()
         {
+            if (AlmaTouchControls.InputLocked)
+            {
+                _motor.SetInput(0f, false, false);
+                _downHeld = Input.GetAxisRaw("Vertical") < -0.5f;
+                return;
+            }
             // Uses the Input Manager already configured in this project, plus the on-screen touch buttons.
             float move = Input.GetAxisRaw("Horizontal");
             if (Mathf.Abs(move) < 0.15f) move = AlmaTouchControls.Move;

@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_Size.x
-      value: 1.602
+      value: 2.163
       objectReference: {fileID: 0}
     - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_Size.y
-      value: 1.359
+      value: 1.835
       objectReference: {fileID: 0}
     - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_Sprite
@@ -42,11 +42,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _size.x
-      value: 1.602
+      value: 2.163
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _size.y
-      value: 1.359
+      value: 1.835
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _ability
@@ -54,11 +54,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _runeLift
-      value: 0.925
+      value: 1.249
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _showLabel
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: _bannerText
+      value: Toca SALTO en el aire para dar un segundo salto.
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _orbColor.b
@@ -82,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_Offset.y
-      value: 0.7205
+      value: 0.88249993
       objectReference: {fileID: 0}
     - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_SpriteTilingProperty.drawMode
@@ -90,11 +94,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 1.602
+      value: 2.163
       objectReference: {fileID: 0}
     - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 1.359
+      value: 1.835
       objectReference: {fileID: 0}
     - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x

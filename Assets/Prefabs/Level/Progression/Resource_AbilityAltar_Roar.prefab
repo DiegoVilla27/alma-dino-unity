@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_Size.x
-      value: 1.602
+      value: 2.163
       objectReference: {fileID: 0}
     - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_Size.y
-      value: 1.254
+      value: 1.693
       objectReference: {fileID: 0}
     - target: {fileID: 1051870544264415466, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_Sprite
@@ -42,11 +42,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _size.x
-      value: 1.602
+      value: 2.163
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _size.y
-      value: 1.254
+      value: 1.693
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _ability
@@ -54,11 +54,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _runeLift
-      value: 0.883
+      value: 1.192
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _showLabel
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: _bannerText
+      value: Toca RUGIDO para lanzar una onda que empuja rocas y despierta campanas.
       objectReference: {fileID: 0}
     - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: _orbColor.b
@@ -76,13 +80,17 @@ PrefabInstance:
       propertyPath: _runeSprite
       value: 
       objectReference: {fileID: 21300000, guid: 13fbe5972cf94d1ab8684bc8d5e530e5, type: 3}
+    - target: {fileID: 6023141856397794026, guid: cfff810086044d239a5b40ff36608aec, type: 3}
+      propertyPath: _bannerTitle
+      value: Rugido de Choque
+      objectReference: {fileID: 0}
     - target: {fileID: 8242961574074916230, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_Name
       value: Resource_AbilityAltar_Roar
       objectReference: {fileID: 0}
     - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_Offset.y
-      value: 0.773
+      value: 0.9535
       objectReference: {fileID: 0}
     - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_SpriteTilingProperty.drawMode
@@ -90,11 +98,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 1.602
+      value: 2.163
       objectReference: {fileID: 0}
     - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 1.254
+      value: 1.693
       objectReference: {fileID: 0}
     - target: {fileID: 8953560535788267546, guid: cfff810086044d239a5b40ff36608aec, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x

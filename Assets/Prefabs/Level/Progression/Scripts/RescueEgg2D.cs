@@ -16,7 +16,7 @@ namespace AlmaGame.Level
         [SerializeField] private string _eggId = "Green";
         [SerializeField] private Color _eggColor = new Color(0.45f, 0.85f, 0.35f, 1f);
         [SerializeField, TextArea] private string _rescueText = "Aún estás tibio...\nMamá llegó a tiempo. Ya estás a salvo.";
-        [SerializeField] private Vector2 _size = new Vector2(0.6f, 0.8f);
+        [SerializeField] private Vector2 _size = new Vector2(0.8f, 1f);
         [SerializeField] private Vector2 _triggerSize = new Vector2(1.2f, 1.6f);
         [SerializeField, Min(0.05f)] private float _collectTime = 0.5f;
         [SerializeField, Min(0.5f)] private float _textTime = 4.5f;
@@ -190,7 +190,8 @@ namespace AlmaGame.Level
             if (GameProgress.Instance != null) GameProgress.Instance.RescueEgg(_eggId);
             else Debug.LogWarning($"Egg '{_eggId}' rescued but not saved: no System_GameProgress in the scene.", this);
             Hide();
-            _rescueLine.gameObject.SetActive(true);
+            // The HUD banner layer says the line; without a HUD it floats over the egg.
+            if (!HudBanners.Show(BannerKind.Line, null, _rescueText, _eggColor, null, _renderer.sprite)) _rescueLine.gameObject.SetActive(true);
             Enter(State.Rescued);
             Rescued?.Invoke();
         }

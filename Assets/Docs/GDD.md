@@ -300,6 +300,10 @@ HUD minimalista y diegético.
 
 - **Implementado (9/10/2026):** rombo de botones táctiles abajo a la derecha (Saltar, Dash, Pisotón y Rugido) con las runas de los altares; las habilidades bloqueadas son huecos vacíos y, al coger un altar, su runa vuela al botón y se graba en él. El botón de Dash se oscurece mientras el Dash está gastado. Ver [HUD](Systems/HUD.md).
 
+### 8.2.2. Banners de texto
+
+- **Implementado (9/10/2026):** una sola capa de banners en el HUD con estilo común (TextMeshPro): Título, Jefe (bandas de cine), Frase, Grito y Narración. Al coger una habilidad, el juego se pausa y la presenta (runa al centro, nombre, una línea de uso, «Toca para continuar»). Todo el HUD es responsive (zona segura y escala por dispositivo). Ver [HUD](Systems/HUD.md#banners-de-texto-hudbanners).
+
 ### 8.2.1. Indicador de Dash
 
 - Sin barra en pantalla. Las plumas del lomo de Alma brillan tenuemente cuando el Dash está disponible, y se apagan al consumirlo. Feedback diegético.

@@ -11,10 +11,10 @@ Fichas de diseño originales: [inventario, Recursos](../INVENTARIO_GAMEPLAY_PREF
 | Prefab | Etiqueta | Arte | `Size` | Qué hace |
 | --- | --- | --- | --- | --- |
 | `Resource_CheckpointNest_Universal` | Nido checkpoint | Nido de ramas sobre anillo de piedra, farolillo cian | 2,2 × 0,906 | Al pasar por encima se enciende y pasa a ser el punto de reaparición; autoguarda. |
-| `Resource_AbilityAltar_DoubleJump` | Altar: Doble Salto | Pedestal selvático + runa verde con doble chevrón | 1,602 × 1,359 | Desbloquea el Doble Salto (Mundo 1). |
-| `Resource_AbilityAltar_GroundPound` | Altar: Pisotón | Pedestal con cristales azules + runa de flecha abajo | 1,602 × 1,309 | Desbloquea el Pisotón (Mundo 2). |
-| `Resource_AbilityAltar_AirDash` | Altar: Dash | Pedestal con raíces y flores moradas + runa de flecha | 1,602 × 1,395 | Desbloquea el Dash aéreo (Mundo 3). |
-| `Resource_AbilityAltar_Roar` | Altar: Rugido | Pedestal volcánico + runa ámbar de ondas | 1,602 × 1,254 | Desbloquea el Rugido (Mundo 4). |
+| `Resource_AbilityAltar_DoubleJump` | Altar: Doble Salto | Pedestal selvático + runa verde con doble chevrón | 2,163 × 1,835 | Desbloquea el Doble Salto (Mundo 1). |
+| `Resource_AbilityAltar_GroundPound` | Altar: Pisotón | Pedestal con cristales azules + runa de flecha abajo | 2,163 × 1,767 | Desbloquea el Pisotón (Mundo 2). |
+| `Resource_AbilityAltar_AirDash` | Altar: Dash | Pedestal con raíces y flores moradas + runa de flecha | 2,163 × 1,883 | Desbloquea el Dash aéreo (Mundo 3). |
+| `Resource_AbilityAltar_Roar` | Altar: Rugido | Pedestal volcánico + runa ámbar de ondas | 2,163 × 1,693 | Desbloquea el Rugido (Mundo 4). |
 | `Resource_RescueEgg_Green` | Huevo verde | Huevo verde de motas | 1 × 1,3 | Huevo 1 (Mundo 1): al tocarlo se rescata y se guarda. |
 | `Resource_RescueEgg_Blue` | Huevo azul | Huevo azul de motas | 1 × 1,3 | Huevo 2 (Mundo 2). |
 | `Resource_RescueEgg_Purple` | Huevo morado | Huevo morado de motas | 1 × 1,3 | Huevo 3 (Mundo 3). |
@@ -90,17 +90,18 @@ Si la habilidad ya estaba desbloqueada al empezar (por la partida guardada o por
 | `Size` | (1,2; 1) | Tamaño del pedestal (cada variante usa el de su dibujo). |
 | `Rune Sprite` | — | Runa que levita (cada variante tiene la suya). |
 | `Rune Lift` | 1,2 | Altura del centro de la runa sobre el centro del pedestal (u). |
-| `Trigger Size` | (1,4; 2,8) | Zona de activación sobre el pedestal. |
+| `Rune Scale` | 1,35 | Tamaño de la runa respecto a su sprite (256 PPU). Se ajustó el 9/10/2026, junto con el pedestal, a ×1,35 del tamaño anterior; la runa sale del altar hacia el HUD con ese tamaño. |
+| `Trigger Size` | (1,9; 3,6) | Zona de activación sobre el pedestal. |
 | `Collect Time` | 0,4 | Duración de la recogida (s). |
 | `Title Time` | 2 | Tiempo que se ve el título (s). |
 | `Show Label` | sí (no en las variantes) | Etiqueta provisional «Altar: …» bajo el pedestal. |
 
 | Variante | `Ability` | `Title` | `Orb Color` | `Size` | `Rune Lift` |
 | --- | --- | --- | --- | --- | --- |
-| `Resource_AbilityAltar_DoubleJump` | DoubleJump | Doble Salto | verde (0,55; 1; 0,35) | (1,602; 1,359) | 0,925 |
-| `Resource_AbilityAltar_GroundPound` | GroundPound | Pisotón | azul (0,45; 0,85; 1) | (1,602; 1,309) | 0,96 |
-| `Resource_AbilityAltar_AirDash` | Dash | Dash | morado (0,8; 0,5; 1) | (1,602; 1,395) | 0,935 |
-| `Resource_AbilityAltar_Roar` | Roar | Rugido | ámbar (1; 0,75; 0,25) | (1,602; 1,254) | 0,883 |
+| `Resource_AbilityAltar_DoubleJump` | DoubleJump | Doble Salto | verde (0,55; 1; 0,35) | (2,163; 1,835) | 1,249 |
+| `Resource_AbilityAltar_GroundPound` | GroundPound | Pisotón | azul (0,45; 0,85; 1) | (2,163; 1,767) | 1,296 |
+| `Resource_AbilityAltar_AirDash` | Dash | Dash | morado (0,8; 0,5; 1) | (2,163; 1,883) | 1,262 |
+| `Resource_AbilityAltar_Roar` | Roar | Rugido | ámbar (1; 0,75; 0,25) | (2,163; 1,693) | 1,192 |
 
 ## Huevos a rescatar (`Resource_RescueEgg_*`)
 
@@ -157,7 +158,7 @@ Va al final de **cada** nivel (no depende de los huevos). Su única función es 
 | `Fade Time` | 0,8 | Duración del fundido a negro (s). |
 | `Label` / `Show Label` | «Portal de salida» / no | Etiqueta provisional. |
 
-**Con HUD en la escena** la runa de un altar, al cogerlo, se suelta (con un instante de *hit stop*) y vuela hasta su [botón de acción](../Systems/HUD.md#botones-de-acción-hudabilitybuttons), donde se graba; y el huevo, al cogerlo, estalla y vuela hasta su hueco del [indicador de hijos](../Systems/HUD.md); sin HUD vuela hacia Alma como antes.
+**Con HUD en la escena:** al tocar un altar el juego se **pausa** y el HUD [presenta la habilidad](../Systems/HUD.md#habilidad-nueva-presentación-pausada): la runa vuela al centro, aparecen su nombre y una línea de uso, y con un toque la runa vuela a su botón de acción. La frase del huevo sale en la [capa de banners](../Systems/HUD.md#banners-de-texto-hudbanners) con el icono del huevo, y el huevo vuela a su hueco del indicador. Sin HUD, los textos flotan sobre la pieza como antes.
 
 ## Coste
 
