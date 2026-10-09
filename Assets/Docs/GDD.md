@@ -304,6 +304,10 @@ HUD minimalista y diegético.
 
 - **Implementado (9/10/2026):** una sola capa de banners en el HUD con estilo común (TextMeshPro): Título, Jefe (bandas de cine), Frase, Grito y Narración. Al coger una habilidad, el juego se pausa y la presenta (runa al centro, nombre, una línea de uso, «Toca para continuar»). Todo el HUD es responsive (zona segura y escala por dispositivo). Ver [HUD](Systems/HUD.md#banners-de-texto-hudbanners).
 
+### 8.2.3. Nombre del nivel
+
+- **Implementado (9/10/2026):** al empezar cada nivel y jefe aparece «MUNDO X · NOMBRE», el número y el título de su ficha, revelado letra a letra con un destello; se va solo. Ver [HUD](Systems/HUD.md#nombre-del-nivel-hudleveltitle).
+
 ### 8.2.1. Indicador de Dash
 
 - Sin barra en pantalla. Las plumas del lomo de Alma brillan tenuemente cuando el Dash está disponible, y se apagan al consumirlo. Feedback diegético.

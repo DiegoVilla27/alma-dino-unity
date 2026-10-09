@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2454130166878730177}
   - component: {fileID: 1795413248309604540}
   - component: {fileID: 423854455102841328}
+  - component: {fileID: 4334606233692831778}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -130,7 +131,7 @@ MonoBehaviour:
   _shockwaveSprite: {fileID: 21300000, guid: c0ce8128fd50462db8ef67ed61a12a08, type: 3}
   _touchMargin: 0.2
   _lockedAlpha: 0.6
-  _minButtonMillimetres: 3
+  _minButtonMillimetres: 9
   _raysSprite: {fileID: 21300000, guid: 2535e1c6ad7f4873820583312a5162ac, type: 3}
   _minPresentTime: 1.2
   _flightTime: 1
@@ -154,3 +155,118 @@ MonoBehaviour:
   _fadeIn: 0.35
   _fadeOut: 0.45
   _barHeight: 0.14
+--- !u!114 &4334606233692831778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8122954958874580315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d523deb8018c4be7a94ca686ed7f0a54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Systems.HudLevelTitle
+  _levels:
+  - Scene: Level_1_1
+    Code: 1-1
+    Title: Despertar en el Nido
+    World: "Mundo 1 \xB7 Jungla Esmeralda"
+    Accent: {r: 0.55, g: 1, b: 0.4, a: 1}
+  - Scene: Level_1_2
+    Code: 1-2
+    Title: El Dosel Peligroso
+    World: "Mundo 1 \xB7 Jungla Esmeralda"
+    Accent: {r: 0.55, g: 1, b: 0.4, a: 1}
+  - Scene: Level_1_3
+    Code: 1-3
+    Title: Las Zarzas Profundas
+    World: "Mundo 1 \xB7 Jungla Esmeralda"
+    Accent: {r: 0.55, g: 1, b: 0.4, a: 1}
+  - Scene: Level_1_4
+    Code: 1-4
+    Title: "La Copa del Gran \xC1rbol"
+    World: "Mundo 1 \xB7 Jungla Esmeralda"
+    Accent: {r: 0.55, g: 1, b: 0.4, a: 1}
+  - Scene: Boss_1
+    Code: Jefe
+    Title: El Rey de la Copa
+    World: "Mundo 1 \xB7 Jungla Esmeralda"
+    Accent: {r: 0.55, g: 1, b: 0.4, a: 1}
+  - Scene: Level_2_1
+    Code: 2-1
+    Title: Descenso a la Penumbra
+    World: "Mundo 2 \xB7 Cuevas de Cristal"
+    Accent: {r: 0.5, g: 0.85, b: 1, a: 1}
+  - Scene: Level_2_2
+    Code: 2-2
+    Title: "La Galer\xEDa de Ecos"
+    World: "Mundo 2 \xB7 Cuevas de Cristal"
+    Accent: {r: 0.5, g: 0.85, b: 1, a: 1}
+  - Scene: Level_2_3
+    Code: 2-3
+    Title: El Filo Resonante
+    World: "Mundo 2 \xB7 Cuevas de Cristal"
+    Accent: {r: 0.5, g: 0.85, b: 1, a: 1}
+  - Scene: Level_2_4
+    Code: 2-4
+    Title: El Laberinto de Geodas
+    World: "Mundo 2 \xB7 Cuevas de Cristal"
+    Accent: {r: 0.5, g: 0.85, b: 1, a: 1}
+  - Scene: Boss_2
+    Code: Jefe
+    Title: "El Acorazado Subterr\xE1neo"
+    World: "Mundo 2 \xB7 Cuevas de Cristal"
+    Accent: {r: 0.5, g: 0.85, b: 1, a: 1}
+  - Scene: Level_3_1
+    Code: 3-1
+    Title: "Los Fangales T\xF3xicos"
+    World: "Mundo 3 \xB7 Pantano de Viento y Niebla"
+    Accent: {r: 0.6, g: 0.95, b: 0.8, a: 1}
+  - Scene: Level_3_2
+    Code: 3-2
+    Title: "El Ca\xF1\xF3n de las R\xE1fagas"
+    World: "Mundo 3 \xB7 Pantano de Viento y Niebla"
+    Accent: {r: 0.6, g: 0.95, b: 0.8, a: 1}
+  - Scene: Level_3_3
+    Code: 3-3
+    Title: El Vuelo de las Esporas
+    World: "Mundo 3 \xB7 Pantano de Viento y Niebla"
+    Accent: {r: 0.6, g: 0.95, b: 0.8, a: 1}
+  - Scene: Level_3_4
+    Code: 3-4
+    Title: El Sauce Ancestral
+    World: "Mundo 3 \xB7 Pantano de Viento y Niebla"
+    Accent: {r: 0.6, g: 0.95, b: 0.8, a: 1}
+  - Scene: Boss_3
+    Code: Jefe
+    Title: "El Se\xF1or de las R\xE1fagas"
+    World: "Mundo 3 \xB7 Pantano de Viento y Niebla"
+    Accent: {r: 0.6, g: 0.95, b: 0.8, a: 1}
+  - Scene: Level_4_1
+    Code: 4-1
+    Title: "Los R\xEDos de Ceniza"
+    World: "Mundo 4 \xB7 Cima Volc\xE1nica"
+    Accent: {r: 1, g: 0.6, b: 0.25, a: 1}
+  - Scene: Level_4_2
+    Code: 4-2
+    Title: Las Campanas de Basalto
+    World: "Mundo 4 \xB7 Cima Volc\xE1nica"
+    Accent: {r: 1, g: 0.6, b: 0.25, a: 1}
+  - Scene: Level_4_3
+    Code: 4-3
+    Title: La Gran Fractura
+    World: "Mundo 4 \xB7 Cima Volc\xE1nica"
+    Accent: {r: 1, g: 0.6, b: 0.25, a: 1}
+  - Scene: Level_4_4
+    Code: 4-4
+    Title: "La Antec\xE1mara del Fuego"
+    World: "Mundo 4 \xB7 Cima Volc\xE1nica"
+    Accent: {r: 1, g: 0.6, b: 0.25, a: 1}
+  - Scene: Boss_Final
+    Code: Jefe final
+    Title: "El Rey Ladr\xF3n"
+    World: "Mundo 4 \xB7 Cima Volc\xE1nica"
+    Accent: {r: 1, g: 0.6, b: 0.25, a: 1}
+  _delay: 0.6
+  _showOnStart: 1

@@ -1,6 +1,6 @@
 # HUD
 
-**Estado (9 de octubre de 2026):** implementados el **indicador de hijos** (GDD 8.1), los **botones de acción táctiles** con las runas de las habilidades la **capa de banners** de texto y la **presentación pausada de cada habilidad**, todo con TextMeshPro y **responsive** (zona segura y escala por dispositivo). El prefab `HUD` está colocado en las **20 escenas jugables** (16 niveles y 4 jefes). Se construye paso a paso; los siguientes elementos están en [Pendiente](#pendiente).
+**Estado (9 de octubre de 2026):** implementados el **indicador de hijos** (GDD 8.1), los **botones de acción táctiles** con las runas de las habilidades la **capa de banners** de texto, el **nombre del nivel al entrar** y la **presentación pausada de cada habilidad**, todo con TextMeshPro y **responsive** (zona segura y escala por dispositivo). El prefab `HUD` está colocado en las **20 escenas jugables** (16 niveles y 4 jefes). Se construye paso a paso; los siguientes elementos están en [Pendiente](#pendiente).
 
 Fichas relacionadas: [GDD 8](../GDD.md#8-interfaz-hud-y-feedback), [Guardado y progreso](SaveAndProgress.md), [Progresión](../LevelPieces/Progression.md) (huevos).
 
@@ -17,12 +17,13 @@ Todo está en `Assets/Systems/HUD/`:
 
 | Archivo | Responsabilidad |
 | --- | --- |
-| `HUD.prefab` | Raíz del HUD (`Hud2D` + `HudEggIndicator` + `HudAbilityButtons` + `HudBanners`). Uno por escena jugable. |
+| `HUD.prefab` | Raíz del HUD (`Hud2D` + `HudEggIndicator` + `HudAbilityButtons` + `HudBanners` + `HudLevelTitle`). Uno por escena jugable. |
 | `Hud2D.cs` | Raíz: sigue la vista de la cámara **sin el temblor** (`AlmaCameraFollow.ViewPosition`), escala con su tamaño (diseñado para tamaño 8), calcula la zona segura y la escala de la interfaz ([responsive](#responsive)), dibuja por encima de todo (`Sorting Order` 1000) y se desvanece durante las cinemáticas (`Visibility`). |
 | `CinematicState.cs` | Estado global «hay una cinemática en curso» (`Begin`, `End`, `IsPlaying`, evento `Changed`). |
 | `HudEggIndicator.cs` | Indicador de hijos. |
 | `HudAbilityButtons.cs` | Botones de acción (táctiles), registro de habilidades y presentación pausada de una habilidad nueva. |
 | `HudBanners.cs` | Capa única de banners de texto. |
+| `HudLevelTitle.cs` | Tabla de títulos de las 20 escenas jugables; muestra el del nivel al empezar. |
 | `HudText.cs` | Estilo de texto común (TextMeshPro): fuentes, contorno, sombra, degradado, ajuste al ancho. |
 | `Fonts/LuckiestGuy-Regular.ttf` | Fuente de titulares (cartoon, mayúsculas). Licencia Apache 2.0 (`LuckiestGuy-LICENSE.txt`). |
 | `Fonts/Fredoka-SemiBold.ttf` | Fuente de texto (redondeada). Instancia fija del Fredoka variable (peso 600). Licencia SIL OFL (`Fredoka-OFL.txt`). |
@@ -140,6 +141,7 @@ Todos los textos en pantalla pasan por una sola capa con un estilo común (`HudT
 | `Boss` | Presentación de jefe | Entran dos **bandas de cine** negras (14 % de la pantalla cada una). En la de abajo, «JEFE DEL MUNDO 1» y el **nombre** en grande; en la de arriba, el consejo. |
 | `Line` | Rescate de huevo, burlas | Arriba centrado, con su borde superior siempre bajo los huevos (aunque ocupe varias líneas): el **icono** (p. ej. el huevo, con brillo de su color) y la frase, sobre un halo oscuro suave. Entra y sale con un fundido. |
 | `Shout` | «¡RUGE, ALMA!» | Titular enorme en el centro: entra de golpe, tiembla, late, con un resplandor de su color. |
+| `Level` | Nombre del nivel al entrar | Ver [Nombre del nivel](#nombre-del-nivel-hudleveltitle). |
 | `Story` | Prólogo y epílogo | Bandas de cine y velo oscuro; los párrafos aparecen uno tras otro, centrados. Si no caben, se encogen. |
 
 | Campo | Valor | Uso |
@@ -161,11 +163,45 @@ Devuelve `false` si no hay HUD; así cada pieza mantiene su texto antiguo sobre 
 
 **Quién lo usa ya:** los **huevos** (`Line`, con su icono y color). Los jefes, el prólogo y el epílogo usarán `Boss`, `Shout`, `Title` y `Story` cuando existan.
 
+## Nombre del nivel (`HudLevelTitle`)
+
+Al empezar cada escena jugable, a los 0,6 s, aparece su título (banner `Level`) y a los pocos segundos se va solo. Dura unos 6,5–7 s en total, con el título completo en pantalla unos 3,2 s. No pausa ni bloquea nada.
+
+**Secuencia:**
+1. Un halo oscuro suave aparece y el **separador ornamental** se abre desde el centro en el color del mundo.
+2. **El número** («1-1», «JEFE», «JEFE FINAL») entra con un rebote, y encima aparece **«MUNDO 1 · JUNGLA ESMERALDA»**, cerrando su espaciado de letras.
+3. **El título entra letra a letra:** cada letra cae a su sitio y aparece con un fundido (0,05 s entre letras, 0,4 s cada una). Va en blanco con un degradado al color del mundo, con contorno y sombra.
+4. Un **destello de luz** recorre el título de izquierda a derecha.
+5. **Salida:** las letras suben y se apagan de izquierda a derecha, la línea del mundo se abre y el separador se cierra.
+
+Es responsive como el resto: centrado en la zona segura (a 2/3 de su alto), escalado con `TextScale`, y el título se encoge si no cabe.
+
+| Escena | Número | Título | Mundo (color) |
+| --- | --- | --- | --- |
+| `Level_1_1` … `Level_1_4` | 1-1 … 1-4 | Despertar en el Nido · El Dosel Peligroso · Las Zarzas Profundas · La Copa del Gran Árbol | Mundo 1 · Jungla Esmeralda (verde 0,55; 1; 0,4) |
+| `Boss_1` | Jefe | El Rey de la Copa | Mundo 1 |
+| `Level_2_1` … `Level_2_4` | 2-1 … 2-4 | Descenso a la Penumbra · La Galería de Ecos · El Filo Resonante · El Laberinto de Geodas | Mundo 2 · Cuevas de Cristal (azul cristal 0,5; 0,85; 1) |
+| `Boss_2` | Jefe | El Acorazado Subterráneo | Mundo 2 |
+| `Level_3_1` … `Level_3_4` | 3-1 … 3-4 | Los Fangales Tóxicos · El Cañón de las Ráfagas · El Vuelo de las Esporas · El Sauce Ancestral | Mundo 3 · Pantano de Viento y Niebla (verde niebla 0,6; 0,95; 0,8) |
+| `Boss_3` | Jefe | El Señor de las Ráfagas | Mundo 3 |
+| `Level_4_1` … `Level_4_4` | 4-1 … 4-4 | Los Ríos de Ceniza · Las Campanas de Basalto · La Gran Fractura · La Antecámara del Fuego | Mundo 4 · Cima Volcánica (naranja 1; 0,6; 0,25) |
+| `Boss_Final` | Jefe final | El Rey Ladrón | Mundo 4 |
+
+Títulos tomados de las fichas de cada nivel. En los jefes va la primera parte del título de la ficha; el nombre de la criatura queda para el banner `Boss` de su presentación.
+
+| Campo | Valor | Uso |
+| --- | --- | --- |
+| `Levels` | 20 entradas (`Scene`, `Code`, `Title`, `World`, `Accent`) | La tabla; una escena que no esté no muestra nada. |
+| `Delay` | 0,6 s | Espera desde que empieza la escena. |
+| `Show On Start` | sí | Desactívalo para que lo muestre otro (p. ej. tras un prólogo) con `HudLevelTitle.Instance.Show(...)`. |
+
+**Comprobado** con `HudLevelTitleTests`: `Level_1_1` en móvil 16:9 (capturas de toda la secuencia), `Boss_Final` en móvil con notch y `Level_3_2` en vertical; en los tres el título aparece y se va solo.
+
 ## Pendiente
 
 Por orden acordado:
 1. ~~Capa de banners~~ → hecha (`HudBanners`, TextMeshPro, responsive); falta usarla en jefes, prólogo y epílogo cuando existan.
-2. **Nombre del nivel** al entrar (puede ser un banner nuevo de la misma capa).
+2. ~~Nombre del nivel~~ → hecho (`HudLevelTitle`, banner `Level`).
 3. **Viñeta de tensión** (GDD 8.4).
 4. ~~Iconos de habilidades~~ → hechos como botones de acción táctiles.
 5. **Control de movimiento táctil** (izquierda/derecha); `AlmaTouchControls.Move` ya está preparado.

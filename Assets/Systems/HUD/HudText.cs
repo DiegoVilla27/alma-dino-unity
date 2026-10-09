@@ -139,6 +139,36 @@ namespace AlmaGame.Systems
             return tmp.textBounds.size.x;
         }
 
+        // Per-letter animation: for each visible character i (0..count-1), `alpha`, `lift` (units up) and `shine`
+        // (0..1 blend towards white). Rebuilds the mesh, so call it once per frame at most.
+        public static void AnimateLetters(TextMeshPro tmp, System.Func<int, int, float> alpha, System.Func<int, int, float> lift,
+            System.Func<int, int, float> shine)
+        {
+            tmp.ForceMeshUpdate();
+            TMP_TextInfo info = tmp.textInfo;
+            int count = 0;
+            for (int i = 0; i < info.characterCount; i++) if (info.characterInfo[i].isVisible) count++;
+            int v = 0;
+            for (int i = 0; i < info.characterCount; i++)
+            {
+                TMP_CharacterInfo ch = info.characterInfo[i];
+                if (!ch.isVisible) continue;
+                int mi = ch.materialReferenceIndex, vi = ch.vertexIndex;
+                Vector3[] verts = info.meshInfo[mi].vertices;
+                Color32[] cols = info.meshInfo[mi].colors32;
+                float a = Mathf.Clamp01(alpha(v, count)), up = lift(v, count), s = Mathf.Clamp01(shine(v, count));
+                for (int k = 0; k < 4; k++)
+                {
+                    verts[vi + k] += Vector3.up * up;
+                    Color c = Color.Lerp(cols[vi + k], Color.white, s);
+                    c.a = (cols[vi + k].a / 255f) * a;
+                    cols[vi + k] = c;
+                }
+                v++;
+            }
+            tmp.UpdateVertexData(TMP_VertexDataUpdateFlags.Vertices | TMP_VertexDataUpdateFlags.Colors32);
+        }
+
         public static void Alpha(TextMeshPro tmp, float alpha)
         {
             if (tmp != null) tmp.alpha = Mathf.Clamp01(alpha);

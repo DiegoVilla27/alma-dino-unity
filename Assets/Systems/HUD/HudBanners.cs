@@ -12,6 +12,7 @@ namespace AlmaGame.Systems
         Line,    // a spoken / thought line: egg rescue, a taunt (optional icon + text, like a subtitle)
         Shout,   // a short huge cry: «¡RUGE, ALMA!»
         Story,   // narration: cinema bars + dark veil, the lines fade in one after another (prologue, epilogue)
+        Level,   // level name on entry: «MUNDO 1 · JUNGLA ESMERALDA», «1-1» and the title revealed letter by letter
     }
 
     [System.Serializable]
@@ -23,6 +24,7 @@ namespace AlmaGame.Systems
         [TextArea] public string Text;
         public Color Accent;
         public Sprite Icon;        // optional (Line): e.g. the egg
+        public string Code;        // Level: «1-1», «JEFE»
         [Tooltip("Seconds on screen once shown; 0 = from the text length.")]
         public float Hold;
     }
@@ -53,7 +55,7 @@ namespace AlmaGame.Systems
             public Transform Root;          // anchored + scaled content
             public Transform Bars;          // full-screen cinema bars (not scaled)
             public SpriteRenderer TopBar, BottomBar, Veil, Backdrop, Divider, Icon, Glow;
-            public TextMeshPro Kicker, Headline;
+            public TextMeshPro Kicker, Headline, Code;
             public readonly List<TextMeshPro> Lines = new List<TextMeshPro>();
             public readonly List<float> LineAt = new List<float>();
             public Vector3 HeadlineHome;
@@ -229,6 +231,35 @@ namespace AlmaGame.Systems
                     a.Duration = b.Hold > 0f ? b.Hold : 1.6f;
                     break;
                 }
+                case BannerKind.Level:
+                {
+                    a.Root.localPosition = _hud.Anchor(new Vector2(0.5f, 0.66f), Vector2.zero);
+                    a.Backdrop = NewSprite("Backdrop", a.Root, HazardFx.Glow(), o + 2, Color.clear);
+                    a.Backdrop.transform.localScale = new Vector3(Mathf.Min(availW, 30f) / HazardFx.Glow().bounds.size.x * 1.35f, 9f / HazardFx.Glow().bounds.size.y, 1f);
+                    a.Backdrop.transform.localPosition = new Vector3(0f, 0.8f, 0f);
+                    if (!string.IsNullOrEmpty(b.Kicker))
+                    {
+                        a.Kicker = HudText.Create(a.Root, "World", HudTextStyle.Kicker, b.Kicker.ToUpperInvariant(), 0.42f, Light(b.Accent), o + 5, Mathf.Min(availW - 2f, 24f), true);
+                        a.Kicker.transform.localPosition = new Vector3(0f, 3.0f, 0f);
+                    }
+                    if (!string.IsNullOrEmpty(b.Code))
+                    {
+                        a.Code = HudText.Create(a.Root, "Code", HudTextStyle.Headline, b.Code.ToUpperInvariant(), 0.85f, b.Accent, o + 6, 12f, true);
+                        HudText.Gradient(a.Code, b.Accent);
+                        a.Code.transform.localPosition = new Vector3(0f, 1.85f, 0f);   // room for Á É Ó of the title
+                    }
+                    a.Headline = HudText.Create(a.Root, "Title", HudTextStyle.Headline, (b.Headline ?? "").ToUpperInvariant(), 1.35f, b.Accent, o + 7, Mathf.Min(availW - 2f, 26f), true);
+                    a.Headline.colorGradient = new VertexGradient(Color.white, Color.white, Color.Lerp(b.Accent, Color.white, 0.25f), Color.Lerp(b.Accent, Color.white, 0.25f));
+                    a.Headline.enableVertexGradient = true;
+                    a.Headline.color = Color.white;
+                    a.HeadlineHome = new Vector3(0f, 0f, 0f);
+                    a.Divider = NewSprite("Divider", a.Root, _dividerSprite, o + 4, b.Accent);
+                    a.DividerWidth = Mathf.Min(availW - 3f, 16f);
+                    a.Divider.transform.localPosition = new Vector3(0f, -1.1f, 0f);
+                    int letters = (b.Headline ?? "").Replace(" ", "").Length;
+                    a.Duration = LevelRevealEnd(letters) + (b.Hold > 0f ? b.Hold : 3.2f);
+                    break;
+                }
                 case BannerKind.Story:
                 {
                     BuildBars(a, true);
@@ -262,7 +293,8 @@ namespace AlmaGame.Systems
             }
             foreach (var t in a.Lines) HudText.Alpha(t, 0f);
             if (a.Kicker != null) HudText.Alpha(a.Kicker, 0f);
-            if (a.Headline != null) HudText.Alpha(a.Headline, 0f);
+            if (a.Code != null) HudText.Alpha(a.Code, 0f);
+            if (a.Headline != null && b.Kind != BannerKind.Level) HudText.Alpha(a.Headline, 0f);
             Animate(a);
             return a;
         }
@@ -311,6 +343,7 @@ namespace AlmaGame.Systems
         private bool Animate(Active a)
         {
             float t = _now - a.StartedAt;
+            if (a.B.Kind == BannerKind.Level) return AnimateLevel(a, t);
             float inT = Mathf.Clamp01(t / _fadeIn);
             float outT = Mathf.Clamp01((t - _fadeIn - a.Duration) / _fadeOut);
             float vis = Ease(inT) * (1f - outT);
@@ -385,6 +418,55 @@ namespace AlmaGame.Systems
                     break;
             }
             return outT < 1f;
+        }
+
+        // Level title timing: letters start at 0.55 s, 0.05 s apart, each takes 0.4 s; then a shine sweeps across.
+        private const float LetterStart = 0.55f, LetterGap = 0.05f, LetterTime = 0.4f;
+        private static float LevelRevealEnd(int letters) => LetterStart + letters * LetterGap + LetterTime;
+
+        private bool AnimateLevel(Active a, float t)
+        {
+            Color acc = a.B.Accent;
+            int letters = (a.B.Headline ?? "").Replace(" ", "").Length;
+            float revealEnd = LevelRevealEnd(letters);
+            float outStart = _fadeIn + a.Duration;
+            float outAll = Mathf.Clamp01((t - outStart) / 0.6f);
+
+            float d = Ease(Mathf.Clamp01((t - 0.1f) / 0.75f)) * (1f - Ease(Mathf.Clamp01((t - outStart - 0.2f) / 0.6f)));
+            a.Divider.transform.localScale = new Vector3(Mathf.Max(0.001f, a.DividerWidth * d) / _dividerSprite.bounds.size.x, 0.6f / _dividerSprite.bounds.size.y, 1f);
+            a.Divider.color = new Color(acc.r, acc.g, acc.b, Mathf.Clamp01(d * 1.4f));
+            a.Backdrop.color = new Color(HudText.Ink.r, HudText.Ink.g, HudText.Ink.b, 0.55f * Ease(Mathf.Clamp01(t / 0.6f)) * (1f - outAll));
+            if (a.Kicker != null)
+            {
+                float k = Ease(Mathf.Clamp01((t - 0.35f) / 0.6f));
+                HudText.Alpha(a.Kicker, k * (1f - outAll));
+                a.Kicker.characterSpacing = Mathf.Lerp(80f, 28f, k) + 20f * outAll;
+            }
+            if (a.Code != null)
+            {
+                float c = Mathf.Clamp01((t - 0.25f) / 0.45f);
+                a.Code.transform.localScale = Vector3.one * (c <= 0f ? 0.01f : Mathf.LerpUnclamped(1.6f, 1f, Back(c)));
+                HudText.Alpha(a.Code, Ease(c) * (1f - outAll));
+            }
+            // Title: each letter drops into place; a band of light sweeps across once they are all in; on the way
+            // out they rise and fade from left to right.
+            float sweep = (t - revealEnd - 0.05f) / 0.85f;
+            HudText.AnimateLetters(a.Headline,
+                (i, n) => Ease(Mathf.Clamp01((t - LetterStart - i * LetterGap) / LetterTime)) * (1f - Mathf.Clamp01((t - outStart - i * 0.025f) / 0.4f)),
+                (i, n) =>
+                {
+                    float e = Ease(Mathf.Clamp01((t - LetterStart - i * LetterGap) / LetterTime));
+                    float o = Ease(Mathf.Clamp01((t - outStart - i * 0.025f) / 0.4f));
+                    return 0.7f * (1f - e) + 0.45f * o;
+                },
+                (i, n) =>
+                {
+                    if (sweep < -0.2f || sweep > 1.3f) return 0f;
+                    float u = n > 1 ? (float)i / (n - 1) : 0.5f;
+                    float x = (u - (sweep * 1.4f - 0.2f)) / 0.12f;
+                    return 0.85f * Mathf.Exp(-x * x);
+                });
+            return t < outStart + 0.45f + letters * 0.025f;
         }
 
         // Each line fades in (and rises a little) at its own time; all fade out together.
