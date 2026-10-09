@@ -235,3 +235,4 @@ MonoBehaviour:
   _puffColorA: {r: 0.55, g: 0.95, b: 0.35, a: 0.75}
   _puffColorB: {r: 0.35, g: 0.75, b: 0.3, a: 0.75}
   _puffsPerUnit: 3
+  _tensionRange: 7
