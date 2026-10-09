@@ -21,5 +21,20 @@ namespace AlmaGame.Level
             collider.isTrigger = false;
             LevelPieceUtility.ApplySize(GetComponent<SpriteRenderer>(), collider, _size);
         }
+
+#if UNITY_EDITOR
+        [ContextMenu("Ajustar collider al tamaño del sprite")]
+        private void ResetColliderToSize()
+        {
+            var col = GetComponent<BoxCollider2D>();
+            if (col != null)
+            {
+                UnityEditor.Undo.RecordObject(col, "Fit Collider To Size");
+                col.offset = Vector2.zero;
+                col.size = _size;
+                UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(col);
+            }
+        }
+#endif
     }
 }

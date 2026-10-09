@@ -129,7 +129,7 @@ BoxCollider2D:
   m_UsedByEffector: 1
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.045}
   m_SpriteTilingProperty:
     border: {x: 0.39453125, y: 0, z: 0.4296875, w: 0}
     pivot: {x: 0.5, y: 0.5}

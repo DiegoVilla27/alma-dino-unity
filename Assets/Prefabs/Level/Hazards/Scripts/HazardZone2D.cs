@@ -110,7 +110,8 @@ namespace AlmaGame.Level
         }
 #endif
 
-        // Keeps sprite, lethal trigger and solid collider in sync with the serialized sizes.
+        // Keeps sprite and collider trigger/solid modes in sync with serialized settings.
+        // Does NOT overwrite collider offset or size so designers can customize them freely in the Inspector.
         private void ApplyLayout()
         {
             if (_renderer == null) _renderer = GetComponent<SpriteRenderer>();
@@ -119,27 +120,35 @@ namespace AlmaGame.Level
             if (_lethalCollider != null)
             {
                 _lethalCollider.isTrigger = true;
-                if (_customHitbox)
-                {
-                    _lethalCollider.offset = _hitboxOffset;
-                    _lethalCollider.size = _hitboxSize;
-                }
-                else
-                {
-                    _lethalCollider.offset = Vector2.zero;
-                    _lethalCollider.size = new Vector2(Mathf.Max(0.01f, _size.x - 2f * _hitboxInset),
-                        Mathf.Max(0.01f, _size.y - 2f * _hitboxInset));
-                }
             }
 
             if (_solidCollider != null)
             {
                 _solidCollider.isTrigger = false;
                 _solidCollider.enabled = _solid;
-                _solidCollider.offset = _solidOffset;
-                _solidCollider.size = _solidSize;
             }
         }
+
+#if UNITY_EDITOR
+        [ContextMenu("Ajustar colliders al tamaño del sprite")]
+        private void ResetCollidersToSprite()
+        {
+            if (_lethalCollider != null)
+            {
+                UnityEditor.Undo.RecordObject(_lethalCollider, "Fit Lethal Collider");
+                _lethalCollider.offset = Vector2.zero;
+                _lethalCollider.size = new Vector2(Mathf.Max(0.01f, _size.x - 2f * _hitboxInset), Mathf.Max(0.01f, _size.y - 2f * _hitboxInset));
+                UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(_lethalCollider);
+            }
+            if (_solidCollider != null)
+            {
+                UnityEditor.Undo.RecordObject(_solidCollider, "Fit Solid Collider");
+                _solidCollider.offset = Vector2.zero;
+                _solidCollider.size = _size;
+                UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(_solidCollider);
+            }
+        }
+#endif
 
         private void OnTriggerEnter2D(Collider2D other) => TryKill(other);
 

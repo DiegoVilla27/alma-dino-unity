@@ -17,6 +17,13 @@ namespace AlmaGame.Level
                 Vector2 margin = renderer.TryGetComponent(out PieceArt2D art) ? art.Margin : Vector2.zero;
                 renderer.size = size + 2f * margin;
             }
+            // NOTE: collider.offset and collider.size are intentionally NOT overwritten here,
+            // so designers can freely modify the BoxCollider2D (offset, size, handles) in the Inspector.
+        }
+
+        // Optional helper to manually reset/fit collider to size if desired via context menu
+        public static void ResetColliderToSize(BoxCollider2D collider, Vector2 size)
+        {
             if (collider != null)
             {
                 collider.offset = Vector2.zero;

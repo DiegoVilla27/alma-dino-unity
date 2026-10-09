@@ -141,10 +141,23 @@ namespace AlmaGame.Level
             if (trigger != null)
             {
                 trigger.isTrigger = true;
-                trigger.size = _triggerSize;
-                trigger.offset = new Vector2(0f, (_triggerSize.y - _size.y) * 0.5f);
             }
         }
+
+#if UNITY_EDITOR
+        [ContextMenu("Ajustar trigger a valores por defecto")]
+        private void ResetTriggerToDefault()
+        {
+            var trigger = GetComponent<BoxCollider2D>();
+            if (trigger != null)
+            {
+                UnityEditor.Undo.RecordObject(trigger, "Fit Trigger");
+                trigger.size = _triggerSize;
+                trigger.offset = new Vector2(0f, (_triggerSize.y - _size.y) * 0.5f);
+                UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(trigger);
+            }
+        }
+#endif
 
         private void OnTriggerEnter2D(Collider2D other) => TryCollect(other);
 

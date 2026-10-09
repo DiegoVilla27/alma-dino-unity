@@ -77,6 +77,21 @@ namespace AlmaGame.Level
         private void OnValidate() => HazardFx.DeferInEditor(this,
             () => LevelPieceUtility.ApplySize(GetComponent<SpriteRenderer>(), GetComponent<BoxCollider2D>(), _size));
 
+#if UNITY_EDITOR
+        [ContextMenu("Ajustar collider al tamaño del sprite")]
+        private void ResetColliderToSize()
+        {
+            var col = GetComponent<BoxCollider2D>();
+            if (col != null)
+            {
+                UnityEditor.Undo.RecordObject(col, "Fit Collider To Size");
+                col.offset = Vector2.zero;
+                col.size = _size;
+                UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(col);
+            }
+        }
+#endif
+
         private void OnCollisionEnter2D(Collision2D collision) => CheckLanding(collision);
 
         private void OnCollisionStay2D(Collision2D collision) => CheckLanding(collision);

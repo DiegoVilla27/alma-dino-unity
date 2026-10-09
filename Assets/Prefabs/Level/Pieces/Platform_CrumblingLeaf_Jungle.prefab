@@ -45,6 +45,10 @@ PrefabInstance:
       value: 0.297
       objectReference: {fileID: 0}
     - target: {fileID: 4955525222218978188, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955525222218978188, guid: 294cd2cb169d49d5991112fb1ab6e038, type: 3}
       propertyPath: m_SpriteTilingProperty.border.x
       value: 0.44140625
       objectReference: {fileID: 0}
