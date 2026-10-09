@@ -1,4 +1,5 @@
 using AlmaGame.Player;
+using AlmaGame.Systems;
 using UnityEngine;
 
 namespace AlmaGame.Level
@@ -26,6 +27,8 @@ namespace AlmaGame.Level
         [SerializeField] private Color _puffColorA = new Color(0.55f, 0.95f, 0.35f, 0.75f);
         [SerializeField] private Color _puffColorB = new Color(0.35f, 0.75f, 0.3f, 0.75f);
         [SerializeField, Min(0f)] private float _puffsPerUnit = 3f;
+        [Tooltip("Gap (units) between the gas and Alma's feet at which tension starts to build (HUD vignette).")]
+        [SerializeField, Min(0.5f)] private float _tensionRange = 7f;
 
         private enum State { Idle, Warning, Rising, Full }
 
@@ -83,12 +86,14 @@ namespace AlmaGame.Level
         private void OnDisable()
         {
             if (_player != null) _player.Respawned -= OnAlmaRespawned;
+            TensionState.Clear(this);
         }
 
         private void OnDestroy() => HazardFx.DestroyMaterial(_topPuffs);
 
         private void Update()
         {
+            UpdateTension();
             float elapsed = Time.time - _stateStartedAt;
             switch (_state)
             {
@@ -133,6 +138,18 @@ namespace AlmaGame.Level
             _renderer.color = _baseColor;
             SetPuffRate(1f);
             Enter(State.Full);
+        }
+
+        // The closer the gas is to Alma's feet, the tenser the moment (warning: a first hint of it).
+        private void UpdateTension()
+        {
+            if (_state == State.Idle || _player == null || _player.IsDead) { TensionState.Clear(this); return; }
+            float top = _bottomY + _height;
+            float gap = _player.transform.position.y - top;
+            float near = Mathf.Clamp01(1f - gap / _tensionRange);
+            float level = _state == State.Warning ? Mathf.Max(0.3f, near * 0.6f) : 0.2f + 0.8f * near * near;
+            if (_state == State.Full && gap > _tensionRange) level = 0f;
+            TensionState.Set(this, level, TensionState.Toxic);
         }
 
         private bool AlmaPassedActivation()

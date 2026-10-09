@@ -9843,6 +9843,11 @@ MonoBehaviour:
   _windFlip:
   - {fileID: 4346681278668528584}
   _previewWindLeft: 0
+  _tension:
+  - 0.15
+  - 0.4
+  - 0.65
+  _tensionTint: {r: 0.05, g: 0.2, b: 0.16, a: 1}
 --- !u!1001 &3358186153493580831
 PrefabInstance:
   m_ObjectHideFlags: 0

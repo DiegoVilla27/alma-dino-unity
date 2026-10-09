@@ -1,6 +1,6 @@
 # HUD
 
-**Estado (9 de octubre de 2026):** implementados el **indicador de hijos** (GDD 8.1), los **botones de acción táctiles** con las runas de las habilidades la **capa de banners** de texto, el **nombre del nivel al entrar** y la **presentación pausada de cada habilidad**, todo con TextMeshPro y **responsive** (zona segura y escala por dispositivo). El prefab `HUD` está colocado en las **20 escenas jugables** (16 niveles y 4 jefes). Se construye paso a paso; los siguientes elementos están en [Pendiente](#pendiente).
+**Estado (9 de octubre de 2026):** implementados el **indicador de hijos** (GDD 8.1), los **botones de acción táctiles** con las runas de las habilidades la **capa de banners** de texto, el **nombre del nivel al entrar**, la **viñeta de tensión** y la **presentación pausada de cada habilidad**, todo con TextMeshPro y **responsive** (zona segura y escala por dispositivo). El prefab `HUD` está colocado en las **20 escenas jugables** (16 niveles y 4 jefes). Se construye paso a paso; los siguientes elementos están en [Pendiente](#pendiente).
 
 Fichas relacionadas: [GDD 8](../GDD.md#8-interfaz-hud-y-feedback), [Guardado y progreso](SaveAndProgress.md), [Progresión](../LevelPieces/Progression.md) (huevos).
 
@@ -17,17 +17,20 @@ Todo está en `Assets/Systems/HUD/`:
 
 | Archivo | Responsabilidad |
 | --- | --- |
-| `HUD.prefab` | Raíz del HUD (`Hud2D` + `HudEggIndicator` + `HudAbilityButtons` + `HudBanners` + `HudLevelTitle`). Uno por escena jugable. |
+| `HUD.prefab` | Raíz del HUD (`Hud2D` + `HudEggIndicator` + `HudAbilityButtons` + `HudBanners` + `HudLevelTitle` + `HudTensionVignette`). Uno por escena jugable. |
 | `Hud2D.cs` | Raíz: sigue la vista de la cámara **sin el temblor** (`AlmaCameraFollow.ViewPosition`), escala con su tamaño (diseñado para tamaño 8), calcula la zona segura y la escala de la interfaz ([responsive](#responsive)), dibuja por encima de todo (`Sorting Order` 1000) y se desvanece durante las cinemáticas (`Visibility`). |
 | `CinematicState.cs` | Estado global «hay una cinemática en curso» (`Begin`, `End`, `IsPlaying`, evento `Changed`). |
 | `HudEggIndicator.cs` | Indicador de hijos. |
 | `HudAbilityButtons.cs` | Botones de acción (táctiles), registro de habilidades y presentación pausada de una habilidad nueva. |
 | `HudBanners.cs` | Capa única de banners de texto. |
 | `HudLevelTitle.cs` | Tabla de títulos de las 20 escenas jugables; muestra el del nivel al empezar. |
+| `TensionState.cs` | Registro global de tensión: cada peligro pone su nivel (0–1) y su color; gana el más fuerte. |
+| `HudTensionVignette.cs` | Viñeta de tensión (bordes que se cierran y laten). |
 | `HudText.cs` | Estilo de texto común (TextMeshPro): fuentes, contorno, sombra, degradado, ajuste al ancho. |
 | `Fonts/LuckiestGuy-Regular.ttf` | Fuente de titulares (cartoon, mayúsculas). Licencia Apache 2.0 (`LuckiestGuy-LICENSE.txt`). |
 | `Fonts/Fredoka-SemiBold.ttf` | Fuente de texto (redondeada). Instancia fija del Fredoka variable (peso 600). Licencia SIL OFL (`Fredoka-OFL.txt`). |
 | `Fonts/LuckiestGuy SDF.asset`, `Fonts/Fredoka SDF.asset` | Fuentes de TextMeshPro (campo de distancia: nítidas a cualquier tamaño). Dinámicas: el atlas se rellena solo con los caracteres que se usan. |
+| `Sprites/HUD_Vignette.png`, `HUD_VignetteSmoke.png` | Viñeta suave (centro limpio, bordes opacos) y borde de humo con volutas (ruido orgánico). Generadas por código, blancas. |
 | `Sprites/HUD_Banner_Veil.png`, `HUD_Divider.png`, `HUD_Rays.png` | Velo y bandas de cine (bloque blanco), separador ornamental (línea que se afina con un rombo central) y resplandor de rayos. Generados por código, blancos; se tiñen en el juego. |
 | `Sprites/HUD_Button_*.png`, `HUD_Shockwave.png` | Arte de los botones (generado por código, estilo cartoon: hueco de piedra con contorno oscuro, aro de color, flecha de salto) y onda de choque. |
 
@@ -197,12 +200,45 @@ Títulos tomados de las fichas de cada nivel. En los jefes va la primera parte d
 
 **Comprobado** con `HudLevelTitleTests`: `Level_1_1` en móvil 16:9 (capturas de toda la secuencia), `Boss_Final` en móvil con notch y `Level_3_2` en vertical; en los tres el título aparece y se va solo.
 
+## Viñeta de tensión (`HudTensionVignette`)
+
+GDD 8.4: como no hay barra de vida, el peligro se **siente** en los bordes de la pantalla. Cuando un momento es tenso, los bordes se oscurecen y se cierran hacia el centro, **en el color del peligro**. Cuando pasa, se abren despacio.
+
+- **Poca tensión:** solo se oscurecen un poco las esquinas.
+- **Más tensión:** el borde oscuro avanza hacia el centro. Por encima lleva una capa de **humo con volutas** que se mece y respira.
+- **Desde el 45 %:** **late como un corazón** (pum-pum): el borde se cierra un poco en cada latido y destella en el color del peligro. Late más rápido cuanto más tensión hay: de 62 a 120 latidos por minuto.
+- **Transiciones:** entra en 0,7 s y se va en 1,6 s.
+- **Siempre a pantalla completa** (sea cual sea la proporción), por debajo del resto del HUD. Se mantiene durante las cinemáticas, porque la tensión narrativa también vive en ellas.
+
+**Fuentes de tensión** (`TensionState.Set(fuente, nivel, color)` / `Clear(fuente)`; gana la más fuerte):
+
+| Fuente | Nivel | Color |
+| --- | --- | --- |
+| **Gas tóxico ascendente** (`RisingGas2D`) | Aviso: 0,3. Subiendo: 0,2 + 0,8 × cercanía², donde la cercanía es 1 cuando el gas toca los pies de Alma y 0 a 7 u (`Tension Range`). Lleno y lejos: 0. | Verde tóxico (`TensionState.Toxic`) |
+| **Fondos de jefe** (`BossBackdropPhases`, `Tension` por fase) | Jefes 1 y 2: 0,15 / 0,35 / 0,6. Jefe 3: 0,15 / 0,4 / 0,65. Jefe final: 0,2 / 0,5 / 0,8 (late desde la fase 2). | Jefe 1, azul tormenta; jefe 2, amatista; jefe 3, verde pantano; jefe final, rojo brasa (`TensionState.Fire`). |
+| Cinemáticas y otros peligros (cuando existan) | Lo que pidan. | `TensionState.Narrative` (tinta), `Fire` o el suyo. |
+
+| Campo | Valor | Uso |
+| --- | --- | --- |
+| `Rise Time` / `Fall Time` | 0,7 / 1,6 s | Entrada y salida. |
+| `Heartbeat From` | 0,45 | Nivel desde el que late. |
+| `Beats Per Minute` | 62 → 120 | Ritmo en el umbral y a tensión máxima. |
+| `Preview` / `Preview Tint` | 0 / rojo brasa | En Play, fuerza un nivel para verlo desde el Inspector. |
+
+**Comprobado** con `HudTensionTests`:
+- Niveles crecientes en `Level_1_1`, con capturas.
+- El latido medido: el borde se aviva de 62 a 73 en el rojo en cada pulso.
+- Se apaga sola al quitar el peligro.
+- El gas real en `Level_3_1`: la tensión pasa de 0,3 en el aviso a 0,73 cuando alcanza a Alma.
+- `Boss_Final`: 0,2 en la fase 1 y 0,8 en la fase 3.
+- También en pantalla vertical.
+
 ## Pendiente
 
 Por orden acordado:
 1. ~~Capa de banners~~ → hecha (`HudBanners`, TextMeshPro, responsive); falta usarla en jefes, prólogo y epílogo cuando existan.
 2. ~~Nombre del nivel~~ → hecho (`HudLevelTitle`, banner `Level`).
-3. **Viñeta de tensión** (GDD 8.4).
+3. ~~Viñeta de tensión~~ → hecha (`HudTensionVignette` + `TensionState`).
 4. ~~Iconos de habilidades~~ → hechos como botones de acción táctiles.
 5. **Control de movimiento táctil** (izquierda/derecha); `AlmaTouchControls.Move` ya está preparado.
 6. **Marcas de progreso del jefe** (3 impactos).

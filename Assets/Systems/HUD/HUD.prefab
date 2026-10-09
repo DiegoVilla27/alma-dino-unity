@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1795413248309604540}
   - component: {fileID: 423854455102841328}
   - component: {fileID: 4334606233692831778}
+  - component: {fileID: 3364070778949286751}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -270,3 +271,23 @@ MonoBehaviour:
     Accent: {r: 1, g: 0.6, b: 0.25, a: 1}
   _delay: 0.6
   _showOnStart: 1
+--- !u!114 &3364070778949286751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8122954958874580315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de3bf3e416f942fb9e23d78feb999136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Systems.HudTensionVignette
+  _vignetteSprite: {fileID: 21300000, guid: 3a6a0ad062d24d178c90ab6aaaf22eab, type: 3}
+  _smokeSprite: {fileID: 21300000, guid: 43e49e1735ee4fff8f20164229b1fd04, type: 3}
+  _riseTime: 0.7
+  _fallTime: 1.6
+  _heartbeatFrom: 0.45
+  _beatsPerMinute: {x: 62, y: 120}
+  _preview: 0
+  _previewTint: {r: 0.42, g: 0.07, b: 0.02, a: 1}

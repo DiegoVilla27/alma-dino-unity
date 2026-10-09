@@ -325,7 +325,7 @@ HUD minimalista y diegético.
 - **Partículas:** polvo al aterrizar, chispas de cristal, hojas al correr, humo de lava.
 - **Vignette** sutil en momentos de tensión narrativa (no hay barra de vida).
 
-**Implementado (Alma):** polvo al correr (en lugar de hojas, por ahora); onda, polvo y screen shake en el Pisotón; siluetas fantasma y líneas de viento en el Dash; ondas en arco, polvo y screen shake suave en el Rugido; anillo de aire, bocanadas y estirón en el doble salto; secuencia de muerte con congelación de 0.08 s, «puf» de polvo y estrellas y una luz que vuela al punto de reaparición. Pendientes: polvo al aterrizar, hit stop en jefes y vignette. Detalle y valores en [`Player/Alma.md`](Player/Alma.md).
+**Implementado (Alma):** polvo al correr (en lugar de hojas, por ahora); onda, polvo y screen shake en el Pisotón; siluetas fantasma y líneas de viento en el Dash; ondas en arco, polvo y screen shake suave en el Rugido; anillo de aire, bocanadas y estirón en el doble salto; secuencia de muerte con congelación de 0.08 s, «puf» de polvo y estrellas y una luz que vuela al punto de reaparición. Pendientes: polvo al aterrizar y hit stop en jefes. **Vignette implementada (9/10/2026)** en el HUD: bordes que se cierran en el color del peligro y laten como un corazón con tensión alta (gas tóxico, fases de jefe); ver [HUD](Systems/HUD.md#viñeta-de-tensión-hudtensionvignette). Detalle y valores en [`Player/Alma.md`](Player/Alma.md).
 
 ---
 

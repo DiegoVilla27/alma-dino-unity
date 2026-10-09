@@ -136,6 +136,8 @@ Las tres están a escala 1 × 1: el gas usa un tile repetible como los líquidos
 
 ### Gas tóxico ascendente (`Trap_RisingToxicGas_Swamp`)
 
+**Tensión:** mientras avisa y sube, pide tensión al HUD (verde tóxico): 0,3 en el aviso y hasta 1 cuando roza los pies de Alma (`Tension Range` 7 u). Ver [viñeta de tensión](../Systems/HUD.md#viñeta-de-tensión-hudtensionvignette).
+
 Un **volumen** que sube desde un fondo fijo y crece: se dibuja como los líquidos, con un tile repetible (`Trap_RisingToxicGas_Swamp_Tile.png`, 512 × 498 px a 256 PPU, border inferior de 155 px = 0,6 u) en *Tiled*, con la imagen boca abajo y **Flip Y**, a escala 1 × 1. Arriba, un borde de nubes con contorno y sombras moradas (fijo, siempre en la cima); debajo, niebla verde con remolinos morados que se repite al crecer. Color (1; 1; 1; 0,7): translúcido. Orden de dibujo 5 (delante de Alma, para que se vea que está dentro). Sobre el borde, nubes de partículas en dos tonos de verde que burbujean y suben.
 
 Arte generado con IA (una generación, 7/10/2026) con el sprite anterior (una nube con forma de arbusto que no podía crecer, ya borrado) como referencia de estilo, y procesado como los líquidos. Material `Materials/Liquid_Gas.mat` (shader `AlmaGame/LiquidSprite`):

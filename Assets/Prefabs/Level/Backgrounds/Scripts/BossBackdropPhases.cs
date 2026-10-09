@@ -1,4 +1,5 @@
 using System;
+using AlmaGame.Systems;
 using UnityEngine;
 
 namespace AlmaGame.Level
@@ -46,6 +47,11 @@ namespace AlmaGame.Level
         [SerializeField] private Transform[] _windFlip = new Transform[0];
         [SerializeField] private bool _previewWindLeft;
 
+        [Header("Tension (HUD vignette)")]
+        [Tooltip("Tension per phase (0..1): the screen edges close in more as the fight escalates.")]
+        [SerializeField] private float[] _tension = { 0.15f, 0.35f, 0.6f };
+        [SerializeField] private Color _tensionTint = new Color(0.06f, 0.05f, 0.09f);
+
         private float _windSign = 1f;
 
         private float _blend = 1f;
@@ -79,9 +85,20 @@ namespace AlmaGame.Level
             foreach (var gale in GetComponentsInChildren<GustWind2D>()) gale.Side = _windSign;
         }
 
+        private void Start() => ApplyTension();
+        private void OnDisable() => TensionState.Clear(this);
+
+        private void ApplyTension()
+        {
+            if (_tension == null || _tension.Length == 0) return;
+            TensionState.Set(this, _tension[Mathf.Min(CurrentPhase, _tension.Length - 1)], _tensionTint);
+        }
+
         public void SetPhase(int phase)
         {
             phase = Mathf.Clamp(phase, 0, 2);
+            if (Application.isPlaying && _tension != null && _tension.Length > 0)
+                TensionState.Set(this, _tension[Mathf.Min(phase, _tension.Length - 1)], _tensionTint);
             if (phase == CurrentPhase && _blend >= 1f) return;
             CurrentPhase = phase;
             foreach (var t in _tracks) t.From = t.Current;

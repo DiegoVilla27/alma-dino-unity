@@ -7624,6 +7624,11 @@ MonoBehaviour:
   _previewPhase: 0
   _windFlip: []
   _previewWindLeft: 0
+  _tension:
+  - 0.2
+  - 0.5
+  - 0.8
+  _tensionTint: {r: 0.42, g: 0.07, b: 0.02, a: 1}
 --- !u!1 &7313002899164300165
 GameObject:
   m_ObjectHideFlags: 0

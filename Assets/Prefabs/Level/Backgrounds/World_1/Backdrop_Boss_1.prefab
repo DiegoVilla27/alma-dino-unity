@@ -2863,6 +2863,13 @@ MonoBehaviour:
     - {x: 0, y: 0, z: 0}
     - {x: 0, y: 0, z: 0}
   _previewPhase: 0
+  _windFlip: []
+  _previewWindLeft: 0
+  _tension:
+  - 0.15
+  - 0.35
+  - 0.6
+  _tensionTint: {r: 0.08, g: 0.12, b: 0.26, a: 1}
 --- !u!1 &9093140444684585367
 GameObject:
   m_ObjectHideFlags: 0
