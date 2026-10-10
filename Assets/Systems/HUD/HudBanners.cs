@@ -13,6 +13,8 @@ namespace AlmaGame.Systems
         Shout,   // a short huge cry: «¡RUGE, ALMA!»
         Story,   // narration: cinema bars + dark veil, the lines fade in one after another (prologue, epilogue)
         Level,   // level name on entry: «MUNDO 1 · JUNGLA ESMERALDA», «1-1» and the title revealed letter by letter
+        BossIntro, // boss title card: cinema bars, «JEFE DEL MUNDO 1», the name slams in letter by letter with a
+                   // screen shake and a flash, the epithet (Text) under a divider. Same for every boss.
     }
 
     [System.Serializable]
@@ -62,6 +64,7 @@ namespace AlmaGame.Systems
             public float BarH;
             public float HalfHeight;      // Line: half the height of its text block (design units)
             public bool Cinematic;
+            public bool Slammed;
             public float DividerWidth;
         }
 
@@ -260,6 +263,32 @@ namespace AlmaGame.Systems
                     a.Duration = LevelRevealEnd(letters) + (b.Hold > 0f ? b.Hold : 3.2f);
                     break;
                 }
+                case BannerKind.BossIntro:
+                {
+                    BuildBars(a, true);
+                    a.Root.localPosition = _hud.Anchor(new Vector2(0.5f, 0.5f), Vector2.zero);
+                    a.Glow = NewSprite("Glow", a.Root, HazardFx.Glow(), o + 3, Color.clear);
+                    if (!string.IsNullOrEmpty(b.Kicker))
+                    {
+                        a.Kicker = HudText.Create(a.Root, "Kicker", HudTextStyle.Kicker, b.Kicker.ToUpperInvariant(), 0.46f, Light(b.Accent), o + 5, Mathf.Min(availW - 2f, 24f), true);
+                        a.Kicker.transform.localPosition = new Vector3(0f, 2.15f, 0f);
+                    }
+                    a.Headline = HudText.Create(a.Root, "Name", HudTextStyle.Shout, (b.Headline ?? "").ToUpperInvariant(), 1.75f, b.Accent, o + 7, Mathf.Min(availW - 2f, 26f), true);
+                    HudText.Gradient(a.Headline, b.Accent);
+                    a.HeadlineHome = Vector3.zero;
+                    a.Divider = NewSprite("Divider", a.Root, _dividerSprite, o + 4, b.Accent);
+                    a.DividerWidth = Mathf.Min(availW - 3f, 15f);
+                    a.Divider.transform.localPosition = new Vector3(0f, -1.45f, 0f);
+                    if (!string.IsNullOrEmpty(b.Text))
+                    {
+                        var t = HudText.Create(a.Root, "Epithet", HudTextStyle.Kicker, b.Text.ToUpperInvariant(), 0.55f, Color.white, o + 5, Mathf.Min(availW - 2f, 24f), true);
+                        t.transform.localPosition = new Vector3(0f, -2.25f, 0f);
+                        a.Lines.Add(t); a.LineAt.Add(0f);
+                    }
+                    int letters = (b.Headline ?? "").Replace(" ", "").Length;
+                    a.Duration = BossSlamAt(letters) + (b.Hold > 0f ? b.Hold : 2.6f);
+                    break;
+                }
                 case BannerKind.Story:
                 {
                     BuildBars(a, true);
@@ -294,7 +323,7 @@ namespace AlmaGame.Systems
             foreach (var t in a.Lines) HudText.Alpha(t, 0f);
             if (a.Kicker != null) HudText.Alpha(a.Kicker, 0f);
             if (a.Code != null) HudText.Alpha(a.Code, 0f);
-            if (a.Headline != null && b.Kind != BannerKind.Level) HudText.Alpha(a.Headline, 0f);
+            if (a.Headline != null && b.Kind != BannerKind.Level && b.Kind != BannerKind.BossIntro) HudText.Alpha(a.Headline, 0f);
             Animate(a);
             return a;
         }
@@ -344,6 +373,7 @@ namespace AlmaGame.Systems
         {
             float t = _now - a.StartedAt;
             if (a.B.Kind == BannerKind.Level) return AnimateLevel(a, t);
+            if (a.B.Kind == BannerKind.BossIntro) return AnimateBossIntro(a, t);
             float inT = Mathf.Clamp01(t / _fadeIn);
             float outT = Mathf.Clamp01((t - _fadeIn - a.Duration) / _fadeOut);
             float vis = Ease(inT) * (1f - outT);
@@ -467,6 +497,64 @@ namespace AlmaGame.Systems
                     return 0.85f * Mathf.Exp(-x * x);
                 });
             return t < outStart + 0.45f + letters * 0.025f;
+        }
+
+        // Boss card timing: bars 0–0.5 s, kicker from 0.35 s, letters drop from 0.7 s (0.055 s apart, 0.28 s each);
+        // the slam (shake + flash) when the last letter lands.
+        private const float BossLetters = 0.7f, BossGap = 0.055f, BossDrop = 0.28f;
+        private static float BossSlamAt(int letters) => BossLetters + Mathf.Max(0, letters - 1) * BossGap + BossDrop;
+
+        private bool AnimateBossIntro(Active a, float t)
+        {
+            Color acc = a.B.Accent;
+            int letters = (a.B.Headline ?? "").Replace(" ", "").Length;
+            float slam = BossSlamAt(letters);
+            float outStart = _fadeIn + a.Duration;
+            float outT = Mathf.Clamp01((t - outStart) / 0.55f);
+
+            // Cinema bars + dark veil.
+            float barH = a.BarH, slide = Ease(Mathf.Clamp01(t / 0.5f)) * (1f - Ease(outT));
+            a.TopBar.transform.localPosition = new Vector3(0f, 8f + barH * 0.5f - barH * slide, 0f);
+            a.BottomBar.transform.localPosition = new Vector3(0f, -8f - barH * 0.5f + barH * slide, 0f);
+            a.Veil.color = new Color(HudText.Ink.r, HudText.Ink.g, HudText.Ink.b, 0.55f * slide);
+
+            if (a.Kicker != null)
+            {
+                float k = Ease(Mathf.Clamp01((t - 0.35f) / 0.5f));
+                HudText.Alpha(a.Kicker, k * (1f - outT));
+                a.Kicker.characterSpacing = Mathf.Lerp(90f, 30f, k);
+            }
+            // Letters fall from above, one by one, with a little overshoot; on the slam a punch of scale.
+            float punch = t >= slam ? Mathf.Exp(-(t - slam) * 9f) : 0f;
+            a.Headline.transform.localScale = Vector3.one * (1f + 0.14f * punch) * (1f + 0.25f * outT);
+            HudText.AnimateLetters(a.Headline,
+                (i, n) => (t - BossLetters - i * BossGap > 0f ? 1f : 0f) * (1f - outT),
+                (i, n) =>
+                {
+                    float u = Mathf.Clamp01((t - BossLetters - i * BossGap) / BossDrop);
+                    return u <= 0f ? 4f : (1f - Back(u)) * 4f;
+                },
+                (i, n) => punch * 0.9f);
+            if (t >= slam && !a.Slammed)
+            {
+                a.Slammed = true;
+                var cam = FindAnyObjectByType<AlmaGame.Player.AlmaCameraFollow>();
+                if (cam != null) cam.Shake(0.45f, 0.55f);
+            }
+            // Flash of the accent colour behind the name on the slam, then a slow glow.
+            float glow = t >= slam ? 0.35f + 0.65f * punch + 0.08f * Mathf.Sin(_now * 3f) : 0f;
+            a.Glow.transform.localScale = new Vector3((14f + 10f * punch) / HazardFx.Glow().bounds.size.x * 1.5f, (4f + 3f * punch) / HazardFx.Glow().bounds.size.y, 1f);
+            a.Glow.color = new Color(acc.r, acc.g, acc.b, Mathf.Clamp01(glow) * 0.6f * (1f - outT));
+            float d = Ease(Mathf.Clamp01((t - slam - 0.1f) / 0.5f)) * (1f - Ease(outT));
+            a.Divider.transform.localScale = new Vector3(Mathf.Max(0.001f, a.DividerWidth * d) / _dividerSprite.bounds.size.x, 0.6f / _dividerSprite.bounds.size.y, 1f);
+            a.Divider.color = new Color(acc.r, acc.g, acc.b, d);
+            foreach (var l in a.Lines)
+            {
+                float e = Ease(Mathf.Clamp01((t - slam - 0.35f) / 0.5f));
+                HudText.Alpha(l, e * (1f - outT));
+                l.characterSpacing = Mathf.Lerp(60f, 24f, e);
+            }
+            return outT < 1f;
         }
 
         // Each line fades in (and rises a little) at its own time; all fade out together.

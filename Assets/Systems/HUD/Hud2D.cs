@@ -62,6 +62,9 @@ namespace AlmaGame.Systems
             _visibility = Mathf.MoveTowards(_visibility, target, Time.unscaledDeltaTime / _fadeTime);
         }
 
+        // Hides the HUD at once (no fade), e.g. when a scene opens on a cinematic.
+        public void HideNow() => _visibility = 0f;
+
         // ---------- responsive layout ----------
         // The HUD is designed for a 16:9 landscape screen 16 HUD units tall (camera size 8). On any device it
         // lays out inside the screen's safe area (notches, rounded corners) and shrinks uniformly (UiScale) when

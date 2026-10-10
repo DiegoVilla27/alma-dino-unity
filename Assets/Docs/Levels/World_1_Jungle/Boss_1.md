@@ -71,3 +71,54 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 - [x] **Hurtbox de Cabeza:** `BossHeadHurtbox2D` para rebote satisfactorio de Alma (`ApplyBounce`) al pisar la cabeza vulnerable.
 - [x] **VFX & Cámara:** Screen Shake mediante `CameraShakeEventChannelSO`, encuadre cinemático de arena y atardecer crepuscular en luz 2D.
 - [ ] **Sprites finales:** animaciones legibles de cada fase.
+
+## Implementación (10/10/2026)
+
+`Assets/Prefabs/Bosses/GiantMonkey/Boss_GiantMonkey_Jungle.prefab` (`GiantMonkeyBoss2D` + `MonkeyProjectile2D`), colocado en `Boss_1`. El sistema antiguo por piezas (cut-out) solo se usa si no hay arte; el combate actual funciona con `Fight Enabled` desactivado.
+
+### Animaciones (frames de 256×256, hojas de 1024×512, 45 px por unidad, 12 fps)
+
+Todas están en el Animator `Animations/Taunt/Boss_GiantMonkey.controller`.
+
+| Estado | Origen | Apoyo | Uso |
+| --- | --- | --- | --- |
+| `Boss_GiantMonkey_Taunt` | Higgsfield | pies | Burla de la intro; su frame 1 se usa en la derrota |
+| `Boss_GiantMonkey_Hang` | Código (1 frame rotado + respiración), velocidad 0,5 | puño | Colgado de la liana |
+| `Boss_GiantMonkey_Throw` | Higgsfield (2 brazos) | puño | Lanzar el fruto (lo suelta en el frame 5) |
+| `Boss_GiantMonkey_Tired` | Higgsfield | pies | Agotado en el suelo, jadeando |
+| `Boss_GiantMonkey_Swing` | Referencia del usuario (`salto.png`), frame 3 reflejado; hoja de 1024×256, 4 frames, 43,5 px por unidad | puño del frame 1 | Salto entre lianas: se suelta, se estira, vuela y se agarra; el frame va con el avance del salto y se refleja según la dirección |
+
+Colgado y lanzando se dibujan a escala `Hang Scale` (1,3), anclados en el puño; el punto de suelta del fruto escala igual. Cada fase va un `Phase Speed Up` (15 %) más rápida: animaciones, lanzamiento, salto entre lianas, caída y regreso.
+
+Por código, sin animación propia: caída, golpe recibido (destello rojo y temblor), esfumarse como un ninja (humo) y estrellas de mareo.
+
+### Secuencia
+
+1. **Intro:** está en el suelo frente a Alma, que no puede moverse. La cámara lo enfoca, dice sus frases, hace la burla, se esfuma y baja colgado por la liana central. Aparece la tarjeta de jefe (`BannerKind.BossIntro`).
+2. **Oleada:** 2 s después de devolver el control, lanza frutos con la animación de lanzar. Antes de cada lanzamiento **simula** el recorrido con las colisiones reales y elige el primero que alcance a Alma:
+   - **normal:** lo deja caer y rueda;
+   - **bajo:** cae corto y rueda por debajo de las plataformas;
+   - **alto:** parábola directa a Alma.
+
+   Si desde su liana ninguno la alcanza, **salta** a la liana desde la que sí.
+3. **Agotado:** tras lanzar los frutos de la fase, se suelta, cae a su vertical con polvo y temblor de cámara, y jadea con estrellas girando. Es inofensivo.
+4. **Golpe:** si Alma cae sobre su cabeza (la altura de la cabeza sigue la respiración, `Tired Head Top`), rebota (13,5), el mono parpadea en rojo y tiembla. Después se esfuma y reaparece colgado desde arriba en la liana central: **empieza la fase siguiente**.
+5. Si se acaba el tiempo de agotado sin golpe, se esfuma y repite la misma fase.
+6. **Derrota (3.er golpe):** Alma se congela, la cámara lo enfoca, mira a Alma, dice `Defeat Lines` y se esfuma. Aparece el **portal al Mundo 2** (`ExitPortal_World2` en la escena, `Next Scene` = `Level_2_1`) en `Portal X`, y Alma recupera el control.
+
+### Fases (`Cycles`)
+
+| Fase | Frutos | Velocidad | Intervalo | Agotado |
+| --- | --- | --- | --- | --- |
+| 1 | 4 | 6,5 | 1,3 s | 3,2 s |
+| 2 | 5 | 8 | 1 s | 2,8 s |
+| 3 | 7 | 9,5 | 0,75 s | 2,4 s |
+
+### El fruto
+
+Tiene un collider circular (trigger). Si toca a Alma, ella muere y el fruto estalla (pulpa, cáscara y destello). Si no, estalla al chocar con un collider sólido de lado (los troncos de los extremos). Al caer al suelo rueda, no estalla. Si Alma muere, se borran los frutos en pantalla; la oleada sigue contando (no se reinicia) y los golpes se conservan.
+
+### Pendiente
+
+- Marcas de progreso en el HUD.
+- Coco (no tiene arte).

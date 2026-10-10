@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6395007804099406108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4116226812689459363}
+  - component: {fileID: 2079682421279962218}
+  m_Layer: 0
+  m_Name: Boss_GiantMonkey_Jungle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4116226812689459363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6395007804099406108}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2079682421279962218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6395007804099406108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f28b9d4020f948d58f8fdcd74c43663e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Bosses.GiantMonkeyBoss2D
+  _lianaX:
+  - -4.5
+  - 0
+  - 4.5
+  _hangY: 4.5
+  _lianaTopY: 10
+  _floorY: -6.2
+  _arenaHalfWidth: 15
+  _lianaSprite: {fileID: 21300000, guid: 4cabd5fd0989d40889b0a46b6d0e983b, type: 3}
+  _lianaWidth: 1
+  _cycles:
+  - Projectiles: 4
+    Speed: 6.5
+    Interval: 1.3
+    Fatigue: 3.2
+    Swings: 0
+    Doubles: 0
+  - Projectiles: 5
+    Speed: 8
+    Interval: 1
+    Fatigue: 2.8
+    Swings: 1
+    Doubles: 0
+  - Projectiles: 7
+    Speed: 9.5
+    Interval: 0.75
+    Fatigue: 2.4
+    Swings: 1
+    Doubles: 1
+  _headBounce: 13.5
+  _size: 1
+  _sortingOrder: -1
+  _introLines:
+  - "\xA1Kikiki! \xBFVienes a por tu huevito, mam\xE1 lagarto?"
+  - "\xA1Te enterrar\xE9 bajo mi cosecha!"
+  _bubbleSprite: {fileID: 21300000, guid: 0eebf82195994e15b3d715bcf855fd82, type: 3}
+  _bubbleTailSprite: {fileID: 21300000, guid: 77f39c181a374661a083047027e1fd0c, type: 3}
+  _accent: {r: 1, g: 0.65, b: 0.25, a: 1}
+  _animatorController: {fileID: 9100000, guid: 82f44456ef8cb45e09b5b4a2ecb6b53c, type: 2}
+  _tauntState: Boss_GiantMonkey_Taunt
+  _hangState: Boss_GiantMonkey_Hang
+  _throwState: Boss_GiantMonkey_Throw
+  _firstThrowDelay: 2
+  _throwEvery: 3
+  _releaseTime: 0.33
+  _releaseOffset: {x: 2.21, y: -3.47}
+  _throwAnimTime: 0.75
+  _fruitRollSpeed: 6.5
+  _fruitRadius: 0.45
+  _introDistance: 6
+  _fightEnabled: 0
+  _art:
+    Body: {fileID: 0}
+    Head: {fileID: 0}
+    Jaw: {fileID: 0}
+    Crown: {fileID: 0}
+    Arm: {fileID: 0}
+    Leg: {fileID: 0}
+    Fruit: {fileID: 21300000, guid: 8e25b3c97c08c4780af0a52ef5cf5d69, type: 3}
+    Coconut: {fileID: 0}
+  _bossName: "Mono Ladr\xF3n Gigante"
+  _bossEpithet: El Rey de la Copa
+  _bossKicker: Jefe del Mundo 1
+  _introZoom: 5.5
+  _groundOffset: -0.11
+  _lianaGrip: 0.35
+  _fadeIn: 0.9
