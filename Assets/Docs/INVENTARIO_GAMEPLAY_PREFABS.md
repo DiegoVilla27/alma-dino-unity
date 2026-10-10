@@ -221,7 +221,7 @@ La estructura actual agrupa los enemigos y a Alma por personaje; las trampas y r
 
 ### 3. Pilar con espinas
 
-- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_SpikedPillar_Jungle.png`, modo Simple a escala 1 × 1). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_SpikedPillar_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md).
+- **Estado:** implementado con arte final (sprite fijo `Hazards/Sprites/Trap_SpikedPillar_Jungle.png`, modo Simple a escala 1 × 1). Prefab real: `Assets/Prefabs/Level/Hazards/Trap_SpikedPillar_Jungle.prefab`, variante de `Hazard_Base` con el script común `HazardZone2D`. Ficha: [Zonas de peligro](LevelPieces/Hazards.md). Medidas desde el 9/10/2026: tronco sólido 1,8 × 5,3 y zona letal 2,9 × 4,4 (ajustadas al dibujo; antes el colisionador medía 8 m).
 - **Archivo definitivo:** `Trap_SpikedPillar_Jungle.prefab`.
 - **Ruta real:** `Assets/Prefabs/Level/Hazards/Trap_SpikedPillar_Jungle.prefab`.
 - **Implementación:** `HazardTrigger2D + colliders de estructura`.

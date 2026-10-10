@@ -19,26 +19,26 @@ namespace AlmaGame.Player
 
         [Header("Horizontal")]
         [Tooltip("Width of the box around the screen centre where Alma moves without moving the camera (units).")]
-        [SerializeField, Min(0f)] private float _deadZoneWidth = 3.9f;
+        [SerializeField, Min(0f)] private float _deadZoneWidth = 0f;
         [Tooltip("How far the view eases ahead in the running direction (units).")]
-        [SerializeField, Min(0f)] private float _lookAheadDistance = 4.3f;
+        [SerializeField, Min(0f)] private float _lookAheadDistance = 1f;
         [Tooltip("Seconds of running to reach the full look-ahead (and to swing it to the other side when turning).")]
         [SerializeField, Min(0.05f)] private float _lookAheadTime = 0.05f;
         [Tooltip("Seconds Alma must keep running one way before the look-ahead starts moving (ignores short steps).")]
-        [SerializeField, Min(0f)] private float _lookAheadDelay = 0f;
+        [SerializeField, Min(0f)] private float _lookAheadDelay = 1f;
         [Tooltip("Fraction of the run speed that counts as running for the look-ahead.")]
-        [SerializeField, Range(0f, 1f)] private float _lookAheadSpeedThreshold = 0.6f;
-        [SerializeField, Min(0.01f)] private float _horizontalSmoothTime = 0.25f;
+        [SerializeField, Range(0f, 1f)] private float _lookAheadSpeedThreshold = 0f;
+        [SerializeField, Min(0.01f)] private float _horizontalSmoothTime = 0.01f;
         [Tooltip("Top horizontal camera speed, as a multiple of Alma's run speed.")]
-        [SerializeField, Min(1f)] private float _maxSpeedFactor = 1.3f;
+        [SerializeField, Min(1f)] private float _maxSpeedFactor = 2f;
 
         [Header("Vertical")]
         [Tooltip("Where Alma is placed on the screen at the start and after respawning: 0 = bottom, 1 = top.")]
-        [SerializeField, Range(0.1f, 0.9f)] private float _almaScreenHeight = 0.38f;
+        [SerializeField, Range(0.1f, 0.9f)] private float _almaScreenHeight = 0.17f;
         [Tooltip("Vertical dead zone, as screen heights from the bottom: inside it the camera doesn't move vertically.")]
-        [SerializeField, Range(0f, 0.5f)] private float _deadZoneBottom = 0.2f;
-        [SerializeField, Range(0.5f, 1f)] private float _deadZoneTop = 0.65f;
-        [SerializeField, Min(0.01f)] private float _verticalSmoothTime = 0.35f;
+        [SerializeField, Range(0f, 0.5f)] private float _deadZoneBottom = 0.15f;
+        [SerializeField, Range(0.5f, 1f)] private float _deadZoneTop = 0.5f;
+        [SerializeField, Min(0.01f)] private float _verticalSmoothTime = 0.2f;
 
         private Camera _camera;
         private CameraBounds2D _bounds;

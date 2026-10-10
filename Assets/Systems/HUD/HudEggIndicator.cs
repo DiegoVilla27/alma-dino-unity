@@ -23,9 +23,9 @@ namespace AlmaGame.Systems
         [SerializeField] private Egg[] _eggs = new Egg[0];
         [Tooltip("Distance of the first egg from the top-left corner (HUD units, camera size 8).")]
         [SerializeField] private Vector2 _inset = new Vector2(1.0f, 1.0f);
-        [SerializeField, Min(0.1f)] private float _spacing = 1.4f;
+        [SerializeField, Min(0.1f)] private float _spacing = 1f;
         [Tooltip("Height of a rescued egg (HUD units).")]
-        [SerializeField, Min(0.1f)] private float _litHeight = 1.12f;
+        [SerializeField, Min(0.1f)] private float _litHeight = 0.8f;
         [Tooltip("Size of a missing egg, relative to a rescued one.")]
         [SerializeField, Range(0.3f, 1f)] private float _dimScale = 0.85f;
         [SerializeField] private Color _dimColor = new Color(0.7f, 0.7f, 0.78f, 0.5f);

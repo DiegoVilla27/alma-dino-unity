@@ -160,8 +160,8 @@ MonoBehaviour:
   _bubbleRate: 0.9
   _bubbleSize: {x: 0.18, y: 0.32}
   _bubbleColor: {r: 0.85, g: 1, b: 0.45, a: 1}
-  _ringBubbles: 1
   _bubbleDepth: 0.06
+  _ringBubbles: 1
   _emberRate: 0.3
   _emberSpeed: {x: 0.15, y: 0.3}
   _emberSize: {x: 0.2, y: 0.35}

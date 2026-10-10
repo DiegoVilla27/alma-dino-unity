@@ -1,4 +1,4 @@
-> **Estado (8 de octubre de 2026):** `Assets/Scenes/World_01/Level_1_1.unity` es una **escena de práctica** (suelo y escalones provisionales con el fondo, `System_GameProgress` y el polen ambiental), como el resto de niveles: los niveles jugables se construirán más adelante. La sección 6 describe un recorrido que se montó y se retiró de la escena; queda como propuesta de diseño. La cámara usa tamaño ortográfico **8** y el juego no usa audio.
+> **Estado (9 de octubre de 2026):** `Assets/Scenes/World_01/Level_1_1.unity` tiene el **recorrido completo montado en bloques** según el [boceto](Level_1_1_Boceto.png) (sección 6), probado jugando. Falta decorarlo con los [props del Mundo 1](../../LevelPieces/Decor_World1.md), el mono de presentación y el prólogo. La cámara usa tamaño ortográfico **8** y el juego no usa audio.
 
 # 🗺️ Nivel 1-1: "Despertar en el Nido"
 > **Mundo 1: Jungla Esmeralda** | **Función Pedagógica:** Introducir (Locomoción Base + Despertar del Doble Salto)
@@ -64,47 +64,40 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 - [x] **Sprites Alma:** Idle, Run y Jump integrados en su Animator.
 - [ ] **Double Jump:** clip propio; por ahora reutiliza Jump y añade un efecto visual generado por código.
 
-## 6. Propuesta de recorrido (retirada de la escena)
+## 6. Recorrido (montado en bloques el 9/10/2026)
 
-> Este recorrido se construyó y probó el 7/10/2026, pero la escena volvió a ser de práctica; se conserva como propuesta para cuando se construya el nivel.
+![Boceto del nivel 1-1](Level_1_1_Boceto.png)
 
-Escena `Level_1_1`: todo cuelga de un objeto raíz `Level_1_1` con los hijos `Terrain`, `Pieces`, `Hazards`, `Progression`, `Decor` y `CameraBounds`. Medidas en unidades; la `y` es la superficie donde se pisa.
+**Idea central:** el jugador ve primero lo que no puede hacer. Un **muro imposible** (2,6 m), con el mono burlándose arriba, le corta el paso. Baja por un agujero a la hondonada, despierta el Doble Salto en el **altar** y, ya con el aleteo, **sale por detrás de ese mismo muro**. Estructura: introducir (salto simple) → muro y altar → practicar el aleteo → hojas → pilares → examen final.
 
-**Estructura:** introducir, practicar, combinar y culminar. Antes del altar solo se usa el salto simple. Tras él, cada tramo pide el doble salto de una forma nueva: subir paredes, atravesar un tronco desde abajo, cruzar entre pilares y escalar a las copas. La altura del recorrido cambia en cada tramo: meseta, descenso a una hondonada, ascenso y cima, siempre con alturas de pantalla distintas.
+**Regla de diseño:** nada depende de llegar por los pelos. Lo que exige el aleteo pide **altura** (2,3–2,6 m; el salto simple alcanza ≈1,56 m y el doble ≈2,89 m) o **huecos de 5–5,5 m** (simple ≈4,6 m; doble ≈7,8 m).
 
-**Regla de diseño:** ningún obstáculo depende de que el salto simple "no llegue" por poco. Lo que exige el doble salto pide **altura**: paredes de 2,2–2,5 m (el salto simple alcanza ≈1,56 m; el doble, ≈2,89 m).
+Escena: todo cuelga de `Level_1_1`, con los grupos `Terrain`, `Pieces`, `Hazards`, `Progression` y `Markers`. La `y` es la superficie que se pisa; la meseta del inicio es y = 0.
 
 | # | Tramo | x | Contenido | Qué enseña |
 | --- | --- | --- | --- | --- |
-| 1 | **El nido vacío** | −14 a 30 | Meseta de piedra (y 4). Alma empieza junto a la pared izquierda (x −8) y encuentra su nido vacío (checkpoint `Nest_Start`, x 0). Montículo de raíces de 1,2 m. Primer foso de **pinchos** visibles (3 m). Loma (y 4,4). | Correr y saltar; el primer peligro, con poco riesgo. |
-| 2 | **El descenso** | 30 a 47 | Tres **piedras flotantes** que bajan (y 3,2 / 2 / 0,8) sobre un vacío (zona de muerte). | Saltos de precisión hacia abajo; la cámara baja con Alma. |
-| 3 | **El santuario** | 47 a 66 | Hondonada de raíces (y −1) con el checkpoint `Nest_Hollow`. En el centro, sobre un estrado de piedra, el **Altar del Doble Salto** (x 56). | Momento de calma y descubrimiento. |
-| 4 | **Primer aleteo** | 66 a 88 | Pared de 2,3 m (solo con doble salto). **Tronco atravesable** (y 3,8) que se cruza desde abajo. Otro muro de 2,2 m hasta la meseta alta (y 6) con el checkpoint `Nest_Upper`. | Usar el doble salto tres veces seguidas, cada una con un matiz. |
-| 5 | **Hojas sobre espinas** | 88 a 118 | Cuatro **hojas que se desprenden** (1 s) en arco (y 6,6 / 7,6 / 6,6 / 6) sobre un lecho de pinchos a la vista. | No detenerse; ritmo constante. |
-| 6 | **Pilares de espinas** | 118 a 132 | Dos **pilares con espinas** que salen de fosos de pinchos. Solo su cima es segura (y 7 y 7,6); sus lados matan. | Doble salto preciso para caer encima. |
-| 7 | **Las copas** | 132 a 182 | Suelo de seguridad (y 7) con el checkpoint `Nest_Canopy`. Dos **troncos atravesables** escalonados (y 9,3 / 11,6), dos hojas (y 12,2 / 12,8) y la **cima** (y 12), un muro de 5 m que solo se alcanza por las copas. Allí está el **portal** (x 171, hacia `Level_1_2`). | Final: combinar todo en altura; caer no mata, solo obliga a repetir la subida. |
+| 1 | **El nido vacío** | −14 a 14 | Meseta de piedra (y 0). Alma empieza en x −8 junto a la pared; `Nest_Start` en x −2. | Calma y contexto. |
+| 2 | **Primeros pasos** | 14 a 57 | Escalón de 1 m; hondonada de 3 m sin peligro; **primeros pinchos** (3 m); escalón de 1,3 m (mantener el salto); foso de 5 m con pinchos que solo se cruza por **la primera hoja** (1 s). | Salto simple, salto mantenido, leer peligros. |
+| 3 | **El muro y el altar** | 57 a 84 | Losa (y 2,3) con un **agujero** de 3 m (x 63–66) que baja, sin retorno, a la **hondonada** (y −3). Encima, la repisa del **muro imposible** (x 68–80, y 4,9). En la hondonada: `Nest_Hollow` (x 65) y el **altar del Doble Salto** sobre un estrado (x 74). | El abismo infranqueable y el despertar de la habilidad. |
+| 4 | **Primer aleteo** | 84 a 108 | Muro de 2,3 m, muro de 2,4 m y plataforma atravesable (y 4,2): tres aleteos seguidos. Si fallas, vuelves a la hondonada sin morir. Se sale a y 4,9, **detrás del muro imposible**. | Practicar sin castigo. |
+| 5 | **Hojas sobre espinas** | 108 a 150 | Foso de 33 m con pinchos y cuatro hojas (y 5,3 / 6,3 / 5,3 / 5,0) a 4,5–5 m entre sí; la primera, a 5 m del borde. `Nest_Leaves` en x 144. | Ritmo, aletear en cada hoja. |
+| 6 | **Pilares de espinas** | 150 a 168,5 | Dos pilares; solo su cima es segura (y 6,0 en x 156 e y 6,8 en x 163). Huecos de 5,1 y 5,2 m; luego 4,6 m hacia abajo, con salto simple, como respiro. | Precisión al aterrizar. |
+| 7 | **Ascenso a las copas** | 168,5 a 210 | `Nest_Canopy` (x 173). Piedra flotante (y 8,1), plataforma atravesable (y 10,6), hoja (y 12,9) y la **cima** (y 13,6), una pared de 8 m que solo se alcanza por arriba. **Portal** a `Level_1_2` en x 200. Caer no mata, solo obliga a subir otra vez. | Examen: combinar todo en altura. |
 
-**Piezas usadas:**
-- **Terreno:** 18 bloques `Platform_Ground_*_Jungle`: piedra en el recorrido principal, raíces en el nido, la hondonada y la pared, y zarzas oscuras en los suelos de los fosos de pinchos. Además, 3 `Platform_Floating_Stone_Jungle` con hojas colgantes.
-- **Piezas:** 3 `Platform_OneWay_Universal` y 6 `Platform_CrumblingLeaf_Jungle`.
-- **Peligros:** 4 `Trap_Spikes_Jungle` (fosos de 3, 20, 8 y 6 m), 2 `Trap_SpikedPillar_Jungle` y 1 `Trap_DeathZone_Universal` (descenso).
-- **Progresión:** 5 `Resource_CheckpointNest_Universal`, 1 `Resource_AbilityAltar_DoubleJump`, 1 `Resource_LevelExitPortal_Universal` y `System_GameProgress`.
-- Sin enemigos, como pide la ficha.
+**Piezas:** terreno del kit del Mundo 1 (Piedra, Raíces y Espinas para los suelos de los fosos), 1 `Platform_Floating_Stone_Jungle`, 2 `Platform_OneWay_Universal`, 6 `Platform_CrumblingLeaf_Jungle`, `Trap_Spikes_Jungle` repetidos a lo largo de 5 fosos (tiras de 6 m, ajustadas al ancho), 2 `Trap_SpikedPillar_Jungle`, 4 `Resource_CheckpointNest_Universal`, `Resource_AbilityAltar_DoubleJump` y `Resource_LevelExitPortal_Universal`. Sin enemigos.
 
-**Ambiente:**
-- **Plantas:** 25 decoraciones del kit `FG_Jungle_*`: helechos, helechos con flores, hierba, hojas y hojas colgantes. Están detrás del terreno (orden −6), con la base tapada por el musgo. Hay tres más grandes y oscurecidas en primer plano (orden 20), solo en zonas seguras: al inicio, antes de las hojas y en la cima.
-- **Polen:** el sistema de partículas `AmbientMotes`, hijo de la cámara, emite motas doradas que flotan en toda la vista (6 por segundo, vida de 7–11 s, con ruido suave; material `FX_Mote.mat`).
+**Cámara:** `CameraBounds2D` de 222 × 27,5 centrado en (97; 8,25): x −14 a 208, y −5,5 a 22, sin altura fija.
 
-**Cámara:** `CameraBounds2D` de 188 × 28 centrado en (84; 10), es decir, x −10 a 178 e y −4 a 24, **sin** altura fija: el nivel sube y baja, así que la cámara usa su zona muerta vertical. Los bloques bajan hasta y = −8, por debajo de la vista.
-
-**Pruebas:** `Level11Tests` (en la copia de trabajo de pruebas) juega cada tramo en la escena real con un "jugador" simulado que corre, salta y corrige en el aire hacia el punto de aterrizaje:
-- Cada tramo se completa con el salto que le corresponde.
-- El salto simple no sale de la hondonada.
-- La cima no se puede escalar desde abajo.
-- Progreso: inicio sin doble salto, partida antigua, el altar y la reanudación tras él.
-
-Pasan las 12.
+**Pruebas** (`Level11Tests`, en la copia de pruebas): un jugador simulado corre, salta y aletea en cada tramo, en la escena real. Pasan las 12:
+- inicio sin doble salto;
+- el altar lo desbloquea;
+- cada tramo se completa con su salto;
+- el muro imposible y la salida de la hondonada no se superan con salto simple;
+- la primera hoja no se alcanza sin aleteo;
+- el agujero baja vivo a la hondonada;
+- la cima no se escala desde abajo.
 
 **Pendiente:**
-- Textos en pantalla: prólogo y aviso del altar.
-- Props narrativos: plumas, ramitas y huellas hacia la derecha.
+- Ambiente por código: rayos de luz, polen y brillo del altar.
+- **Mono de presentación:** marcadores `TODO_ThiefMonkey_Taunt` (x 72, sobre el muro) y `TODO_ThiefMonkey_Escape` (x 203,5, en la cima).
+- **Prólogo y pistas:** marcador `TODO_Prologue_And_Clues` (plumas, cáscaras y huellas).

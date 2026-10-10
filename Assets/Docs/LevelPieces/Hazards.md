@@ -63,7 +63,7 @@ Todo está en `Assets/Prefabs/Level/Hazards/`:
 | `Trap_Briers_Swamp` | `Trap_Briers_Swamp.png` | Simple / 1 | 6 × 1,6 | 5,8 × 1,4 | El sprite tiene borders (39, 192, 37, 196) que en Simple no se usan. |
 | `Trap_CrystalSpikes_Caves` | `Trap_CrystalSpikes_Caves.png` | Simple / 1 | 6 × 1,2 | 5,8 × 1,0 | — |
 | `Trap_BurningSpikes_Volcano` | `Trap_BurningSpikes_Volcano.png` | Simple / 1 | 6 × 1 | 5,8 × 0,8 | — |
-| `Trap_SpikedPillar_Jungle` | `Trap_SpikedPillar_Jungle.png` | Simple / 1 | 3,2 × 8 | 3,2 × 6,8, desplazada −0,6 (personalizada) | Tronco **sólido** de 2 × 8 (`Solid Size`) que se puede pisar. La zona letal personalizada mata al tocar sus lados, no al estar encima. |
+| `Trap_SpikedPillar_Jungle` | `Trap_SpikedPillar_Jungle.png` | Simple / 1 | 2,9 × 5,3 | 2,9 × 4,4, desplazada −0,45 (personalizada) | Tronco **sólido** de 1,8 × 5,3 (`Solid Size`) que se puede pisar; la cima (0,9 m por encima de la zona letal) es segura. **Corregido el 9/10/2026:** el colisionador medía 8 m de alto y el tronco dibujado solo 5,3 m, así que había 1,4 m invisibles encima; ahora coinciden. |
 | `Trap_ToxicMud_Swamp` | `Trap_ToxicMud_Swamp_Tile.png` | Tiled / 1 | 4 × 0,6 | 3,9 × 0,5 | Líquido. Ver [Líquidos redimensionables](#líquidos-redimensionables). |
 | `Trap_ToxicLake_Swamp` | `Trap_ToxicLake_Swamp_Tile.png` | Tiled / 1 | 6 × 1,5 | 5,9 × 1,4 | Líquido. |
 | `Trap_LavaPool_Volcano` | `Trap_LavaPool_Volcano_Tile.png` | Tiled / 1 | 5 × 1,2 | 4,9 × 1,1 | Líquido. |
