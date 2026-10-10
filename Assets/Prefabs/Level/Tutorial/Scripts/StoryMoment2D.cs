@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace AlmaGame.Level
 {
-    public enum StoryTargetExit { Stay, LeapAway, HideAfterShot }
+    public enum StoryTargetExit { Stay, LeapAway, HideAfterShot, AnimateAndVanish }
 
     // Story zone: when Alma enters it, a camera shot travels to `Shot Target` (e.g. the thief monkey, the altar,
     // a view of the path ahead), holds while the target speaks its lines in a comic bubble (and/or a HUD banner
@@ -31,10 +31,13 @@ namespace AlmaGame.Level
         [SerializeField] private Sprite _bubbleSprite;
         [SerializeField] private Sprite _bubbleTailSprite;
         [Header("Target exit")]
-        [Tooltip("LeapAway: after talking, the target jumps out of the shot (then is disabled). HideAfterShot: disabled once the camera is back on Alma.")]
+        [Tooltip("LeapAway: after talking, the target jumps out of the shot (then is disabled). HideAfterShot: disabled once the camera is back on Alma. AnimateAndVanish: plays Exit Anim State, then vanishes in ninja smoke.")]
         [SerializeField] private StoryTargetExit _targetExit = StoryTargetExit.LeapAway;
         [Tooltip("+1 = escapes to the right, -1 = to the left.")]
         [SerializeField] private float _exitDirection = 1f;
+        [Tooltip("AnimateAndVanish: the target's Animator holds the first frame of this state while it talks, then plays it and vanishes in ninja smoke.")]
+        [SerializeField] private string _exitAnimState = "Boss_GiantMonkey_Taunt";
+        [SerializeField, Min(0f)] private float _exitAnimTime = 1.4f;
         [Header("Text")]
         [SerializeField] private BannerKind _kind = BannerKind.Line;
         [SerializeField] private string _kicker = "";
@@ -54,8 +57,11 @@ namespace AlmaGame.Level
         private int _line = -1;
         private float[] _lineEnds;
         private Vector3 _exitFrom;
+        private Vector2 _exitShot;
         private bool _exiting;
-        private const float ExitTime = 0.9f;
+        private const float ExitTime = 0.9f, VanishTime = 0.9f;
+        private Animator _targetAnimator;
+        private bool _vanished;
 
         private void Reset()
         {
@@ -65,7 +71,24 @@ namespace AlmaGame.Level
 
         private void Awake() => GetComponent<BoxCollider2D>().isTrigger = true;
 
-        private Vector2 Point => _shotTarget != null ? (Vector2)_shotTarget.position : (Vector2)transform.TransformPoint(_shotOffset);
+        // AnimateAndVanish: the target waits frozen on the first frame of its exit animation.
+        private void Start()
+        {
+            if (_targetExit != StoryTargetExit.AnimateAndVanish || _shotTarget == null) return;
+            _targetAnimator = _shotTarget.GetComponentInChildren<Animator>();
+            if (_targetAnimator != null) { _targetAnimator.Play(_exitAnimState, 0, 0f); _targetAnimator.speed = 0f; }
+        }
+
+        // Aims at the middle of the target's art (its pivot may be at the feet), or at the offset with no target.
+        private Vector2 Point
+        {
+            get
+            {
+                if (_shotTarget == null) return transform.TransformPoint(_shotOffset);
+                var r = _shotTarget.GetComponentInChildren<SpriteRenderer>();
+                return r != null && r.sprite != null ? (Vector2)r.bounds.center : (Vector2)_shotTarget.position;
+            }
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -100,7 +123,9 @@ namespace AlmaGame.Level
                 _lineEnds[i] = t;
             }
             _speechEnd = t;
-            float needed = _speechEnd - _travelTime + (_targetExit == StoryTargetExit.LeapAway ? ExitTime + 0.35f : 0.4f);
+            float exit = _targetExit == StoryTargetExit.LeapAway ? ExitTime + 0.35f
+                : _targetExit == StoryTargetExit.AnimateAndVanish ? _exitAnimTime + VanishTime : 0.4f;
+            float needed = _speechEnd - _travelTime + exit;
             _hold = Mathf.Max(_holdTime, needed);
         }
 
@@ -114,9 +139,21 @@ namespace AlmaGame.Level
                 _line = want;
                 if (want >= 0) _bubble.Say(_lines[want]); else _bubble.Hide();
             }
+            if (_targetExit == StoryTargetExit.AnimateAndVanish && t >= _speechEnd && !_vanished)
+            {
+                if (!_exiting) { _exiting = true; _exitFrom = Point; _bubble.Hide(); if (_targetAnimator != null) _targetAnimator.speed = 1f; }
+                if (t >= _speechEnd + _exitAnimTime)
+                {
+                    // Ninja exit: a burst of smoke and he is gone.
+                    _vanished = true;
+                    var r = _shotTarget.GetComponentInChildren<Renderer>();
+                    NinjaSmoke2D.Burst(r != null ? (Vector2)r.bounds.center : (Vector2)_shotTarget.position);
+                    _shotTarget.gameObject.SetActive(false);
+                }
+            }
             if (_targetExit == StoryTargetExit.LeapAway && t >= _speechEnd && _shotTarget.gameObject.activeSelf)
             {
-                if (!_exiting) { _exiting = true; _exitFrom = _shotTarget.position; _bubble.Hide(); }
+                if (!_exiting) { _exiting = true; _exitFrom = _shotTarget.position; _exitShot = Point; _bubble.Hide(); }
                 // Escapes in a high arc out of the shot.
                 float u = Mathf.Clamp01((t - _speechEnd) / ExitTime);
                 float x = _exitDirection * 7f * u, y = 6f * u - 2.5f * u * u;
@@ -139,7 +176,7 @@ namespace AlmaGame.Level
             if (_useShot && _camera != null)
             {
                 // During the leap the shot stays where the target stood, so it visibly escapes the frame.
-                Vector2 point = _exiting ? (Vector2)_exitFrom : Point;
+                Vector2 point = !_exiting ? Point : _targetExit == StoryTargetExit.LeapAway ? _exitShot : (Vector2)_exitFrom;
                 float w = t < _travelTime ? t / _travelTime : t < _travelTime + _hold ? 1f : 1f - (t - _travelTime - _hold) / _travelTime;
                 _camera.SetShot(point, _zoom, Mathf.Clamp01(w));
             }

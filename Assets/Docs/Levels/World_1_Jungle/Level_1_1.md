@@ -99,5 +99,5 @@ Escena: todo cuelga de `Level_1_1`, con los grupos `Terrain`, `Pieces`, `Hazards
 
 **Pendiente:**
 - Ambiente por código: rayos de luz, polen y brillo del altar.
-- **Mono de presentación:** marcadores `TODO_ThiefMonkey_Taunt` (x 72, sobre el muro) y `TODO_ThiefMonkey_Escape` (x 203,5, en la cima).
+- **Mono de presentación (11/10/2026):** el objeto `Monkey` (x 63,17, de pie sobre el suelo) usa el arte del jefe: frame 1 de la burla, mirando a Alma, con el Animator `Boss_GiantMonkey.controller`. Su momento de historia (`StoryMoment2D`, salida **AnimateAndVanish**, zoom 6) lo encuadra, dice su frase, hace la burla (`Exit Anim Time` 1,4 s) y se esfuma con el humo ninja del jefe (`NinjaSmoke2D`). Marcadores pendientes: `TODO_ThiefMonkey_Taunt` (x 72, sobre el muro) y `TODO_ThiefMonkey_Escape` (x 203,5, en la cima).
 - **Prólogo y pistas:** marcador `TODO_Prologue_And_Clues` (plumas, cáscaras y huellas).

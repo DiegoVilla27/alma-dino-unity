@@ -43,13 +43,14 @@ Los controles se bloquean durante el plano, pero el juego no se pausa. Sirve par
 
 | Campo | Por defecto | Uso |
 | --- | --- | --- |
-| `Shot Target` / `Shot Offset` | — / (8; 2) | Qué enseña la cámara; el rectángulo naranja del editor es el encuadre. |
+| `Shot Target` / `Shot Offset` | — / (8; 2) | Qué enseña la cámara (con objetivo, apunta al centro de su dibujo, aunque su punto de apoyo esté en los pies); el rectángulo naranja del editor es el encuadre. |
 | `Zoom` | 6,5 | Tamaño de cámara del plano. |
 | `Travel Time` / `Hold Time` | 1,1 / 2,8 s | Viaje de ida y vuelta, y tiempo quieta. |
 | `Lock Controls` | sí | Alma no se mueve durante el plano. |
 | `Lines` | 3 frases del mono | Lo que dice el objetivo, en un **bocadillo de cómic** sobre su cabeza (`SpeechBubble2D`). Una frase tras otra, escritas letra a letra; las que acaban en «!» tiemblan. El plano se alarga solo para que dé tiempo a leerlas. |
 | `Speaker` / `Speaker Color` | «Mono ladrón» / naranja | Nombre sobre el bocadillo. |
-| `Target Exit` | LeapAway | **LeapAway:** al terminar de hablar, el objetivo huye de un salto girando fuera del plano y luego se desactiva (sin verse desaparecer). **HideAfterShot:** se desactiva cuando la cámara ya volvió a Alma. **Stay:** se queda. |
+| `Target Exit` | LeapAway | **LeapAway:** al terminar de hablar, el objetivo huye de un salto girando fuera del plano y luego se desactiva (sin verse desaparecer). **HideAfterShot:** se desactiva cuando la cámara ya volvió a Alma. **Stay:** se queda. **AnimateAndVanish:** espera congelado en el frame 1 de `Exit Anim State`; al terminar de hablar lo reproduce durante `Exit Anim Time` y se esfuma con el humo ninja (`NinjaSmoke2D`). |
+| `Exit Anim State` / `Exit Anim Time` | Boss_GiantMonkey_Taunt / 1,4 s | Solo para AnimateAndVanish: estado del Animator del objetivo y cuánto dura antes del humo. |
 | `Exit Direction` | +1 | Hacia dónde huye (+1 derecha, −1 izquierda). |
 | `Kind`, `Kicker`, `Headline`, `Text`, `Accent`, `Icon` | Frase | El banner (ver [HUD](../Systems/HUD.md#banners-de-texto-hudbanners)). |
 | `Text Delay` | 0,6 s | Cuándo aparece el texto. |

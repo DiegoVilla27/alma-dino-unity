@@ -143,6 +143,7 @@ namespace AlmaGame.Bosses
                 _bubble = SpeechBubble2D.Create(_sprite != null ? _sprite.transform : _head, _bubbleSprite, _bubbleTailSprite, "Mono ladrón gigante", _accent);
             Vector2 almaPos = _alma != null ? (Vector2)_alma.transform.position : Vector2.zero;
             _introGround = new Vector2(almaPos.x + _introDistance, GroundUnder(new Vector2(almaPos.x, almaPos.y)) + _groundOffset);
+            LevelFadeIn.Focus = _introGround + Vector2.up * 2.6f;   // the opening iris starts on him
             AlmaTouchControls.InputLocked = true;
             CinematicState.Begin();                                         // HUD controls hide during the intro
             if (Hud2D.Instance != null) Hud2D.Instance.HideNow();
@@ -309,33 +310,11 @@ namespace AlmaGame.Bosses
         [SerializeField] private float _groundOffset = -0.11f;
         [Tooltip("How far the liana goes into his fist (units), so there is never a gap.")]
         [SerializeField] private float _lianaGrip = 0.35f;
-        [Tooltip("Seconds of fade from black when the level starts (the camera is already on the monkey).")]
-        [SerializeField, Min(0f)] private float _fadeIn = 0.9f;
 
         private const float ShotIn = 0.9f, LinesAt = 1.1f, LineTime = 3f, TauntTime = 1.4f, VanishTime = 0.9f, DescendTime = 1.4f, ShotOut = 0.9f;
         private float _tauntAt, _vanishAt, _descendAt, _cardAt, _endAt = -1f;
         private bool _smoked, _cardShown;
         private AlmaCameraFollow _cam;
-        private ParticleSystem _smoke, _leaves;
-
-        private SpriteRenderer _fade;
-
-        // Black screen that fades out at the start, so the level opens straight on the monkey.
-        private void UpdateFade(float t)
-        {
-            if (_fadeIn <= 0f) return;
-            if (_fade == null && t < _fadeIn && Hud2D.Instance != null)
-            {
-                _fade = new GameObject("IntroFade").AddComponent<SpriteRenderer>();
-                _fade.transform.SetParent(Hud2D.Instance.transform, false);
-                _fade.sprite = HazardFx.Pixel(); _fade.sortingOrder = 5000;
-                _fade.transform.localScale = new Vector3(200f, 60f, 1f) / Mathf.Max(0.0001f, HazardFx.Pixel().bounds.size.x);
-            }
-            if (_fade == null) return;
-            float a = 1f - Mathf.Clamp01(t / _fadeIn);
-            _fade.color = new Color(0f, 0f, 0f, a * a);
-            if (a <= 0f) { Destroy(_fade.gameObject); _fade = null; }
-        }
 
         private void PlanIntro()
         {
@@ -369,7 +348,7 @@ namespace AlmaGame.Bosses
             float move = Mathf.Clamp01((t - _descendAt) / 0.9f);
             Vector2 shot = Vector2.Lerp(groundShot, hangShot, move * move * (3f - 2f * move));
             float w = 1f;   // already framing him from the first frame (hidden by the fade from black)
-            UpdateFade(t);
+            // The fade from black at the start comes from LevelFadeIn (every level and boss).
             if (_endAt > 0f) w = 1f - Mathf.Clamp01((t - _endAt) / ShotOut);
             if (_cam != null) _cam.SetShot(shot, _introZoom, w);
 
@@ -414,43 +393,8 @@ namespace AlmaGame.Bosses
             }
         }
 
-        // A burst of grey smoke puffs, a white flash and a few leaves.
-        private void Smoke(Vector2 at)
-        {
-            var mat = new Material(Shader.Find("Sprites/Default"));
-            if (_smoke == null)
-            {
-                _smoke = HazardFx.CreateParticles("Smoke", transform, mat, HazardFx.Puff(), 80, 0, 40, true);
-                var m = _smoke.main; m.startLifetime = new ParticleSystem.MinMaxCurve(0.6f, 1.1f); m.startSpeed = new ParticleSystem.MinMaxCurve(1.5f, 5f);
-                m.startSize = new ParticleSystem.MinMaxCurve(1f, 2.2f); m.startColor = new ParticleSystem.MinMaxGradient(new Color(0.85f, 0.85f, 0.88f), new Color(0.6f, 0.6f, 0.66f));
-                m.gravityModifier = -0.15f;
-                var sh = _smoke.shape; sh.enabled = true; sh.shapeType = ParticleSystemShapeType.Circle; sh.radius = 1.2f;
-                HazardFx.SetSizeOverLifetime(_smoke, 0.6f, 1.6f);
-                _leaves = HazardFx.CreateParticles("Leaves", transform, mat, HazardFx.Puff(), 20, 0, 41, true);
-                var lm = _leaves.main; lm.startLifetime = new ParticleSystem.MinMaxCurve(0.8f, 1.4f); lm.startSpeed = new ParticleSystem.MinMaxCurve(3f, 7f);
-                lm.startSize = new ParticleSystem.MinMaxCurve(0.18f, 0.32f); lm.startColor = new ParticleSystem.MinMaxGradient(new Color(0.45f, 0.75f, 0.3f), new Color(0.3f, 0.55f, 0.2f));
-                lm.gravityModifier = 0.6f; lm.startRotation = new ParticleSystem.MinMaxCurve(0f, 6.28f);
-                var lsh = _leaves.shape; lsh.enabled = true; lsh.shapeType = ParticleSystemShapeType.Circle; lsh.radius = 0.8f;
-            }
-            _smoke.transform.position = at; _leaves.transform.position = at;
-            _smoke.Emit(45); _leaves.Emit(14);
-            var flash = new GameObject("VanishFlash").AddComponent<SpriteRenderer>();
-            flash.sprite = HazardFx.Glow(); flash.sortingOrder = 42; flash.transform.position = at;
-            StartCoroutine(Flash(flash));
-            CameraShake(0.15f, 0.25f);
-        }
-
-        private System.Collections.IEnumerator Flash(SpriteRenderer f)
-        {
-            for (float t = 0f; t < 0.35f; t += Time.deltaTime)
-            {
-                float u = t / 0.35f;
-                f.transform.localScale = Vector3.one * (2f + 5f * u) / HazardFx.Glow().bounds.size.x;
-                f.color = new Color(1f, 1f, 1f, 1f - u);
-                yield return null;
-            }
-            Destroy(f.gameObject);
-        }
+        // Ninja smoke (shared with the story moments).
+        private void Smoke(Vector2 at) => NinjaSmoke2D.Burst(at);
 
         // Attack loop (no fight rules yet): every few seconds he picks a throw that reaches Alma — from his own
         // liana if possible (normal drop, low roll under the platforms, or a lob at her), otherwise he swings to
