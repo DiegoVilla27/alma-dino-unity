@@ -205,6 +205,37 @@ namespace AlmaGame.Systems
 
         private float Radius(Button b) => b.Def.Radius * _scale;
 
+        // ---------- tutorials ----------
+
+        // HUD-local position and radius of the button for `ability` (DoubleJump = the Jump button).
+        public bool TryGetButton(AlmaAbility ability, out Vector2 localPosition, out float radius)
+        {
+            Button b = For(ability);
+            localPosition = b != null ? Position(b) : Vector2.zero;
+            radius = b != null ? Radius(b) : 0f;
+            return b != null;
+        }
+
+        // Is the button usable now (unlocked; Jump always)?
+        public bool IsUsable(AlmaAbility ability)
+        {
+            Button b = For(ability);
+            return b != null && (b.Def.IsJump || b.Unlocked);
+        }
+
+        private Button _spotlit;
+        public const int SpotlightBoost = 60;
+
+        // Draws the button above a tutorial's dark veil (or back in place with `null`).
+        public void Spotlight(AlmaAbility? ability)
+        {
+            Button b = ability.HasValue ? For(ability.Value) : null;
+            if (b == _spotlit) return;
+            if (_spotlit != null) foreach (var r in _spotlit.Root.GetComponentsInChildren<SpriteRenderer>(true)) r.sortingOrder -= SpotlightBoost;
+            _spotlit = b;
+            if (_spotlit != null) foreach (var r in _spotlit.Root.GetComponentsInChildren<SpriteRenderer>(true)) r.sortingOrder += SpotlightBoost;
+        }
+
         // ---------- new ability ----------
 
         // An altar was taken: pause and present the ability, then engrave its rune on its button.

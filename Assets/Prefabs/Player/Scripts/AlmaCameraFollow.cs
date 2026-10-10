@@ -33,6 +33,10 @@ namespace AlmaGame.Player
         [SerializeField, Min(1f)] private float _maxSpeedFactor = 2f;
 
         [Header("Vertical")]
+        [Tooltip("The view stays at the level's start height. It only rises or drops as much as needed to keep Alma between `Lock Margins` of the screen, and returns to the start height as soon as she is back in range.")]
+        [SerializeField] private bool _lockVertical = true;
+        [Tooltip("Lowest and highest screen position (0 = bottom, 1 = top) Alma may reach before the locked view moves.")]
+        [SerializeField] private Vector2 _lockMargins = new Vector2(0.08f, 0.72f);
         [Tooltip("Where Alma is placed on the screen at the start and after respawning: 0 = bottom, 1 = top.")]
         [SerializeField, Range(0.1f, 0.9f)] private float _almaScreenHeight = 0.17f;
         [Tooltip("Vertical dead zone, as screen heights from the bottom: inside it the camera doesn't move vertically.")]
@@ -54,14 +58,23 @@ namespace AlmaGame.Player
         private float _shakeAmplitude;
         private float _shakeDuration;
         private float _shakeEndsAt;
+        private float _baseSize = 8f;
+        private Vector3 _viewPosition;
+        // Camera shot (tutorials, story moments): a point and a zoom the view blends towards by `_shotWeight`.
+        private Vector2 _shotPoint;
+        private float _shotSize = 8f;
+        private float _shotWeight;
+        private float _startY;
+        private bool _startYSet;
 
         private void Awake()
         {
             _camera = GetComponent<Camera>();
             _camera.orthographic = true;
             _camera.orthographicSize = 8f;
+            _baseSize = _camera.orthographicSize;
             _depth = transform.position.z;
-            _followPosition = transform.position;
+            _followPosition = _viewPosition = transform.position;
         }
 
         private void Start()
@@ -77,7 +90,18 @@ namespace AlmaGame.Player
         }
 
         // Where the view is without the shake offset (the HUD sticks to it, so it never shakes).
-        public Vector3 ViewPosition => _followPosition;
+        public Vector3 ViewPosition => _viewPosition;
+
+        // Blends the view towards `point` with an orthographic size of `size`; `weight` 0 = normal follow,
+        // 1 = fully on the shot (callers animate the weight, on unscaled time if the game is paused).
+        public void SetShot(Vector2 point, float size, float weight)
+        {
+            _shotPoint = point;
+            _shotSize = Mathf.Max(1f, size);
+            _shotWeight = Mathf.Clamp01(weight);
+        }
+
+        public void ClearShot() => _shotWeight = 0f;
 
         // Short shake that fades linearly to zero; a new call replaces the current one.
         public void Shake(float amplitude, float duration)
@@ -95,7 +119,9 @@ namespace AlmaGame.Player
             _focusX = alma.x;
             _lookAhead = 0f;
             _runTime = 0f;
-            _viewY = FixedHeight(out float fixedY) ? fixedY : alma.y + (0.5f - _almaScreenHeight) * _camera.orthographicSize * 2f;
+            _viewY = FixedHeight(out float fixedY) ? fixedY : alma.y + (0.5f - _almaScreenHeight) * _baseSize * 2f;
+            if (!_startYSet) { _startY = _viewY; _startYSet = true; }
+            if (_lockVertical) _viewY = LockedY(alma.y);
             _velocityX = _velocityY = 0f;
             _followPosition = Clamp(new Vector3(_focusX, _viewY, _depth));
             transform.position = _followPosition;
@@ -125,6 +151,7 @@ namespace AlmaGame.Player
 
             // Vertical dead zone (or a locked height): the view height only moves when Alma leaves the band.
             if (FixedHeight(out float fixedY)) _viewY = fixedY;
+            else if (_lockVertical) _viewY = LockedY(alma.y);
             else
             {
                 float height = _camera.orthographicSize * 2f;
@@ -140,7 +167,27 @@ namespace AlmaGame.Player
             float x = Mathf.SmoothDamp(_followPosition.x, goal.x, ref _velocityX, _horizontalSmoothTime, maxSpeedX);
             float y = Mathf.SmoothDamp(_followPosition.y, goal.y, ref _velocityY, _verticalSmoothTime);
             _followPosition = new Vector3(x, y, _depth);
-            transform.position = _followPosition + ShakeOffset();
+            if (_shotWeight > 0f)
+            {
+                float k = _shotWeight * _shotWeight * (3f - 2f * _shotWeight);
+                _camera.orthographicSize = Mathf.Lerp(_baseSize, _shotSize, k);
+                _viewPosition = Clamp(Vector3.Lerp(_followPosition, new Vector3(_shotPoint.x, _shotPoint.y, _depth), k));
+            }
+            else
+            {
+                _camera.orthographicSize = _baseSize;
+                _viewPosition = _followPosition;
+            }
+            transform.position = _viewPosition + ShakeOffset();
+        }
+
+        // Start height, moved only as far as needed to keep Alma inside the lock margins.
+        private float LockedY(float almaY)
+        {
+            float h = _baseSize * 2f;
+            float lowest = almaY + h * (0.5f - _lockMargins.y);    // Alma at the top margin
+            float highest = almaY + h * (0.5f - _lockMargins.x);   // Alma at the bottom margin
+            return Mathf.Clamp(_startY, lowest, highest);
         }
 
         private bool FixedHeight(out float centerY)

@@ -18,6 +18,12 @@ namespace AlmaGame.Player
         public static void PressDash() => s_dashPressed = true;
         public static void PressRoar() => s_roarPressed = true;
 
+        // Pending presses, without consuming them (tutorial prompts wait for a specific one).
+        public static bool JumpPending => s_jumpPressed;
+        public static bool PoundPending => s_poundPressed;
+        public static bool DashPending => s_dashPressed;
+        public static bool RoarPending => s_roarPressed;
+
         public static bool ConsumeJump() { bool v = s_jumpPressed; s_jumpPressed = false; return v; }
         public static bool ConsumePound() { bool v = s_poundPressed; s_poundPressed = false; return v; }
         public static bool ConsumeDash() { bool v = s_dashPressed; s_dashPressed = false; return v; }

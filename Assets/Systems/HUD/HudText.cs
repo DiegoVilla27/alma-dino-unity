@@ -12,6 +12,7 @@ namespace AlmaGame.Systems
         Kicker,     // small spaced line above a headline (Fredoka)
         Body,       // sentences, rescue lines, narration (Fredoka, soft shadow)
         Prompt,     // small hints such as «Toca para continuar» (Fredoka)
+        Bubble,     // dark text inside a white speech bubble (Fredoka, no outline or shadow)
     }
 
     // The HUD's one text style: every on-screen text is TextMeshPro (signed-distance-field, sharp at any size and
@@ -51,6 +52,15 @@ namespace AlmaGame.Systems
                 case HudTextStyle.Kicker:   outline = 0.2f;  softness = 0.5f;  offsetY = -0.6f; dilate = 0.2f; break;
                 case HudTextStyle.Prompt:   outline = 0.18f; softness = 0.6f;  offsetY = -0.5f; dilate = 0.15f; break;
                 default:                    outline = 0.2f;  softness = 0.55f; offsetY = -0.7f; dilate = 0.2f; break;
+            }
+            if (style == HudTextStyle.Bubble)
+            {
+                m.SetFloat(ShaderUtilities.ID_FaceDilate, 0.12f);
+                m.SetFloat(ShaderUtilities.ID_OutlineWidth, 0f);
+                m.DisableKeyword(ShaderUtilities.Keyword_Underlay);
+                ShaderUtilities.UpdateShaderRatios(m);
+                s_materials[style] = m;
+                return m;
             }
             m.SetFloat(ShaderUtilities.ID_FaceDilate, outline * 0.5f);
             m.SetFloat(ShaderUtilities.ID_OutlineWidth, outline);
@@ -99,7 +109,7 @@ namespace AlmaGame.Systems
             if (style == HudTextStyle.Kicker) tmp.characterSpacing = 28f;
             if (style == HudTextStyle.Headline) tmp.characterSpacing = 4f;
             if (style == HudTextStyle.Shout) tmp.characterSpacing = 7f;
-            if (style == HudTextStyle.Body) tmp.lineSpacing = 8f;
+            if (style == HudTextStyle.Body || style == HudTextStyle.Bubble) tmp.lineSpacing = 8f;
             if (width > 0f)
             {
                 tmp.rectTransform.sizeDelta = new Vector2(width, capHeight * 3f);

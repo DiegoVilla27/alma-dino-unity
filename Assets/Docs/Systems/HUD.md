@@ -26,6 +26,7 @@ Todo está en `Assets/Systems/HUD/`:
 | `HudLevelTitle.cs` | Tabla de títulos de las 20 escenas jugables; muestra el del nivel al empezar. |
 | `TensionState.cs` | Registro global de tensión: cada peligro pone su nivel (0–1) y su color; gana el más fuerte. |
 | `HudTensionVignette.cs` | Viñeta de tensión (bordes que se cierran y laten). |
+| `HudTutorial.cs` | Tutorial pausado: cámara lenta, plano, foco, trayectoria, botón iluminado y texto. Ver [Tutoriales](../LevelPieces/Tutorial.md). |
 | `HudText.cs` | Estilo de texto común (TextMeshPro): fuentes, contorno, sombra, degradado, ajuste al ancho. |
 | `Fonts/LuckiestGuy-Regular.ttf` | Fuente de titulares (cartoon, mayúsculas). Licencia Apache 2.0 (`LuckiestGuy-LICENSE.txt`). |
 | `Fonts/Fredoka-SemiBold.ttf` | Fuente de texto (redondeada). Instancia fija del Fredoka variable (peso 600). Licencia SIL OFL (`Fredoka-OFL.txt`). |
