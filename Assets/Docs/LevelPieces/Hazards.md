@@ -13,6 +13,7 @@ Volúmenes que matan a Alma al tocarlos: pinchos, zarzas, cristales, lodo, lagos
 | Prefab | Etiqueta | Tipo | Mata cuando… | Mundo |
 | --- | --- | --- | --- | --- |
 | `Trap_Spikes_Jungle` | Pinchos jungla | Estática | se toca | 1 |
+| `Trap_Spike_Single_Jungle` | Pincho jungla (uno) | Estática | se toca | 1 |
 | `Trap_SpikedPillar_Jungle` | Pilar con espinas | Estática + sólida | se tocan sus lados (encima es seguro) | 1 |
 | `Trap_CrystalSpikes_Caves` | Cristales punzantes | Estática | se toca | 2 |
 | `Trap_CrushingCeiling_Caves` | Techo aplastante | Dinámica | cae sobre Alma (cae al pasar ella por debajo) | 2 |
@@ -41,7 +42,7 @@ Todo está en `Assets/Prefabs/Level/Hazards/`:
 | `Materials/Liquid_Lava.mat`, `Liquid_Toxic.mat`, `Liquid_Mud.mat`, `Liquid_Gas.mat` | Un material por líquido (y el gas) con ese shader. |
 | `Sprites/Trap_*.png` | Arte de cada trampa (los líquidos usan `*_Tile.png`). |
 | `Hazard_Base.prefab` | Prefab base: SpriteRenderer, un `BoxCollider2D` trigger (zona letal), un `BoxCollider2D` sólido (desactivado) y `HazardZone2D`. Usa el cuadrado blanco de `../Shared/Sprites/Level_Placeholder.png`. |
-| `Trap_*.prefab` (9 estáticas) | **Prefab Variants** de `Hazard_Base`. |
+| `Trap_*.prefab` (10 estáticas) | **Prefab Variants** de `Hazard_Base`. |
 | `Trap_RisingToxicGas_Swamp`, `Trap_FireGeyser_Volcano`, `Trap_CrushingCeiling_Caves` | Trampas dinámicas: prefabs independientes (no variantes) con su script propio; el gas y el techo usan además `HazardZone2D`. |
 
 ## Dos formas de dibujar
@@ -55,11 +56,12 @@ Todo está en `Assets/Prefabs/Level/Hazards/`:
 | Cambiar el tamaño | No se adapta: `Size` solo cambia la zona letal | `Size` (techo) o `Vent Size` (géiser), o la herramienta Rect: el dibujo se estira a ese tamaño | `Size` o herramienta Rect: dibujo y zona letal juntos |
 | Zona letal | `Size` menos `Hitbox Inset` (0,1), o la personalizada | Igual a `Size` (techo) / radio de la bola (géiser) | Igual a `Size` (menos `Hitbox Inset`) |
 
-## Trampas estáticas (9)
+## Trampas estáticas (10)
 
 | Prefab | Sprite | Draw / escala | `Size` | Zona letal | Particularidad |
 | --- | --- | --- | --- | --- | --- |
 | `Trap_Spikes_Jungle` | `Trap_Spikes_Jungle.png` | Simple / 1 | 6 × 1 | 5,8 × 0,8 | — |
+| `Trap_Spike_Single_Jungle` | `Trap_Spike_Single_Jungle.png` (105 × 92 px, 75 PPU: 1,4 × 1,23 u) | Simple / 1 | 1,2 × 1 | 1,0 × 0,8 | Un solo pincho, recortado por código de `Trap_Spikes_Jungle.png` (el pincho y el extremo izquierdo de la tira más el extremo derecho, para que los dos bordes sean naturales). Variante de `Hazard_Base`, igual que la tira. |
 | `Trap_Briers_Swamp` | `Trap_Briers_Swamp.png` | Simple / 1 | 6 × 1,6 | 5,8 × 1,4 | El sprite tiene borders (39, 192, 37, 196) que en Simple no se usan. |
 | `Trap_CrystalSpikes_Caves` | `Trap_CrystalSpikes_Caves.png` | Simple / 1 | 6 × 1,2 | 5,8 × 1,0 | — |
 | `Trap_BurningSpikes_Volcano` | `Trap_BurningSpikes_Volcano.png` | Simple / 1 | 6 × 1 | 5,8 × 0,8 | — |

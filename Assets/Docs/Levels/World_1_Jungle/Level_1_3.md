@@ -70,3 +70,19 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 - [ ] **Tileset:** Muros de espinas con púas afiladas (tiles superiores, inferiores y laterales), rocas musgosas oscuras.
 - [ ] **Sprites Ambientales:** Hojas marchitas en estado entero, agrietado y fragmentado; lianas espinosas colgantes verticales.
 - [ ] **VFX:** Polvillo de astillas vegetales y hojas marchitas al romperse la plataforma; niebla de partículas flotante sobre el foso de zarzas.
+
+## Tutorial de la planta carnívora (11/10/2026)
+
+`Tutorial_Plant` (instancia de `Resource_TutorialPrompt_Universal`) en (30,27; −1,53), sobre el suelo de piedra, justo antes de la zona de la `Plant_Carnivorous` de la Zona 3 (x ≈ 35,9, `Detect Range` 5: empieza a morder desde x ≈ 30,9).
+
+| Campo | Valor |
+| --- | --- |
+| Acción | Jump |
+| Título | «¡Planta carnívora!» |
+| Texto | «Si te acercas, parpadea en rojo y muerde lanzando una onda por el suelo. ¡Salta la onda o espera a que muerda y pasa mientras descansa!» |
+| Color | (1; 0,35; 0,3), rojo de aviso |
+| `Landing` | (5,64; 0): la base de la planta, solo para encuadrarla |
+| `Show Arc` / `Assist Move` | no / no: no hay un salto concreto que enseñar, y Alma no debe avanzar sola hacia la planta |
+| `Zoom` / `Focus Offset` | 6 / (0; 1,6) |
+
+Al pulsar SALTAR el juego sigue y Alma salta en el sitio, fuera del alcance de la planta. Probado en PlayMode: aparece, se cierra al pulsar y Alma no muere.
