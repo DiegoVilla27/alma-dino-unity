@@ -1,6 +1,6 @@
 # Props de decoración del Mundo 1 (Jungla Esmeralda)
 
-**Estado (9 de octubre de 2026):** **40 props completos** en `Assets/Prefabs/Level/Decor/World_1/Props/`, el objetivo por mundo. Ninguno está colocado todavía en los niveles.
+**Estado (11 de octubre de 2026):** **38 props** en `Assets/Prefabs/Level/Decor/World_1/Props/`. Se borraron los dos que no se usaban en ninguna escena (`footprints`, huellas del mono, y `roots_hanging`, raíces colgantes). Sirven de referencia para los del [Mundo 2](Decor_World2.md).
 
 Los props son decorados que no interactúan: dan vida a los niveles sin tocar la jugabilidad. Se colocan a mano en la escena, sobre o alrededor del terreno de los kits (`Terrain/World_1`).
 
@@ -17,7 +17,7 @@ Cartoon plano: contornos oscuros gruesos y colores planos con una sola sombra, c
 | Colgantes | −4 | Lianas, raíces y musgo colgando de bordes y bajos de plataformas |
 | Primer plano | 40 | Siluetas oscuras delante de todo |
 
-## Props (40)
+## Props (38)
 
 | Archivo | Pieza | Capa |
 | --- | --- | --- |
@@ -27,16 +27,16 @@ Cartoon plano: contornos oscuros gruesos y colores planos con una sola sombra, c
 | `mush_cluster`, `mush_one` | Hongos brillantes | Sobre el terreno |
 | `feathers`, `pebbles`, `skeleton`, `fruit` | Plumas, piedras, esqueleto, fruto partido | Sobre el terreno (historia) |
 | `nest_broken` | Nido destrozado (1-1) | Sobre el terreno |
-| `arch`, `totem` | Arco de ruinas, tótem roto | Fondo cercano |
+| `arch`, `totem` | Arco de ruinas (enmarca el altar de la habilidad), tótem roto | Fondo cercano |
 | `bushbig`, `rootsbig`, `trunk` | Arbusto, raíces y tronco grandes | Fondo cercano |
-| `cave_frame` | Marco de cueva de raíces (santuario del altar, 1-1) | Fondo cercano |
+| `cave_frame` | Marco de cueva de raíces (primer vistazo del jefe) | Fondo cercano |
 | `fg_leaves`, `fg_fern`, `fg_hanging` | Siluetas: hojas, helecho, colgante | Primer plano |
 | `vine_long`, `vines_short`, `vine_flowers` | Liana larga, racimo de lianas cortas, liana con flores naranjas | Colgantes (apoyo arriba) |
-| `roots_hanging`, `moss_curtain` | Raíces colgantes, cortina ancha de musgo | Colgantes (apoyo arriba) |
+| `moss_curtain` | Cortina ancha de musgo | Colgantes (apoyo arriba) |
 | `fern_corner`, `moss_cap` | Helecho que desborda una esquina, gorro de musgo para esquinas | Sobre el terreno (bordes) |
 | `grass_edge` | Tira de hierba para el borde superior | Sobre el terreno (bordes) |
 | `ivy_wall` | Hiedra para paredes | Sobre el terreno (caras de bloque) |
-| `berries`, `footprints` | Arbusto de bayas rojas, huellas del mono | Sobre el terreno (historia) |
+| `berries` | Arbusto de bayas rojas | Sobre el terreno (historia) |
 | `log_fallen`, `stump_mushrooms`, `statue_head` | Tronco caído, tocón con setas, cabeza de estatua de dinosaurio | Fondo cercano o sobre el terreno |
 | `tree_young`, `bush_leaves` | Arbolito / bambú, arbusto de hojas grandes | Fondo cercano |
 | `fg_branch`, `fg_grass` | Siluetas: rama diagonal, hierba alta | Primer plano |
