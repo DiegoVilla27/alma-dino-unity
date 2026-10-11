@@ -23,6 +23,7 @@ Todo está en `Assets/Systems/HUD/`:
 | `HudEggIndicator.cs` | Indicador de hijos. |
 | `HudAbilityButtons.cs` | Botones de acción (táctiles), registro de habilidades y presentación pausada de una habilidad nueva. |
 | `HudBanners.cs` | Capa única de banners de texto. |
+| `HudBossAlert.cs` | Aviso de «jefe vulnerable» (grito + insignia en el borde). Se añade solo al HUD la primera vez que un jefe lo usa. |
 | `HudLevelTitle.cs` | Tabla de títulos de las 20 escenas jugables; muestra el del nivel al empezar. |
 | `TensionState.cs` | Registro global de tensión: cada peligro pone su nivel (0–1) y su color; gana el más fuerte. |
 | `HudTensionVignette.cs` | Viñeta de tensión (bordes que se cierran y laten). |
@@ -137,6 +138,7 @@ Todos los textos en pantalla pasan por una sola capa con un estilo común (`HudT
 - **Cola:** los banners salen de uno en uno. Uno idéntico al que se muestra o al que espera se descarta.
 - **Tiempo real:** ni la pausa ni el *hit stop* los congelan.
 - **Cinemáticas:** siguen visibles aunque el resto del HUD se oculte. Los que llevan **bandas de cine** (Jefe y Narración) son cinemáticas en sí: mientras se ven, ocultan huevos y botones (`CinematicState`).
+- **Bandas y temblor:** el HUD no tiembla pero la cámara sí, así que en pantalla las bandas se mueven con cada temblor. Por eso cada banda (y el velo) sobresale **2 unidades** más allá del borde de la pantalla y por los lados (`BarBleed`): su borde exterior nunca deja ver la escena. El borde interior (donde va el texto) no cambia.
 - **Estilo:** TextMeshPro con **Luckiest Guy** (titulares) y **Fredoka** (texto); contorno oscuro y sombra reales, nítidos a cualquier resolución; los titulares llevan degradado de su color. Sin cintas: un halo oscuro suave detrás cuando hace falta contraste. Los textos entran enteros con un fundido (no letra a letra).
 
 | Tipo | Para | Cómo se ve |
@@ -244,3 +246,25 @@ Por orden acordado:
 5. **Control de movimiento táctil** (izquierda/derecha); `AlmaTouchControls.Move` ya está preparado.
 6. **Marcas de progreso del jefe** (3 impactos).
 7. Ocultar el HUD con el menú de pausa cuando exista.
+
+## Aviso de jefe vulnerable (`HudBossAlert`)
+
+Común a todos los jefes (11/10/2026). Cuando un jefe abre su ventana para golpearlo, llama a:
+
+```csharp
+HudBossAlert.Show(() => puntoDelJefe, segundosDeVentana, "¡Mareado!", colorDelJefe);
+// ... y al cerrarse la ventana (golpe, se recupera, Alma muere):
+HudBossAlert.Hide();
+```
+
+- **Grito** (`BannerKind.Shout`) con el texto, en el color del jefe, para que el jugador se entere esté donde esté.
+- **Insignia en el borde de la pantalla** mientras el jefe está **fuera de cámara**: disco oscuro con tres estrellas de mareo girando, **flecha** hacia el jefe y un **anillo de 20 puntos que se vacía** (en el sentido de las agujas del reloj) con el tiempo que queda; los últimos instantes late más rápido. Si el jefe está en pantalla se oculta (ya se ven sus estrellas).
+- Responsive: dentro de la zona segura, escalada con `UiScale`; se desvanece con el HUD en las cinemáticas.
+- No hay que colocar nada: el componente se añade al HUD la primera vez que se usa.
+
+| Jefe | Cuándo | Grito | Punto |
+| --- | --- | --- | --- |
+| Mono (Jefe 1) | Agotado en el suelo | «¡Agotado!» (`Tired Shout`) | su cabeza |
+| Armadillo (Jefe 2) | Mareado contra la pared | «¡Mareado!» (`Dizzy Shout`) | la grieta del caparazón |
+
+Pruebas (PlayMode): con un objetivo lejos fuera de cámara la insignia aparece en el borde derecho con la flecha a 18° (la dirección real); con el objetivo en pantalla se oculta; en el combate del Armadillo el aviso se abre al marearse y se cierra con el Pisotón.

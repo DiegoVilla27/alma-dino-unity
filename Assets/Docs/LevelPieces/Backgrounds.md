@@ -198,7 +198,7 @@ Arte en `World_3/Boss_3/` (generado el 8/10/2026, 3 generaciones). Escena de tra
 
 Comprobado en Unity a 16:9 y 21:9 con el fondo de cámara en magenta: 0 píxeles sin imagen en las tres fases.
 
-**Pendiente:** el jefe debe llamar a `SetPhase(1)` y `SetPhase(2)` tras los impactos 1 y 2, y a `SetWindDirection` cuando alterna el vendaval; construir la arena (cuatro ramas en semicírculo) centrada en el fondo, con su `CameraBounds2D`.
+**Jefe 3 (11/10/2026):** `PterodactylBoss2D` llama a `SetPhase` tras cada golpe y a `SetWindDirection` al alternar el vendaval, y controla él mismo la fuerza del `Gale` (solo sopla durante su vendaval). Arreglado: el `Gale` había perdido su tamaño (6 × 3); vuelve a medir 46 × 26 con colisionador ajustado. Arena construida (ver [Jefe 3](../Levels/World_3_Swamp/Boss_3.md#implementación-11102026)).
 
 ### Jefe final — `World_4/Backdrop_Boss_Final.prefab`
 

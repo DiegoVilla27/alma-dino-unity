@@ -329,22 +329,34 @@ namespace AlmaGame.Systems
         }
 
         // Banners with cinema bars are cinematics: the rest of the HUD (eggs, buttons) fades out meanwhile.
+        private const float BarBleed = 2f;
+
+        // Bar centres for a bar `barH` tall slid in by `slide` (0 = hidden off screen, 1 = in), bleed included.
+        private static void PlaceBars(Active a, float barH, float slide)
+        {
+            float half = (barH + BarBleed) * 0.5f;
+            a.TopBar.transform.localPosition = new Vector3(0f, 8f + half - barH * slide, 0f);
+            a.BottomBar.transform.localPosition = new Vector3(0f, -8f - half + barH * slide, 0f);
+        }
+
         private void BuildBars(Active a, bool veil)
         {
             a.Cinematic = true;
             CinematicState.Begin();
             a.Bars = new GameObject("CinemaBars").transform;
             a.Bars.SetParent(transform, false);
-            float halfW = 8f * (_hud.Camera != null ? _hud.Camera.aspect : 16f / 9f) + 1f;
+            float halfW = 8f * (_hud.Camera != null ? _hud.Camera.aspect : 16f / 9f) + BarBleed;
             float barH = a.BarH;
             a.TopBar = NewSprite("Top", a.Bars, _veilSprite, Order + 1, Color.black);
             a.BottomBar = NewSprite("Bottom", a.Bars, _veilSprite, Order + 1, Color.black);
+            // Each bar runs `BarBleed` past the screen edge: the HUD doesn't shake but the camera does, so on
+            // screen the bars move with every shake and their outer edge must never show the scene.
             foreach (var bar in new[] { a.TopBar, a.BottomBar })
-                bar.transform.localScale = new Vector3(halfW * 2f / _veilSprite.bounds.size.x, barH / _veilSprite.bounds.size.y, 1f);
+                bar.transform.localScale = new Vector3(halfW * 2f / _veilSprite.bounds.size.x, (barH + BarBleed) / _veilSprite.bounds.size.y, 1f);
             if (veil)
             {
                 a.Veil = NewSprite("Veil", a.Bars, _veilSprite, Order, new Color(HudText.Ink.r, HudText.Ink.g, HudText.Ink.b, 0f));
-                a.Veil.transform.localScale = new Vector3(halfW * 2f / _veilSprite.bounds.size.x, 18f / _veilSprite.bounds.size.y, 1f);
+                a.Veil.transform.localScale = new Vector3(halfW * 2f / _veilSprite.bounds.size.x, (16f + 2f * BarBleed) / _veilSprite.bounds.size.y, 1f);
             }
         }
 
@@ -384,8 +396,7 @@ namespace AlmaGame.Systems
             {
                 float barH = a.BarH;
                 float slide = Ease(Mathf.Clamp01(t / 0.5f)) * (1f - Ease(outT));
-                a.TopBar.transform.localPosition = new Vector3(0f, 8f + barH * 0.5f - barH * slide, 0f);
-                a.BottomBar.transform.localPosition = new Vector3(0f, -8f - barH * 0.5f + barH * slide, 0f);
+                PlaceBars(a, barH, slide);
                 if (a.Veil != null) a.Veil.color = new Color(HudText.Ink.r, HudText.Ink.g, HudText.Ink.b, 0.85f * vis);
             }
 
@@ -514,8 +525,7 @@ namespace AlmaGame.Systems
 
             // Cinema bars + dark veil.
             float barH = a.BarH, slide = Ease(Mathf.Clamp01(t / 0.5f)) * (1f - Ease(outT));
-            a.TopBar.transform.localPosition = new Vector3(0f, 8f + barH * 0.5f - barH * slide, 0f);
-            a.BottomBar.transform.localPosition = new Vector3(0f, -8f - barH * 0.5f + barH * slide, 0f);
+            PlaceBars(a, barH, slide);
             a.Veil.color = new Color(HudText.Ink.r, HudText.Ink.g, HudText.Ink.b, 0.55f * slide);
 
             if (a.Kicker != null)

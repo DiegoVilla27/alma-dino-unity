@@ -60,3 +60,16 @@ Los controles se bloquean durante el plano, pero el juego no se pausa. Sirve par
 - **`HudTutorial`** (en el prefab `HUD`): dibuja el tutorial. Usa `HUD_Spotlight` (oscuro con un círculo claro), `HUD_Button_Ring`, `HUD_Shockwave` y `HUD_Arrow`.
 - **`AlmaCameraFollow.SetShot(punto, tamaño, peso)` / `ClearShot()`:** planos de cámara mezclados con el seguimiento normal, siempre dentro de los límites del nivel. El HUD sigue a la vista del plano.
 - **`HudAbilityButtons.Spotlight(habilidad)` y `TryGetButton(…)`:** iluminar un botón y saber dónde está.
+
+## Humo ninja (`NinjaSmoke2D`)
+
+`Prefabs/Level/Tutorial/Scripts/NinjaSmoke2D.cs`, `NinjaSmoke2D.Burst(posición, temblor)`: nube de humo, trocitos, destello y un pequeño temblor de cámara; se borra solo. Lo usan los momentos de historia (`AnimateAndVanish`) y los jefes (aparecer, esfumarse, enterrarse, golpes contra la pared).
+
+**Colores según el mundo de la escena** (por el nombre: `Level_N_*`, `Boss_N`, `Boss_Final` = 4), desde el 11/10/2026:
+
+| Mundo | Humo | Trocitos | Destello |
+| --- | --- | --- | --- |
+| 1 Jungla | gris claro | hojas verdes | blanco |
+| 2 Cuevas | **negro** | **astillas de amatista violetas** (como el suelo), con forma de roca | violeta claro |
+| 3 Pantano | gris verdoso | gotas lima y púrpura | lima claro |
+| 4 Volcán | carbón | brasas naranjas (sin vegetación) | naranja claro |

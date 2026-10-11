@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1485391420547623474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6127920722695752021}
+  - component: {fileID: 6752275590553756065}
+  m_Layer: 0
+  m_Name: Boss_TRex_Volcano
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6127920722695752021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485391420547623474}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6752275590553756065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485391420547623474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f21a35b1f65446ec986f29c121793fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Bosses.TRexBoss2D
+  _wallLeftX: -19
+  _wallRightX: 19
+  _floorY: -5.41
+  _skyY: 11
+  _centerX: 1
+  _sideFloors: []
+  _sideLava: []
+  _ledge: {fileID: 0}
+  _stalactite: {fileID: 0}
+  _phases:
+  - Cycle: 0000000001000000i
+    ChargeSpeed: 11
+    CurtainSpeed: 7
+    CurtainBothWays: 0
+    Meteors: 0
+    BoulderSpeed: 6
+    StuckOnCrash: 1
+    Window: 4
+    Rest: 0.7
+  - Cycle: 00000000010000000200000003000000i
+    ChargeSpeed: 12.5
+    CurtainSpeed: 8
+    CurtainBothWays: 0
+    Meteors: 4
+    BoulderSpeed: 6.5
+    StuckOnCrash: 0
+    Window: 4
+    Rest: 0.6
+  - Cycle: 0200000003000000i
+    ChargeSpeed: 12.5
+    CurtainSpeed: 9
+    CurtainBothWays: 1
+    Meteors: 6
+    BoulderSpeed: 7
+    StuckOnCrash: 0
+    Window: 8
+    Rest: 0.5
+  _stompBounce: 13.5
+  _softBounce: 9
+  _curtainHeight: 3.4
+  _boulderRadius: 0.9
+  _meteorWarning: 1
+  _stuckShout: "\xA1Atascado!"
+  _stunnedShout: "\xA1Aturdido!"
+  _stalactiteShout: "\xA1La estalactita!"
+  _standBox: {x: -1.2, y: 2.2, z: 3}
+  _chargeBox: {x: -1.8, y: 2.7, z: 2.3}
+  _backBox: {x: -0.8, y: 1.6, z: 3.4}
+  _snoutX: 2.7
+  _animatorController: {fileID: 9100000, guid: dfe10e23e3b8e44d89f780c1c64312b6, type: 2}
+  _tauntState: Boss_TRex_Taunt
+  _chargeState: Boss_TRex_Charge
+  _stompState: Boss_TRex_Stomp
+  _stunnedState: Boss_TRex_Stunned
+  _scale: 1
+  _sortingOrder: 4
+  _groundSink: 0.18
+  _bubbleHeight: 4.1
+  _boulderSprite: {fileID: 21300000, guid: 3154d42ece8946128c2870fc33b99e43, type: 3}
+  _fireAdditive: {fileID: 2100000, guid: b4b7bf88f0c7a47bca3a34f81cab6fda, type: 2}
+  _fireSmoke: {fileID: 2100000, guid: c74e50642d4ed4447a9458a5e7e6c210, type: 2}
+  _introLines:
+  - "\xBFLa madre ha llegado hasta mi volc\xE1n?"
+  - "\xA1Tus cr\xEDas ahora son m\xEDas!"
+  _defeatLines:
+  - "\xA1Imposible...! Tu valor arde m\xE1s que mi fuego..."
+  - "El volc\xE1n... me reclama..."
+  _bubbleSprite: {fileID: 21300000, guid: 0eebf82195994e15b3d715bcf855fd82, type: 3}
+  _bubbleTailSprite: {fileID: 21300000, guid: 77f39c181a374661a083047027e1fd0c, type: 3}
+  _accent: {r: 1, g: 0.75, b: 0.25, a: 1}
+  _bossName: "El Rey Ladr\xF3n"
+  _bossEpithet: Tirano Ancestral
+  _bossKicker: Jefe Final
+  _introZoom: 6
+  _introX: 7

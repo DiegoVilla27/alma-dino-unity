@@ -101,7 +101,7 @@ Por código, sin animación propia: caída, golpe recibido (destello rojo y temb
    - **alto:** parábola directa a Alma.
 
    Si desde su liana ninguno la alcanza, **salta** a la liana desde la que sí.
-3. **Agotado:** tras lanzar los frutos de la fase, se suelta, cae a su vertical con polvo y temblor de cámara, y jadea con estrellas girando. Es inofensivo.
+3. **Agotado** (aviso «¡AGOTADO!» y la insignia de [`HudBossAlert`](../../Systems/HUD.md#aviso-de-jefe-vulnerable-hudbossalert) si está fuera de cámara): tras lanzar los frutos de la fase, se suelta, cae a su vertical con polvo y temblor de cámara, y jadea con estrellas girando. Es inofensivo.
 4. **Golpe:** si Alma cae sobre su cabeza (la altura de la cabeza sigue la respiración, `Tired Head Top`), rebota (13,5), el mono parpadea en rojo y tiembla. Después se esfuma y reaparece colgado desde arriba en la liana central: **empieza la fase siguiente**.
 5. Si se acaba el tiempo de agotado sin golpe, se esfuma y repite la misma fase.
 6. **Derrota (3.er golpe):** Alma se congela, la cámara lo enfoca, mira a Alma, dice `Defeat Lines` y se esfuma. Aparece el **portal al Mundo 2** (`ExitPortal_World2` en la escena, `Next Scene` = `Level_2_1`) en `Portal X`, y Alma recupera el control.

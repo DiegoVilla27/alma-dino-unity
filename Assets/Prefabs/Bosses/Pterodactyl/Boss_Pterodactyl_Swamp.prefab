@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3489933900040322200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7005286453306726354}
+  - component: {fileID: 2484890560467270119}
+  m_Layer: 0
+  m_Name: Boss_Pterodactyl_Swamp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7005286453306726354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3489933900040322200}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2484890560467270119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3489933900040322200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e78f3b879bd864a488d292f721601442, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Bosses.PterodactylBoss2D
+  _centerBranch: {fileID: 0}
+  _sideBranches: []
+  _hoverPoint: {x: 0, y: 2.5}
+  _hoverSway: {x: 3, y: 0.4}
+  _phases:
+  - GaleTime: 4
+    Wind: 14
+    WindTurns: 0
+    DiveSpeed: 9
+    Dives: 1
+    LineTime: 1.3
+  - GaleTime: 4
+    Wind: 16
+    WindTurns: 1
+    DiveSpeed: 10.35
+    Dives: 1
+    LineTime: 1.15
+  - GaleTime: 4
+    Wind: 18
+    WindTurns: 1
+    DiveSpeed: 11.9
+    Dives: 2
+    LineTime: 1
+  _diveHeight: 2.4
+  _headOffset: {x: 1.6, y: 0.2}
+  _headRadius: 0.85
+  _bodyOffset: {x: -0.3, y: -0.1}
+  _bodySize: {x: 3, y: 0.9}
+  _hitBounce: 11
+  _animatorController: {fileID: 9100000, guid: 4cf53719f05c64bd788c38eea198cb7e, type: 2}
+  _tauntState: Boss_Pterodactyl_Taunt
+  _flyState: Boss_Pterodactyl_Fly
+  _diveState: Boss_Pterodactyl_Dive
+  _scale: 1
+  _sortingOrder: 4
+  _diveShout: "\xA1Picado!"
+  _introLines:
+  - "\xA1Kraaa! Este cielo es m\xEDo, lagartija sin alas."
+  - "\xA1El viento te devolver\xE1 al pantano!"
+  _defeatLines:
+  - "\xA1Kraa...! Mi cresta..."
+  - "Vuela si puedes, madre... el volc\xE1n te espera."
+  _bubbleSprite: {fileID: 21300000, guid: 0eebf82195994e15b3d715bcf855fd82, type: 3}
+  _bubbleTailSprite: {fileID: 21300000, guid: 77f39c181a374661a083047027e1fd0c, type: 3}
+  _accent: {r: 0.8, g: 0.5, b: 1, a: 1}
+  _bubbleHeight: 3.8
+  _bossName: "Pterod\xE1ctilo Alfa"
+  _bossEpithet: "El Se\xF1or de las R\xE1fagas"
+  _bossKicker: Jefe del Mundo 3
+  _introZoom: 5.5
+  _exitPortal: {fileID: 0}
+  _portalPosition: {x: 0, y: -3.41}

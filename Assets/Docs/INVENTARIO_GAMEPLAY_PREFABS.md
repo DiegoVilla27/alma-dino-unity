@@ -64,16 +64,16 @@ La estructura actual agrupa los enemigos y a Alma por personaje; las trampas y r
 | Puerta de llamas | Trampas | `Trap_BellFlameDoor_Volcano.prefab` |
 | Zona de caída mortal | Trampas | `Trap_DeathZone_Universal.prefab` |
 | Fruto rodante | Proyectiles | `Projectile_RollingFruit_Jungle.prefab` |
-| Cristal que cae | Proyectiles | `Projectile_FallingCrystal_Caves.prefab` |
-| Burbuja venenosa | Proyectiles | `Projectile_PoisonBubble_Swamp.prefab` |
-| Bola de fuego | Proyectiles | `Projectile_MagmaFireball_Volcano.prefab` |
+| Cristal que cae (estalactita) | Trampas | `Trap_Stalactite_Caves.prefab` (hecho, ver [Trampas](LevelPieces/Hazards.md#trampas-de-proyectil-11102026)) |
+| Burbuja venenosa | Trampas | `Trap_PoisonBubble_Swamp.prefab` (hecho, ver [Trampas](LevelPieces/Hazards.md#trampas-de-proyectil-11102026)) |
+| Bola de fuego | Trampas | `Trap_Fireball_Volcano.prefab` (hecho, ver [Trampas](LevelPieces/Hazards.md#trampas-de-proyectil-11102026)) |
 | Meteorito reflejable de compuerta | Proyectiles | `Projectile_ReflectableMeteor_Volcano.prefab` |
 | Meteorito de contraataque final | Proyectiles | `Projectile_CounterMeteor_FinalBoss.prefab` |
 | Roca de lluvia de meteoritos | Proyectiles | `Projectile_MeteorRainRock_FinalBoss.prefab` |
 | Rey de la Copa — Mono Ladrón Gigante | Jefes | `Boss_GiantMonkey_Jungle.prefab` |
-| Acorazado Subterráneo — Armadillo Prehistórico | Jefes | `Boss_PrehistoricArmadillo_Caves.prefab` |
-| Señor de las Ráfagas — Pterodáctilo Alfa | Jefes | `Boss_AlphaPterodactyl_Swamp.prefab` |
-| Rey Ladrón — Tirano Ancestral | Jefes | `Boss_ThiefKing_Volcano.prefab` |
+| Acorazado Subterráneo — Armadillo Prehistórico | Jefes | `Bosses/Armadillo/Boss_Armadillo_Caves.prefab` |
+| Señor de las Ráfagas — Pterodáctilo Alfa | Jefes | `Bosses/Pterodactyl/Boss_Pterodactyl_Swamp.prefab` |
+| Rey Ladrón — Tirano Ancestral | Jefes | `Bosses/TRex/Boss_TRex_Volcano.prefab` |
 | Plataforma sólida | Recursos | `Terrain/World_1/Platform_Ground_*_Jungle.prefab` y `Platform_Floating_*_Jungle.prefab` |
 | Plataforma atravesable desde abajo | Recursos | `Platform_OneWay_Universal.prefab` |
 | Hongo saltarín | Recursos | `Resource_BouncyMushroom_Jungle.prefab` |
@@ -500,40 +500,27 @@ La estructura actual agrupa los enemigos y a Alma por personaje; las trampas y r
 
 ### 2. Acorazado Subterráneo — Armadillo Prehistórico
 
-- **Archivo definitivo:** `Boss_PrehistoricArmadillo_Caves.prefab`.
-- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Bosses/Boss_PrehistoricArmadillo_Caves.prefab`.
-- **Implementación:** `PrehistoricArmadilloBoss2D + ArmadilloFight`.
-- **Mundo/contexto:** 2.
-- **Qué es / para qué sirve:** Jefe rodante que se expone al chocar.
-- **Cómo funciona:** Provocar choque contra el extremo/pilar y realizar Pisotón directo en la coronilla durante su aturdimiento; ciclos posteriores añaden cristales y salto.
-- **Daño a Alma:** Letal cuando el peligro está activo: muerte y reaparición en el último checkpoint. No resta una cantidad de HP.
-- **Valores y propiedades:** 3 impactos válidos; rodar 7 unidades/s, +1.5 por impacto; aviso 1.2 s; aturdimiento 4.5 s; recuperación 1 s.
-- **Conexiones, variantes o límites:** Contacto peligroso durante la rodada. Los saltos normales y ondas cercanas no sustituyen el Pisotón directo. Victoria abre mundo 3.
+- **Archivo:** `Assets/Prefabs/Bosses/Armadillo/Boss_Armadillo_Caves.prefab` (escena `Boss_2`).
+- **Implementación:** `ArmadilloBoss2D`. Ficha completa en [Boss_2](Levels/World_2_Caves/Boss_2.md).
+- **Cómo funciona:** rueda de pared a pared (a veces salta a un bloque flotante); tras 2 / 3 / 4 choques por fase queda mareado con la grieta del caparazón expuesta: solo un Pisotón en ella le hace daño. Estalactitas al chocar y cada 2 s si Alma se queda en un bloque.
+- **Daño a Alma:** letal (bola rodando y cuerpo al avisar); mareado es inofensivo.
+- **Valores:** 3 impactos (una vida por fase); rodar 9 / 10,35 / 11,9 u/s; mareo 4,5 / 3,8 / 3,2 s.
 
 ### 3. Señor de las Ráfagas — Pterodáctilo Alfa
 
-- **Archivo definitivo:** `Boss_AlphaPterodactyl_Swamp.prefab`.
-- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Bosses/Boss_AlphaPterodactyl_Swamp.prefab`.
-- **Implementación:** `PterodactylBoss2D + PterodactylHead2D + PterodactylBody2D`.
-- **Mundo/contexto:** 3.
-- **Qué es / para qué sirve:** Jefe aéreo de vendaval y picado.
-- **Cómo funciona:** Empuja con viento, anuncia picado y recibe un Dash aéreo frontal válido contra la cabeza; cada impacto modifica la arena.
-- **Daño a Alma:** Letal cuando el peligro está activo: muerte y reaparición en el último checkpoint. No resta una cantidad de HP.
-- **Valores y propiedades:** 3 impactos válidos; viento 3 s y aceleración 12; aviso 1.4 s; picado 7 unidades/s, +1 por impacto; recuperación 2.5 s; rebote de Alma 8.2.
-- **Conexiones, variantes o límites:** Cabeza y cuerpo son peligrosos durante el picado, con excepción del contraataque válido. Dash terrestre, salto normal o Pisotón no cuentan como el golpe requerido.
+- **Archivo:** `Assets/Prefabs/Bosses/Pterodactyl/Boss_Pterodactyl_Swamp.prefab` (escena `Boss_3`).
+- **Implementación:** `PterodactylBoss2D`. Ficha completa en [Boss_3](Levels/World_3_Swamp/Boss_3.md).
+- **Cómo funciona:** vendaval sobre ramas en un abismo y picados horizontales anunciados con una línea; un Dash de frente a la cresta le hace daño; cada golpe rompe una rama.
+- **Daño a Alma:** letal (cabeza y cuerpo durante el picado; el viento la tira al abismo).
+- **Valores:** 3 impactos; viento 10 / 13 / 16; picado 9 / 10,35 / 11,9 u/s (dos picados en la fase 3).
 
 ### 4. Rey Ladrón — Tirano Ancestral
 
-- **Archivo definitivo:** `Boss_ThiefKing_Volcano.prefab`.
-- **Ruta prevista (sin prefab):** `Assets/_Project/Prefabs/Bosses/Boss_ThiefKing_Volcano.prefab`.
-- **Implementación:** `ThiefKingBoss2D + ThiefKingFight`.
-- **Mundo/contexto:** 4 / final.
-- **Qué es / para qué sirve:** Encuentro final que combina Dash, Pisotón, Rugido y ascenso.
-- **Cómo funciona:** Contrarrestar ataques para exponer la placa, golpearla, devolver meteorito y resolver ascenso/sello/anclaje para el remate.
-- **Daño a Alma:** Letal cuando el peligro está activo: muerte y reaparición en el último checkpoint. No resta una cantidad de HP.
-- **Valores y propiedades:** 3 impactos/fases de progreso; aviso 1.3 s; barrido 1.8 s; recuperación 4 s. Parámetros completos en ThiefKingConfig.asset.
-- **Conexiones, variantes o límites:** La mandíbula, meteoritos y lava son los peligros del encuentro; no todas sus piezas visuales dañan. Conjunto actual: Bosses/Assemblies/World_4_Volcano/Boss_Final_ThiefKingBoss2D_0.prefab.
-
+- **Archivo:** `Assets/Prefabs/Bosses/TRex/Boss_TRex_Volcano.prefab` (escena `Boss_Final`).
+- **Implementación:** `TRexBoss2D` + `TRexRoarTarget2D` (la roca y la estalactita reciben el Rugido). Ficha completa en [Boss_Final](Levels/World_4_Volcano/Boss_Final.md).
+- **Cómo funciona:** examen de las cuatro habilidades. Fase 1: pisotón (cortina de fuego: solo la atraviesa un Dash) y embestida (Doble Salto o plataforma); atascado contra la pared, Pisotón en el lomo. Fase 2: suma meteoros marcados y una roca ardiente que se devuelve con el Rugido; aturdido, Pisotón. Fase 3: los lados del suelo se hunden en lava; aturdido en el centro, Rugido a la estalactita y Pisotón en la cornisa: la estalactita cae sobre él.
+- **Daño a Alma:** letal (cuerpo, embestida, cortina, meteoros, roca y lava); atascado o aturdido es inofensivo.
+- **Valores:** 3 impactos (una vida por fase); embestida 11 / 12,5 u/s; cortina 7 / 8 / 9 u/s; ventanas 4 / 4 / 8 s.
 
 ## Recursos
 

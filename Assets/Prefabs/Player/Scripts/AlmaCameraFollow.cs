@@ -66,6 +66,10 @@ namespace AlmaGame.Player
         private float _shotWeight;
         private float _startY;
         private bool _startYSet;
+        // Boss arenas: a point (the boss) framed together with Alma, see SetFocus.
+        private System.Func<Vector2> _focus;
+        private float _focusMargin = 0.18f;
+        private float _focusSmoothTime = 0.35f;
 
         private void Awake()
         {
@@ -102,6 +106,18 @@ namespace AlmaGame.Player
         }
 
         public void ClearShot() => _shotWeight = 0f;
+
+        // Boss fights: horizontally the view centres between Alma and `focus` (the boss), so what attacks
+        // her is always on screen; when they are too far apart Alma stays `almaMargin` (fraction of the
+        // screen width) from the edge and the rest of the view shows the boss's side. Replaces the look-ahead.
+        public void SetFocus(System.Func<Vector2> focus, float almaMargin = 0.18f, float smoothTime = 0.35f)
+        {
+            _focus = focus;
+            _focusMargin = Mathf.Clamp(almaMargin, 0.05f, 0.45f);
+            _focusSmoothTime = Mathf.Max(0.01f, smoothTime);
+        }
+
+        public void ClearFocus() => _focus = null;
 
         // Short shake that fades linearly to zero; a new call replaces the current one.
         public void Shake(float amplitude, float duration)
@@ -161,10 +177,19 @@ namespace AlmaGame.Player
             }
 
             // Follow is smoothed on its own position so the shake offset never feeds back into it.
-            Vector3 goal = Clamp(new Vector3(_focusX + _lookAhead, _viewY, _depth));
+            float goalX = _focusX + _lookAhead;
+            float smoothX = _horizontalSmoothTime;
+            if (_focus != null)
+            {
+                float halfWidth = _baseSize * _camera.aspect;
+                float reach = halfWidth - 2f * halfWidth * _focusMargin;   // how far from the centre Alma may be
+                goalX = Mathf.Clamp((alma.x + _focus().x) * 0.5f, alma.x - reach, alma.x + reach);
+                smoothX = _focusSmoothTime;
+            }
+            Vector3 goal = Clamp(new Vector3(goalX, _viewY, _depth));
             // Capped near Alma's run speed, so catching up after a turn never whips the view across.
             float maxSpeedX = Target.Settings.MoveSpeed * _maxSpeedFactor;
-            float x = Mathf.SmoothDamp(_followPosition.x, goal.x, ref _velocityX, _horizontalSmoothTime, maxSpeedX);
+            float x = Mathf.SmoothDamp(_followPosition.x, goal.x, ref _velocityX, smoothX, maxSpeedX);
             float y = Mathf.SmoothDamp(_followPosition.y, goal.y, ref _velocityY, _verticalSmoothTime);
             _followPosition = new Vector3(x, y, _depth);
             if (_shotWeight > 0f)

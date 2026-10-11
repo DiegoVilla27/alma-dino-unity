@@ -73,6 +73,8 @@ namespace AlmaGame.Bosses
         [Header("Cycle: waves, exhaustion, hits")]
         [Tooltip("Alma's bounce when she lands on his head.")]
         [SerializeField] private float _stompBounce = 13.5f;
+        [Tooltip("Shout on screen when he lies exhausted (HudBossAlert).")]
+        [SerializeField] private string _tiredShout = "¡Agotado!";
         [Tooltip("Top of his head above the feet in each Tired frame (units), measured from the sheet; he breathes, so it moves.")]
         [SerializeField] private float[] _tiredHeadTop = { 3.6f, 4.2f, 4.6f, 5f, 4.5f, 4.05f, 3.85f, 3.9f };
         [SerializeField, Min(0.3f)] private float _stompHalfWidth = 1.4f;
@@ -260,7 +262,13 @@ namespace AlmaGame.Bosses
 
         // ---------- state machine ----------
 
-        private void Enter(State s) { _state = s; _stateAt = Time.time; }
+        private void Enter(State s)
+        {
+            // Exhausted on the ground = the window to hit him: the HUD tells the player wherever he is.
+            if (s == State.Tired && _state != State.Tired) HudBossAlert.Show(() => new Vector2(_groundPos.x, TiredHeadY()), C.Fatigue, _tiredShout, _accent);
+            else if (_state == State.Tired && s != State.Tired) HudBossAlert.Hide();
+            _state = s; _stateAt = Time.time;
+        }
         private float T => Time.time - _stateAt;
         private Cycle C => _cycles[Mathf.Clamp(_cycle, 0, _cycles.Length - 1)];
 

@@ -8,7 +8,7 @@ Fichas de diseño originales: [inventario, Trampas](../INVENTARIO_GAMEPLAY_PREFA
 
 Volúmenes que matan a Alma al tocarlos: pinchos, zarzas, cristales, lodo, lagos tóxicos, lava, el pilar con espinas y la zona de caída mortal bajo los abismos, más tres trampas con ciclo (gas, géiser y techo). Solo afectan a Alma; enemigos y proyectiles los ignoran. Todas matan llamando a `AlmaMotor2D.Die()`.
 
-## Resumen: las doce trampas
+## Resumen: las trampas
 
 | Prefab | Etiqueta | Tipo | Mata cuando… | Mundo |
 | --- | --- | --- | --- | --- |
@@ -25,6 +25,10 @@ Volúmenes que matan a Alma al tocarlos: pinchos, zarzas, cristales, lodo, lagos
 | `Trap_LavaPool_Volcano` | Foso de lava | Estática (líquido) | se toca | 4 |
 | `Trap_FireGeyser_Volcano` | Géiser | Dinámica | la bola de fuego toca a Alma (el respiradero es seguro) | 4 |
 | `Trap_DeathZone_Universal` | Zona de muerte (invisible) | Estática | se entra (bajo los abismos) | Todos |
+| `Trap_FallingSpike_Jungle` | Pincho que cae | Proyectil | cae al pasar Alma por debajo | 1 |
+| `Trap_Stalactite_Caves` | Estalactita | Proyectil | cae al pasar Alma por debajo | 2 |
+| `Trap_PoisonBubble_Swamp` | Burbuja venenosa | Proyectil | sube desde abajo y explota | 3 |
+| `Trap_Fireball_Volcano` | Bola de fuego | Proyectil | salta desde abajo o cae desde arriba | 4 |
 
 ## Archivos
 
@@ -232,6 +236,38 @@ Sprite `Trap_CrushingCeiling_Caves_Block.png` (recortado del sprite original, ya
 - La caída se comprueba con un barrido (`BoxCast`) de la caja del bloque cada frame; los contactos que ya existen al empezar (techo, paredes) se ignoran.
 
 Partículas: polvillo de aviso (máx. 20), trozos (máx. 20), nube (máx. 16). Gizmos: **naranja** = caída máxima; **amarillo** = zona de detección.
+
+## Trampas de proyectil (11/10/2026)
+
+Cuatro trampas que lanzan **un solo proyectil**, con el script común `Scripts/ProjectileTrap2D.cs`. Solo mata el proyectil. El arte se sacó por código de `Assets/Art/Projectiles/Projectiles_ConceptSheet_v1.png` (celdas 02, 03 y 04): fondo crema y líneas de movimiento quitados; la burbuja se giró para que su gota quede abajo. 170 px por unidad. El resto (aviso, vuelo, partículas) es código.
+
+**Estructura del prefab:** raíz con `ProjectileTrap2D` + hijo `Art` (SpriteRenderer, orden 5). El **pivote del sprite es el punto de salida**: se coloca la raíz donde nace el proyectil (en el techo, en la superficie del líquido o en el agujero).
+
+| Prefab | Sprite (unidades) | Pivote | Movimiento (`Motion`) | Comportamiento | Zona letal |
+| --- | --- | --- | --- | --- | --- |
+| `Trap_Stalactite_Caves` | 0,87 × 2,15 | arriba (cuelga del techo) | `Fall` | Visible en el techo. Cuando Alma pasa por debajo (columna de ±1,2 de ancho y 10 de fondo) **tiembla** 0,45 s con polvo, **cae** (gravedad 30) y se **rompe** en esquirlas cian contra el suelo. Vuelve a crecer a los 2,5 s. Con `Interval` > 0 cae periódicamente sin esperar a Alma. | cápsula 0,55 × 1,9 |
+| `Trap_FallingSpike_Jungle` | 1,40 × 1,23 | arriba (cuelga del techo) | `Fall` | La estalactita del Mundo 1: el sprite de `Trap_Spike_Single_Jungle` volteado (punta abajo, hojas arriba), a 75 px por unidad como los demás pinchos. Mismo comportamiento que la estalactita; se rompe en astillas marfil y hojas. | cápsula 0,6 × 1,05 |
+| `Trap_PoisonBubble_Swamp` | 1,10 × 1,45 | centro de la burbuja | `Rise` | Cada 2,5 s: burbujitas de aviso y la burbuja se hincha en la superficie (0,6 s); luego **sube** 4 unidades a 2,2 u/s balanceándose y **explota** en gotas verdes. | cápsula 0,85 × 0,85 |
+| `Trap_Fireball_Volcano` | 2,06 × 1,28 | centro de la bola | `Leap` | Cada 2,5 s: chispas de aviso (0,6 s) y **salta** 4 unidades hacia arriba y vuelve a caer a su agujero (gravedad 20), girada para que las llamas vayan detrás. Con **`From Above`** sale del techo, **cae** y estalla contra el suelo. | cápsula 0,7 × 0,7 |
+
+### Valores (`ProjectileTrap2D`)
+
+| Campo | Uso |
+| --- | --- |
+| `Motion` | `Fall`, `Rise` o `Leap` (ver arriba). |
+| `From Above` | Solo `Leap`: cae desde arriba en vez de saltar desde abajo. |
+| `Interval` / `Start Delay` | Segundos entre disparos y retraso inicial (para desfasar varias trampas). En `Fall`, `Interval` 0 = solo cuando pasa Alma. |
+| `Detect Half Width` / `Detect Depth` | Solo `Fall` con `Interval` 0: columna bajo la estalactita que la dispara (gizmo amarillo). |
+| `Warning Time` | Duración del aviso. |
+| `Distance` | Recorrido de la burbuja y del salto de la bola. Lo que cae ignora este valor y para en el suelo (tope de seguridad: 40). |
+| `Gravity` / `Rise Speed` | Gravedad de lo que cae o salta; velocidad de subida de la burbuja. |
+| `Regrow Time` | Solo `Fall`: tiempo hasta que vuelve a crecer. |
+| `Hit Offset` / `Hit Size` | Cápsula letal en unidades del mundo, relativa al pivote del arte y girando con él (gizmo rojo, con la trayectoria). |
+| `Debris Color` / `Debris Color 2` | Color de las partículas del aviso y de la rotura. |
+
+Lo que cae se detiene contra cualquier colisionador sólido (no triggers, no Alma). Al reaparecer Alma, todas vuelven a su estado inicial.
+
+**Pruebas (PlayMode, sobre `Level_1_1`):** la estalactita y el pincho que cae, sobre Alma, caen y la matan; un pincho con `Interval` llega con la punta al suelo, se rompe y vuelve a crecer; una con `Interval` cae, se rompe contra el suelo y vuelve a crecer; la burbuja sube 4 unidades; la bola salta 4 unidades y vuelve; la bola `From Above` cae hasta el suelo.
 
 ## Comportamiento común (`HazardZone2D`)
 

@@ -5014,6 +5014,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss_GiantMonkey_Jungle
       objectReference: {fileID: 0}
+    - target: {fileID: 6395007804099406108, guid: bd8bedca25adf415a92846fa98cc7702, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5701,10 +5705,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 983259340}
-  - {fileID: 1854389705}
-  - {fileID: 886150128}
-  - {fileID: 103170877}
   - {fileID: 639870610}
+  - {fileID: 103170877}
+  - {fileID: 886150128}
+  - {fileID: 1854389705}
   - {fileID: 1536561545}
   - {fileID: 1867809348}
   - {fileID: 834293982}

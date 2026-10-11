@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &827518131047264060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2100548372557979889}
+  - component: {fileID: 5729359276100185764}
+  m_Layer: 0
+  m_Name: Boss_Armadillo_Caves
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2100548372557979889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827518131047264060}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5729359276100185764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827518131047264060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddfc3dbe3d4cf471f953949f4697ccc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Bosses.ArmadilloBoss2D
+  _wallLeftX: -13.73
+  _wallRightX: 13.73
+  _floorY: -1.52
+  _blocks:
+  - {x: -9, y: -5, z: 1.33}
+  - {x: 5, y: 9, z: 1.33}
+  _ceilingY: 13.6
+  _phases:
+  - RollSpeed: 9
+    WallHits: 2
+    Dizzy: 4.5
+    HopChance: 0.35
+    Stalactites: 1
+  - RollSpeed: 10.35
+    WallHits: 3
+    Dizzy: 3.8
+    HopChance: 0.45
+    Stalactites: 2
+  - RollSpeed: 11.9
+    WallHits: 4
+    Dizzy: 3.2
+    HopChance: 0.55
+    Stalactites: 3
+  _gravity: 40
+  _hopClearance: 0.9
+  _stompBounce: 13.5
+  _softBounce: 9
+  _campInterval: 2
+  _stalactitePrefab: {fileID: 8540645034942895168, guid: 40498284c778542cb92ba979d8651bea, type: 3}
+  _animatorController: {fileID: 9100000, guid: 04c5312e0a7d5434bbda1f0c16a4f3ac, type: 2}
+  _tauntState: Boss_Armadillo_Taunt
+  _curlState: Boss_Armadillo_Curl
+  _stunnedState: Boss_Armadillo_Stunned
+  _scale: 0.62
+  _sortingOrder: 4
+  _crackTopPx:
+  - 106
+  - 114
+  - 127
+  - 137
+  - 130
+  - 118
+  - 112
+  - 112
+  _crackXPx: 12
+  _ballCenterPx: {x: 12, y: 84.5}
+  _ballRadiusPx: 84
+  _introLines:
+  - "\xA1Grrr! Nadie cruza mi t\xFAnel, lagartija."
+  - "\xA1Te aplastar\xE9 contra los cristales!"
+  _defeatLines:
+  - "Mi caparaz\xF3n... \xA1crack!"
+  - "Sigue tu camino, madre... el pantano no ser\xE1 tan amable."
+  _bubbleSprite: {fileID: 21300000, guid: 0eebf82195994e15b3d715bcf855fd82, type: 3}
+  _bubbleTailSprite: {fileID: 21300000, guid: 77f39c181a374661a083047027e1fd0c, type: 3}
+  _accent: {r: 0.35, g: 0.9, b: 1, a: 1}
+  _bossName: "Armadillo Prehist\xF3rico"
+  _bossEpithet: "El Acorazado Subterr\xE1neo"
+  _bossKicker: Jefe del Mundo 2
+  _introZoom: 5.5
+  _introDistance: 6
+  _exitPortal: {fileID: 0}
+  _portalX: 0
+  _portalY: 0.5
