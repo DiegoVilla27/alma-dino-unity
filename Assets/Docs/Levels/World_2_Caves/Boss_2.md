@@ -180,3 +180,8 @@ Alma empieza con Doble Salto y Pisotón: `System_GameProgress` de la escena tien
 ### Pruebas (PlayMode, `Boss_2`)
 
 Fase 3 con Alma muriendo tras cada choque: se marea al 4.º choque acumulado (3 muertes). Combate completo, repetido: la intro termina y devuelve el control; se marea tras 2, 3 y 4 choques; salta a los bloques; quedarse en un bloque trae una estalactita que mata a Alma, y el jefe vuelve en la misma fase; un salto normal no le hace daño; tres Pisotones lo derrotan y aparece el portal.
+
+
+## Huevo: «El Reencuentro» (11-12/10/2026)
+
+Cuando termina su discurso y desaparece o muere (en el jefe final, cuando la estalactita queda en el suelo), un destello lleva a la sala del **Huevo Azul**: el prefab `Prefabs/Level/Progression/EggRooms/EggRoom_World2_Blue` (campo `Reunion Room` del jefe; contenido hecho a mano). Al volver se abre el portal y el huevo vuela a su hueco del HUD. Campos del jefe: `Egg Id`, `Reunion Room`. Ver [HUD](../../Systems/HUD.md#el-reencuentro-hudeggreunion).

@@ -88,6 +88,8 @@ MonoBehaviour:
   - "Vuela si puedes, madre... el volc\xE1n te espera."
   _bubbleSprite: {fileID: 21300000, guid: 0eebf82195994e15b3d715bcf855fd82, type: 3}
   _bubbleTailSprite: {fileID: 21300000, guid: 77f39c181a374661a083047027e1fd0c, type: 3}
+  _eggId: Purple
+  _reunionRoom: {fileID: 1838846329129255289, guid: e2cda59a5a12e430d86bc009f00211fb, type: 3}
   _accent: {r: 0.8, g: 0.5, b: 1, a: 1}
   _bubbleHeight: 3.8
   _bossName: "Pterod\xE1ctilo Alfa"
@@ -96,3 +98,5 @@ MonoBehaviour:
   _introZoom: 5.5
   _exitPortal: {fileID: 0}
   _portalPosition: {x: 0, y: -3.41}
+  _almaPortalGap: 0.35
+  _perchSink: 0.12

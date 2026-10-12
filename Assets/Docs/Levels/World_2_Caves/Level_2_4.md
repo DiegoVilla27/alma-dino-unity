@@ -1,3 +1,5 @@
+> **Cambio (11/10/2026):** el huevo de este mundo **ya no se rescata en este nivel**: lo suelta el jefe del mundo al ser derrotado, en «El Reencuentro» ([HUD](../../Systems/HUD.md#el-reencuentro-hudeggreunion)). Este nivel termina en el portal hacia el jefe; lo que esta ficha dice del rescate del huevo queda como referencia narrativa.
+
 > **Ficha de diseño para reconstrucción:** existe `Assets/Scenes/World_02/Level_2_4.unity` como escena de trabajo (copia de la de práctica) con su fondo [`Parallax_Level_2_4`](../../LevelPieces/Backgrounds.md) (dos capas: la Gran Geoda lejana y geodas abiertas con estalactitas, oscurecidas); el nivel completo aún no está construido. Las notas sobre escenas, pruebas o assets existentes describen el prototipo retirado. Las referencias de cámara a **8** son el criterio de la reconstrucción, no resultados de aquellas pruebas; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 2-4: "El Laberinto de Geodas"

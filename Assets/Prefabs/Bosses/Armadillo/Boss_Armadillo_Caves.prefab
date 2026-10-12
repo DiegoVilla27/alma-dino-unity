@@ -71,8 +71,11 @@ MonoBehaviour:
   _hopClearance: 0.9
   _stompBounce: 13.5
   _softBounce: 9
+  _dizzyShout: "\xA1Mareado!"
   _campInterval: 2
   _stalactitePrefab: {fileID: 8540645034942895168, guid: 40498284c778542cb92ba979d8651bea, type: 3}
+  _ballHitScale: 0.78
+  _bodyHitSize: {x: 2, y: 1.35}
   _animatorController: {fileID: 9100000, guid: 04c5312e0a7d5434bbda1f0c16a4f3ac, type: 2}
   _tauntState: Boss_Armadillo_Taunt
   _curlState: Boss_Armadillo_Curl
@@ -99,6 +102,8 @@ MonoBehaviour:
   - "Sigue tu camino, madre... el pantano no ser\xE1 tan amable."
   _bubbleSprite: {fileID: 21300000, guid: 0eebf82195994e15b3d715bcf855fd82, type: 3}
   _bubbleTailSprite: {fileID: 21300000, guid: 77f39c181a374661a083047027e1fd0c, type: 3}
+  _eggId: Blue
+  _reunionRoom: {fileID: 3214625145335582173, guid: 12ca6f78f7a4e465e96cbdb6cbff0eff, type: 3}
   _accent: {r: 0.35, g: 0.9, b: 1, a: 1}
   _bossName: "Armadillo Prehist\xF3rico"
   _bossEpithet: "El Acorazado Subterr\xE1neo"

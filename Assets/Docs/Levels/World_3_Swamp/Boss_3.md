@@ -178,3 +178,8 @@ Posado (intro, caída tras un golpe y derrota), sus pies se hunden `Perch Sink` 
 
 - Combate completo: la intro termina; el vendaval empuja a Alma (quieta cae al abismo); el aviso muestra la línea y la alerta; de pie bajo la línea el picado la mata; tres Dash contra la cresta lo derrotan (en la fase 3 con dos picados); cada golpe rompe una rama (quedan 2); aparece el portal en (0; −3,41); Alma no se ve hasta que aparece el portal, sigue viva, aparece a la izquierda sin tocarlo, la pared la frena hacia la izquierda y caminando a la derecha entra en el portal.
 - Contra el viento: en las tres fases, caminando contra el viento cuando empuja, Alma se mantiene en la rama.
+
+
+## Huevo: «El Reencuentro» (11-12/10/2026)
+
+Cuando termina su discurso y desaparece o muere (en el jefe final, cuando la estalactita queda en el suelo), un destello lleva a la sala del **Huevo Morado**: el prefab `Prefabs/Level/Progression/EggRooms/EggRoom_World3_Purple` (campo `Reunion Room` del jefe; contenido hecho a mano). Al volver se abre el portal y el huevo vuela a su hueco del HUD. Campos del jefe: `Egg Id`, `Reunion Room`. Ver [HUD](../../Systems/HUD.md#el-reencuentro-hudeggreunion).

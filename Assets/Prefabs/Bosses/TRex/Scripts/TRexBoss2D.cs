@@ -98,6 +98,8 @@ namespace AlmaGame.Bosses
         [SerializeField, Min(0f)] private float _groundSink = 0.18f;
         [Tooltip("After the last hit the stalactite rests on him at this height above his feet (base taunt frame).")]
         [SerializeField, Min(0f)] private float _stalactiteRestHeight = 3.8f;
+        [Tooltip("After the explosion the stalactite hits the floor and sinks until its position reaches this Y.")]
+        [SerializeField] private float _stalactiteSinkY = -8.69f;
         [Tooltip("Height of the speech bubble above his feet.")]
         [SerializeField, Min(0f)] private float _bubbleHeight = 4.1f;
         [SerializeField] private Sprite _boulderSprite;
@@ -109,6 +111,10 @@ namespace AlmaGame.Bosses
         [SerializeField, TextArea(1, 2)] private string[] _introLines = { "¿La madre ha llegado hasta mi volcán?", "¡Tus crías ahora son mías!" };
         [SerializeField, TextArea(1, 2)] private string[] _defeatLines = { "¡Imposible...! Tu valor arde más que mi fuego...", "El volcán... me reclama..." };
         [SerializeField] private Sprite _bubbleSprite, _bubbleTailSprite;
+        [Header("Egg (reunion after the defeat)")]
+        [SerializeField] private string _eggId = "Red";
+        [Tooltip("The reunion room shown after the defeat (prefab with EggReunionRoom on its root).")]
+        [SerializeField] private GameObject _reunionRoom;
         [Tooltip("The colour of the Roar: the ability that beats him.")]
         [SerializeField] private Color _accent = new Color(1f, 0.75f, 0.25f);
         [SerializeField] private string _bossName = "El Rey Ladrón";
@@ -202,6 +208,7 @@ namespace AlmaGame.Bosses
 
         private void OnDestroy()
         {
+            HudBossAlert.Track(this, null, default);
             if (_alma != null) { _alma.Respawned -= OnAlmaRespawned; _alma.GroundPoundLanded -= OnGroundPoundLanded; }
             if (_cam != null) _cam.ClearFocus();
             AlmaTouchControls.InputLocked = false;
@@ -240,8 +247,19 @@ namespace AlmaGame.Bosses
 
         private bool _puffPending;
 
+        // Off-screen locator: the HUD edge badge (HudBossAlert tracker, no text) points at him whenever he is off
+        // screen, during the fight only (not in the intro, cinematics or the defeat) and while he is visible.
+        private System.Func<Vector2> _bodyCentre;
+        private void UpdateTracker()
+        {
+            bool on = _sprite != null && _sprite.enabled && !CinematicState.IsPlaying && _state != State.Intro && _state != State.Defeat && _state != State.Done;
+            if (on && _bodyCentre == null) _bodyCentre = () => _sprite.bounds.center;
+            HudBossAlert.Track(this, on ? _bodyCentre : null, _accent);
+        }
+
         private void Update()
         {
+            UpdateTracker();
             if (_puffPending) { _puffPending = false; NinjaSmoke2D.Burst(_feet + Vector2.up * 1.5f, 0f); }
             switch (_state)
             {
@@ -301,7 +319,7 @@ namespace AlmaGame.Bosses
             if (_cardShown && _endAt < 0f && t >= _cardAt + 0.3f && (HudBanners.Instance == null || !HudBanners.Instance.IsShowing)) _endAt = t;
             if (_endAt > 0f && t >= _endAt + ShotOut)
             {
-                if (_cam != null) { _cam.ClearShot(); _cam.SetFocus(() => _feet + Vector2.up * 2f); }   // frames Alma and him
+                if (_cam != null) _cam.ClearShot();   // the fight uses the normal camera (ahead of where Alma looks)
                 AlmaTouchControls.InputLocked = false;
                 CinematicState.End();
                 _step = 0;
@@ -711,7 +729,8 @@ namespace AlmaGame.Bosses
 
         private const float DefeatLineTime = 3f, ChargeUp = 1.1f;
         private bool _exploded, _stalactiteLanded;
-        private float _stalactiteVy;
+        private float _stalactiteVy, _stalactiteSinkBrake;
+        private ParticleSystem _stalactiteTrail;
         private int _pops;
 
         private float StalactiteRestBottom() => _feet.y + _stalactiteRestHeight * U;
@@ -735,13 +754,35 @@ namespace AlmaGame.Bosses
 
         // Pinned under the stalactite he says his last lines (base frame), swells with magma flashing through
         // his cracks and explodes; the stalactite drops to the floor and stays there.
+        // «El Reencuentro» (HudEggReunion): right after he leaves, the reunion room shows Alma getting back the egg
+        // he stole, before the way out opens. The defeat's clock stops while the room plays.
+        private bool _reunionStarted, _reunionDone;
+        private float _reunionAt, _reunionShift;
+        // Back from the room (still behind its white flash): he is gone, so the view jumps straight to Alma
+        // instead of showing the empty spot where he was and gliding over.
+        private void BackToAlma()
+        {
+            HideAlma(false);
+            if (_cam != null) { _cam.ClearShot(); _cam.SnapToTarget(); }
+        }
+
+        private bool Reunion(float t, float at)
+        {
+            if (!_reunionStarted && t >= at)
+            {
+                _reunionStarted = true; _reunionAt = Time.time;
+                HudEggReunion.Play(_eggId, _reunionRoom, () => { _reunionDone = true; _reunionShift += Time.time - _reunionAt; BackToAlma(); });
+            }
+            return _reunionStarted && !_reunionDone;   // true while the room plays
+        }
+
         private void UpdateDefeat()
         {
             AlmaTouchControls.InputLocked = true;
-            float t = T, lines = (_defeatLines?.Length ?? 0) * DefeatLineTime;
+            float t = T - _reunionShift, lines = (_defeatLines?.Length ?? 0) * DefeatLineTime;
             float boomAt = 0.8f + lines + ChargeUp, endAt = boomAt + 3.2f;
             float w = 1f - Mathf.Clamp01((t - endAt) / ShotOut);
-            if (_cam != null) _cam.SetShot(_feet + Vector2.up * 2f, _introZoom, Mathf.Clamp01(t / 0.9f) * w);
+            if (_cam != null && !_reunionDone) _cam.SetShot(_feet + Vector2.up * 2f, _introZoom, Mathf.Clamp01(t / 0.9f) * w);   // after the room the view stays on Alma
             if (t < 0.8f + lines)
             {
                 Play(_tauntState, 0f);
@@ -782,19 +823,40 @@ namespace AlmaGame.Bosses
                 _sprite.enabled = false;
                 _sprite.transform.localScale = Vector3.one * U;
             }
-            // The stalactite falls to the floor and stays planted there.
+            // The stalactite drops hard (already moving, heavy gravity) with a trail of dust, smashes into the
+            // floor (dust cloud, obsidian debris, sparks, big shake) and drives itself in, braking, until its
+            // position reaches `Stalactite Sink Y`.
+            if (_stalactite != null && _stalactiteLanded && _stalactite.position.y > _stalactiteSinkY)
+            {
+                _stalactiteVy = Mathf.Max(0.5f, _stalactiteVy - _stalactiteSinkBrake * Time.deltaTime);
+                float y = Mathf.MoveTowards(_stalactite.position.y, _stalactiteSinkY, _stalactiteVy * Time.deltaTime);
+                _stalactite.position = new Vector3(_stalactite.position.x, y, _stalactite.position.z);
+            }
             if (_stalactite != null && !_stalactiteLanded)
             {
-                _stalactiteVy -= 40f * Time.deltaTime;
+                if (_stalactiteVy == 0f) { _stalactiteVy = -12f; StartStalactiteTrail(); }
+                _stalactiteVy -= 120f * Time.deltaTime;
                 _stalactite.position += Vector3.up * _stalactiteVy * Time.deltaTime;
+                if (_stalactiteTrail != null) _stalactiteTrail.transform.position = _stalactite.position;
                 if (StalactiteBottom() <= _floorY)
                 {
-                    _stalactite.position += Vector3.up * (_floorY - StalactiteBottom() - 0.15f);
                     _stalactiteLanded = true;
-                    Shake(0.5f, 0.4f);
-                    NinjaSmoke2D.Burst(new Vector2(_stalactite.position.x, _floorY + 0.4f), 0f);
+                    if (_stalactiteTrail != null)
+                    {
+                        _stalactiteTrail.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                        StartCoroutine(CleanUp(_stalactiteTrail.gameObject, new List<ParticleSystem> { _stalactiteTrail }, 1.5f));
+                        _stalactiteTrail = null;
+                    }
+                    // From here _stalactiteVy is the (positive) speed it drives into the floor with; it brakes
+                    // evenly so it stops right at Sink Y.
+                    float depth = Mathf.Max(0.1f, _stalactite.position.y - _stalactiteSinkY);
+                    _stalactiteVy = Mathf.Clamp(-_stalactiteVy * 0.6f, 8f, 25f);
+                    _stalactiteSinkBrake = _stalactiteVy * _stalactiteVy / (2f * depth);
+                    Shake(0.8f, 0.6f);
+                    StalactiteImpact(new Vector2(_stalactite.position.x, _floorY));
                 }
             }
+            if (_stalactiteLanded && Reunion(t, boomAt + 1.6f)) return;
             if (t < endAt + ShotOut + 0.3f) return;
             HideAlma(false);
             FreezeAlma(false);
@@ -814,20 +876,7 @@ namespace AlmaGame.Bosses
             int o = _sortingOrder + 6;
             var systems = new List<ParticleSystem>();
             ParticleSystem Burst(string name, Material mat, Texture2D tex, int count, int order, float lifeMin, float lifeMax, float sizeMin, float sizeMax, float speedMin, float speedMax)
-            {
-                var ps = HazardFx.CreateParticles(name, root, mat != null ? mat : _sprite.sharedMaterial, tex, count, _sprite.sortingLayerID, order);
-                var m = ps.main;
-                m.loop = false;
-                m.startLifetime = new ParticleSystem.MinMaxCurve(lifeMin, lifeMax);
-                m.startSize = new ParticleSystem.MinMaxCurve(sizeMin * size, sizeMax * size);
-                m.startSpeed = new ParticleSystem.MinMaxCurve(speedMin * size, speedMax * size);
-                m.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
-                var sh = ps.shape; sh.enabled = true; sh.shapeType = ParticleSystemShapeType.Circle; sh.radius = 0.6f * size;
-                var e = ps.emission; e.enabled = true; e.rateOverTime = 0f; e.SetBursts(new[] { new ParticleSystem.Burst(0f, (short)count) });
-                ps.Clear(); ps.Play();
-                systems.Add(ps);
-                return ps;
-            }
+                => OneShot(root, systems, name, mat, tex, count, order, lifeMin, lifeMax, sizeMin * size, sizeMax * size, speedMin * size, speedMax * size, 0.6f * size, 360f);
 
             var flash = Burst("Flash", _fireAdditive, HazardFx.Puff(), 2, o + 3, 0.25f, 0.35f, 7f, 9f, 0f, 0f);
             var fl = flash.colorOverLifetime; fl.color = Ramp(new[] { Color.white, new Color(1f, 0.8f, 0.4f), new Color(1f, 0.45f, 0.1f) }, new[] { 1f, 0.6f, 0f });
@@ -862,6 +911,80 @@ namespace AlmaGame.Bosses
             Noise(smoke, 0.5f, 0.6f);
 
             StartCoroutine(CleanUp(root.gameObject, systems, 4f));
+        }
+
+        // One burst of particles under `root` (added to `systems` for CleanUp), from a circle of `radius`;
+        // `arc` 180 = only upwards (from a floor).
+        private ParticleSystem OneShot(Transform root, List<ParticleSystem> systems, string name, Material mat, Texture2D tex, int count, int order,
+            float lifeMin, float lifeMax, float sizeMin, float sizeMax, float speedMin, float speedMax, float radius, float arc)
+        {
+            var ps = HazardFx.CreateParticles(name, root, mat != null ? mat : _sprite.sharedMaterial, tex, count, _sprite.sortingLayerID, order);
+            var m = ps.main;
+            m.loop = false;
+            m.startLifetime = new ParticleSystem.MinMaxCurve(lifeMin, lifeMax);
+            m.startSize = new ParticleSystem.MinMaxCurve(sizeMin, sizeMax);
+            m.startSpeed = new ParticleSystem.MinMaxCurve(speedMin, speedMax);
+            m.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
+            var sh = ps.shape; sh.enabled = true; sh.shapeType = ParticleSystemShapeType.Circle; sh.radius = radius; sh.arc = arc;
+            var e = ps.emission; e.enabled = true; e.rateOverTime = 0f; e.SetBursts(new[] { new ParticleSystem.Burst(0f, (short)count) });
+            ps.Clear(); ps.Play();
+            systems.Add(ps);
+            return ps;
+        }
+
+        // The stalactite smashing into the floor at `at`: a heavy dust cloud rolling out to both sides, obsidian
+        // debris thrown up with gravity, a spray of sparks and a quick flash at the point of impact.
+        private void StalactiteImpact(Vector2 at)
+        {
+            var root = new GameObject("StalactiteImpact").transform;
+            root.position = at;
+            int o = _sortingOrder + 6;
+            var systems = new List<ParticleSystem>();
+
+            var flash = OneShot(root, systems, "Flash", _fireAdditive, HazardFx.Puff(), 1, o + 3, 0.15f, 0.2f, 4f, 5f, 0f, 0f, 0.1f, 360f);
+            var fl = flash.colorOverLifetime; fl.color = Ramp(new[] { new Color(1f, 0.85f, 0.6f), new Color(1f, 0.5f, 0.2f) }, new[] { 0.8f, 0f });
+
+            var dust = OneShot(root, systems, "Dust", _fireSmoke, HazardFx.Puff(), 34, o + 1, 1.2f, 2.2f, 1.2f, 2.6f, 4f, 11f, 1.2f, 180f);
+            var dm = dust.main; dm.gravityModifier = -0.04f;
+            var dc = dust.colorOverLifetime; dc.color = Ramp(new[] { new Color(0.35f, 0.26f, 0.22f), new Color(0.18f, 0.15f, 0.15f), new Color(0.1f, 0.09f, 0.09f) }, new[] { 0.85f, 0.6f, 0f });
+            HazardFx.SetSizeOverLifetime(dust, 0.5f, 1.7f);
+            var dl = dust.limitVelocityOverLifetime; dl.enabled = true; dl.limit = 0.4f; dl.dampen = 0.12f;
+            Noise(dust, 0.4f, 0.5f);
+
+            var debris = OneShot(root, systems, "Debris", _fireSmoke, HazardFx.Chunk(), 36, o + 4, 1f, 1.8f, 0.2f, 0.55f, 6f, 15f, 0.8f, 180f);
+            var bm = debris.main; bm.gravityModifier = 2.6f;
+            bm.startColor = new ParticleSystem.MinMaxGradient(new Color(0.12f, 0.1f, 0.12f), new Color(0.35f, 0.3f, 0.32f));
+            var br = debris.rotationOverLifetime; br.enabled = true; br.z = new ParticleSystem.MinMaxCurve(-10f, 10f);
+            var bc = debris.colorOverLifetime; bc.color = Ramp(new[] { Color.white, Color.white }, new[] { 1f, 1f, 0f });
+
+            var sparks = OneShot(root, systems, "Sparks", _fireAdditive, HazardFx.Puff(), 60, o + 5, 0.4f, 0.9f, 0.05f, 0.12f, 7f, 17f, 0.5f, 180f);
+            var sm = sparks.main; sm.gravityModifier = 1.2f;
+            sm.startColor = new ParticleSystem.MinMaxGradient(new Color(1f, 0.9f, 0.55f), new Color(1f, 0.5f, 0.15f));
+            var sr = sparks.GetComponent<ParticleSystemRenderer>(); sr.renderMode = ParticleSystemRenderMode.Stretch; sr.velocityScale = 0.05f; sr.lengthScale = 1.5f;
+            HazardFx.SetSizeOverLifetime(sparks, 1f, 0.2f);
+
+            StartCoroutine(CleanUp(root.gameObject, systems, 4f));
+        }
+
+        // Dust and grit streaming off the stalactite while it drops (follows it in world space, so it stays behind as
+        // a trail); stopped and cleaned up on impact.
+        private void StartStalactiteTrail()
+        {
+            if (_stalactiteTrail != null) return;
+            _stalactiteTrail = HazardFx.CreateParticles("StalactiteTrail", null, _fireSmoke != null ? _fireSmoke : _sprite.sharedMaterial,
+                HazardFx.Puff(), 200, _sprite.sortingLayerID, _sortingOrder + 5);
+            var m = _stalactiteTrail.main;
+            m.startLifetime = new ParticleSystem.MinMaxCurve(0.5f, 1f);
+            m.startSize = new ParticleSystem.MinMaxCurve(0.4f, 0.9f);
+            m.startSpeed = new ParticleSystem.MinMaxCurve(0.2f, 1f);
+            m.startColor = new ParticleSystem.MinMaxGradient(new Color(0.3f, 0.25f, 0.24f, 0.8f), new Color(0.15f, 0.13f, 0.13f, 0.6f));
+            var sh = _stalactiteTrail.shape; sh.enabled = true; sh.shapeType = ParticleSystemShapeType.Box;
+            var r = _stalactite.GetComponentInChildren<SpriteRenderer>();
+            Vector2 size = r != null ? (Vector2)r.bounds.size : new Vector2(1f, 6f);
+            sh.scale = new Vector3(size.x * 0.6f, size.y * 0.8f, 0f);
+            HazardFx.SetSizeOverLifetime(_stalactiteTrail, 1f, 1.8f);
+            var e = _stalactiteTrail.emission; e.enabled = true; e.rateOverTime = 160f;
+            _stalactiteTrail.transform.position = _stalactite.position;
         }
 
         private System.Collections.IEnumerator CleanUp(GameObject go, List<ParticleSystem> systems, float after)

@@ -105,6 +105,8 @@ Si la habilidad ya estaba desbloqueada al empezar (por la partida guardada o por
 
 ## Huevos a rescatar (`Resource_RescueEgg_*`)
 
+> **Cambio (11/10/2026):** los huevos de la historia ya no se colocan al final de los niveles 4: los suelta cada jefe en [«El Reencuentro»](../Systems/HUD.md#el-reencuentro-hudeggreunion). Estos prefabs se conservan (por si se quieren huevos o secretos en un nivel) y comparten guardado (`GameProgress.RescueEgg`).
+
 | Fase | Qué pasa |
 | --- | --- |
 | **Esperando** | El huevo flota (±0,1 u) sobre un aura suave de su color que late, con chispas. |

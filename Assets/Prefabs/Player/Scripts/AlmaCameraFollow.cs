@@ -2,11 +2,10 @@ using UnityEngine;
 
 namespace AlmaGame.Player
 {
-    // Platformer camera that moves little, slowly and on purpose, so the level and its parallax stay calm:
-    // - Dead zone: Alma moves freely inside a box around the screen centre; the camera only follows when she
-    //   pushes against its edge, so small steps and turns don't move the view.
-    // - Look-ahead: after Alma has been running one way for a moment, the view eases ahead to show what's
-    //   coming; turning around eases it back the other way (never a jump).
+    // Alma's camera, the same prefab in every scene (Prefabs/Player/Camera_Alma):
+    // - Horizontal: the view goes ahead of where Alma LOOKS. Facing right she sits near the left edge
+    //   (`Alma From Edge`) and the rest of the screen shows what is ahead; facing left, the other way round.
+    //   Turning swings the view across, smooth but quick.
     // - Vertical: a tall dead zone, so climbing steps and platforms or jumping doesn't move the view; it only
     //   eases up or down when Alma gets near the top or bottom of the screen (big climbs, pits). A level can
     //   instead lock the height completely (horizontal levels) through its CameraBounds2D.
@@ -18,19 +17,14 @@ namespace AlmaGame.Player
         public AlmaMotor2D Target;
 
         [Header("Horizontal")]
-        [Tooltip("Width of the box around the screen centre where Alma moves without moving the camera (units).")]
-        [SerializeField, Min(0f)] private float _deadZoneWidth = 0f;
-        [Tooltip("How far the view eases ahead in the running direction (units).")]
-        [SerializeField, Min(0f)] private float _lookAheadDistance = 1f;
-        [Tooltip("Seconds of running to reach the full look-ahead (and to swing it to the other side when turning).")]
-        [SerializeField, Min(0.05f)] private float _lookAheadTime = 0.05f;
-        [Tooltip("Seconds Alma must keep running one way before the look-ahead starts moving (ignores short steps).")]
-        [SerializeField, Min(0f)] private float _lookAheadDelay = 1f;
-        [Tooltip("Fraction of the run speed that counts as running for the look-ahead.")]
-        [SerializeField, Range(0f, 1f)] private float _lookAheadSpeedThreshold = 0f;
-        [SerializeField, Min(0.01f)] private float _horizontalSmoothTime = 0.01f;
-        [Tooltip("Top horizontal camera speed, as a multiple of Alma's run speed.")]
-        [SerializeField, Min(1f)] private float _maxSpeedFactor = 2f;
+        [Tooltip("Where Alma sits on the screen, measured from the edge BEHIND her (fraction of the screen width): 0.25 = a quarter of the screen behind her, three quarters ahead.")]
+        [SerializeField, Range(0.05f, 0.5f)] private float _almaFromEdge = 0.1f;
+        [Tooltip("Seconds Alma must keep looking the new way before the view swings (a quick tap back and forth doesn't move it).")]
+        [SerializeField, Min(0f)] private float _turnDelay = 0.08f;
+        [Tooltip("Smoothing of the horizontal follow (seconds): low = snappier.")]
+        [SerializeField, Min(0.01f)] private float _horizontalSmoothTime = 0.22f;
+        [Tooltip("Top horizontal camera speed, as a multiple of Alma's run speed (high enough to swing across quickly when she turns).")]
+        [SerializeField, Min(1f)] private float _maxSpeedFactor = 4f;
 
         [Header("Vertical")]
         [Tooltip("The view stays at the level's start height. It only rises or drops as much as needed to keep Alma between `Lock Margins` of the screen, and returns to the start height as soon as she is back in range.")]
@@ -46,10 +40,9 @@ namespace AlmaGame.Player
 
         private Camera _camera;
         private CameraBounds2D _bounds;
-        private float _focusX;
-        private float _lookAhead;
-        private float _runTime;
-        private float _runDirection;
+        private int _facing = 1;          // the side the view looks to
+        private int _pendingFacing = 1;
+        private float _pendingSince;
         private float _viewY;
         private float _velocityX;
         private float _velocityY;
@@ -83,6 +76,7 @@ namespace AlmaGame.Player
 
         private void Start()
         {
+            if (Target == null) Target = FindAnyObjectByType<AlmaMotor2D>();   // the prefab finds Alma by itself
             _bounds = FindAnyObjectByType<CameraBounds2D>();
             if (Target != null) Target.Respawned += SnapToTarget;
             SnapToTarget();
@@ -132,14 +126,12 @@ namespace AlmaGame.Player
         {
             if (Target == null) return;
             Vector3 alma = Target.transform.position;
-            _focusX = alma.x;
-            _lookAhead = 0f;
-            _runTime = 0f;
+            _facing = _pendingFacing = Target.FacingDirection < 0 ? -1 : 1;
             _viewY = FixedHeight(out float fixedY) ? fixedY : alma.y + (0.5f - _almaScreenHeight) * _baseSize * 2f;
             if (!_startYSet) { _startY = _viewY; _startYSet = true; }
             if (_lockVertical) _viewY = LockedY(alma.y);
             _velocityX = _velocityY = 0f;
-            _followPosition = Clamp(new Vector3(_focusX, _viewY, _depth));
+            _followPosition = Clamp(new Vector3(alma.x + _facing * Lead, _viewY, _depth));
             transform.position = _followPosition;
         }
 
@@ -148,22 +140,10 @@ namespace AlmaGame.Player
             if (Target == null) return;
             Vector3 alma = Target.transform.position;
 
-            // Dead zone: the focus only moves when Alma pushes past the edge of the box.
-            float half = _deadZoneWidth * 0.5f;
-            if (alma.x > _focusX + half) _focusX = alma.x - half;
-            else if (alma.x < _focusX - half) _focusX = alma.x + half;
-
-            // Look-ahead eases towards the running direction; standing still keeps the current one.
-            float vx = Target.Velocity.x;
-            bool running = Mathf.Abs(vx) >= Target.Settings.MoveSpeed * _lookAheadSpeedThreshold;
-            if (running && Mathf.Sign(vx) == _runDirection) _runTime += Time.deltaTime;
-            else _runTime = 0f;
-            _runDirection = running ? Mathf.Sign(vx) : 0f;
-            if (running && _runTime >= _lookAheadDelay)
-            {
-                float rate = _lookAheadDistance * 2f / _lookAheadTime;
-                _lookAhead = Mathf.MoveTowards(_lookAhead, Mathf.Sign(vx) * _lookAheadDistance, rate * Time.deltaTime);
-            }
+            // The side she looks to (after a short delay, so a quick tap back and forth doesn't swing the view).
+            int looking = Target.FacingDirection < 0 ? -1 : 1;
+            if (looking != _pendingFacing) { _pendingFacing = looking; _pendingSince = Time.time; }
+            if (_pendingFacing != _facing && Time.time - _pendingSince >= _turnDelay) _facing = _pendingFacing;
 
             // Vertical dead zone (or a locked height): the view height only moves when Alma leaves the band.
             if (FixedHeight(out float fixedY)) _viewY = fixedY;
@@ -177,7 +157,7 @@ namespace AlmaGame.Player
             }
 
             // Follow is smoothed on its own position so the shake offset never feeds back into it.
-            float goalX = _focusX + _lookAhead;
+            float goalX = alma.x + _facing * Lead;
             float smoothX = _horizontalSmoothTime;
             if (_focus != null)
             {
@@ -205,6 +185,9 @@ namespace AlmaGame.Player
             }
             transform.position = _viewPosition + ShakeOffset();
         }
+
+        // How far ahead of Alma the view centre goes: she sits `Alma From Edge` from the edge behind her.
+        private float Lead => (0.5f - _almaFromEdge) * 2f * _baseSize * (_camera != null ? _camera.aspect : 16f / 9f);
 
         // Start height, moved only as far as needed to keep Alma inside the lock margins.
         private float LockedY(float almaY)
@@ -241,16 +224,18 @@ namespace AlmaGame.Player
 
         private void OnDrawGizmosSelected()
         {
-            // Horizontal dead zone and the vertical dead-zone band, on the current view.
+            // Where Alma sits when looking right / left, and the vertical dead-zone band, on the current view.
             var cam = GetComponent<Camera>();
             if (cam == null) return;
-            float height = cam.orthographicSize * 2f;
+            float height = cam.orthographicSize * 2f, width = height * cam.aspect;
             float bottom = transform.position.y - height * 0.5f;
             float bandBottom = bottom + height * _deadZoneBottom;
             float bandTop = bottom + height * _deadZoneTop;
             Gizmos.color = new Color(0.3f, 0.9f, 1f, 0.9f);
-            Gizmos.DrawWireCube(new Vector3(transform.position.x, (bandBottom + bandTop) * 0.5f, 0f),
-                new Vector3(_deadZoneWidth, bandTop - bandBottom, 0f));
+            Gizmos.DrawWireCube(new Vector3(transform.position.x, (bandBottom + bandTop) * 0.5f, 0f), new Vector3(width, bandTop - bandBottom, 0f));
+            float left = transform.position.x - width * 0.5f;
+            Gizmos.DrawLine(new Vector3(left + width * _almaFromEdge, bottom), new Vector3(left + width * _almaFromEdge, bottom + height));
+            Gizmos.DrawLine(new Vector3(left + width * (1f - _almaFromEdge), bottom), new Vector3(left + width * (1f - _almaFromEdge), bottom + height));
         }
     }
 }

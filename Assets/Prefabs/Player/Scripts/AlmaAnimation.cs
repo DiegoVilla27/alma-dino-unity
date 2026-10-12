@@ -15,18 +15,32 @@ namespace AlmaGame.Player
         private AlmaMotor2D _motor;
         private Animator _animator;
         private SpriteRenderer _renderer;
+        private Collider2D _collider;
+        private float _colliderOffsetX;   // as set in the prefab, for Alma facing right
+        private int _facing = 1;
 
         private void Awake()
         {
             _motor = GetComponent<AlmaMotor2D>();
             _animator = GetComponent<Animator>();
             _renderer = GetComponent<SpriteRenderer>();
+            _collider = GetComponent<Collider2D>();
+            if (_collider != null) _colliderOffsetX = _collider.offset.x;
+        }
+
+        // The art is not centred on her pivot, so her collider isn't either: it turns around with her.
+        private void Face(int facing)
+        {
+            if (facing == _facing) return;
+            _facing = facing;
+            _renderer.flipX = facing < 0;
+            if (_collider != null) _collider.offset = new Vector2(_colliderOffsetX * facing, _collider.offset.y);
         }
 
         private void Update()
         {
             float speed = Mathf.Abs(_motor.Velocity.x);
-            _renderer.flipX = _motor.FacingDirection < 0;
+            Face(_motor.FacingDirection < 0 ? -1 : 1);
             _animator.SetFloat(Speed, speed);
             _animator.SetBool(Grounded, _motor.IsGrounded);
             _animator.SetFloat(VerticalSpeed, _motor.Velocity.y);

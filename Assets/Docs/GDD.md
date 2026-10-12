@@ -146,7 +146,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 | **1** | Introducir | Abismo infranqueable. Alma recoge la gema de energía materna y desbloquea el Doble Salto. Tutorial mediante el entorno, con un aviso breve al despertar la habilidad. |
 | **2** | Practicar | Verticalidad y ramas elásticas. Lianas que exigen calcular el segundo salto en el punto más alto de la parábola. |
 | **3** | Complicar | Suelo de zarzas con espinas. Plataformas de hojas que colapsan a los 0.75 s; se enseñan con 1.0 s en 1-1/1-2 y se evalúan con 0.65 s en 1-4. |
-| **4** | Evaluar + Rescate | Carrera ascendente hacia la copa del árbol más alto. **Huevo 1 (Verde)**. |
+| **4** | Evaluar | Carrera ascendente hacia la copa del árbol más alto. Termina en el portal al jefe (el **Huevo 1 (Verde)** lo suelta el jefe, ver 5.2). |
 
 **Jefe 1 — Mono Ladrón Gigante**
 - **Arena:** Copa de árbol con tres plataformas flotantes.
@@ -167,7 +167,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 | **5** | Introducir | Alma cae en un pozo sin salida. Un suelo de estalagmitas agrietadas solo cede ante un impacto vertical. Desbloquea el Pisotón. |
 | **6** | Practicar | Balancines de piedra. Al caer con fuerza en un extremo, el otro catapulta un bloque que abre una compuerta. |
 | **7** | Complicar | Bichos de cristal con caparazón reflectante. Saltar sobre ellos hace daño; solo el Pisotón los voltea (implementado: [escarabajo de cristal](Enemies/CrystalBeetle_Caves.md), que además lanza cristales en arco a corta distancia). |
-| **8** | Evaluar + Rescate | Laberinto resonante con techo móvil de estalactitas. **Huevo 2 (Azul)**. |
+| **8** | Evaluar | Laberinto resonante con techo móvil de estalactitas. Termina en el portal al jefe (el **Huevo 2 (Azul)** lo suelta el jefe). |
 
 **Jefe 2 — Armadillo Prehistórico**
 - **Arena:** Túnel cerrado con dos niveles de altura.
@@ -188,7 +188,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 | **9** | Introducir | Fosos de lodo tóxico demasiado anchos para el Doble Salto. La combinación Salto → Salto → Dash cubre distancias largas. |
 | **10** | Practicar | Géiseres de aire horizontales que empujan hacia atrás. El Dash da invulnerabilidad momentánea frente al empuje. |
 | **11** | Complicar | Esporas alineadas para encadenar Dash horizontal. En tierra: suelo agrietado para Pisotón, barrera de Dash y sapos venenosos. |
-| **12** | Evaluar + Rescate | Ascenso por ramas con gas por secciones, esporas horizontales y balancín de Pisotón hacia la copa. **Huevo 3 (Morado)** en un sauce ancestral. |
+| **12** | Evaluar | Ascenso por ramas con gas por secciones, esporas horizontales y balancín de Pisotón hacia la copa. Termina en el portal al jefe (el **Huevo 3 (Morado)** lo suelta el jefe). |
 
 **Jefe 3 — Pterodáctilo Alfa**
 - **Arena:** Plataformas inestables sobre un abismo con niebla.
@@ -211,7 +211,7 @@ Cada mundo sigue la metodología Nintendo: **Introducir → Practicar → Compli
 | **13** | Introducir | `Level_4_1` jugable: fumarola que desbloquea Rugido, cono frontal de 3m, rocas que avanzan 5m y forman apoyos sobre lava, vapor con aviso y checkpoints. |
 | **14** | Practicar | `Level_4_2` jugable: cinco campanas elevadas responden al Rugido frontal hasta 8m y apagan su puerta de llamas durante 5s. Práctica en suelo, Doble Salto + Rugido aéreo y cadena final de tres campanas sobre lava, con checkpoints X=30 y X=62. |
 | **15** | Complicar | `Level_4_3` jugable: una cadena inicial de cuatro habilidades devuelve un meteorito; zona central con elección entre cornisas colapsantes y piedras con vapor; cierre con Pisotón que provoca una erupción, ascenso bajo presión y Dash final. Salamandras activas y checkpoints X=32 y X=68. |
-| **16** | Evaluar + Rescate | `Level_4_4` jugable: cuatro pruebas distintas de Doble Salto, Pisotón, Dash y Rugido, con salamandras, corriente de fuego cronometrada y puente de basalto. **Huevo 4 (Rojo)** en pedestal tras salto final; rescate persistente, calma, aura de huevos y anticipación del Rey Ladrón. Checkpoints X=35 y X=75. |
+| **16** | Evaluar + Rescate | `Level_4_4` jugable: cuatro pruebas distintas de Doble Salto, Pisotón, Dash y Rugido, con salamandras, corriente de fuego cronometrada y puente de basalto. Termina en el portal al jefe final (el **Huevo 4 (Rojo)** lo suelta el Rey Ladrón); calma y anticipación del Rey Ladrón. Checkpoints X=35 y X=75. |
 
 **Jefe Final — El Rey Ladrón (T-Rex Anciano)**
 - **Estado:** `Boss_Final` jugable, conectado al 4-4; tres fases con checkpoint y epílogo silencioso. Solo el golpe definitivo completa Mundo 4.
@@ -233,6 +233,8 @@ La historia se cuenta exclusivamente con textos breves y atmósfera visual. Sin 
 > *"La tierra tembló una sola vez. Cuando regresé al nido con comida, el silencio era absoluto. No estaban. Si tengo que cruzar el continente entero a pie, mis pequeños volverán a sentir el calor de mis plumas."*
 
 ### 5.2. Rescates de huevo
+
+**Cambio (11-12/10/2026):** cada huevo lo recupera Alma **al derrotar al jefe del mundo** (no al final del nivel 4), en **«El Reencuentro»**: cuando el jefe termina su discurso y desaparece o muere, un destello lleva a una **sala aparte** (un prefab por jefe) con un fondo del mundo: Alma entra corriendo, se para en el centro, levanta las manos (animación Take) y el huevo baja del cielo en una columna de luz hasta sus manos; al volver, el huevo vuela a su hueco del HUD y se abre el portal ([HUD](Systems/HUD.md#el-reencuentro-hudeggreunion)).
 
 Al tocar cada huevo, la escena cambia visualmente y aparece un texto breve:
 

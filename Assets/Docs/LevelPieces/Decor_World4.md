@@ -1,6 +1,6 @@
 # Props de decoración del Mundo 4 (Cima Volcánica)
 
-**Estado (11 de octubre de 2026):** **41 props** en `Assets/Prefabs/Level/Decor/World_4/Props/`: los 40 del objetivo por mundo más el marco de cueva. Ninguno está colocado todavía en los niveles.
+**Estado (11 de octubre de 2026):** **42 props** en `Assets/Prefabs/Level/Decor/World_4/Props/`: los 40 del objetivo por mundo, el marco de cueva y la estalactita colosal del jefe final. Ninguno está colocado todavía en los niveles.
 
 Decorados que no interactúan: dan vida a los niveles 4-1 a 4-4 y al jefe final sin tocar la jugabilidad. Se colocan a mano sobre o alrededor del terreno del kit del Mundo 4 (`Terrain/World_4`: ceniza, basalto, obsidiana y templo). Son la versión volcánica de los [props del Mundo 1](Decor_World1.md) (mismas categorías, como los de los mundos [2](Decor_World2.md) y [3](Decor_World3.md)). **Sin vegetación** (regla del Mundo 4): solo basalto, obsidiana con grietas de magma, ceniza, lava, azufre, hierro oxidado, huesos y piedra de templo con runas doradas. Recogen las pistas de los niveles: campanas y cadenas (4-2), armaduras rotas (4-3), huesos de bestias colosales y el templo de obsidiana (4-4), fumarolas (4-1).
 
@@ -19,7 +19,7 @@ Sprites a **94 px por unidad**, sin mipmaps, malla rectangular. Punto de apoyo *
 | Colgantes | −4 | Estalactitas, cadenas, lava goteando |
 | Primer plano | 40 | Siluetas negro rojizas delante de todo |
 
-## Props (41)
+## Props (42)
 
 | Archivo | Pieza | Capa | Equivale en el Mundo 1 |
 | --- | --- | --- | --- |
@@ -53,6 +53,7 @@ Sprites a **94 px por unidad**, sin mipmaps, malla rectangular. Punto de apoyo *
 | `chains_hanging` | Dos cadenas oxidadas | Colgantes (apoyo arriba) | cortina de musgo |
 | `lava_drip` | Lava goteando de un trozo de techo | Colgantes (apoyo arriba) | liana con flores |
 | `bell_hanging` | Cadena con una campanita con runa | Colgantes (apoyo arriba) | — |
+| `stalactite_colossal` | Estalactita colosal de obsidiana, sola, con la base rota y una grieta de magma (12/10/2026; pivote en el centro) | Jefe final: la que cae sobre el Rey Ladrón, colgando del racimo `stalactites_obsidian` | — |
 | `fg_columns`, `fg_rocks`, `fg_spikes` | Siluetas: columnas de basalto, rocas, pinchos de obsidiana | Primer plano | hierba, hojas, helecho |
 | `fg_stalactites` | Silueta: fila de estalactitas (apoyo arriba) | Primer plano | colgante |
 | `fg_pillar` | Silueta: pilar caído en diagonal | Primer plano | rama |

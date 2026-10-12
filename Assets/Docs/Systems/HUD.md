@@ -247,6 +247,66 @@ Por orden acordado:
 6. **Marcas de progreso del jefe** (3 impactos).
 7. Ocultar el HUD con el menú de pausa cuando exista.
 
+## El Reencuentro (`HudEggReunion`)
+
+La sala donde Alma recupera cada huevo al derrotar a un jefe. **La sala es un prefab hecho a mano, uno por jefe**; `HudEggReunion` (en el prefab del HUD, presente en todas las escenas) solo lo muestra. El contenido de cada sala lo hace el usuario.
+
+**Flujo:** el jefe es derrotado, dice su discurso y desaparece o muere → **destello blanco** (0,3 s) → aparece **la sala del prefab** a pantalla completa, por encima de todo → pasados los segundos de la sala, otro destello devuelve a la arena → el jefe sigue (portal). No aparece ningún huevo en la arena antes. El huevo se **guarda** al abrirse la sala (`GameProgress.RescueEgg`) y, cuando acaba la cinemática del jefe y vuelve el HUD, **vuela a su hueco** (`HudEggIndicator.FlyIn`). El reloj de la derrota del jefe se detiene mientras la sala se ve.
+
+**Los prefabs** (`Assets/Prefabs/Level/Progression/EggRooms/`):
+
+| Prefab | Jefe (campo `Reunion Room`) | `Egg Id` |
+| --- | --- | --- |
+| `EggRoom_World1_Green` | Mono (`Boss_GiantMonkey_Jungle`) | Green |
+| `EggRoom_World2_Blue` | Armadillo (`Boss_Armadillo_Caves`) | Blue |
+| `EggRoom_World3_Purple` | Pterodáctilo (`Boss_Pterodactyl_Swamp`) | Purple |
+| `EggRoom_World4_Red` | Rey Ladrón (`Boss_TRex_Volcano`) | Red |
+
+**Contenido de las salas (12/10/2026).** Cada prefab tiene tres hijos (en ejecución pasan a colgar de un hijo `Stage` que se crea solo, para el acercamiento):
+
+| Hijo | Qué es | Valores |
+| --- | --- | --- |
+| `Backdrop` | Fondo del mundo, escalado para cubrir 21:9 (37,4 × 16). | `EggRooms/Sprites/EggRoom_WorldN_BG.png` (Higgsfield, 2688×1152, 72 PPU, orden 0). **Los cuatro tienen la misma composición** (12/10/2026: los de los Mundos 2–4 se generaron con el del Mundo 1 como plantilla): suelo transitable abajo a la misma altura, círculo de piedra en el centro con un nido detrás, dos pilares con glifos de huella y huevo, haz de luz que baja al centro y una cascada a la derecha. Mundo 1: santuario en la selva. Mundo 2: cueva de cristales azules con cascada subterránea. Mundo 3: pantano con manglares, musgo colgante, nenúfares y niebla lila. Mundo 4: santuario volcánico de basalto y obsidiana con grietas de magma y cascada de lava (sin vegetación). |
+| `Alma` | `SpriteRenderer` + `Animator` con `EggRooms/Alma_EggRoom.controller` (estados `Run` = `run.anim` y `Take` = `take.anim` a velocidad **0,55**, sin bucle: ≈1,2 s y se queda en la última pose). | Escala 2,2, en (−1,2; −3,26): pies sobre la franja de hierba delantera (y −5,9), a la izquierda del centro para que el huevo quede centrado. Orden 10. |
+| `Egg` | `Resource_RescueEgg_<Color>` del mundo. | Escala 2,0, en (1,74; −1,71): sobre las manos de la pose Take. Orden 30. |
+
+**La escena (la reproduce `EggReunionRoom`):**
+
+1. Entran **bandas de cine** negras arriba y abajo (1,3 cada una, 0,6 s) y empieza un **acercamiento lento** hacia el sitio del huevo (hasta ×1,1 al final; ese punto no se mueve en pantalla). En el aire flotan **motas de luz** todo el rato.
+2. Alma entra **corriendo desde la izquierda** (x −21) a 10 u/s, **levantando polvo**, con su **sombra** en el suelo, y **frena derrapando** en los últimos 1,4 (nube de polvo) hasta su sitio (≈2,1 s en total).
+3. Al pararse hace **Take una vez** (manos arriba, mirando hacia arriba) y se queda así.
+4. Se abre una **columna de luz** sobre su sitio y el **fondo se oscurece** (×0,68, efecto foco) mientras Alma coge un tono cálido de la luz. El huevo **baja despacio** dentro de la columna (de 0,5 s a 3 s tras pararse Alma, frenando al final, balanceándose y girando un poco), con un **halo** y **8 rayos cortos girando** detrás, **destellos** cayendo y su **sombra creciendo** en el suelo.
+5. Al posarse en sus manos: **estallido de 40 destellos**, **destello blanco** y **dos latidos**; la columna se cierra en 1 s (el fondo vuelve a medias) y el halo y los rayos siguen brillando hasta el final (8,5 s), cuando salen las bandas.
+
+Todo lo de los pasos 1–5 (bandas, sombras, polvo, motas, luz, rayos, destellos) se crea en tiempo de ejecución con texturas de `HazardFx` (sin imágenes nuevas); la luz usa el `Light Color` de cada sala: dorado (Mundo 1), celeste (2), lila (3) y naranja (4). La columna, el halo y los rayos van detrás de Alma (`Light Order` 5); los destellos y el flash, delante de todo (+30); las bandas, encima de todo (200).
+
+| Campo de `EggReunionRoom` | Base | Uso |
+| --- | --- | --- |
+| `Duration` | 8,5 s | Tiempo que se ve la sala antes de volver a la arena. |
+| `Alma` | — | Opcional: su `Animator` (estados `Run` y `Take`), colocado donde se para. |
+| `Alma Start X` | −21 | Desde dónde empieza a correr. |
+| `Run Speed` | 10 | Velocidad de la carrera (u/s). |
+| `Brake Distance` | 1,4 | Tramo final en el que frena (derrape). |
+| `Egg` | — | Opcional: el huevo, colocado donde acaba (en sus manos). |
+| `Egg Drop Height` | 9 | Desde cuánto más arriba baja. |
+| `Egg Drop Time` | (0,5; 3) | Cuándo empieza a bajar y cuándo llega (s desde que Alma se para; desde que aparece la sala si no hay Alma). |
+| `Heartbeat` | sí | Los dos latidos al llegar. |
+| `Light Color` | por mundo | Color de la columna, el halo, los rayos, los destellos y las motas. |
+| `Sparkle Material` | `FX_Fire_Additive` | Material aditivo de destellos y motas (sin él no hay). |
+| `Light Order` | 5 | Orden de la columna/halo/rayos; destellos y flash +30. |
+| `Backdrop` | el hijo `Backdrop` | Se oscurece con la luz. |
+| `Ground Y` | −5,9 | Altura del suelo: sombras y polvo. |
+| `Dust Material` / `Dust Color` | `FX_Fire_Smoke` / tierra (0,62; 0,5; 0,36; 0,6) | Polvo de la carrera y del derrape (sin material no hay). |
+| `Push In` | 1,1 | Zoom final del acercamiento (1 = sin acercamiento). |
+| `Letterbox` | 1,3 | Alto de cada banda de cine (0 = sin bandas). |
+| `Spotlight Dim` | 0,68 | Brillo del fondo con la luz abierta. |
+
+**Vuelta a la arena (12/10/2026).** `onDone` se llama en cuanto se retira la sala, aún **detrás del destello blanco**: el jefe quita su plano (`ClearShot`), muestra a Alma y la cámara **salta a ella** (`SnapToTarget`); al aclararse el destello ya se ve a Alma, no el sitio vacío del jefe. En el pterodáctilo, en ese momento aparecen también el portal y Alma junto a él, en la rama. Comprobado en los combates completos de los cuatro jefes: el primer fotograma tras la sala muestra a Alma en pantalla, visible y con el zoom normal.
+
+Sin prefab asignado (o sin HUD) no se muestra nada: el huevo se guarda y el jefe sigue al momento.
+
+**Pruebas:** `EggRoomAllTests` (las cuatro salas seguidas: cada una se reproduce entera y se cierra), `EggRoomSceneTests` (12/10/2026: la sala del Mundo 1 en Boss_1: Alma corre, frena en −1,2, pasa a Take, el huevo baja y se posa en sus manos y la sala se cierra), `EggReunionTests` (la sala aparece centrada en pantalla, con su grupo de orden por encima de todo, se guarda el huevo, se cierra y el huevo vuela al HUD) y los combates completos de los cuatro jefes (`MonkeyCycleTests`, `ArmadilloTests.FullFight`, `PterodactylTests.FullFight`, `TRexTests.FullFight`) llegan al final con la sala incluida.
+
 ## Aviso de jefe vulnerable (`HudBossAlert`)
 
 Común a todos los jefes (11/10/2026). Cuando un jefe abre su ventana para golpearlo, llama a:
@@ -267,4 +327,15 @@ HudBossAlert.Hide();
 | Mono (Jefe 1) | Agotado en el suelo | «¡Agotado!» (`Tired Shout`) | su cabeza |
 | Armadillo (Jefe 2) | Mareado contra la pared | «¡Mareado!» (`Dizzy Shout`) | la grieta del caparazón |
 
-Pruebas (PlayMode): con un objetivo lejos fuera de cámara la insignia aparece en el borde derecho con la flecha a 18° (la dirección real); con el objetivo en pantalla se oculta; en el combate del Armadillo el aviso se abre al marearse y se cierra con el Pisotón.
+**Localizador del jefe (12/10/2026).** Como el juego es en vertical y se ve poca arena, los cuatro jefes llevan además un **localizador**: la **misma insignia sin texto**, sin estrellas y sin anillo (solo disco oscuro, borde y flecha en el color del jefe), al **75 %** del tamaño y con un latido suave, que aparece en el borde de la pantalla **siempre que el jefe esté fuera de cámara** y apunta hacia él. Se oculta en cuanto el jefe entra en pantalla.
+
+```csharp
+HudBossAlert.Track(this, () => centroDelJefe, colorDelJefe);   // cada fotograma durante el combate
+HudBossAlert.Track(this, null, default);                        // fuera del combate: se apaga
+```
+
+- Cada jefe lo llama en su `Update` (`UpdateTracker`) con el centro de su sprite: activo durante el combate, apagado en la intro, en las cinemáticas, en la derrota y mientras su sprite está oculto (p. ej. el mono desaparecido). Al destruirse el jefe se apaga solo.
+- Si se abre un **aviso** (`Show`), la insignia pasa a ser la del aviso (estrellas, anillo, su objetivo) mientras dure; al cerrarse vuelve el localizador.
+- Se desvanece con el HUD en las cinemáticas, como el aviso.
+
+Pruebas (PlayMode): con un objetivo lejos fuera de cámara la insignia aparece en el borde derecho con la flecha a 18° (la dirección real); con el objetivo en pantalla se oculta; en el combate del Armadillo el aviso se abre al marearse y se cierra con el Pisotón. `BossTrackerTests`: en el Jefe Final, con el T-Rex en pantalla el localizador está oculto; con Alma en el otro extremo (T-Rex fuera de pantalla a la derecha) aparece en el borde derecho, opaco y sin estrellas.

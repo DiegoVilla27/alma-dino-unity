@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4334606233692831778}
   - component: {fileID: 3364070778949286751}
   - component: {fileID: 2136247599963184883}
+  - component: {fileID: 1613666484139494912}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -312,3 +313,15 @@ MonoBehaviour:
   _cameraTime: 0.6
   _leaveTime: 0.45
   _minShowTime: 0.4
+--- !u!114 &1613666484139494912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8122954958874580315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19d87f6d23d6454789d6841adff5fb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlmaGame.Systems.HudEggReunion

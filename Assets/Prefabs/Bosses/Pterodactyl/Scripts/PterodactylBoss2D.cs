@@ -65,6 +65,10 @@ namespace AlmaGame.Bosses
         [SerializeField, TextArea(1, 2)] private string[] _introLines = { "¡Kraaa! Este cielo es mío, lagartija sin alas.", "¡El viento te devolverá al pantano!" };
         [SerializeField, TextArea(1, 2)] private string[] _defeatLines = { "¡Kraa...! Mi cresta...", "Vuela si puedes, madre... el volcán te espera." };
         [SerializeField] private Sprite _bubbleSprite, _bubbleTailSprite;
+        [Header("Egg (reunion after the defeat)")]
+        [SerializeField] private string _eggId = "Purple";
+        [Tooltip("The reunion room shown after the defeat (prefab with EggReunionRoom on its root).")]
+        [SerializeField] private GameObject _reunionRoom;
         [SerializeField] private Color _accent = new Color(0.8f, 0.5f, 1f);   // the Dash colour: the ability that beats him
         [Tooltip("Height of the speech bubble above his feet when perched (the sprite frame is taller than his head).")]
         [SerializeField, Min(0f)] private float _bubbleHeight = 3.8f;
@@ -172,6 +176,7 @@ namespace AlmaGame.Bosses
 
         private void OnDestroy()
         {
+            HudBossAlert.Track(this, null, default);
             if (_alma != null) _alma.Respawned -= OnAlmaRespawned;
             AlmaTouchControls.InputLocked = false;
         }
@@ -202,8 +207,19 @@ namespace AlmaGame.Bosses
 
         // ---------- state machine ----------
 
+        // Off-screen locator: the HUD edge badge (HudBossAlert tracker, no text) points at him whenever he is off
+        // screen, during the fight only (not in the intro, cinematics or the defeat) and while he is visible.
+        private System.Func<Vector2> _bodyCentre;
+        private void UpdateTracker()
+        {
+            bool on = _sprite != null && _sprite.enabled && !CinematicState.IsPlaying && _state != State.Intro && _state != State.Defeat && _state != State.Done;
+            if (on && _bodyCentre == null) _bodyCentre = () => _sprite.bounds.center;
+            HudBossAlert.Track(this, on ? _bodyCentre : null, _accent);
+        }
+
         private void Update()
         {
+            UpdateTracker();
             switch (_state)
             {
                 case State.Intro: UpdateIntro(); break;
@@ -523,12 +539,47 @@ namespace AlmaGame.Bosses
         }
 
         // Perched facing Alma (taunt frame 1), says his defeat lines and flies off in a burst of feathers.
+        // «El Reencuentro» (HudEggReunion): right after he leaves, the reunion room shows Alma getting back the egg
+        // he stole, before the way out opens. The defeat's clock stops while the room plays.
+        private bool _reunionStarted, _reunionDone;
+        private float _reunionAt, _reunionShift;
+        // Back from the room (still behind its white flash): he is gone, so the portal and Alma beside it appear
+        // right then and the view jumps straight to her instead of showing the empty spot where he was.
+        private void BackToAlma()
+        {
+            if (!_portalShown) ShowPortal();
+            if (_cam != null) { _cam.ClearShot(); _cam.SnapToTarget(); }
+        }
+
+        private void ShowPortal()
+        {
+            _portalShown = true;
+            if (_exitPortal != null)
+            {
+                _exitPortal.transform.SetParent(null, true);
+                _exitPortal.transform.position = _portalPosition;
+                _exitPortal.SetActive(true);
+                NinjaSmoke2D.Burst(_portalPosition);
+            }
+            ShowAlmaBesidePortal();
+        }
+
+        private bool Reunion(float t, float at)
+        {
+            if (!_reunionStarted && t >= at)
+            {
+                _reunionStarted = true; _reunionAt = Time.time;
+                HudEggReunion.Play(_eggId, _reunionRoom, () => { _reunionDone = true; _reunionShift += Time.time - _reunionAt; BackToAlma(); });
+            }
+            return _reunionStarted && !_reunionDone;   // true while the room plays
+        }
+
         private void UpdateDefeat()
         {
             AlmaTouchControls.InputLocked = true;
-            float t = T, lines = (_defeatLines?.Length ?? 0) * DefeatLineTime;
+            float t = T - _reunionShift, lines = (_defeatLines?.Length ?? 0) * DefeatLineTime;
             float w = 1f - Mathf.Clamp01((t - (lines + 2.6f)) / ShotOut);
-            if (_cam != null) _cam.SetShot(_pos + Vector2.up * 1.8f, _introZoom, Mathf.Clamp01(t / 0.9f) * w);
+            if (_cam != null && !_reunionDone) _cam.SetShot(_pos + Vector2.up * 1.8f, _introZoom, Mathf.Clamp01(t / 0.9f) * w);   // after the room the view stays on Alma
             if (!_defeatSmoked)
             {
                 Play(_tauntState, 1f, 0f);
@@ -546,18 +597,8 @@ namespace AlmaGame.Bosses
                 NinjaSmoke2D.Burst(_pos + Vector2.up * 1.6f, 0.2f);
             }
             if (_defeatSmoked && t >= 0.8f + lines + 0.08f) _sprite.enabled = false;
-            if (!_portalShown && t >= 0.8f + lines + 0.9f)
-            {
-                _portalShown = true;
-                if (_exitPortal != null)
-                {
-                    _exitPortal.transform.SetParent(null, true);
-                    _exitPortal.transform.position = _portalPosition;
-                    _exitPortal.SetActive(true);
-                    NinjaSmoke2D.Burst(_portalPosition);
-                }
-                ShowAlmaBesidePortal();
-            }
+            if (_defeatSmoked && Reunion(t, 0.8f + lines + 0.4f)) return;
+            if (!_portalShown && t >= 0.8f + lines + 0.9f) ShowPortal();
             if (t >= lines + 2.6f + ShotOut + 0.8f)
             {
                 if (_cam != null) _cam.ClearShot();

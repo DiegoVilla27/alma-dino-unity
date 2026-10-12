@@ -9,6 +9,9 @@ namespace AlmaGame.Systems
     //   an arrow towards him and a ring of dots that empties with the time left. On screen it hides (the
     //   boss's own stars show it). Responsive: kept inside the safe area, scaled with UiScale; fades with
     //   the HUD in cinematics. Added to the HUD by itself the first time it is used (nothing to set up).
+    // Tracker (Track): the same badge without text, stars or ring, a bit smaller, just to know where the boss is
+    // while he is off screen (portrait screens show little of the arena). Bosses keep it on during the fight;
+    // an open alert takes over the badge while it lasts.
     [DisallowMultipleComponent, RequireComponent(typeof(Hud2D))]
     public sealed class HudBossAlert : MonoBehaviour
     {
@@ -26,19 +29,44 @@ namespace AlmaGame.Systems
         private float _startAt, _duration, _shown;
         private Color _accent;
         private bool _active;
+        private Object _trackOwner;
+        private System.Func<Vector2> _trackTarget;
+        private Color _trackAccent;
+
+        private const float TrackScale = 0.75f;
 
         // Opens the alert: `target` returns the point to point at (world), `duration` the seconds of the window.
         public static void Show(System.Func<Vector2> target, float duration, string shout, Color accent)
         {
+            if (!Ensure()) return;
+            s_instance.Open(target, duration, accent);
+            if (!string.IsNullOrEmpty(shout)) HudBanners.Show(BannerKind.Shout, shout, null, accent);
+        }
+
+        // Tracker: while `target` is not null the badge points at it whenever it is off screen (no text). Bosses
+        // call it every frame with their body centre during the fight and with null otherwise (intro, cinematics,
+        // hidden, defeated). Only the owner that set it can clear it.
+        public static void Track(Object owner, System.Func<Vector2> target, Color accent)
+        {
+            if (target == null)
+            {
+                if (s_instance != null && s_instance._trackOwner == owner) { s_instance._trackOwner = null; s_instance._trackTarget = null; }
+                return;
+            }
+            if (!Ensure()) return;
+            s_instance._trackOwner = owner; s_instance._trackTarget = target; s_instance._trackAccent = accent;
+        }
+
+        private static bool Ensure()
+        {
             var hud = Hud2D.Instance;
-            if (hud == null) return;
+            if (hud == null) return false;
             if (s_instance == null)
             {
                 s_instance = hud.GetComponent<HudBossAlert>();
                 if (s_instance == null) s_instance = hud.gameObject.AddComponent<HudBossAlert>();
             }
-            s_instance.Open(target, duration, accent);
-            if (!string.IsNullOrEmpty(shout)) HudBanners.Show(BannerKind.Shout, shout, null, accent);
+            return true;
         }
 
         // Closes it (the boss was hit, woke up, or the fight was reset).
@@ -93,13 +121,15 @@ namespace AlmaGame.Systems
         {
             float left = _active ? 1f - (Time.time - _startAt) / _duration : 0f;
             if (left <= 0f) _active = false;
+            if (_trackOwner == null) _trackTarget = null;   // the boss was destroyed
             Camera cam = _hud.Camera;
-            bool offScreen = false;
+            bool offScreen = false, alert = _active && _target != null;
+            var target = alert ? _target : _trackTarget;
             Vector2 local = Vector2.zero, dir = Vector2.right;
-            if (_active && _target != null && cam != null)
+            if (target != null && cam != null)
             {
                 // Boss position in HUD units (the HUD follows the camera view and scales with it).
-                Vector2 p = ((Vector3)_target() - transform.position) / Mathf.Max(0.0001f, transform.localScale.x);
+                Vector2 p = ((Vector3)target() - transform.position) / Mathf.Max(0.0001f, transform.localScale.x);
                 float k = _hud.UiScale, r = (Radius + 0.45f) * k + EdgeInset;
                 Rect safe = _hud.Safe;
                 Rect inner = Rect.MinMaxRect(safe.xMin + r, safe.yMin + r, safe.xMax - r, safe.yMax - r);
@@ -117,7 +147,8 @@ namespace AlmaGame.Systems
             _shown = Mathf.MoveTowards(_shown, offScreen ? 1f : 0f, Time.deltaTime / 0.2f);
             if (_shown <= 0f) { SetAlpha(0f); return; }
 
-            float pulse = 1f + 0.06f * Mathf.Sin(Time.time * 8f) + (left < 0.3f ? 0.06f * Mathf.Sin(Time.time * 22f) : 0f);
+            float pulse = alert ? 1f + 0.06f * Mathf.Sin(Time.time * 8f) + (left < 0.3f ? 0.06f * Mathf.Sin(Time.time * 22f) : 0f)
+                : TrackScale * (1f + 0.03f * Mathf.Sin(Time.time * 4f));
             if (offScreen) _root.localPosition = local;
             _root.localScale = Vector3.one * _hud.UiScale * pulse * Mathf.Lerp(0.6f, 1f, _shown);
             _arrowPivot.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
@@ -127,19 +158,22 @@ namespace AlmaGame.Systems
                 _stars[i].transform.localPosition = new Vector3(Mathf.Cos(a) * 0.3f, Mathf.Sin(a) * 0.18f, 0f);
                 _stars[i].transform.localRotation = Quaternion.Euler(0f, 0f, Time.time * 180f + i * 50f);
             }
-            SetAlpha(_shown * _hud.Visibility, left);
+            SetAlpha(_shown * _hud.Visibility, left, alert);
         }
 
-        private void SetAlpha(float a, float left = 0f)
+        // `alert` false = tracker: disc, rim and arrow only.
+        private void SetAlpha(float a, float left = 0f, bool alert = true)
         {
+            Color accent = alert ? _accent : _trackAccent;
+            float extras = alert ? a : 0f;
             _disc.color = new Color(HudText.Ink.r, HudText.Ink.g, HudText.Ink.b, 0.85f * a);
-            _rim.color = new Color(_accent.r, _accent.g, _accent.b, a);
-            _arrow.color = new Color(_accent.r, _accent.g, _accent.b, a);
-            foreach (var s in _stars) s.color = new Color(1f, 0.9f, 0.35f, a);
+            _rim.color = new Color(accent.r, accent.g, accent.b, a);
+            _arrow.color = new Color(accent.r, accent.g, accent.b, a);
+            foreach (var s in _stars) s.color = new Color(1f, 0.9f, 0.35f, extras);
             for (int i = 0; i < _dots.Length; i++)
             {
                 bool on = i < Mathf.CeilToInt(left * RingDots);   // the ring empties clockwise
-                _dots[i].color = on ? new Color(1f, 1f, 1f, a) : new Color(1f, 1f, 1f, 0.15f * a);
+                _dots[i].color = on ? new Color(1f, 1f, 1f, extras) : new Color(1f, 1f, 1f, 0.15f * extras);
             }
         }
 

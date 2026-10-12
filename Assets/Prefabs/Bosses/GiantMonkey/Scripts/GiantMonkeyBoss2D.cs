@@ -58,12 +58,18 @@ namespace AlmaGame.Bosses
         [Header("Story")]
         [SerializeField, TextArea(1, 2)] private string[] _introLines = { "¡Kikiki! ¿Vienes a por tu huevito, mamá lagarto?", "¡Te enterraré bajo mi cosecha!" };
         [SerializeField] private Sprite _bubbleSprite, _bubbleTailSprite;
+        [Header("Egg (reunion after the defeat)")]
+        [SerializeField] private string _eggId = "Green";
+        [Tooltip("The reunion room shown after the defeat (prefab with EggReunionRoom on its root).")]
+        [SerializeField] private GameObject _reunionRoom;
         [SerializeField] private Color _accent = new Color(1f, 0.65f, 0.25f);
 
         [Header("Frame animations")]
         [Tooltip("Animator controller with the states below (Animations/Taunt/Boss_GiantMonkey.controller).")]
         [SerializeField] private RuntimeAnimatorController _animatorController;
         [SerializeField] private string _tauntState = "Boss_GiantMonkey_Taunt";
+        [Tooltip("Height of the speech bubble above his feet while he talks (taunt frame 1: his head is at ~4.1).")]
+        [SerializeField, Min(0f)] private float _bubbleHeight = 4.2f;
         [SerializeField] private string _hangState = "Boss_GiantMonkey_Hang";
         [SerializeField] private string _throwState = "Boss_GiantMonkey_Throw";
         [SerializeField] private string _tiredState = "Boss_GiantMonkey_Tired";
@@ -82,6 +88,7 @@ namespace AlmaGame.Bosses
         [Tooltip("Exit portal (inactive child) shown after the defeat, at Portal X on the ground.")]
         [SerializeField] private GameObject _exitPortal;
         [SerializeField] private float _portalX = 0f;
+        [SerializeField] private float _portalY = -3.61f;
 
         [Header("Throwing (after the intro)")]
         [Tooltip("Seconds after Alma gets control back before the first throw.")]
@@ -142,7 +149,17 @@ namespace AlmaGame.Bosses
             _hand = new Vector2(_lianaX[_liana], _lianaTopY + 6f);
             if (_backdrop != null) _backdrop.SetPhase(0);
             if (_introLines != null && _introLines.Length > 0 && HudText.Ready)
-                _bubble = SpeechBubble2D.Create(_sprite != null ? _sprite.transform : _head, _bubbleSprite, _bubbleTailSprite, "Mono ladrón gigante", _accent);
+            {
+                // Anchored to an empty point just over his head (the sprite frame is much taller than him).
+                Transform anchor = _head;
+                if (_sprite != null)
+                {
+                    anchor = new GameObject("BubbleAnchor").transform;
+                    anchor.SetParent(_sprite.transform, false);
+                    anchor.localPosition = new Vector3(0f, _bubbleHeight, 0f);
+                }
+                _bubble = SpeechBubble2D.Create(anchor, _bubbleSprite, _bubbleTailSprite, "Mono ladrón gigante", _accent);
+            }
             Vector2 almaPos = _alma != null ? (Vector2)_alma.transform.position : Vector2.zero;
             _introGround = new Vector2(almaPos.x + _introDistance, GroundUnder(new Vector2(almaPos.x, almaPos.y)) + _groundOffset);
             LevelFadeIn.Focus = _introGround + Vector2.up * 2.6f;   // the opening iris starts on him
@@ -155,6 +172,7 @@ namespace AlmaGame.Bosses
 
         private void OnDestroy()
         {
+            HudBossAlert.Track(this, null, default);
             if (_alma != null) _alma.Respawned -= OnAlmaRespawned;
             AlmaTouchControls.InputLocked = false;
         }
@@ -265,15 +283,32 @@ namespace AlmaGame.Bosses
         private void Enter(State s)
         {
             // Exhausted on the ground = the window to hit him: the HUD tells the player wherever he is.
-            if (s == State.Tired && _state != State.Tired) HudBossAlert.Show(() => new Vector2(_groundPos.x, TiredHeadY()), C.Fatigue, _tiredShout, _accent);
-            else if (_state == State.Tired && s != State.Tired) HudBossAlert.Hide();
+            // (Tired: the old cycle; Exhausted: the current one, after he drops from his liana.)
+            bool window = s == State.Tired || s == State.Exhausted, wasWindow = _state == State.Tired || _state == State.Exhausted;
+            if (window && !wasWindow)
+            {
+                if (s == State.Tired) HudBossAlert.Show(() => new Vector2(_groundPos.x, TiredHeadY()), C.Fatigue, _tiredShout, _accent);
+                else HudBossAlert.Show(() => HeadTop, C.Fatigue, _tiredShout, _accent);
+            }
+            else if (wasWindow && !window) { HudBossAlert.Hide(); if (_stars != null) UpdateStars(false); }
             _state = s; _stateAt = Time.time;
         }
         private float T => Time.time - _stateAt;
         private Cycle C => _cycles[Mathf.Clamp(_cycle, 0, _cycles.Length - 1)];
 
+        // Off-screen locator: the HUD edge badge (HudBossAlert tracker, no text) points at him whenever he is off
+        // screen, during the fight only (not in the intro, cinematics or the defeat) and while he is visible.
+        private System.Func<Vector2> _bodyCentre;
+        private void UpdateTracker()
+        {
+            bool on = _sprite != null && _sprite.enabled && !CinematicState.IsPlaying && _state != State.Intro && _state != State.Defeat && _state != State.Defeated && _state != State.Done;
+            if (on && _bodyCentre == null) _bodyCentre = () => _sprite.bounds.center;
+            HudBossAlert.Track(this, on ? _bodyCentre : null, _accent);
+        }
+
         private void Update()
         {
+            UpdateTracker();
             if (_sprite != null && _state != State.Intro)
             {
                 // Hanging and swinging use the Hang animation (hand on the liana); other states wait for their art.
@@ -598,12 +633,34 @@ namespace AlmaGame.Bosses
         }
 
         // Stands facing Alma (taunt frame 1), says his defeat lines, vanishes; the exit portal appears.
+        // «El Reencuentro» (HudEggReunion): right after he leaves, the reunion room shows Alma getting back the egg
+        // he stole, before the way out opens. The defeat's clock stops while the room plays.
+        private bool _reunionStarted, _reunionDone;
+        private float _reunionAt, _reunionShift;
+        // Back from the room (still behind its white flash): he is gone, so the view jumps straight to Alma
+        // instead of showing the empty spot where he was and gliding over.
+        private void BackToAlma()
+        {
+            HideAlma(false);
+            if (_cam != null) { _cam.ClearShot(); _cam.SnapToTarget(); }
+        }
+
+        private bool Reunion(float t, float at)
+        {
+            if (!_reunionStarted && t >= at)
+            {
+                _reunionStarted = true; _reunionAt = Time.time;
+                HudEggReunion.Play(_eggId, _reunionRoom, () => { _reunionDone = true; _reunionShift += Time.time - _reunionAt; BackToAlma(); });
+            }
+            return _reunionStarted && !_reunionDone;   // true while the room plays
+        }
+
         private void UpdateDefeat()
         {
             AlmaTouchControls.InputLocked = true;
-            float t = T, lines = (_defeatLines?.Length ?? 0) * DefeatLineTime;
+            float t = T - _reunionShift, lines = (_defeatLines?.Length ?? 0) * DefeatLineTime;
             float w = 1f - Mathf.Clamp01((t - (lines + 2.6f)) / ShotOut);
-            if (_cam != null) _cam.SetShot(_groundPos + Vector2.up * 2.6f, _introZoom, Mathf.Clamp01(t / ShotIn) * w);
+            if (_cam != null && !_reunionDone) _cam.SetShot(_groundPos + Vector2.up * 2.6f, _introZoom, Mathf.Clamp01(t / ShotIn) * w);   // after the room the view stays on Alma
             if (!_defeatSmoked)
             {
                 ShowSprite(true);
@@ -624,16 +681,16 @@ namespace AlmaGame.Bosses
                 HideAlma(false);
             }
             if (_defeatSmoked && t >= 0.8f + lines + 0.08f) ShowSprite(false);
+            if (_defeatSmoked && Reunion(t, 0.8f + lines + 0.4f)) return;
             if (!_portalShown && t >= 0.8f + lines + 0.9f)
             {
                 _portalShown = true;
                 if (_exitPortal != null)
                 {
-                    float gy = GroundUnder(new Vector2(_portalX, _hangY));
                     _exitPortal.transform.SetParent(null, true);
-                    _exitPortal.transform.position = new Vector3(_portalX, gy + 1.4f, 0f);
+                    _exitPortal.transform.position = new Vector3(_portalX, _portalY, 0f);
                     _exitPortal.SetActive(true);
-                    Smoke(new Vector2(_portalX, gy + 1.4f));
+                    Smoke(new Vector2(_portalX, _portalY));
                 }
             }
             if (t >= lines + 2.6f + ShotOut + 0.8f)
@@ -668,7 +725,7 @@ namespace AlmaGame.Bosses
         }
 
         // Three little stars circling above his head while he is exhausted.
-        private void UpdateStars(bool on)
+        private void UpdateStars(bool on, Vector2? centre = null)
         {
             if (_stars == null)
             {
@@ -683,7 +740,7 @@ namespace AlmaGame.Bosses
             }
             foreach (var st in _stars) st.enabled = on;
             if (!on) return;
-            Vector2 c = new Vector2(_groundPos.x, TiredHeadY() + 0.35f);
+            Vector2 c = centre ?? new Vector2(_groundPos.x, TiredHeadY() + 0.35f);
             for (int i = 0; i < 3; i++)
             {
                 float a = Time.time * 4f + i * Mathf.PI * 2f / 3f;
@@ -900,6 +957,7 @@ namespace AlmaGame.Bosses
 
         private void UpdateExhausted()
         {
+            UpdateStars(true, HeadTop + Vector2.up * 0.35f);   // dizzy stars over his head
             if (T >= C.Fatigue) { Enter(State.Climb); }
         }
 

@@ -1,3 +1,5 @@
+> **Cambio (11/10/2026):** el huevo de este mundo **ya no se rescata en este nivel**: lo suelta el jefe del mundo al ser derrotado, en «El Reencuentro» ([HUD](../../Systems/HUD.md#el-reencuentro-hudeggreunion)). Este nivel termina en el portal hacia el jefe; lo que esta ficha dice del rescate del huevo queda como referencia narrativa.
+
 > **Ficha de diseño para reconstrucción:** existe una escena de trabajo `Assets/Scenes/World_01/Level_1_4.unity` (copia de la escena de práctica con el fondo parallax del nivel), pero esta ficha describe el nivel completo previsto. Las notas antiguas de pruebas corresponden al prototipo retirado. La cámara ortográfica debe usar tamaño **8**; sus valores de seguimiento están en [Alma](../../Player/Alma.md#cámara-daño-y-feedback). No habrá audio.
 
 # 🗺️ Nivel 1-4: "La Copa del Gran Árbol"

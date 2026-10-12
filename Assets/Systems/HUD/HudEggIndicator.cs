@@ -60,6 +60,15 @@ namespace AlmaGame.Systems
 
         public static HudEggIndicator Instance { get; private set; }
 
+        // The eggs this HUD shows, in order (the reunion room reads their sprite and colour from here).
+        public int EggCount => _eggs.Length;
+        public Egg GetEgg(int index) => _eggs[index];
+        public bool TryGetEgg(string eggId, out Egg egg)
+        {
+            foreach (var e in _eggs) if (e.Id == eggId) { egg = e; return true; }
+            egg = default; return false;
+        }
+
         private void Awake()
         {
             Instance = this;

@@ -122,3 +122,14 @@ Tiene un collider circular (trigger). Si toca a Alma, ella muere y el fruto esta
 
 - Marcas de progreso en el HUD.
 - Coco (no tiene arte).
+
+
+## Huevo: «El Reencuentro» (11-12/10/2026)
+
+Cuando termina su discurso y desaparece o muere (en el jefe final, cuando la estalactita queda en el suelo), un destello lleva a la sala del **Huevo Verde**: el prefab `Prefabs/Level/Progression/EggRooms/EggRoom_World1_Green` (campo `Reunion Room` del jefe; contenido hecho a mano). Al volver se abre el portal y el huevo vuela a su hueco del HUD. Campos del jefe: `Egg Id`, `Reunion Room`. Ver [HUD](../../Systems/HUD.md#el-reencuentro-hudeggreunion).
+
+**Portal de salida:** aparece en (`Portal X`, `Portal Y`) = (0; −3,61) (12/10/2026; antes se calculaba sobre el suelo).
+
+**Globo de diálogo (12/10/2026):** anclado a un punto vacío a `Bubble Height` (4,2) sobre sus pies, justo encima de su cabeza en el primer frame del Taunt (con el que habla); antes se ponía sobre el borde del fotograma completo y salía 1,4 u más alto.
+
+**Aviso de jefe vulnerable (12/10/2026):** cuando cae de la liana y queda agotado en el suelo (estado `Exhausted`, la ventana para pisarle la cabeza), aparecen el grito «¡AGOTADO!» (`Tired Shout`), la insignia del borde de `HudBossAlert` que apunta a su cabeza y se vacía con el tiempo de la ventana (`Fatigue` del ciclo), y tres estrellas girando sobre su cabeza; al levantarse o recibir el golpe, desaparecen. Antes solo estaba conectado al ciclo antiguo (`Tired`). Prueba `MonkeyAlertTests`.

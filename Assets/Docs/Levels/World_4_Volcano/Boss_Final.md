@@ -127,7 +127,8 @@ El nivel no tendrá música ni efectos de sonido. Señalizar amenazas, habilidad
 - [x] Charge.
 - [x] Stomp.
 - [x] Stunned.
-- [ ] Arte de los topes laterales y de la estalactita colosal (ahora cuadrados provisionales).
+- [x] Estalactita colosal (`stalactite_colossal`, colgando del racimo `stalactites_obsidian`).
+- [ ] Arte de los topes laterales (ahora cuadrados provisionales).
 - [ ] Epílogo: cuatro crías saliendo del cascarón; Alma recostada en la hierba.
 
 ## 6. Implementación (11/10/2026)
@@ -145,14 +146,15 @@ Montada por Claude y **ajustada a mano por el usuario** (11/10/2026): esas posic
 | `Platform_Left` / `Platform_Right` | `Platform_Floating_Obsidian_Volcano` | x −8,15…−4,65 (arriba −2,62) y 4,75…8,25 (arriba −2,41) |
 | `Ledge_Anchor` (cornisa) | `Platform_Floating_Obsidian_Volcano` | x −3,32…−0,32; arriba 0,09 |
 | `Wall_Left` / `Wall_Right` | cuadrado provisional (`Level_Placeholder`, sólido) | caras interiores en x ∓19, hasta y 11 |
-| `Stalactite_Colossal` | cuadrado provisional (trigger + `TRexRoarTarget2D`) | x 0,2…1,8; de y 2,2 a 11 |
+| `Stalactite_Ceiling` | `stalactites_obsidian` (prop del Mundo 4), colocado por el usuario | racimo del techo, x −2,55…4,15, de y 2,28 a 10,07; orden 2; fijo |
+| `Stalactite_Colossal` | `stalactite_colossal` (prop del Mundo 4, generado el 12/10/2026) + trigger + `TRexRoarTarget2D` | la punta grande central del racimo, delante de él (orden 3): x 0,01…1,59, de y 1,58 a 8,90; es la que se agrieta y cae |
 | `Lava_Left` / `Lava_Right` | `Trap_LavaPool_Volcano` (inactivas hasta la fase 3) | centro x ∓16, 6 × 1,2, bajo los suelos laterales; **Order in Layer −4** |
 | `Abyss_DeathZone` | `Trap_DeathZone_Universal` | y −12 |
 | `CameraBounds` | `CameraBounds2D` | 44 × 16 centrado en (0; 1,5), altura fija 1,5 |
 
 - El jefe usa la arena del usuario: `Wall Left X` / `Wall Right X` ∓19 y `Floor Y` −5,41 (en el prefab).
 - Alma empieza sobre `Platform_Left` con las cuatro habilidades. La plataforma flotante de prueba oculta que había al nivel del suelo se **borró**.
-- **Cámara:** la altura no se mueve nunca (`CameraBounds2D`, `Fixed Camera Y` 1,5). En horizontal, durante el combate el jefe llama a `AlmaCameraFollow.SetFocus`: la vista se centra **entre Alma y el jefe** (suavizado 0,35 s), así lo que la ataca está siempre a la vista; si están demasiado lejos, Alma se queda a un 18 % del borde y el resto de la pantalla muestra el lado del jefe. Sustituye al adelanto por dirección durante el combate; en la intro y la derrota mandan los planos de cámara y al terminar se quita (`ClearFocus`).
+- **Cámara:** la del prefab común `Camera_Alma`, igual que en el resto del juego (12/10/2026): la vista va por delante de hacia donde mira Alma, también durante el combate (el jefe ya no encuadra la cámara entre él y Alma). La altura no se mueve nunca (`CameraBounds2D`, `Fixed Camera Y` 1,5) y el área de 44 de ancho limita hasta dónde se desplaza.
 - Con la arena más ancha, atascado contra la pared (x ∓16,3) su lomo queda a ~8,5 del borde de la plataforma más cercana: se llega con Doble Salto + Dash.
 
 ### Combate
@@ -178,7 +180,7 @@ Montada por Claude y **ajustada a mano por el usuario** (11/10/2026): esas posic
   3. Estalactita agrietada: «¡PISOTÓN EN LA CORNISA!» y flecha sobre la cornisa.
   Los textos son `Hint Climb`, `Hint Roar` y `Hint Pound` en el Inspector.
 - **Golpe:** destello rojo, temblor y humo; se borran cortinas, meteoros y roca; fase siguiente (el fondo `Backdrop_Boss_Final` cambia de fase).
-- **Derrota:** al caerle la estalactita (destello rojo) se endereza en el **frame base del Taunt** (frame 1) y la estalactita queda apoyada sobre él (`Stalactite Rest Height` 3,8). Alma se oculta y queda congelada. Dice sus frases («¡Imposible...! Tu valor arde más que mi fuego...» y «El volcán... me reclama...»; textos aptos para todos los públicos); al terminar se carga 1,1 s (temblor creciente, parpadeo rojo-blanco, se hincha un 8 % y saltan tres explosiones pequeñas de su cuerpo) y **estalla**: fogonazo blanco, bola de fuego de llamas aditivas, restos de obsidiana con gravedad, chispas estiradas y nube de humo negro (todo partículas, `Explosion`), temblor fuerte y humo. Desaparece; la estalactita termina de caer y se queda **clavada en el suelo**. Alma vuelve. El **epílogo** está pendiente (paso aparte); por ahora el combate termina ahí (evento `Defeated`).
+- **Derrota:** al caerle la estalactita (destello rojo) se endereza en el **frame base del Taunt** (frame 1) y la estalactita queda apoyada sobre él (`Stalactite Rest Height` 3,8). Alma se oculta y queda congelada. Dice sus frases («¡Imposible...! Tu valor arde más que mi fuego...» y «El volcán... me reclama...»; textos aptos para todos los públicos); al terminar se carga 1,1 s (temblor creciente, parpadeo rojo-blanco, se hincha un 8 % y saltan tres explosiones pequeñas de su cuerpo) y **estalla**: fogonazo blanco, bola de fuego de llamas aditivas, restos de obsidiana con gravedad, chispas estiradas y nube de humo negro (todo partículas, `Explosion`), temblor fuerte y humo. Desaparece; la estalactita **cae de golpe** (sale ya a 12 u/s con gravedad de 120 u/s², ≈0,2 s, soltando una estela de polvo), **se estrella** contra el suelo (`StalactiteImpact`: destello, nube de polvo que rueda a los lados, restos de obsidiana con gravedad, chispas estiradas, temblor fuerte) y **se clava**: entra con el 60 % de su velocidad (8–25 u/s) y frena de forma uniforme hasta quedarse justo en Y = −8,69 (`Stalactite Sink Y`), en ≈0,7 s. Alma vuelve. El **epílogo** está pendiente (paso aparte); por ahora el combate termina ahí (evento `Defeated`).
 - **Si Alma muere:** se borran los ataques y empieza el ciclo de la fase desde el principio; se conservan los golpes, el colapso y la grieta de la estalactita. Él vuelve a su sitio (fases 1–2: al lado contrario a Alma; fase 3: el centro).
 
 ### Valores en el Inspector
@@ -195,3 +197,8 @@ Montada por Claude y **ajustada a mano por el usuario** (11/10/2026): esas posic
 - En `FullFight`, derrota: mientras habla se ve `Boss_TRex_Taunt_0`; después hay explosión, su sprite desaparece y la estalactita queda activa con la base en el suelo (y ≈ −5,56).
 - `MeteorsStopOnPlatforms`: un meteoro sobre Alma debajo de `Platform_Left` cae sobre la plataforma (y −2,62) y no la mata; en campo abierto sí.
 - `CameraFixedHeightAndLookAhead`: la altura de la cámara no cambia (1,5) al subir a la cornisa y volver; con el jefe en x 15 y Alma en −17, −8, 0, 8 y 16, Alma queda siempre a ≥ 3,8 del borde y el jefe a la vista cuando cabe.
+
+
+## Huevo: «El Reencuentro» (11-12/10/2026)
+
+Cuando termina su discurso y desaparece o muere (en el jefe final, cuando la estalactita queda en el suelo), un destello lleva a la sala del **Huevo Rojo**: el prefab `Prefabs/Level/Progression/EggRooms/EggRoom_World4_Red` (campo `Reunion Room` del jefe; contenido hecho a mano). Al volver se abre el portal y el huevo vuela a su hueco del HUD. Campos del jefe: `Egg Id`, `Reunion Room`. Ver [HUD](../../Systems/HUD.md#el-reencuentro-hudeggreunion).

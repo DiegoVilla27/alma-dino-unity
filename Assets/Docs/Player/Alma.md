@@ -1,6 +1,6 @@
 # Alma — diseño del personaje jugable
 
-**Estado (7 de octubre de 2026):** Alma está implementada en Unity 6000.6.0f1 con locomoción, salto variable, doble salto, Pisotón, Dash aéreo y Rugido. Las siete hojas de animación (Idle, Run, Jump, Fall, GroundPound, Dash y Roar) están conectadas en un único Animator. Correr, Pisotón, Dash, Rugido y muerte/reaparición tienen efectos visuales generados por código. Las habilidades se desbloquean con altares y los nidos de checkpoint fijan dónde reaparece, con guardado en JSON. La roca de basalto ya reacciona al Rugido. Faltan otros receptores del Rugido, mando, controles táctiles y el clip propio de doble salto (ver [Pendiente](#pendiente)).
+**Estado (7 de octubre de 2026):** Alma está implementada en Unity 6000.6.0f1 con locomoción, salto variable, doble salto, Pisotón, Dash aéreo y Rugido. Las siete hojas de animación (Idle, Run, Jump, Fall, GroundPound, Dash y Roar; rediseño del 12/10/2026) están conectadas en un único Animator (`Alma.controller`). Correr, Pisotón, Dash, Rugido y muerte/reaparición tienen efectos visuales generados por código. Las habilidades se desbloquean con altares y los nidos de checkpoint fijan dónde reaparece, con guardado en JSON. La roca de basalto ya reacciona al Rugido. Faltan otros receptores del Rugido, mando, controles táctiles y el clip propio de doble salto (ver [Pendiente](#pendiente)).
 
 ## Implementación actual y prueba
 
@@ -34,7 +34,7 @@ El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de fu
 | `Scripts/CameraBounds2D.cs` | Componente de límites y altura fija para cada nivel; aún no colocado (las escenas son de práctica). |
 | `Configuration/AlmaMovement.asset` | Instancia de `AlmaMovementSettings` usada por el prefab. Los valores se editan aquí, no en el script. |
 | `Configuration/AlmaFrictionless.physicsMaterial2D` | Evita adherirse a paredes. |
-| `Animations/` | Hojas de sprites, clips y el controlador `Idle/Player_Idle_Sheet_0.controller`. |
+| `Animations/` | Hojas de sprites `Alma_*_Sheet.png` (rediseño del 12/10/2026), sus clips (`idle`, `run`, `jump`, `fall`, `dash`, `groundpound`, `roar`, `take`) y el controlador `Alma.controller`. |
 | `Tests/PlayMode/` | Ocho pruebas de movimiento, salto, doble salto, animación, paredes y reaparición. |
 
 No hay scripts de editor que regeneren el prefab o el Animator: toda la configuración se mantiene a mano en los assets.
@@ -124,7 +124,7 @@ En el motor, `_fallRespawnY = -12` define la altura bajo la cual Alma muere (y r
 
 ### Animator
 
-El prefab usa `Animations/Idle/Player_Idle_Sheet_0.controller`. Todas las transiciones salen de **Any State**, son inmediatas (sin Exit Time, duración 0) y no pueden volver al mismo estado. `AlmaAnimation` actualiza los parámetros en cada frame a partir del motor.
+El prefab usa `Animations/Alma.controller` (el antiguo `Player_Idle_Sheet_0.controller`, renombrado conservando su identificador, así que las escenas siguen enlazadas). Todas las transiciones salen de **Any State**, son inmediatas (sin Exit Time, duración 0) y no pueden volver al mismo estado. `AlmaAnimation` actualiza los parámetros en cada frame a partir del motor.
 
 | Parámetro | Tipo | Origen |
 | --- | --- | --- |
@@ -138,17 +138,17 @@ El prefab usa `Animations/Idle/Player_Idle_Sheet_0.controller`. Todas las transi
 
 | Prioridad | Estado | Clip | Condiciones de entrada |
 | ---: | --- | --- | --- |
-| 1 | Dash | `Player_Dash_Animation` (velocidad ×1,48, sin bucle) | `Dash` |
-| 2 | GroundPound | `Player_GrounPound_Animation` | `GroundPound` |
-| 3 | Roar | `Player_Roar_Animation` (sin bucle) | `Roar`, sin `Dash` ni `GroundPound` |
-| 4 | Idle (por defecto) | `Player_Idle_Animation` | sin habilidades, `Grounded`, `Speed` < 0,2 |
-| 5 | Run | `Player_Run_Animation` (velocidad por `RunRate`) | sin habilidades, `Grounded`, `Speed` > 0,2 |
-| 6 | Jump | `Animations/Jump/Player_Jump_Animation` (4 frames, 0,33 s, sin bucle) | sin habilidades, no `Grounded`, `VerticalSpeed` > 0 |
-| 7 | Fall | `Animations/Fall/Player_Fall_Animation` (2 frames, 0,17 s, sin bucle) | sin habilidades, no `Grounded`, `VerticalSpeed` < 0,001 |
+| 1 | Dash | `Dash/dash` (velocidad ×1,48, sin bucle) | `Dash` |
+| 2 | GroundPound | `GroundPound/groundpound` | `GroundPound` |
+| 3 | Roar | `Roar/roar` (sin bucle) | `Roar`, sin `Dash` ni `GroundPound` |
+| 4 | Idle (por defecto) | `Idle/idle` | sin habilidades, `Grounded`, `Speed` < 0,2 |
+| 5 | Run | `Run/run` (velocidad por `RunRate`) | sin habilidades, `Grounded`, `Speed` > 0,2 |
+| 6 | Jump | `Jump/jump` (4 frames, 0,33 s, sin bucle) | sin habilidades, no `Grounded`, `VerticalSpeed` > 0 |
+| 7 | Fall | `Fall/fall` (los 2 primeros frames de la hoja, 0,17 s, sin bucle) | sin habilidades, no `Grounded`, `VerticalSpeed` < 0,001 |
 
 «Sin habilidades» significa `Roar`, `Dash` y `GroundPound` en false. Idle, Run, GroundPound, Dash y Roar tienen 8 frames a 12 fps (0,67 s). Jump y Fall tienen clips propios a 12 fps, sin bucle: cada uno se reproduce una vez al entrar en su estado y se queda en su último frame mientras dura la subida o la caída. Secuencia comprobada en un salto normal (prueba PlayMode del 6/10/2026 en `Level_1_1`): Jump 1→4 entre 0 y 0,29 s, se queda en el 4 hasta el punto más alto (~0,37 s); Fall 1→2 desde ~0,41 s, se queda en el 2 hasta tocar el suelo (~0,65 s); Idle al aterrizar. El Dash se reproduce a ×1,48 para que el clip dure exactamente sus 0,45 s; si se cambia `DashDuration`, ajustar esta velocidad a 0,667 / `DashDuration`. El Pisotón termina en la lógica antes que su clip; `AlmaAnimation` mantiene su estado visual hasta completar una reproducción, sin retrasar el control. El Rugido ya dura lo mismo que su clip (`RoarDuration` = 0,667), así que esa retención solo actúa como red de seguridad si se acorta `RoarDuration`. En un Pisotón de más de 0,67 s el clip se repite en la caída y al aterrizar se corta donde esté. El doble salto reutiliza el estado Jump: si ocurre durante Fall, Jump empieza desde su primer frame; si Alma aún sube, la animación continúa.
 
-**Si un estado se ve congelado** (por ejemplo, Alma salta con la pose de Idle o del Dash): ese estado no tiene clip asignado. Con el editor abierto, Unity puede volver a guardar el controlador desde una copia vieja en memoria; el 5/10/2026 guardó Jump y Fall con *Motion: None*. Solución: cerrar la ventana del Animator, seleccionar el estado en `Player_Idle_Sheet_0.controller` y comprobar su **Motion** en el Inspector (Jump → `Player_Jump_Animation`, Fall → `Player_Fall_Animation`); si sale *None*, arrastrar el clip y guardar.
+**Si un estado se ve congelado** (por ejemplo, Alma salta con la pose de Idle o del Dash): ese estado no tiene clip asignado. Con el editor abierto, Unity puede volver a guardar el controlador desde una copia vieja en memoria; el 5/10/2026 guardó Jump y Fall con *Motion: None*. Solución: cerrar la ventana del Animator, seleccionar el estado en `Alma.controller` y comprobar su **Motion** en el Inspector (Jump → `jump`, Fall → `fall`); si sale *None*, arrastrar el clip y guardar.
 
 ### Pruebas y escena
 
@@ -214,7 +214,7 @@ El Dash mantiene su dirección durante todo el impulso. El Pisotón requiere est
 
 ## Animaciones y arte
 
-Las [láminas de diseño y poses](../../Art/Player/) son referencias conceptuales. La implementación actual usa siete hojas de 1024×512 con frames de 256×256 y 80 píxeles por unidad, en `Assets/Prefabs/Player/Animations/`: Idle, Run, GroundPound, Dash y Roar (8 frames), Jump (4) y Fall (2). Jump (`Animations/Jump/Player_Jump_Sheet.png`, 4 frames: agachada, erguida y dos en el aire con las patas recogidas) y Fall (`Animations/Fall/Player_Fall_Sheet.png`, 2 frames bajando con las patas estiradas) son hojas separadas desde el 5/10/2026; sus sprites se llaman `Player_Jump_Sheet_v2_0`–`_3` y `Player_Jump_Sheet_v2_4`–`_5`. Siguen pendientes DoubleJump y Rescue; Dead/Respawn se hace por código con el sprite existente (`AlmaDeathFx`). Las hojas nuevas deben mantener ese mismo formato.
+Las [láminas de diseño y poses](../../Art/Player/) son referencias conceptuales. **Rediseño de Alma (12/10/2026, hecho por el usuario):** las hojas `Alma_Idle_Sheet`, `Alma_Run_Sheet`, `Alma_Jump_Sheet`, `Alma_Fall_Sheet`, `Alma_Dash_Sheet`, `Alma_GroundPound_Sheet`, `Alma_Roar_Sheet` y `Alma_Take_Sheet` (frames de 256×256; Idle, Run, Dash, GroundPound, Roar y Take de 8 frames, Jump de 4; Fall tiene 4 en la hoja pero el clip usa solo los 2 primeros) con sus clips a 12 fps. Cada hoja tiene sus propios píxeles por unidad (Idle, Roar y Take 95; Jump 90; Run 85…), ajustados por el usuario. **Colisionador** (`CapsuleCollider2D` del prefab, el que el usuario ajustó en `Boss_1`; desde el 12/10/2026 lo usan las 20 escenas, ninguna lo sobrescribe): tamaño 0,93 × 2,14, desplazado (0,40; −0,13) porque el dibujo no está centrado en el pivote. **Gira con Alma:** `AlmaAnimation` pone el `flipX` del sprite y, a la vez, invierte el desplazamiento X del colisionador (+0,40 mirando a la derecha, −0,40 a la izquierda). Prueba `AlmaFlipTests`. Jump, Fall, Dash y Roar sin bucle, como antes. **Take** (recibir el huevo) no está en el controlador del juego: la usa la sala del huevo con su propio controlador (`EggRooms/Alma_EggRoom.controller`, estado Take a velocidad 0,55); **sin bucle** (se reproduce una vez y se queda en la última pose). Las hojas y clips antiguos `Player_*` se borraron; el sprite por defecto del prefab y de las 20 escenas es `Alma_Idle_Sheet_0`. Siguen pendientes DoubleJump; Dead/Respawn se hace por código con el sprite existente (`AlmaDeathFx`).
 
 | Acción visual | Requisito para la nueva producción |
 | --- | --- |
@@ -230,18 +230,18 @@ Conservar tamaño de lienzo, pivote, escala y línea de apoyo coherentes entre f
 
 ## Cámara, daño y feedback
 
-**Comportamiento actual (7/10/2026).** La cámara de la reconstrucción usa un tamaño ortográfico fijo de **8** tanto en `AlmaCameraFollow.Awake` como en la escena `Level_1_1`. Sigue a Alma con zona muerta, anticipación direccional, suavizado y límites de nivel:
+**Una sola cámara (12/10/2026):** todas las escenas usan el prefab `Prefabs/Player/Camera_Alma.prefab` (`Camera` ortográfica de tamaño **8** + `AlmaCameraFollow`); en cada escena solo cambia su posición inicial (y algunas tienen de hijo las motas `AmbientMotes`). La cámara busca sola a Alma. Para cambiar el comportamiento en todo el juego, se edita el prefab. Lo que es propio de un nivel va aparte: `CameraBounds2D` (límites y altura fija) y, en los jefes, los planos de las cinemáticas (`SetShot`). `SetFocus` (encuadrar a Alma y a un jefe a la vez) sigue disponible en el script pero ningún jefe lo usa: en los combates también manda el adelanto según hacia dónde mira Alma.
+
+Comportamiento:
 
 | Regla | Qué hace | Campo | Valor |
 | --- | --- | --- | ---: |
-| **Zona muerta** | Alma se mueve libremente dentro de una franja central; la cámara solo la sigue cuando empuja su borde. Pasos cortos y giros no mueven la vista. | `Dead Zone Width` | 3,9 |
-| **Anticipación** | Cuando Alma corre, la vista se adelanta hacia el lado de avance; al girar, se desplaza hacia el lado contrario con suavizado. Quieta, conserva la anticipación. | `Look Ahead Distance` / `Look Ahead Time` / `Look Ahead Delay` / `Look Ahead Speed Threshold` | 4,3 / 0,05 s / 0 s / 0,6 × velocidad de carrera |
-| **Suavizado horizontal** | Con tope de velocidad para no "barrer" la pantalla al alcanzar a Alma. | `Horizontal Smooth Time` / `Max Speed Factor` | 0,25 s / 1,3 × carrera |
+| **Adelanto según hacia dónde mira** (12/10/2026) | La vista va por delante de hacia donde **mira** Alma (no de si corre). Mirando a la derecha, Alma queda pegada al borde izquierdo (al 10 % del ancho: `|Alma------|`) y casi toda la pantalla muestra lo que viene; mirando a la izquierda, al revés (`|------Alma|`). Al girarse, la vista cruza al otro lado suave y rápida (≈ 0,55 s); un toque rápido de ida y vuelta no la mueve. | `Alma From Edge` / `Turn Delay` / `Horizontal Smooth Time` / `Max Speed Factor` | 0,10 / 0,08 s / 0,22 s / 4 × carrera |
 | **Encuadre inicial** | Al empezar y al reaparecer, Alma queda baja en la pantalla (se ve más lo de arriba). | `Alma Screen Height` | 0,38 |
 | **Zona muerta vertical** | La vista no se mueve en vertical mientras Alma esté en la franja central: saltar, subir o bajar escalones y plataformas no la mueve (sin efecto ascensor). Solo se recoloca, suave, cuando Alma pasa del borde de la franja (subidas grandes, fosos). | `Dead Zone Bottom` / `Dead Zone Top` / `Vertical Smooth Time` | 0,2 / 0,65 de la pantalla / 0,3 s en `Level_1_1` |
 | **Altura fija (por nivel)** | En niveles horizontales, la cámara no se mueve nunca en vertical: solo de lado. | `CameraBounds2D.Lock Height` / `Fixed Camera Y` | no / 5 (por nivel) |
 | **Límites** | Con un `CameraBounds2D` en la escena, la vista nunca enseña más allá de sus bordes (ni bajo el suelo); si el área es menor que la vista, se centra. | `CameraBounds2D.Size` | por nivel |
-| **Encuadre de jefe** | Un jefe puede llamar a `SetFocus(punto, margen, suavizado)`: en horizontal la vista se centra entre Alma y ese punto (el jefe), sin dejar a Alma a menos del margen del borde; sustituye a la anticipación hasta `ClearFocus()`. Lo usa el jefe final. | código (`SetFocus`) | margen 0,18 de la pantalla / 0,35 s |
+| **Encuadre de jefe** | Un jefe puede llamar a `SetFocus(punto, margen, suavizado)`: en horizontal la vista se centra entre Alma y ese punto (el jefe), sin dejar a Alma a menos del margen del borde; sustituye a la anticipación hasta `ClearFocus()`. Ningún jefe lo usa ahora (12/10/2026). | código (`SetFocus`) | margen 0,18 de la pantalla / 0,35 s |
 
 Al empezar y al reaparecer Alma, la cámara salta a ella sin deslizarse por el nivel (`SnapToTarget`). La configuración de zona muerta evita seguir cada salto o paso corto; el tope horizontal es 1,3 × la velocidad de carrera. `CameraBounds2D` limita la vista cuando se coloca en una escena. Las verificaciones PlayMode de cámara citadas en versiones anteriores de esta ficha no están incluidas como pruebas automatizadas en el repositorio actual; el tamaño 8 y la anticipación actual deben comprobarse al montar cada nivel.
 
