@@ -381,6 +381,7 @@ namespace AlmaGame.Bosses
 
         private void UpdateIntro()
         {
+            if (LevelFadeIn.IsOpening) _stateAt = Time.time;   // the intro clock starts once the opening iris is done
             if (_tauntAt == 0f) PlanIntro();
             float t = T;
             AlmaTouchControls.InputLocked = true;   // held every frame: other systems clear the touch state on start

@@ -11,6 +11,8 @@ namespace AlmaGame.Player
     //   instead lock the height completely (horizontal levels) through its CameraBounds2D.
     // - Framing: at the start Alma's ground sits low on the screen (`Alma Screen Height`), showing more above.
     // - Bounds: with a CameraBounds2D in the scene the view never shows past the level's edges.
+    // - Centre zones: inside a CameraCenterZone2D there is no look-ahead, Alma stays in the centre.
+    // - Vertical zones: inside a CameraVerticalZone2D the view looks up or down (Alma low or high).
     [RequireComponent(typeof(Camera))]
     public sealed class AlmaCameraFollow : MonoBehaviour
     {
@@ -63,6 +65,8 @@ namespace AlmaGame.Player
         private System.Func<Vector2> _focus;
         private float _focusMargin = 0.18f;
         private float _focusSmoothTime = 0.35f;
+        // Height of the ground Alma last stood on (or lower, while falling): vertical zones follow it.
+        private float _groundY;
 
         private void Awake()
         {
@@ -89,6 +93,7 @@ namespace AlmaGame.Player
 
         // Where the view is without the shake offset (the HUD sticks to it, so it never shakes).
         public Vector3 ViewPosition => _viewPosition;
+        public float AlmaFromEdge => _almaFromEdge;
 
         // Blends the view towards `point` with an orthographic size of `size`; `weight` 0 = normal follow,
         // 1 = fully on the shot (callers animate the weight, on unscaled time if the game is paused).
@@ -130,8 +135,11 @@ namespace AlmaGame.Player
             _viewY = FixedHeight(out float fixedY) ? fixedY : alma.y + (0.5f - _almaScreenHeight) * _baseSize * 2f;
             if (!_startYSet) { _startY = _viewY; _startYSet = true; }
             if (_lockVertical) _viewY = LockedY(alma.y);
+            _groundY = alma.y;
+            CameraVerticalZone2D zone = CameraVerticalZone2D.At(alma);
+            if (zone != null) _viewY = ZoneY(zone, alma.y);
             _velocityX = _velocityY = 0f;
-            _followPosition = Clamp(new Vector3(alma.x + _facing * Lead, _viewY, _depth));
+            _followPosition = Clamp(new Vector3(alma.x + _facing * LeadAt(alma), _viewY, _depth));
             transform.position = _followPosition;
         }
 
@@ -145,8 +153,12 @@ namespace AlmaGame.Player
             if (looking != _pendingFacing) { _pendingFacing = looking; _pendingSince = Time.time; }
             if (_pendingFacing != _facing && Time.time - _pendingSince >= _turnDelay) _facing = _pendingFacing;
 
-            // Vertical dead zone (or a locked height): the view height only moves when Alma leaves the band.
-            if (FixedHeight(out float fixedY)) _viewY = fixedY;
+            // Vertical zone (looking up or down), else the dead zone (or a locked height): the view height
+            // only moves when Alma leaves the band.
+            if (Target.IsGrounded || alma.y < _groundY) _groundY = alma.y;
+            CameraVerticalZone2D zone = CameraVerticalZone2D.At(alma);
+            if (zone != null) _viewY = ZoneY(zone, alma.y);
+            else if (FixedHeight(out float fixedY)) _viewY = fixedY;
             else if (_lockVertical) _viewY = LockedY(alma.y);
             else
             {
@@ -157,7 +169,7 @@ namespace AlmaGame.Player
             }
 
             // Follow is smoothed on its own position so the shake offset never feeds back into it.
-            float goalX = alma.x + _facing * Lead;
+            float goalX = alma.x + _facing * LeadAt(alma);
             float smoothX = _horizontalSmoothTime;
             if (_focus != null)
             {
@@ -170,7 +182,7 @@ namespace AlmaGame.Player
             // Capped near Alma's run speed, so catching up after a turn never whips the view across.
             float maxSpeedX = Target.Settings.MoveSpeed * _maxSpeedFactor;
             float x = Mathf.SmoothDamp(_followPosition.x, goal.x, ref _velocityX, smoothX, maxSpeedX);
-            float y = Mathf.SmoothDamp(_followPosition.y, goal.y, ref _velocityY, _verticalSmoothTime);
+            float y = Mathf.SmoothDamp(_followPosition.y, goal.y, ref _velocityY, zone != null ? zone.SmoothTime : _verticalSmoothTime);
             _followPosition = new Vector3(x, y, _depth);
             if (_shotWeight > 0f)
             {
@@ -188,6 +200,18 @@ namespace AlmaGame.Player
 
         // How far ahead of Alma the view centre goes: she sits `Alma From Edge` from the edge behind her.
         private float Lead => (0.5f - _almaFromEdge) * 2f * _baseSize * (_camera != null ? _camera.aspect : 16f / 9f);
+
+        // No look-ahead inside a CameraCenterZone2D: Alma stays in the centre, both sides in view.
+        private float LeadAt(Vector2 alma) => CameraCenterZone2D.Contains(alma) ? 0f : Lead;
+
+        // View height inside a vertical zone: Alma's ground `Alma From Edge` from the top (looking down) or
+        // the bottom (looking up), but never letting Alma herself (high jumps, long falls) leave the screen.
+        private float ZoneY(CameraVerticalZone2D zone, float almaY)
+        {
+            float h = _baseSize * 2f;
+            float y = _groundY + zone.Look * (0.5f - zone.AlmaFromEdge) * h;
+            return Mathf.Clamp(y, almaY - h * 0.38f, almaY + h * 0.38f);
+        }
 
         // Start height, moved only as far as needed to keep Alma inside the lock margins.
         private float LockedY(float almaY)

@@ -32,6 +32,9 @@ El prefab está en `Assets/Prefabs/Player/Alma.prefab`. Todos sus archivos de fu
 | `Scripts/AlmaMovementSettings.cs` | ScriptableObject con todos los valores de movimiento y habilidades. |
 | `Scripts/AlmaCameraFollow.cs` | Cámara de plataformas: zonas muertas horizontal y vertical, anticipación gradual, encuadre bajo, límites de nivel y `Shake(amplitud, duración)` (ver [Cámara](#cámara-daño-y-feedback)). |
 | `Scripts/CameraBounds2D.cs` | Componente de límites y altura fija para cada nivel; aún no colocado (las escenas son de práctica). |
+| `Scripts/CameraCenterZone2D.cs` | Zona de cámara centrada: mientras Alma está dentro de su caja, la vista la deja en el centro de la pantalla (sin adelanto) para ver ambos lados. |
+| `Scripts/CameraVerticalZone2D.cs` | Zona de cámara vertical: mientras Alma está dentro, la vista mira hacia abajo (bajadas) o hacia arriba (subidas). |
+| `Scripts/CameraZoneGizmos.cs` | Solo editor: cómo se ven las zonas de cámara en la vista Scene (caja rellena con nombre, asas para estirar los bordes y vista previa de la pantalla al seleccionarlas). |
 | `Configuration/AlmaMovement.asset` | Instancia de `AlmaMovementSettings` usada por el prefab. Los valores se editan aquí, no en el script. |
 | `Configuration/AlmaFrictionless.physicsMaterial2D` | Evita adherirse a paredes. |
 | `Animations/` | Hojas de sprites `Alma_*_Sheet.png` (rediseño del 12/10/2026), sus clips (`idle`, `run`, `jump`, `fall`, `dash`, `groundpound`, `roar`, `take`) y el controlador `Alma.controller`. |
@@ -231,6 +234,25 @@ Conservar tamaño de lienzo, pivote, escala y línea de apoyo coherentes entre f
 ## Cámara, daño y feedback
 
 **Una sola cámara (12/10/2026):** todas las escenas usan el prefab `Prefabs/Player/Camera_Alma.prefab` (`Camera` ortográfica de tamaño **8** + `AlmaCameraFollow`); en cada escena solo cambia su posición inicial (y algunas tienen de hijo las motas `AmbientMotes`). La cámara busca sola a Alma. Para cambiar el comportamiento en todo el juego, se edita el prefab. Lo que es propio de un nivel va aparte: `CameraBounds2D` (límites y altura fija) y, en los jefes, los planos de las cinemáticas (`SetShot`). `SetFocus` (encuadrar a Alma y a un jefe a la vez) sigue disponible en el script pero ningún jefe lo usa: en los combates también manda el adelanto según hacia dónde mira Alma.
+
+**Zonas centradas (12/10/2026):** `CameraCenterZone2D` (en `Prefabs/Player/Scripts/`) es una caja (`Size`, por defecto 20 × 16, se ve en azul en la vista Scene). Mientras el punto de Alma (sus pies) está dentro, la cámara no adelanta la vista hacia donde mira: Alma queda en el centro (50 %) y se ven los dos lados; al girarse dentro de la zona la vista no se mueve. Al salir vuelve el adelanto normal (Alma al 10 % del borde de detrás). El cambio lo suaviza el propio seguimiento de la cámara. Se coloca una por zona del nivel que lo necesite (p. ej. `Zone_Four` del 1-4); los límites de `CameraBounds2D` siguen mandando. Probado: fuera 0,10 → dentro 0,50 → girada dentro 0,50 → sin zona 0,90.
+
+**Zonas verticales (13/10/2026):** `CameraVerticalZone2D` (en `Prefabs/Player/Scripts/`) es una caja (`Size`, por defecto 20 × 30, en morado en la vista Scene, con una flecha hacia donde mira). Mientras los pies de Alma están dentro, la vista mira hacia `Look`:
+
+| Campo | Por defecto | Qué hace |
+|---|---|---|
+| `Look` | Down | `Down`: Alma arriba y se ve lo que hay debajo (bajadas). `Up`: Alma abajo y se ve lo que hay encima (subidas). |
+| `Alma From Edge` | 0,2 | Distancia de los pies de Alma al borde de la pantalla (arriba con Down, abajo con Up), en fracción de la altura. |
+| `Smooth Time` | 0,3 s | Suavizado de la altura dentro de la zona. |
+
+- La altura sigue el suelo donde Alma estuvo apoyada por última vez: saltar no mueve la vista; caer sí, en el momento. Si Alma se aleja mucho (saltos muy altos, caídas largas) la vista la sigue para que nunca salga de la pantalla.
+- Solo cambia la altura; en horizontal sigue el adelanto normal (Alma arriba/abajo a la izquierda o a la derecha). Combinada con una `CameraCenterZone2D` (las dos cajas solapadas) Alma queda arriba/abajo **en el centro**.
+- Dentro de la zona manda sobre la altura fija de `CameraBounds2D`, pero la vista sigue sin salirse de su área. Al salir vuelve la altura normal.
+- Probado: Down sola (0,10; 0,80), saltar dentro mueve la cámara 0,01, Down + centro (0,50; 0,80), Up + centro (0,50; 0,20), al quitar las zonas vuelve a la altura de antes.
+
+**Ver y ajustar las zonas en la vista Scene (13/10/2026):** las dos zonas se dibujan siempre (con el botón *Gizmos* de la vista Scene activado) como una caja rellena y semitransparente con su nombre en la esquina: azul «Cámara: centro», morada «Cámara: abajo ↓» / «Cámara: arriba ↑». Al seleccionar una:
+- Aparecen asas en los cuatro bordes: arrastrando una se estira ese lado y el otro se queda quieto (cambia `Size` y la posición; se puede deshacer).
+- Se dibuja con línea de puntos el marco de la pantalla del móvil (tamaño ortográfico 8, con la proporción de la vista Game) tal como lo vería la cámara con Alma de pie en el centro de la zona (rectángulo blanco «Alma»). Tiene en cuenta la otra zona: si la vertical está dentro de una de centro, el marco sale centrado; si no, mirando a la derecha con Alma al 10 %.
 
 Comportamiento:
 

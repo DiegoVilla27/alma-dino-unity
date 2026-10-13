@@ -17,3 +17,7 @@ Es automático: no hay que colocar nada en las escenas, y cualquier escena nueva
 - **Centro:** sigue a Alma (a la altura de su pecho) mientras la cámara se coloca. Otra escena puede elegir el punto con `LevelFadeIn.Focus`: el jefe 1 lo abre sobre el mono.
 - **Dibujo:** un cuadrado negro con un agujero redondo suavizado y cuatro barras negras alrededor, en un Canvas por encima de todo.
 - **Con el portal de salida:** el portal funde a negro y el nivel siguiente se abre con el iris, así que el cambio de nivel nunca es de golpe.
+
+## Espera de las intros de los jefes (13/10/2026)
+
+`LevelFadeIn.IsOpening` es `true` mientras el iris no ha terminado de abrirse (el objeto `LevelFadeIn` existe). Los cuatro jefes (`GiantMonkeyBoss2D`, `ArmadilloBoss2D`, `PterodactylBoss2D`, `TRexBoss2D`) mantienen parado el reloj de su intro mientras dura: la cinemática empieza cuando la pantalla ya se ve entera, así que la primera frase del diálogo sale **1,1 s después** de que el iris se abra del todo (antes coincidía con la transición y no se llegaba a leer). Probado en los 4 jefes: iris abierto a los 2,02 s, primera frase a los 3,12 s; los combates completos siguen pasando.

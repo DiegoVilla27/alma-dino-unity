@@ -19,6 +19,9 @@ namespace AlmaGame.Level
         // World point the circle opens on; when not set, Alma.
         public static Vector3? Focus;
 
+        // True until the iris has fully opened (boss intros wait for it before their first line).
+        public static bool IsOpening => s_current != null;
+
         private RectTransform _hole, _top, _bottom, _left, _right;
         private float _start = -1f, _waited;
         private int _smooth;
